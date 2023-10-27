@@ -1,10 +1,9 @@
 ---
 name: hotfix
 about: hotfix template
-title: "[담장자 이름] - hotfix 내용"
+title: "[이름] - hotfix 내용"
 labels: "\U0001F6A8긴급"
-assignees: ''
-
+assignees: ""
 ---
 
 ## 😫 문제 상황
