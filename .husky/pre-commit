@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo 'Hello i m gonna check your code!'
+echo 'This commit AJAJA!'
 npm run lint
 npm run lint:fix
 npx lint-staged
