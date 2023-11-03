@@ -1,17 +1,32 @@
+$primary1: #f76c5e;
+$primary2: #f68e5f;
+$primary3: #58b368;
+$primary4: #586ba4;
+$primary5: #b371d0;
+
+$colors2: (
+  'primary1': $primary1,
+  'primary2': $primary2,
+  'primary3': $primary3,
+  'primary4': $primary4,
+  'primary5': $primary5,
+);
+
+@mixin dispatcher($selector, $arg, $colors) {
+  @each $key, $value in $colors {
+    .#{$selector}.#{$key} {
+      #{$arg}: $value;
+    }
+  }
+}
+
 .tag {
   display: inline;
   font-size: 0.8rem;
   color: white;
+  // background-color: black;
   padding: 0 0.5rem;
   border-radius: 12px;
-  &.red {
-    background-color: red;
-  }
-
-  &.orange {
-    background-color: orange;
-  }
-  &.blue {
-    background-color: blue;
-  }
 }
+
+@include dispatcher(tag, background-color, $colors2);

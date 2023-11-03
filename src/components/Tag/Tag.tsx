@@ -7,7 +7,7 @@ color는 타입으로 받기
 style
 */
 //
-type color = 'red' | 'orange' | 'blue';
+type color = 'primary1' | 'primary2' | 'primary3' | 'primary4' | 'primary5';
 
 interface TagProps {
   color?: color;
@@ -16,7 +16,7 @@ interface TagProps {
   onClick?: (event?: React.MouseEvent) => void;
 }
 
-const Tag = ({ children, color = 'red', style, onClick }: TagProps) => {
+const Tag = ({ children, color = 'primary1', style, onClick }: TagProps) => {
   return (
     <div className={`tag ${color}`} style={{ ...style }} onClick={onClick}>
       {children}
