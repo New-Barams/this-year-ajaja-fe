@@ -1,0 +1,17 @@
+.tag {
+  display: inline;
+  font-size: 0.8rem;
+  color: white;
+  padding: 0 0.5rem;
+  border-radius: 12px;
+  &.red {
+    background-color: red;
+  }
+
+  &.orange {
+    background-color: orange;
+  }
+  &.blue {
+    background-color: blue;
+  }
+}
