@@ -1,15 +1,10 @@
-$primary1: #f76c5e;
-$primary2: #f68e5f;
-$primary3: #58b368;
-$primary4: #586ba4;
-$primary5: #b371d0;
-
+// 실제로는 map파일이 필요할것 같다.
 $colors2: (
-  'primary1': $primary1,
-  'primary2': $primary2,
-  'primary3': $primary3,
-  'primary4': $primary4,
-  'primary5': $primary5,
+  'primary1': var(--origin-primary),
+  'primary2': var(--origin-orange-200),
+  'primary3': var(--origin-green-300),
+  'primary4': var(--origin-blue-300),
+  'primary5': var(--origin-purple-300),
 );
 
 @mixin dispatcher($selector, $arg, $colors) {
@@ -22,11 +17,10 @@ $colors2: (
 
 .tag {
   display: inline;
-  font-size: 0.8rem;
+  font-size: var(--font-xs);
   color: white;
-  // background-color: black;
   padding: 0 0.5rem;
-  border-radius: 12px;
+  border-radius: var(--border-radious);
 }
 
 @include dispatcher(tag, background-color, $colors2);
