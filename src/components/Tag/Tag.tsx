@@ -1,6 +1,6 @@
 import './index.scss';
 
-type color = 'primary' | 'blue' | 'green' | 'purple';
+type color = 'primary' | 'blue' | 'green' | 'purple' | 'orange';
 
 interface TagProps {
   color?: color;

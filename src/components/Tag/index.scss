@@ -1,9 +1,9 @@
-// 실제로는 map파일이 필요할것 같다.
-$colors2: (
+$colors: (
   'primary': var(--origin-primary),
   'green': var(--origin-green-300),
   'blue': var(--origin-blue-300),
   'purple': var(--origin-purple-300),
+  'orange': var(--origin-orange-200),
 );
 
 @mixin dispatcher($selector, $arg, $colors) {
@@ -28,4 +28,4 @@ $colors2: (
   }
 }
 
-@include dispatcher('.tag', background-color, $colors2);
+@include dispatcher('.tag', background-color, $colors);
