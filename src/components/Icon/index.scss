@@ -20,22 +20,16 @@ $icon-sizes: (
   }
 }
 
-@mixin two-style-generator($style_keys, $style_values) {
-  @each $key, $value in $style_values {
-    &--#{$key} {
-      @each $style_key in $style_keys {
-        #{$style_key}: $value;
-      }
-    }
-  }
-}
-
-.icon {
+.material-symbols-outlined.icon {
   @include style-generator('color', $icon-colors);
 
   &--isFilled {
     font-variation-settings: 'FILL' 1;
   }
 
-  @include two-style-generator(('width', 'height'), $icon-sizes);
+  @each $size_key, $size_value in $icon-sizes {
+    &--#{$size_key} {
+      font-size: $size_value;
+    }
+  }
 }
