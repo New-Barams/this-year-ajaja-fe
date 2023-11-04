@@ -1,6 +1,6 @@
 import './index.scss';
 
-export type IconName =
+type IconName =
   | 'CREATE_NEW_PLAN'
   | 'NOTIFICATION_ON'
   | 'NOTIFICATION_OFF'
@@ -13,7 +13,12 @@ export type IconName =
   | 'WARNING'
   | 'AJAJA'
   | 'REFRESH'
-  | 'HELP';
+  | 'HELP'
+  | 'DROP_DOWN';
+
+type IconColor = 'background-100' | 'orange-300' | 'gray-100' | 'gray-200';
+
+type IconSize = 'xl' | '2xl' | '4xl' | '9xl';
 
 const ICON_NAME_MAP = {
   CREATE_NEW_PLAN: 'add',
@@ -29,25 +34,26 @@ const ICON_NAME_MAP = {
   AJAJA: 'local_fire_department',
   REFRESH: 'refresh',
   HELP: 'help',
+  DROP_DOWN: 'arrow_drop_down',
 };
 
 interface IconProps {
   name: IconName;
-  size?: number;
-  color?: string;
+  size?: IconSize;
+  color?: IconColor;
   isFilled?: boolean;
 }
 
 export default function Icon({
   name,
-  size = 1,
-  color = 'black',
+  size = 'xl',
+  color = 'orange-300',
   isFilled = false,
 }: IconProps) {
   return (
     <span
-      className={`material-symbols-outlined icon size ${color} ${size} ${
-        isFilled && 'isFilled'
+      className={`material-symbols-outlined icon--${size} icon--${color} ${
+        isFilled && 'icon--isFilled'
       }`}>
       {ICON_NAME_MAP[name]}
     </span>
