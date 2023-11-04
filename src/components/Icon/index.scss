@@ -1,3 +1,41 @@
-.isFilled {
-  font-variation-settings: 'FILL' 1;
+$icon-colors: (
+  background-100: var(--origin-background-100),
+  orange-300: var(--origin-orange-300),
+  gray-100: var(--origin-gray-100),
+  gray-200: var(--origin-gray-200),
+);
+
+$icon-sizes: (
+  xl: var(--font-xl),
+  2xl: var(--font-2xl),
+  4xl: var(--font-4xl),
+  9xl: var(--font-9xl),
+);
+
+@mixin style-generator($style_key, $style_values) {
+  @each $key, $value in $style_values {
+    &--#{$key} {
+      #{$style_key}: $value;
+    }
+  }
+}
+
+@mixin two-style-generator($style_keys, $style_values) {
+  @each $key, $value in $style_values {
+    &--#{$key} {
+      @each $style_key in $style_keys {
+        #{$style_key}: $value;
+      }
+    }
+  }
+}
+
+.icon {
+  @include style-generator('color', $icon-colors);
+
+  &--isFilled {
+    font-variation-settings: 'FILL' 1;
+  }
+
+  @include two-style-generator(('width', 'height'), $icon-sizes);
 }
