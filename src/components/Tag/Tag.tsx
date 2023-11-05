@@ -1,29 +1,30 @@
+import { Color } from '@/types';
+import classNames from 'classnames';
 import './index.scss';
 
-type color = 'primary' | 'blue' | 'green' | 'purple' | 'orange';
-
 interface TagProps {
-  color?: color;
+  color?: Color;
   style?: React.CSSProperties;
   children: React.ReactNode;
   onClick?: (event?: React.MouseEvent) => void;
 }
 
-const Tag = ({
+export default function Tag({
   children,
   color = 'primary',
   style,
   onClick,
   ...props
-}: TagProps) => {
+}: TagProps) {
   return (
     <div
-      className={`tag tag--${color} ${onClick ? 'pointer' : ''}`}
+      className={classNames(`tag`, `background-origin-${color}`, {
+        pointer: onClick,
+      })}
       style={{ ...style }}
       onClick={onClick}
       {...props}>
       {children}
     </div>
   );
-};
-export default Tag;
+}

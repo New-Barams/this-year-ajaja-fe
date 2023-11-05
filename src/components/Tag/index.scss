@@ -1,31 +1,13 @@
-$colors: (
-  'primary': var(--origin-primary),
-  'green': var(--origin-green-300),
-  'blue': var(--origin-blue-300),
-  'purple': var(--origin-purple-300),
-  'orange': var(--origin-orange-200),
-);
-
-@mixin dispatcher($selector, $arg, $colors) {
-  @each $key, $value in $colors {
-    #{$selector}--#{$key} {
-      #{$arg}: $value;
-    }
-  }
-}
-
 .tag {
   cursor: default;
   display: inline-block;
   font-size: var(--font-xs);
   color: white;
   padding: 0 0.5rem;
-  border-radius: var(--border-radious);
+  border-radius: var(--border-radius);
   margin: auto 0.25rem;
 
   &.pointer {
     cursor: pointer;
   }
 }
-
-@include dispatcher('.tag', background-color, $colors);

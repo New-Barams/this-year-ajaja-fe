@@ -18,7 +18,7 @@ const InputTag = ({ style, onSubmit, ...props }: InputTagProps) => {
     setInputValue('');
   };
   return (
-    <Tag color="orange" style={style} {...props}>
+    <Tag color="orange-200" style={style} {...props}>
       <form onSubmit={handleInputSubmit}>
         <input
           type="text"
