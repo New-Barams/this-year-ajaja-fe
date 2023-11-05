@@ -1,48 +1,19 @@
-$usages: ('edit', 'modal');
-$background: (
-  primary: var(--origin-primary),
-  background-100: var(--origin-background-100),
-);
+$sizes: ('lg', 'md', 'sm');
 
-@mixin button-setting($color, $color-value, $usage) {
-  &--#{$color} {
-    &:hover {
-      cursor: pointer;
-    }
-    background-color: $color-value;
-    border-radius: var(--border-radius);
-    font-size: var(--font-2xl);
-    @if $usage == 'edit' {
-      padding: 5px 30px;
-      @if $color == 'primary' {
-        border: none;
-        color: var(--origin-background-100);
-      } @else if $color == 'background-100' {
-        border-style: solid;
-        border-color: var(--origin-primary);
-        border-width: var(--border-width);
-        color: var(--origin-primary);
+.button {
+  @each $size in $sizes {
+    &--#{$size} {
+      &:hover {
+        cursor: pointer;
       }
-    } @else if $usage == 'modal' {
-      padding: 5px 15px;
-      @if $color == 'primary' {
-        border: none;
-        color: var(--origin-background-100);
-      } @else if $color == 'background-100' {
-        border-style: solid;
-        border-color: var(--origin-primary);
-        border-width: var(--border-width);
-        color: var(--origin-primary);
-      }
-    }
-  }
-}
-
-@each $color, $color-value in $background {
-  .button {
-    @each $usage in $usages {
-      &--#{$usage} {
-        @include button-setting($color, $color-value, $usage);
+      font-weight: bold;
+      border-radius: var(--border-radius);
+      @if $size== 'lg' {
+        padding: 5px 40px;
+      } @else if $size== 'md' {
+        padding: 5px 15px;
+      } @else if $size== 'sm' {
+        padding: 2px 7.5px;
       }
     }
   }
