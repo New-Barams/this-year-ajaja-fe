@@ -4,10 +4,11 @@ import { useState } from 'react';
 import './index.scss';
 
 interface SwitchButtonProps {
+  isOn: boolean;
   onClick: (isChecked: boolean) => void;
 }
-const SwitchButton = ({ onClick }: SwitchButtonProps) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+export default function SwitchButton({ onClick, isOn }: SwitchButtonProps) {
+  const [isChecked, setIsChecked] = useState<boolean>(isOn);
   const handleChange = () => {
     setIsChecked(!isChecked);
     onClick(!isChecked);
@@ -18,5 +19,4 @@ const SwitchButton = ({ onClick }: SwitchButtonProps) => {
       <span className="slider round"></span>
     </label>
   );
-};
-export default SwitchButton;
+}
