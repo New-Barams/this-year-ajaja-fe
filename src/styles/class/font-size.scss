@@ -24,4 +24,15 @@ $font: (
   }
 }
 
+@mixin icon-common($font) {
+  @each $key, $value in $font {
+    .material-symbols-outlined.font-size {
+      &-#{$key} {
+        font-size: $value;
+      }
+    }
+  }
+}
+
 @include common($font);
+@include icon-common($font);
