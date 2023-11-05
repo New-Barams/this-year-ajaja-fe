@@ -1,3 +1,4 @@
+import { Color, FontSize } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
 
@@ -16,10 +17,6 @@ type IconName =
   | 'REFRESH'
   | 'HELP'
   | 'DROP_DOWN';
-
-type IconColor = 'white-100' | 'orange-300' | 'gray-100' | 'gray-200';
-
-type IconSize = 'xl' | '2xl' | '4xl' | '9xl';
 
 const ICON_NAME_MAP = {
   CREATE_NEW_PLAN: 'add',
@@ -40,8 +37,8 @@ const ICON_NAME_MAP = {
 
 interface IconProps {
   name: IconName;
-  size?: IconSize;
-  color?: IconColor;
+  size?: FontSize;
+  color?: Color;
   isFilled?: boolean;
 }
 
