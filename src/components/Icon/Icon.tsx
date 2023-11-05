@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import './index.scss';
 
 type IconName =
@@ -52,9 +53,12 @@ export default function Icon({
 }: IconProps) {
   return (
     <span
-      className={`material-symbols-outlined icon--${size} icon--${color} ${
-        isFilled && 'icon--isFilled'
-      }`}>
+      className={classNames(
+        'material-symbols-outlined',
+        `icon--${size}`,
+        `icon--${color}`,
+        { 'icon--isFilled': isFilled },
+      )}>
       {ICON_NAME_MAP[name]}
     </span>
   );
