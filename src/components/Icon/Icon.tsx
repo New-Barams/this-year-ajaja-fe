@@ -17,7 +17,7 @@ type IconName =
   | 'HELP'
   | 'DROP_DOWN';
 
-type IconColor = 'background-100' | 'orange-300' | 'gray-100' | 'gray-200';
+type IconColor = 'white-100' | 'orange-300' | 'gray-100' | 'gray-200';
 
 type IconSize = 'xl' | '2xl' | '4xl' | '9xl';
 
@@ -47,7 +47,7 @@ interface IconProps {
 
 export default function Icon({
   name,
-  size = 'xl',
+  size = '2xl',
   color = 'orange-300',
   isFilled = false,
 }: IconProps) {
@@ -55,8 +55,8 @@ export default function Icon({
     <span
       className={classNames(
         'material-symbols-outlined',
-        `icon--${size}`,
-        `icon--${color}`,
+        `font-size-${size}`,
+        `color-origin-${color}`,
         { 'icon--isFilled': isFilled },
       )}>
       {ICON_NAME_MAP[name]}
