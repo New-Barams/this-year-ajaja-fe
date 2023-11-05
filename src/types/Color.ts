@@ -1,4 +1,5 @@
 export type Color =
+  | 'primary'
   | 'white-100'
   | 'white-200'
   | 'white-300'

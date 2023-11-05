@@ -1,0 +1,8 @@
+input {
+  border: none;
+  background-color: inherit;
+  width: 8rem;
+  &:focus {
+    outline: none;
+  }
+}
