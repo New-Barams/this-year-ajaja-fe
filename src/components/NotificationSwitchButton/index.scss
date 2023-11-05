@@ -1,0 +1,20 @@
+.iconWrapper {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-evenly;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.icon {
+  &__on {
+  }
+
+  &__off {
+  }
+}
