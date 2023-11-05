@@ -1,0 +1,13 @@
+.tag {
+  cursor: default;
+  display: inline-block;
+  font-size: var(--font-xs);
+  color: white;
+  padding: 0 0.5rem;
+  border-radius: var(--border-radius);
+  margin: auto 0.25rem;
+
+  &.pointer {
+    cursor: pointer;
+  }
+}
