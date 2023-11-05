@@ -1,0 +1,22 @@
+@import '../origin-theme';
+@import './mixin';
+
+$themes: (
+  origin: (
+    primary: var(--origin-primary),
+    background-100: var(--origin-background-100),
+    background-200: var(--origin-background-200),
+    background-300: var(--origin-background-300),
+    orange-200: var(--origin-orange-200),
+    orange-300: var(--origin-orange-300),
+    green-300: var(--origin-green-300),
+    blue-300: var(--origin-blue-300),
+    purple-300: var(--origin-purple-300),
+    gray-100: var(--origin-gray-100),
+    gray-200: var(--origin-gray-200),
+    gray-300: var(--origin-gray-300),
+    shadow: var(--origin-shadow),
+  ),
+);
+
+@include common('background', $themes);
