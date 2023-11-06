@@ -9,6 +9,7 @@ interface AjajaButtonProps {
   fontSize: FontSize;
   ajajaColor: Color;
   ajajaFontSize: string;
+  filled: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 }
@@ -19,6 +20,7 @@ export default function AjajaButton({
   fontSize,
   ajajaColor,
   ajajaFontSize,
+  filled,
   onClick,
   children,
   ...props
@@ -35,7 +37,7 @@ export default function AjajaButton({
       onClick={onClick}
       {...props}>
       <div>
-        <Icon name="AJAJA" size="2xl" color={ajajaColor} isFilled={true} />
+        <Icon name="AJAJA" size="2xl" color={ajajaColor} isFilled={filled} />
         <p
           className={classNames('ajaja-name', `color-origin-${color}`)}
           style={{ fontSize: `${ajajaFontSize}` }}>
