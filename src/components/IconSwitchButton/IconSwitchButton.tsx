@@ -1,7 +1,6 @@
 'use client';
 
-import { SwitchButton } from '..';
-import Icon from '../Icon/Icon';
+import { Icon, SwitchButton } from '..';
 import './index.scss';
 
 type OnIconName = 'NOTIFICATION_ON' | 'PLAN_OPEN';
