@@ -1,4 +1,6 @@
-.iconWrapper {
+@import '@/styles/variables';
+
+.icon__wrapper {
   width: 100%;
   position: absolute;
   display: flex;
@@ -9,12 +11,4 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.icon {
-  &__on {
-  }
-
-  &__off {
-  }
 }
