@@ -1,6 +1,6 @@
 'use client';
 
-import { Icon, SwitchButton } from '..';
+import { Icon, SwitchButton } from '@/components';
 import './index.scss';
 
 type OnIconName = 'NOTIFICATION_ON' | 'PLAN_OPEN';
@@ -8,7 +8,7 @@ type OffIconName = 'NOTIFICATION_OFF' | 'PLAN_CLOSE';
 interface IconSwitchButtonProps {
   onIconName: OnIconName;
   offIconName: OffIconName;
-  onClick: (isOn: boolean) => void;
+  onClick: () => void;
   isActive: boolean;
 }
 export default function IconSwitchButton({
