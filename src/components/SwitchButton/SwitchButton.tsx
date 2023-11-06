@@ -5,7 +5,7 @@ import './index.scss';
 
 interface SwitchButtonProps {
   isOn?: boolean;
-  onClick: (isChecked: boolean) => void;
+  onClick: () => void;
   children?: React.ReactNode;
 }
 export default function SwitchButton({
@@ -16,11 +16,15 @@ export default function SwitchButton({
   const [isChecked, setIsChecked] = useState<boolean>(isOn);
   const handleChange = () => {
     setIsChecked(!isChecked);
-    onClick(!isChecked);
   };
   return (
     <label className="switch">
-      <input type="checkbox" checked={isChecked} onChange={handleChange} />
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleChange}
+        onClick={onClick}
+      />
       <span className="slider round">{children}</span>
     </label>
   );
