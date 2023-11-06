@@ -6,7 +6,7 @@ interface InputTagProps {
   style?: React.CSSProperties;
   onSubmit: (submitValue: string) => void;
 }
-const InputTag = ({ style, onSubmit, ...props }: InputTagProps) => {
+export default function InputTag({ style, onSubmit, ...props }: InputTagProps) {
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +29,4 @@ const InputTag = ({ style, onSubmit, ...props }: InputTagProps) => {
       </form>
     </Tag>
   );
-};
-
-export default InputTag;
+}
