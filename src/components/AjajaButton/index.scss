@@ -4,6 +4,10 @@
     align-items: center;
     gap: 5px;
     font-weight: bold;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
   }
   &-name {
     margin-top: -5px;

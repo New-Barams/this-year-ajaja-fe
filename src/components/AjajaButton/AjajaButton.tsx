@@ -1,26 +1,15 @@
 import { Icon } from '@/components';
-import { Color, FontSize } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
 
 interface AjajaButtonProps {
-  background: Color;
-  color: Color;
-  fontSize: FontSize;
-  ajajaColor: Color;
-  ajajaFontSize: string;
-  filled: boolean;
-  onClick?: () => void;
+  isFilled: boolean;
+  onClick: () => void;
   children: React.ReactNode;
 }
 
 export default function AjajaButton({
-  background,
-  color,
-  fontSize,
-  ajajaColor,
-  ajajaFontSize,
-  filled,
+  isFilled,
   onClick,
   children,
   ...props
@@ -29,18 +18,22 @@ export default function AjajaButton({
     <button
       className={classNames(
         `ajaja-button`,
-        `border-origin-${background}`,
-        `background-origin-${background}`,
-        `color-origin-${color}`,
-        `font-size-${fontSize}`,
+        `background-origin-white-200`,
+        `color-origin-gray-300`,
+        `font-size-base`,
       )}
       onClick={onClick}
       {...props}>
       <div>
-        <Icon name="AJAJA" size="2xl" color={ajajaColor} isFilled={filled} />
+        <Icon
+          name="AJAJA"
+          size="2xl"
+          color={isFilled ? 'primary' : 'gray-100'}
+          isFilled={isFilled}
+        />
         <p
-          className={classNames('ajaja-name', `color-origin-${color}`)}
-          style={{ fontSize: `${ajajaFontSize}` }}>
+          className={classNames('ajaja-name', `color-origin-gray-300`)}
+          style={{ fontSize: '0.375rem' }}>
           아좌좌
         </p>
       </div>
