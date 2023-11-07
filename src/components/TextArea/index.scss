@@ -1,4 +1,25 @@
 .textArea {
-  padding: 12rem;
-  width: 100%;
+  padding: 0.5rem 1rem;
+  width: 100%; 
+  color: var(--origin-gray-300);
+  background-color: var(--origin-white-100);
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: var(--border-radius);
+  resize: none;
+
+  &--plan--title {
+    border: var(--border-weight) solid var(--origin-orange-200);
+    height: 2.5rem;
+  }
+
+  &--plan--content {
+    border: var(--border-weight) solid var(--origin-orange-200);
+    height: 10rem;
+  }
+
+  &--remind {
+    height: 18rem;
+    border: var(--border-weight) dashed var(--origin-orange-200);
+  }
 }
