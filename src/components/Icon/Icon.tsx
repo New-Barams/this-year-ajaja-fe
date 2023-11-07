@@ -40,6 +40,7 @@ interface IconProps {
   size?: FontSize;
   color?: Color;
   isFilled?: boolean;
+  classNameList?: string[];
 }
 
 export default function Icon({
@@ -47,14 +48,17 @@ export default function Icon({
   size = '2xl',
   color = 'orange-300',
   isFilled = false,
+  classNameList = [],
 }: IconProps) {
   return (
     <span
       className={classNames(
+        'icon',
         'material-symbols-outlined',
         `font-size-${size}`,
         `color-origin-${color}`,
         { 'icon--isFilled': isFilled },
+        classNameList,
       )}>
       {ICON_NAME_MAP[name]}
     </span>
