@@ -40,12 +40,16 @@ export default function PlanInput({
         className={classNames(
           'planInput',
           { 'planInput--editable': editable },
-          { 'planInput--title': kind === 'title' },
-          { 'planInput--content': kind === 'content' },
+          `planInput--${kind === 'content' ? 'content' : 'title'}`,
         )}
       />
       {editable && (
-        <label className="planInput--editable--label" htmlFor="planInput">
+        <label
+          className={classNames(
+            'planInput--editable__label',
+            `planInput--editable__label--${kind}`,
+          )}
+          htmlFor="planInput">
           {placeholder}
         </label>
       )}

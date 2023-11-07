@@ -11,7 +11,7 @@
   border-radius: var(--border-radius);
   outline: none;
   resize: none;
-    
+
   &--title {
     border: var(--border-weight) solid var(--origin-orange-200);
     height: 2.5rem;
@@ -22,33 +22,42 @@
     height: 10rem;
   }
 
-  &--editable{
+  &--editable {
     &::placeholder {
       opacity: 0;
     }
-  
-    &--label {
+
+    &__label {
       position: absolute;
       left: 1rem;
-      top: 50%;
       transform: translateY(-50%);
       font-size: 1rem;
       color: var(--origin-gray-100);
       letter-spacing: 1px;
       transition: 0.3s;
+      pointer-events: none;
+      top: 50%;
+
+      &--title{
+        top: 50%;
+      }
+
+      &--content{
+        top: 1.5rem;
+      }
     }
-  
-    :focus + &--label,
-    :not(:placeholder-shown) + &--label {
+
+    :focus + &__label,
+    :not(:placeholder-shown) + &__label {
       top: 0;
       font-size: 0.8rem;
-      color: var(--origin-gray-300);
+      color: var(--origin-primary);
       background: var(--origin-white-200);
       padding: 0px 7px;
     }
-  
+
     &:focus {
-      border: 2px solid var( --origin-gray-300);
+      border: 2px solid var(--origin-primary);
     }
   }
 }
