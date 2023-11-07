@@ -12,11 +12,10 @@ interface TextAreaProps {
   onChangeInput: (text: string) => void;
   placeholder: string;
   maxLength: number;
-  readOnly?: boolean;
+  editable?: boolean;
 }
 
 const isPlanType = (kind: kindType) => {
-  // plan type인지 확인해 이때만 placeHolder 올라가도록
   return kind === 'plan-title' || kind === 'plan-content';
 };
 
@@ -26,7 +25,7 @@ export default function TextArea({
   onChangeInput,
   placeholder,
   maxLength,
-  readOnly = false,
+  editable = true,
 }: TextAreaProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxLength) {
@@ -38,21 +37,24 @@ export default function TextArea({
     <div className="form-input">
       <textarea
         id="textArea"
-        readOnly={readOnly}
+        readOnly={!editable}
         value={textInput}
         onChange={handleChangeInput}
         placeholder={placeholder}
         className={classNames(
           'textArea',
+          { 'textArea--editable': editable },
           { 'textArea--plan': isPlanType(kind) }, // placeHolder animation 위해서
           { 'textArea--plan--title': kind === 'plan-title' },
           { 'textArea--plan--content': kind === 'plan-content' },
           { 'textArea--remind': kind === 'remind' },
         )}
       />
-      <label className="textArea--label" htmlFor="textArea">
-        {placeholder}
-      </label>
+      {editable && (
+        <label className="textArea--editable--label" htmlFor="textArea">
+          {placeholder}
+        </label>
+      )}
     </div>
   );
 }

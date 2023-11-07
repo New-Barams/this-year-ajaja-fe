@@ -12,31 +12,7 @@
   border-radius: var(--border-radius);
   outline: none;
   resize: none;
-
-  &::placeholder {
-    opacity: 0;
-  }
-
-  &--label {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: var(--origin-gray-100);
-    letter-spacing: 1px;
-    transition: 0.3s;
-  }
-
-  :focus + &--label,
-  :not(:placeholder-shown) + &--label {
-    top: 0;
-    font-size: 0.8rem;
-    color: var(--origin-gray-300);
-    background: var(--origin-white-200);
-    padding: 7px;
-  }
-
+  
   &--plan--title {
     border: var(--border-weight) solid var(--origin-orange-200);
     height: 2.5rem;
@@ -52,7 +28,33 @@
     border: var(--border-weight) dashed var(--origin-orange-200);
   }
 
-  &:focus {
-    border: 2px solid var( --origin-gray-300);
+  &--editable{
+    &::placeholder {
+      opacity: 0;
+    }
+  
+    &--label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: var(--origin-gray-100);
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+  
+    :focus + &--label,
+    :not(:placeholder-shown) + &--label {
+      top: 0;
+      font-size: 0.8rem;
+      color: var(--origin-gray-300);
+      background: var(--origin-white-200);
+      padding: 0px 7px;
+    }
+  
+    &:focus {
+      border: 2px solid var( --origin-gray-300);
+    }
   }
 }
