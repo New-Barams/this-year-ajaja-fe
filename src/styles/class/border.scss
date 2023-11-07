@@ -20,3 +20,11 @@ $themes: (
 );
 
 @include common('border', $themes);
+
+.border-none {
+  border: none;
+}
+
+.border-round {
+  border-radius: var(--border-radius);
+}
