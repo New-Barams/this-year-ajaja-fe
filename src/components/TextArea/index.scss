@@ -1,12 +1,41 @@
+.form-input {
+  margin: 12px 20px;
+  position: relative;
+}
+
 .textArea {
   padding: 0.5rem 1rem;
-  width: 100%; 
+  width: 100%;
   color: var(--origin-gray-300);
   background-color: var(--origin-white-100);
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 1.25rem;
   border-radius: var(--border-radius);
+  outline: none;
   resize: none;
+
+  &::placeholder {
+    opacity: 0;
+  }
+
+  &--label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--origin-gray-100);
+    letter-spacing: 1px;
+    transition: 0.3s;
+  }
+
+  :focus + &--label,
+  :not(:placeholder-shown) + &--label {
+    top: 0;
+    font-size: 0.8rem;
+    color: var(--origin-gray-300);
+    background: var(--origin-white-200);
+    padding: 7px;
+  }
 
   &--plan--title {
     border: var(--border-weight) solid var(--origin-orange-200);
@@ -21,5 +50,9 @@
   &--remind {
     height: 18rem;
     border: var(--border-weight) dashed var(--origin-orange-200);
+  }
+
+  &:focus {
+    border: 2px solid var( --origin-gray-300);
   }
 }

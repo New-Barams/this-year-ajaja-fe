@@ -9,10 +9,10 @@ type kindType = 'plan-title' | 'plan-content' | 'remind';
 interface TextAreaProps {
   kind: kindType;
   textInput: string;
+  onChangeInput: (text: string) => void;
   placeholder: string;
   maxLength: number;
   readOnly?: boolean;
-  onChangeInput: (text: string) => void;
 }
 
 const isPlanType = (kind: kindType) => {
@@ -23,15 +23,14 @@ const isPlanType = (kind: kindType) => {
 export default function TextArea({
   kind,
   textInput,
+  onChangeInput,
   placeholder,
   maxLength,
   readOnly = false,
-  onChangeInput,
 }: TextAreaProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxLength) {
       onChangeInput(event.target.value);
-      console.log(placeholder);
     }
   };
 
@@ -51,7 +50,9 @@ export default function TextArea({
           { 'textArea--remind': kind === 'remind' },
         )}
       />
-      <label htmlFor="textArea">{placeholder}</label>
+      <label className="textArea--label" htmlFor="textArea">
+        {placeholder}
+      </label>
     </div>
   );
 }
