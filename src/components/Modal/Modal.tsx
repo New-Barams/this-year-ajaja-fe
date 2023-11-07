@@ -33,7 +33,11 @@ export default function Modal({
   return (
     <div className={classNames(`modal-background`)} {...props}>
       <div
-        className={classNames(`modal-wrapper`, 'border-origin-primary')}
+        className={classNames(
+          `modal-wrapper`,
+          'border-origin-primary',
+          'background-origin-white-100',
+        )}
         ref={backgroundRef}>
         <div className={classNames(`modal-wrapper__content`)}>
           <div className={classNames(`font-size-xl`, `modal-wrapper__text`)}>
