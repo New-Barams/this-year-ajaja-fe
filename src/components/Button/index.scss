@@ -7,12 +7,14 @@ $sizes: ('lg', 'md', 'sm');
         cursor: pointer;
       }
       font-weight: bold;
-      border-radius: var(--border-radius);
       @if $size== 'lg' {
+        height: 40px;
         padding: 5px 40px;
       } @else if $size== 'md' {
+        height: 40px;
         padding: 5px 15px;
       } @else if $size== 'sm' {
+        height: 25px;
         padding: 2px 7.5px;
       }
     }
