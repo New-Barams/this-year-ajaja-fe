@@ -1,12 +1,12 @@
-import { Color, FontSize } from '@/types';
+import { Color } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
 
 interface ButtonProps {
   background: Color;
   color: Color;
-  fontSize: FontSize;
   size: 'lg' | 'md' | 'sm';
+  border: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -14,20 +14,33 @@ interface ButtonProps {
 export default function Button({
   background,
   color,
-  fontSize,
   size,
+  border,
   children,
   onClick,
   ...props
 }: ButtonProps) {
+  let fontSize;
+  switch (size) {
+    case 'sm':
+      fontSize = 'sm';
+      break;
+    case 'md':
+      fontSize = 'xl';
+      break;
+    case 'lg':
+      fontSize = 'xl';
+      break;
+  }
   return (
     <button
       className={classNames(
         `button--${size}`,
-        `border-origin-${color}`,
+        border ? `border-origin-${color}` : 'border-none',
         `background-origin-${background}`,
         `color-origin-${color}`,
         `font-size-${fontSize}`,
+        `border-round`,
       )}
       onClick={onClick}
       {...props}>
