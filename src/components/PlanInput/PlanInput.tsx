@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 import './index.scss';
 
-type kindType = 'plan-title' | 'plan-content' | 'remind';
+type kindType = 'title' | 'content';
 
-interface TextAreaProps {
+interface PlanInputProps {
   kind: kindType;
   textInput: string;
   onChangeInput: (text: string) => void;
@@ -15,18 +15,14 @@ interface TextAreaProps {
   editable?: boolean;
 }
 
-const isPlanType = (kind: kindType) => {
-  return kind === 'plan-title' || kind === 'plan-content';
-};
-
-export default function TextArea({
+export default function PlanInput({
   kind,
   textInput,
   onChangeInput,
   placeholder,
   maxLength,
-  editable = true,
-}: TextAreaProps) {
+  editable = false,
+}: PlanInputProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxLength) {
       onChangeInput(event.target.value);
@@ -34,24 +30,22 @@ export default function TextArea({
   };
 
   return (
-    <div className="form-input">
+    <div className="planInput--container">
       <textarea
-        id="textArea"
+        id="planInput"
         readOnly={!editable}
         value={textInput}
         onChange={handleChangeInput}
         placeholder={placeholder}
         className={classNames(
-          'textArea',
-          { 'textArea--editable': editable },
-          { 'textArea--plan': isPlanType(kind) }, // placeHolder animation 위해서
-          { 'textArea--plan--title': kind === 'plan-title' },
-          { 'textArea--plan--content': kind === 'plan-content' },
-          { 'textArea--remind': kind === 'remind' },
+          'planInput',
+          { 'planInput--editable': editable },
+          { 'planInput--title': kind === 'title' },
+          { 'planInput--content': kind === 'content' },
         )}
       />
       {editable && (
-        <label className="textArea--editable--label" htmlFor="textArea">
+        <label className="planInput--editable--label" htmlFor="planInput">
           {placeholder}
         </label>
       )}

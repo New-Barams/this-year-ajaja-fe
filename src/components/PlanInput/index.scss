@@ -1,9 +1,9 @@
-.form-input {
+.planInput--container {
   margin: 12px 20px;
   position: relative;
 }
 
-.textArea {
+.planInput {
   padding: 0.5rem 1rem;
   width: 100%;
   color: var(--origin-gray-300);
@@ -12,20 +12,15 @@
   border-radius: var(--border-radius);
   outline: none;
   resize: none;
-  
-  &--plan--title {
+    
+  &--title {
     border: var(--border-weight) solid var(--origin-orange-200);
     height: 2.5rem;
   }
 
-  &--plan--content {
+  &--content {
     border: var(--border-weight) solid var(--origin-orange-200);
     height: 10rem;
-  }
-
-  &--remind {
-    height: 18rem;
-    border: var(--border-weight) dashed var(--origin-orange-200);
   }
 
   &--editable{

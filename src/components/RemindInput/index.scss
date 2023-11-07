@@ -1,0 +1,12 @@
+.remindInput {
+  padding: 1rem;
+  width: 100%;
+  height: 15rem;
+  color: var(--origin-gray-300);
+  background-color: var(--origin-white-100);
+  font-size: 1.25rem;
+  border-radius: var(--border-radius);
+  border: var(--border-weight) dashed var(--origin-orange-200);
+  outline: none;
+  resize: none;
+}
