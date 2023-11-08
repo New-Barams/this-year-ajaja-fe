@@ -54,10 +54,11 @@
 
     &__item {
       padding: 0.5rem;
+
       cursor: pointer;
 
       &:last-child {
-        border-radius: 0px 0px var(--border-radius) var(--border-radius);
+        border-radius: 0px 0px 9px 9px;  
       }
 
       &:hover {
