@@ -21,11 +21,13 @@ export default function CircleProgressBar({
 }: CircleProgressBarProps) {
   const calculatedValue = isFeedbackDone ? percent! : 100;
   const progressbarText = isFeedbackDone ? `${percent}%` : TEXT.FEEDBACK;
-  const progressbarColor = isFeedbackDone ? COLOR.GREEN._300 : COLOR.PRIMARY;
+  const progressbarColor = isFeedbackDone ? COLOR.GREEN_300 : COLOR.PRIMARY;
 
   return (
-    <div className="Progressbar" onClick={onClick}>
-      <div className="Progressbar--Wrapper">
+    <div
+      className={classNames('Progressbar', onClick && 'Progressbar--pointer')}
+      onClick={onClick}>
+      <div className="Progressbar__Wrapper">
         <CircularProgressbar
           value={calculatedValue}
           strokeWidth={14}
@@ -35,7 +37,7 @@ export default function CircleProgressBar({
         />
       </div>
 
-      <div className={classNames('Progressbar--Text', 'font-size-base')}>
+      <div className={classNames('Progressbar__Text', 'font-size-base')}>
         {progressbarText}
       </div>
     </div>
