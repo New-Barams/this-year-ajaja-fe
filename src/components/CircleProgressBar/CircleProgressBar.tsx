@@ -1,3 +1,4 @@
+import { COLOR } from '@/constants';
 import classNames from 'classnames';
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -13,11 +14,6 @@ const TEXT = {
   FEEDBACK: '피드백하기',
 };
 
-const COLOR = {
-  PRIMARY: '#F76C5E',
-  GREEN: '#58B368',
-};
-
 export default function CircleProgressBar({
   isFeedbackDone,
   percent,
@@ -25,7 +21,7 @@ export default function CircleProgressBar({
 }: CircleProgressBarProps) {
   const calculatedValue = isFeedbackDone ? percent! : 100;
   const progressbarText = isFeedbackDone ? `${percent}%` : TEXT.FEEDBACK;
-  const progressbarColor = isFeedbackDone ? COLOR.GREEN : COLOR.PRIMARY;
+  const progressbarColor = isFeedbackDone ? COLOR.GREEN._300 : COLOR.PRIMARY;
 
   return (
     <div className="Progressbar" onClick={onClick}>
