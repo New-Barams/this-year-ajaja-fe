@@ -20,16 +20,17 @@ export default function ModalBasic({
   return (
     <div
       className={classNames(
-        `modal-wrapper`,
+        `modal-basic-wrapper`,
         'border-origin-primary',
         'background-origin-white-100',
       )}
       ref={backgroundRef}>
-      <div className={classNames(`modal-wrapper__content`)}>
-        <div className={classNames(`font-size-xl`, `modal-wrapper__text`)}>
+      <div className={classNames(`modal-basic-wrapper__content`)}>
+        <div
+          className={classNames(`font-size-xl`, `modal-basic-wrapper__text`)}>
           {children}
         </div>
-        <div className={classNames(`modal-wrapper__button`)}>
+        <div className={classNames(`modal-basic-wrapper__button`)}>
           <Button
             background="primary"
             color="white-100"
