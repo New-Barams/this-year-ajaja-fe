@@ -12,12 +12,14 @@ const ICON_NAME_MAP = {
   ITEM_CLOSE: 'expand_less',
   OTHER_PLAN: 'calendar_today',
   PROFILE: 'person',
-  WARNING: 'error',
+  ERROR: 'error',
+  WARNING: 'warning',
   AJAJA: 'local_fire_department',
   REFRESH: 'refresh',
   HELP: 'help',
   DROP_DOWN: 'arrow_drop_down',
   DROP_UP: 'arrow_drop_up',
+  CLOSE: 'close',
 };
 
 interface IconProps {
