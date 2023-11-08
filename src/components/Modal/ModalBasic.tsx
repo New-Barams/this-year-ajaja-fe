@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components';
 import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
@@ -27,7 +29,11 @@ export default function ModalBasic({
       ref={backgroundRef}>
       <div className={classNames(`modal-basic-wrapper__content`)}>
         <div
-          className={classNames(`font-size-xl`, `modal-basic-wrapper__text`)}>
+          className={classNames(
+            `font-size-xl`,
+            `color-origin-gray-300`,
+            `modal-basic-wrapper__text`,
+          )}>
           {children}
         </div>
         <div className={classNames(`modal-basic-wrapper__button`)}>
