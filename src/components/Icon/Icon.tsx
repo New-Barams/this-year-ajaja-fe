@@ -16,7 +16,8 @@ type IconName =
   | 'AJAJA'
   | 'REFRESH'
   | 'HELP'
-  | 'DROP_DOWN';
+  | 'DROP_DOWN'
+  | 'DROP_UP';
 
 const ICON_NAME_MAP = {
   CREATE_NEW_PLAN: 'add',
@@ -33,6 +34,7 @@ const ICON_NAME_MAP = {
   REFRESH: 'refresh',
   HELP: 'help',
   DROP_DOWN: 'arrow_drop_down',
+  DROP_UP: 'arrow_drop_up',
 };
 
 interface IconProps {
@@ -40,6 +42,7 @@ interface IconProps {
   size?: FontSize;
   color?: Color;
   isFilled?: boolean;
+  classNameList?: string[];
 }
 
 export default function Icon({
@@ -47,14 +50,17 @@ export default function Icon({
   size = '2xl',
   color = 'orange-300',
   isFilled = false,
+  classNameList = [],
 }: IconProps) {
   return (
     <span
       className={classNames(
+        'icon',
         'material-symbols-outlined',
         `font-size-${size}`,
         `color-origin-${color}`,
         { 'icon--isFilled': isFilled },
+        classNameList,
       )}>
       {ICON_NAME_MAP[name]}
     </span>
