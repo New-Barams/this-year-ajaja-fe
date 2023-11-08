@@ -74,7 +74,7 @@ export default function Dropdown({
         </div>
         <Icon
           size="4xl"
-          name="DROP_DOWN"
+          name={isDropdownOpened ? 'DROP_UP' : 'DROP_DOWN'}
           color="primary"
           classNameList={['dropdown__label__icon']}
         />
