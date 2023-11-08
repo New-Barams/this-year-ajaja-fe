@@ -1,23 +1,6 @@
-import { Color, FontSize } from '@/types';
+import { Color, FontSize, IconName } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
-
-type IconName =
-  | 'CREATE_NEW_PLAN'
-  | 'NOTIFICATION_ON'
-  | 'NOTIFICATION_OFF'
-  | 'PLAN_OPEN'
-  | 'PLAN_CLOSE'
-  | 'ITEM_OPEN'
-  | 'ITEM_CLOSE'
-  | 'OTHER_PLAN'
-  | 'PROFILE'
-  | 'WARNING'
-  | 'AJAJA'
-  | 'REFRESH'
-  | 'HELP'
-  | 'DROP_DOWN'
-  | 'DROP_UP';
 
 const ICON_NAME_MAP = {
   CREATE_NEW_PLAN: 'add',
