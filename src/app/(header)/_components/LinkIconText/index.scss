@@ -1,0 +1,14 @@
+.link-icon-text {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: 7.5px 15px;
+  &__a {
+    display: flex;
+    align-items: center;
+    text-decoration-line: none;
+  }
+  &__text {
+    padding: 5px;
+  }
+}
