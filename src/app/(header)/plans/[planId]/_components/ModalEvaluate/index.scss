@@ -1,0 +1,45 @@
+.modal {
+  &-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+  }
+  &-evaluate-wrapper {
+    border-radius: var(--border-radius);
+    width: 900px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &__exit {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &__text {
+      padding: 40px;
+    }
+    &__worning {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  }
+}
