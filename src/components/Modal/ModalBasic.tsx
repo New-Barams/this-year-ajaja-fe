@@ -1,6 +1,7 @@
 import { Button } from '@/components';
+import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import './index.scss';
 
 type ModalProps = {
@@ -15,20 +16,7 @@ export default function ModalBasic({
   children,
 }: ModalProps) {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
-  const handleClickOutside = (e: MouseEvent) => {
-    if (
-      backgroundRef.current &&
-      !backgroundRef.current.contains(e.target as Node)
-    ) {
-      onClickNo();
-    }
-  };
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
+  useModalClose(backgroundRef, onClickNo);
   return (
     <div
       className={classNames(
