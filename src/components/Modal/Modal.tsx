@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
