@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const path = require('path');
 
-module.exports = nextConfig
+const nextConfig = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  webpack: (config) => {
+    config.resolve.alias['@/styles'] = path.join(__dirname, 'styles');
+    return config;
+  },
+};
+
+module.exports = nextConfig;

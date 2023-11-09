@@ -1,0 +1,17 @@
+@mixin common($common, $themes) {
+  @each $theme, $map in $themes {
+    .#{$common}-#{$theme} {
+      @each $key, $value in $map {
+        &-#{$key} {
+          @if $common == 'background' {
+            background-color: $value;
+          } @else if $common == 'color' {
+            color: $value;
+          } @else if $common == 'border' {
+            border: var(--border-weight) solid $value;
+          }
+        }
+      }
+    }
+  }
+}
