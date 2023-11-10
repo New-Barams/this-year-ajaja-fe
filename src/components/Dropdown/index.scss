@@ -22,7 +22,7 @@
     align-items: center;
     position: relative;
     padding: 0.5rem 0.75rem;
-    border: var(--border-weight) solid var(--origin-primary);
+    border: var(--border-width) solid var(--origin-primary);
     border-radius: var(--border-radius);
 
     &__text {
@@ -45,7 +45,7 @@
     background: white;
 
     &__list {
-      border: var(--border-weight) solid var(--origin-primary);
+      border: var(--border-width) solid var(--origin-primary);
       border-top: none;
       list-style-type: none;
       text-align: center;
@@ -58,7 +58,7 @@
       cursor: pointer;
 
       &:last-child {
-        border-radius: 0px 0px 9px 9px;  
+        border-radius: 0px 0px 9px 9px;
       }
 
       &:hover {

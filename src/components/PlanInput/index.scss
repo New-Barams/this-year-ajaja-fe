@@ -13,12 +13,12 @@
   resize: none;
 
   &--title {
-    border: var(--border-weight) solid var(--origin-orange-200);
+    border: var(--border-width) solid var(--origin-orange-200);
     height: 2.5rem;
   }
 
   &--content {
-    border: var(--border-weight) solid var(--origin-orange-200);
+    border: var(--border-width) solid var(--origin-orange-200);
     height: 10rem;
   }
 
@@ -38,11 +38,11 @@
       pointer-events: none;
       top: 50%;
 
-      &--title{
+      &--title {
         top: 50%;
       }
 
-      &--content{
+      &--content {
         top: 1.5rem;
       }
     }

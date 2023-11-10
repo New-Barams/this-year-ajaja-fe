@@ -55,7 +55,7 @@ $percents: (
           width: $rem;
           height: $rem;
           border-radius: 50%;
-          border: var(--border-weight) solid var(--origin-gray-100);
+          border: var(--border-width) solid var(--origin-gray-100);
           display: block;
           position: relative;
           &:hover {
@@ -76,7 +76,7 @@ $percents: (
           }
         }
         input:checked + label {
-          border: var(--border-weight) solid var(--origin-primary);
+          border: var(--border-width) solid var(--origin-primary);
           &::after {
             visibility: visible;
           }
