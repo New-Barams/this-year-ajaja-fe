@@ -1,3 +1,5 @@
+import { KAKAO_LOGIN_URL } from '@/constants';
+import { UNLOGIN_URL } from '@/constants/login';
 import Image from 'next/image';
 import Link from 'next/link';
 import './index.scss';
@@ -14,13 +16,15 @@ export default function LoginPage() {
           alt="thisYearAjajaLogo"
         />
         <div className="login__sentence">
-          <p className="login__sentence--text">올해의 신년 계획을 생성하고,</p>
-          <p className="login__sentence--text">
+          <span className="login__sentence--text">
+            올해의 신년 계획을 생성하고,
+          </span>
+          <span className="login__sentence--text">
             주기적으로 리마인드 받아보세요!!
-          </p>
+          </span>
         </div>
         <div className="login__buttons">
-          <Link className="login__buttons--kakaoLogin" href="/login">
+          <Link className="login__buttons--kakaoLogin" href={KAKAO_LOGIN_URL}>
             <Image
               src="/kakao_login_large_narrow.png"
               width={230}
@@ -28,7 +32,7 @@ export default function LoginPage() {
               alt="kakaoLogin"
             />
           </Link>
-          <Link className="login__buttons--unLogin" href="/explore">
+          <Link className="login__buttons--unLogin" href={UNLOGIN_URL}>
             로그인 하지 않고 둘러보기
           </Link>
         </div>
