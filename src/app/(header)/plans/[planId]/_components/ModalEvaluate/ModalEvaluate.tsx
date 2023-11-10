@@ -2,6 +2,7 @@ import { Button, Icon } from '@/components';
 import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
 import { useRef } from 'react';
+import ModalRadio from './ModalRadio';
 import './index.scss';
 
 type ModalProps = {
@@ -40,6 +41,7 @@ export default function ModalEvaluate({
           )}>
           {children}
         </div>
+        <ModalRadio />
         <Button
           background="primary"
           color="white-100"
