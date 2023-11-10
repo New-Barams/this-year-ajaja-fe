@@ -15,4 +15,6 @@ export type IconName =
   | 'HELP'
   | 'DROP_DOWN'
   | 'DROP_UP'
-  | 'CLOSE';
+  | 'CLOSE'
+  | 'CHECKED'
+  | 'UN_CHECKED';

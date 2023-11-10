@@ -20,6 +20,8 @@ const ICON_NAME_MAP = {
   DROP_DOWN: 'arrow_drop_down',
   DROP_UP: 'arrow_drop_up',
   CLOSE: 'close',
+  CHECKED: 'check_box',
+  UN_CHECKED: 'check_box_outline_blank',
 };
 
 interface IconProps {
