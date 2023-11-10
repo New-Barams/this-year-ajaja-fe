@@ -1,22 +1,16 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-interface auth {
+export interface auth {
   accessToken: string;
   refreshToken: string;
-  user: User;
-}
-
-interface User {
-  name: string;
-  id: string;
 }
 
 const localStorage =
   typeof window !== 'undefined' ? window.localStorage : undefined;
 
 const { persistAtom } = recoilPersist({
-  key: 'auth',
+  key: 'authState',
   storage: localStorage,
 });
 
