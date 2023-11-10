@@ -1,0 +1,9 @@
+.remind-item {
+  &__message {
+    display: none;
+
+    &--open {
+      display: block;
+    }
+  }
+}
