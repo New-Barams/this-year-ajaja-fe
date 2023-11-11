@@ -1,9 +1,108 @@
 .remind-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--border-radius);
+  border: var(--border-weight) solid var(--origin-orange-200);
+
+  &__header {
+    display: flex;
+    position: relative; 
+    padding: 1rem 2rem;
+    justify-content: center; 
+    align-items: center;
+    cursor: pointer;
+
+    &__title {
+      font-size: 1.25rem;
+      line-height: 1.25rem;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &__meta {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      right: 0rem;
+    }
+
+    &__warning {
+      transition: all 1s ease;
+      display: flex;
+      margin-right: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--border-radius);
+      background-color: var(--origin-primary);
+
+      &__text {
+        margin-left: 0.25rem;
+        font-size: 0.6rem;
+        line-height: 0.7rem;
+        color: var(--origin-white-100);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    &__button-text {
+      font-size: 1rem;
+      line-height: 1rem;
+      margin-right: 1.25rem;
+    }
+
+    &__icon {
+      margin-right: 2rem;
+    }
+  }
+
   &__message {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    border-top: var(--border-weight) solid var(--origin-orange-200);
+    border-radius: 0 0 12px 12px;
+    background-color: var(--origin-white-300);
+    padding: 1rem;
 
     &--open {
-      display: block;
+      display: flex;
+    }
+
+    &__check {
+      display: flex;
+      margin-top: 1.2rem;
+      cursor: pointer;
+
+      &__text {
+        margin-left: 0.25rem;
+        font-size: 1.25rem;
+        color: var(--origin-primary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .remind-item {
+    &__header {
+      &__warning {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .remind-item {
+    &__header {
+      &__button-text {
+        display: none;
+      }
     }
   }
 }
