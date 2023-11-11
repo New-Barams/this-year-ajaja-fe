@@ -9,8 +9,10 @@ export type IconName =
   | 'OTHER_PLAN'
   | 'PROFILE'
   | 'WARNING'
+  | 'ERROR'
   | 'AJAJA'
   | 'REFRESH'
   | 'HELP'
   | 'DROP_DOWN'
-  | 'DROP_UP';
+  | 'DROP_UP'
+  | 'CLOSE';
