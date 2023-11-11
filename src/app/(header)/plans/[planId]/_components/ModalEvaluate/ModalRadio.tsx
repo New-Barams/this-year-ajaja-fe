@@ -11,13 +11,13 @@ const list: Record<string, string> = {
 };
 
 export default function ModalRadio() {
-  const [value, setValue] = useState<string | null>(null);
+  const [feedbackResult, setFeedbackResult] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
-    setValue(e.target.value);
+    setFeedbackResult(e.target.value);
     //value를 평가완료 버튼 클릭시 send할 예정
-    console.log(value);
+    console.log(feedbackResult);
   };
   return (
     <fieldset className={classNames('modal__radio')}>
