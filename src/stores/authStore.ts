@@ -1,21 +1,31 @@
-import { atom } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
+import { AtomEffect, atom } from 'recoil';
 
 export interface auth {
   accessToken: string;
   refreshToken: string;
 }
 
-const localStorage =
-  typeof window !== 'undefined' ? window.localStorage : undefined;
+const local = typeof window !== 'undefined' ? window.localStorage : undefined;
 
-const { persistAtom } = recoilPersist({
-  key: 'authState',
-  storage: localStorage,
-});
+const localStorageEffect: <T>(key: string) => AtomEffect<T> =
+  (key: string) =>
+  ({ setSelf, onSet }) => {
+    if (local) {
+      const savedValue = local.getItem(key);
+      if (savedValue !== null) {
+        setSelf(JSON.parse(savedValue));
+      }
+
+      onSet((newValue, _, isReset) => {
+        if (isReset) return local.removeItem(key);
+
+        return local.setItem(key, JSON.stringify(newValue));
+      });
+    }
+  };
 
 export const authStore = atom<auth | null>({
-  key: 'auth',
+  key: 'authState',
   default: null,
-  effects_UNSTABLE: [persistAtom],
+  effects: [localStorageEffect<auth | null>('auth')],
 });
