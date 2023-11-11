@@ -82,9 +82,17 @@ export default function WritableRemindItem({
 
           <div className="remind-item__header__meta">
             {isRemindMessageEmpty && (
-              <div className="remind-item__header__warning">
+              <div
+                className={classNames(
+                  'remind-item__header__warning',
+                  'background-origin-primary',
+                )}>
                 <Icon name="WARNING" size="xs" color="white-100" />
-                <span className="remind-item__header__warning__text">
+                <span
+                  className={classNames(
+                    'remind-item__header__warning__text',
+                    'color-origin-white-100',
+                  )}>
                   리마인드 메세지가 아직 작성되지 않았습니다
                 </span>
               </div>
@@ -102,9 +110,13 @@ export default function WritableRemindItem({
         </div>
         {isItemOpened && (
           <div
-            className={classNames('remind-item__message', {
-              'remind-item__message--open': isItemOpened,
-            })}>
+            className={classNames(
+              'remind-item__message',
+              'background-origin-white-300',
+              {
+                'remind-item__message--open': isItemOpened,
+              },
+            )}>
             <RemindInput
               textInput={remindMessage}
               onChangeInput={handleChangeRemindMessage}
@@ -123,7 +135,11 @@ export default function WritableRemindItem({
                   color="primary"
                   isFilled={isSameMessageChecked ? true : false}
                 />
-                <p className="remind-item__message__check__text">
+                <p
+                  className={classNames(
+                    'remind-item__message__check__text',
+                    'color-origin-primary',
+                  )}>
                   항상 같은 리마인드 메세지 받기
                 </p>
               </span>

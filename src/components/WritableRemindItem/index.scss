@@ -33,13 +33,11 @@
       margin-right: 0.75rem;
       padding: 0.25rem 0.5rem;
       border-radius: var(--border-radius);
-      background-color: var(--origin-primary);
 
       &__text {
         margin-left: 0.25rem;
         font-size: 0.6rem;
         line-height: 0.7rem;
-        color: var(--origin-white-100);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -63,7 +61,6 @@
     align-items: center;
     border-top: var(--border-width) solid var(--origin-orange-200);
     border-radius: 0 0 12px 12px;
-    background-color: var(--origin-white-300);
     padding: 1rem;
 
     &--open {
@@ -78,7 +75,6 @@
       &__text {
         margin-left: 0.25rem;
         font-size: 1.25rem;
-        color: var(--origin-primary);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
