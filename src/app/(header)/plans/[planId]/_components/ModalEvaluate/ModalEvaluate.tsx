@@ -48,12 +48,12 @@ export default function ModalEvaluate({
           size="lg"
           border={false}
           onClick={onClickFinish}>
-          평가 완료
+          피드백 완료
         </Button>
         <div className={classNames('modal-evaluate-wrapper__worning')}>
           <Icon name="WARNING" color="primary" size="3xl" />
           <span className={classNames('font-size-2xl', 'color-origin-primary')}>
-            평가가 완료되면 다시 평가할 수 없습니다.
+            피드백이 완료되면 다시 평가할 수 없습니다.
           </span>
         </div>
       </div>
