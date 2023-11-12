@@ -1,7 +1,6 @@
 'use client';
 
-import { KAKAO_LOGIN_URL } from '@/constants';
-import { UN_AUTH_URL } from '@/constants/login';
+import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import useLogin from './hooks/useLogin';
