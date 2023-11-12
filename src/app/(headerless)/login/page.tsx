@@ -15,7 +15,7 @@ export default function LoginPage() {
           height={190}
           alt="thisYearAjajaLogo"
         />
-        <div className="login__sentence">
+        <div className="login__sentence color-origin-gray-300 font-size-2xl">
           <span className="login__sentence--text">
             올해의 신년 계획을 생성하고,
           </span>
@@ -32,7 +32,9 @@ export default function LoginPage() {
               alt="kakaoLogin"
             />
           </Link>
-          <Link className="login__buttons--unLogin" href={UNLOGIN_URL}>
+          <Link
+            className="login__buttons--unAuth color-origin-gray-200"
+            href={UNLOGIN_URL}>
             로그인 하지 않고 둘러보기
           </Link>
         </div>
