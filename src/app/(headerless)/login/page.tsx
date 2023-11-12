@@ -5,6 +5,7 @@ import Link from 'next/link';
 import './index.scss';
 
 export default function LoginPage() {
+  //TODO 로그인페이지접속시 이전 페이지에 대한 정보를 저장해야한다. 로그인한 사람은 로그인 페이지에 접근할 수 없다 .
   return (
     <div className="wrapper">
       <div className="login">
