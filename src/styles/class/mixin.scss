@@ -8,7 +8,7 @@
           } @else if $common == 'color' {
             color: $value;
           } @else if $common == 'border' {
-            border: var(--border-weight) solid $value;
+            border: var(--border-width) solid $value;
           }
         }
       }
