@@ -2,7 +2,7 @@
 
 import { Icon, Modal, ModalBasic, RemindInput } from '@/components';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './index.scss';
 
 interface WritableRemindItemProps {
@@ -22,8 +22,13 @@ export default function WritableRemindItem({
   handleChangeRemindMessage,
   makeAllRemindMessageSame,
 }: WritableRemindItemProps) {
-  const isRemindMessageEmpty = remindMessage.length === 0;
-  const isFirstRemindItem = makeAllRemindMessageSame !== undefined;
+  const isRemindMessageEmpty = useMemo(() => {
+    return remindMessage.length === 0;
+  }, [remindMessage]);
+
+  const isFirstRemindItem = useMemo(() => {
+    return makeAllRemindMessageSame !== undefined;
+  }, [makeAllRemindMessageSame]);
 
   const [isItemOpened, setIsItemOpened] = useState(
     makeAllRemindMessageSame ? true : false,
@@ -66,7 +71,7 @@ export default function WritableRemindItem({
 
   useEffect(() => {
     if (isFirstRemindItem && isSameMessageChecked) {
-      makeAllRemindMessageSame();
+      makeAllRemindMessageSame!();
     }
   }, [isFirstRemindItem, isSameMessageChecked, makeAllRemindMessageSame]);
 
