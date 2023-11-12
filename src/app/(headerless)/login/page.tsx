@@ -1,11 +1,14 @@
+'use client';
+
 import { KAKAO_LOGIN_URL } from '@/constants';
-import { UNLOGIN_URL } from '@/constants/login';
+import { UN_AUTH_URL } from '@/constants/login';
 import Image from 'next/image';
 import Link from 'next/link';
+import useLogin from './hooks/useLogin';
 import './index.scss';
 
 export default function LoginPage() {
-  //TODO 로그인페이지접속시 이전 페이지에 대한 정보를 저장해야한다. 로그인한 사람은 로그인 페이지에 접근할 수 없다 .
+  useLogin();
   return (
     <div className="wrapper">
       <div className="login">
@@ -25,7 +28,10 @@ export default function LoginPage() {
           </span>
         </div>
         <div className="login__buttons">
-          <Link className="login__buttons--kakaoLogin" href={KAKAO_LOGIN_URL}>
+          <Link
+            className="login__buttons--kakaoLogin"
+            href={KAKAO_LOGIN_URL}
+            replace>
             <Image
               src="/kakao_login_large_narrow.png"
               width={230}
@@ -35,7 +41,7 @@ export default function LoginPage() {
           </Link>
           <Link
             className="login__buttons--unAuth color-origin-gray-200"
-            href={UNLOGIN_URL}>
+            href={UN_AUTH_URL}>
             로그인 하지 않고 둘러보기
           </Link>
         </div>
