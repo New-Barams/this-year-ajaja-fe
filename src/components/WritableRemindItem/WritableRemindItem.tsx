@@ -42,8 +42,6 @@ export default function WritableRemindItem({
   const [isSameMessageModalOpen, setIsSameMessageModalOpen] = useState(false);
 
   const handleClickSameMessageCheck = () => {
-    // 체크박스 클릭 시 => 모달 오픈
-    console.log('체크박스 클릭');
     if (isSameMessageChecked) {
       setIsSameMessageChecked(false);
     } else {
@@ -51,23 +49,15 @@ export default function WritableRemindItem({
     }
   };
 
-  // isSameMessageModalOpen && checked===false 일때만 모달 오픈 되도록 하자 !
-
   const handleModalClickYes = () => {
-    console.log('모달에서 예 클릭');
     setIsSameMessageChecked(true);
-    setIsSameMessageModalOpen(false); // 모달 닫기
-  };
-
-  const handleModalClickNo = () => {
-    console.log('모달에서 아니오 클릭');
-    setIsSameMessageChecked(false);
     setIsSameMessageModalOpen(false);
   };
 
-  // isSameMessageChecked가 바뀌었을 때, true로 바뀌었을 때만 모달 띄워주기
-  // 모달에서 예 클릭 시 makeAllRemindMessageSame 실행(모든 메세지 동기화)
-  // 아니오 클릭 시 모달 닫아주기
+  const handleModalClickNo = () => {
+    setIsSameMessageChecked(false);
+    setIsSameMessageModalOpen(false);
+  };
 
   useEffect(() => {
     if (isFirstRemindItem && isSameMessageChecked) {
