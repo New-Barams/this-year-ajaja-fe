@@ -1,4 +1,5 @@
 import Provider from '@/provider/Provider';
+import classNames from 'classnames';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import '@styles/reset.scss';
@@ -27,7 +28,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
       </head>
-      <body className={noto_sans.className}>
+      <body
+        className={classNames(
+          noto_sans.className,
+          'background-origin-white-200',
+        )}>
         <Provider>{children}</Provider>
       </body>
     </html>
