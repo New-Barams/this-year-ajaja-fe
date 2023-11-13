@@ -6,6 +6,8 @@ export default function useLogin() {
   const { auth } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (auth !== null) router.push('/home');
+    if (auth !== null) router.replace('/home');
   }, [auth, router]);
+
+  return { isLogin: auth !== null };
 }

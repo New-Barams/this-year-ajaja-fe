@@ -25,7 +25,7 @@ export default function useOauth() {
           setAuth(auth);
         });
 
-      history.length >= 2 ? history.go(-2) : router.push('/home');
+      history.length >= 2 ? history.go(-2) : router.replace('/home');
     })();
   }, [setAuth, router]);
 }
