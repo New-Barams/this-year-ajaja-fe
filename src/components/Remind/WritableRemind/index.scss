@@ -1,0 +1,48 @@
+.remind-item {
+  display: flex;
+  flex-direction: column;
+
+  &--edit {
+    display: flex;
+    align-items: center;
+
+    &__title {
+      font-size: 2rem;
+      margin-right: 1rem;
+    }
+
+    &__toggle {
+      font-size: 0.625rem;
+      color: var(--origin-gray-200);
+    }
+  }
+
+  &--create__title {
+    font-size: 2rem;
+  }
+}
+
+.remind-options {
+  display: flex;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  align-items: flex-end;
+
+  &__change-button {
+  }
+}
+
+.remind__message__title {
+  margin-top: 1.75rem;
+}
+
+.remind__message__list {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.remind__message__item {
+}
