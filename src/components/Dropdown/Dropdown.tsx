@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon } from '@/components';
+import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import './index.scss';
 
@@ -13,12 +14,14 @@ interface DropdownProps {
   options: optionsType[];
   selectedValue: number;
   setSelectedValue: (newSelectedValue: number) => void;
+  classNameList?: string[];
 }
 
 export default function Dropdown({
   options,
   selectedValue,
   setSelectedValue,
+  classNameList = [],
 }: DropdownProps) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const backgroundRef = useRef<HTMLDivElement | null>(null);
@@ -58,7 +61,9 @@ export default function Dropdown({
   };
 
   return (
-    <div className="dropdown__container" ref={backgroundRef}>
+    <div
+      className={classNames('dropdown__container', classNameList)}
+      ref={backgroundRef}>
       <input
         id="dropdown"
         className="dropdown__checkbox"
