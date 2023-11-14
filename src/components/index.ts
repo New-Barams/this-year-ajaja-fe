@@ -7,6 +7,10 @@ export { default as IconSwitchButton } from '@components/IconSwitchButton/IconSw
 export { default as Icon } from '@components/Icon/Icon';
 export { default as Modal } from '@components/Modal/Modal';
 export { default as ModalBasic } from '@components/Modal/ModalBasic';
+export { default as ReadOnlyRemind } from '@components/Remind/ReadOnlyRemind/ReadOnlyRemind';
+export { default as WritableRemind } from '@components/Remind/WritableRemind/WritableRemind';
+export { default as ReadOnlyRemindItem } from '@components/RemindItem/ReadOnlyRemindItem/ReadOnlyRemindItem';
+export { default as WritableRemindItem } from '@components/RemindItem/WritableRemindItem/WritableRemindItem';
 export { default as RemindInput } from '@components/RemindInput/RemindInput';
 export { default as PlanInput } from '@components/PlanInput/PlanInput';
 export { default as Dropdown } from '@components/Dropdown/Dropdown';
