@@ -1,8 +1,14 @@
 'use client';
 
-import { Button, Dropdown, IconSwitchButton } from '@/components';
+import {
+  Button,
+  Dropdown,
+  IconSwitchButton,
+  Modal,
+  ModalBasic,
+} from '@/components';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import WritableRemindItem from '../../RemindItem/WritableRemindItem/WritableRemindItem';
 import './index.scss';
 
@@ -65,121 +71,145 @@ export default function WritableRemind({
   toggleIsRemindOn,
   remindOption,
   setRemindOption,
+  fixRemindOptions,
   remindMessageList,
   setRemindMessage,
   makeAllRemindMessageSame,
 }: WritableRemindProps) {
+  const [isFixOptionsModalOpen, setIsFixOptionsModalOpen] = useState(false);
+
+  const handleModalClickYes = () => {
+    fixRemindOptions();
+    setIsFixOptionsModalOpen(false);
+  };
+
+  const handleModalClickNo = () => {
+    setIsFixOptionsModalOpen(false);
+  };
+
   return (
-    <div className={classNames('writable-remind')}>
-      {isEditPage ? (
-        <div className={classNames('writable-remind--edit')}>
-          <span className={classNames('writable-remind--edit__title')}>
-            리마인드
-          </span>
-          <IconSwitchButton
-            onIconName="NOTIFICATION_ON"
-            offIconName="NOTIFICATION_OFF"
-            onClick={toggleIsRemindOn!}
-            isActive={isRemindOn!}
+    <>
+      <div className={classNames('writable-remind')}>
+        {isEditPage ? (
+          <div className={classNames('writable-remind--edit')}>
+            <span className={classNames('writable-remind--edit__title')}>
+              리마인드
+            </span>
+            <IconSwitchButton
+              onIconName="NOTIFICATION_ON"
+              offIconName="NOTIFICATION_OFF"
+              onClick={toggleIsRemindOn!}
+              isActive={isRemindOn!}
+            />
+            <span className={classNames('writable-remind--edit__toggle')}>
+              {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
+            </span>
+          </div>
+        ) : (
+          <div className={classNames('writable-remind--create__title')}>
+            언제 리마인드 받고 싶나요?
+          </div>
+        )}
+
+        <div className={classNames('writable-remind__options')}>
+          <Dropdown
+            options={TOTAL_PERIOD_OPTIONS}
+            selectedValue={remindOption.TotalPeriod}
+            setSelectedValue={(newSelectedValue: number) => {
+              setRemindOption('TotalPeriod', newSelectedValue);
+            }}
+            classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--edit__toggle')}>
-            {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
+          <span className={classNames('writable-remind--options__text')}>
+            동안
           </span>
-        </div>
-      ) : (
-        <div className={classNames('writable-remind--create__title')}>
-          언제 리마인드 받고 싶나요?
-        </div>
-      )}
+          <Dropdown
+            options={TERM_OPTIONS}
+            selectedValue={remindOption.Term}
+            setSelectedValue={(newSelectedValue: number) => {
+              setRemindOption('Term', newSelectedValue);
+            }}
+            classNameList={['writable-remind__options__dropdown']}
+          />
+          <span className={classNames('writable-remind--options__text')}>
+            마다 매달
+          </span>
+          <Dropdown
+            options={DATE_OPTIONS}
+            selectedValue={remindOption.Date}
+            setSelectedValue={(newSelectedValue: number) => {
+              setRemindOption('Date', newSelectedValue);
+            }}
+            classNameList={['writable-remind__options__dropdown']}
+          />
+          <Dropdown
+            options={TIME_OPTIONS}
+            selectedValue={remindOption.Time}
+            setSelectedValue={(newSelectedValue: number) => {
+              setRemindOption('Time', newSelectedValue);
+            }}
+            classNameList={['writable-remind__options__dropdown']}
+          />
+          <span className={classNames('writable-remind--options__text')}>
+            에 리마인드를 받을래요 !
+          </span>
 
-      <div className={classNames('writable-remind__options')}>
-        <Dropdown
-          options={TOTAL_PERIOD_OPTIONS}
-          selectedValue={remindOption.TotalPeriod}
-          setSelectedValue={(newSelectedValue: number) => {
-            setRemindOption('TotalPeriod', newSelectedValue);
-          }}
-          classNameList={['writable-remind__options__dropdown']}
-        />
-        <span className={classNames('writable-remind--options__text')}>
-          동안
-        </span>
-        <Dropdown
-          options={TERM_OPTIONS}
-          selectedValue={remindOption.Term}
-          setSelectedValue={(newSelectedValue: number) => {
-            setRemindOption('Term', newSelectedValue);
-          }}
-          classNameList={['writable-remind__options__dropdown']}
-        />
-        <span className={classNames('writable-remind--options__text')}>
-          마다 매달
-        </span>
-        <Dropdown
-          options={DATE_OPTIONS}
-          selectedValue={remindOption.Date}
-          setSelectedValue={(newSelectedValue: number) => {
-            setRemindOption('Date', newSelectedValue);
-          }}
-          classNameList={['writable-remind__options__dropdown']}
-        />
-        <Dropdown
-          options={TIME_OPTIONS}
-          selectedValue={remindOption.Time}
-          setSelectedValue={(newSelectedValue: number) => {
-            setRemindOption('Time', newSelectedValue);
-          }}
-          classNameList={['writable-remind__options__dropdown']}
-        />
-        <span className={classNames('writable-remind--options__text')}>
-          에 리마인드를 받을래요 !
-        </span>
+          <Button
+            background="primary"
+            color="white-100"
+            size="sm"
+            border={false}
+            onClick={() => {
+              setIsFixOptionsModalOpen(true);
+            }}>
+            확정
+          </Button>
+        </div>
 
-        <Button
-          background="primary"
-          color="white-100"
-          size="sm"
-          border={false}
-          onClick={() => {
-            console.log('모달 연결');
-          }}>
-          확정
-        </Button>
+        {remindMessageList.length !== 0 && ( // 메세지가 없을 때는 리스트 렌더링 x
+          <>
+            <div className={classNames('writable-remind__message__title')}>
+              리마인드 메세지를 작성해주세요 !
+            </div>
+            <div className={classNames('writable-remind__message__list')}>
+              {remindMessageList.map((item, index) => {
+                return index === 0 ? ( // 첫 번째 아이템만 동일한 메세지 체크박스 렌더링 해줘야 함
+                  <WritableRemindItem
+                    remindMonth={item.date.month}
+                    remindDay={item.date.day}
+                    remindMessage={item.message}
+                    handleChangeRemindMessage={(text: string) => {
+                      setRemindMessage(item.date.month, item.date.day, text);
+                    }}
+                    makeAllRemindMessageSame={makeAllRemindMessageSame}
+                    classNameList={['writable-remind__message__item']}
+                  />
+                ) : (
+                  <WritableRemindItem
+                    remindMonth={item.date.month}
+                    remindDay={item.date.day}
+                    remindMessage={item.message}
+                    handleChangeRemindMessage={(text: string) => {
+                      setRemindMessage(item.date.month, item.date.day, text);
+                    }}
+                    classNameList={['writable-remind__message__item']}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
-
-      {remindMessageList.length !== 0 && ( // 메세지가 없을 때는 리스트 렌더링 x
-        <>
-          <div className={classNames('writable-remind__message__title')}>
-            리마인드 메세지를 작성해주세요 !
-          </div>
-          <div className={classNames('writable-remind__message__list')}>
-            {remindMessageList.map((item, index) => {
-              return index === 0 ? ( // 첫 번째 아이템만 동일한 메세지 체크박스 렌더링 해줘야 함
-                <WritableRemindItem
-                  remindMonth={item.date.month}
-                  remindDay={item.date.day}
-                  remindMessage={item.message}
-                  handleChangeRemindMessage={(text: string) => {
-                    setRemindMessage(item.date.month, item.date.day, text);
-                  }}
-                  makeAllRemindMessageSame={makeAllRemindMessageSame}
-                  classNameList={['writable-remind__message__item']}
-                />
-              ) : (
-                <WritableRemindItem
-                  remindMonth={item.date.month}
-                  remindDay={item.date.day}
-                  remindMessage={item.message}
-                  handleChangeRemindMessage={(text: string) => {
-                    setRemindMessage(item.date.month, item.date.day, text);
-                  }}
-                  classNameList={['writable-remind__message__item']}
-                />
-              );
-            })}
-          </div>
-        </>
+      {isFixOptionsModalOpen && (
+        <Modal>
+          <ModalBasic
+            onClickYes={handleModalClickYes}
+            onClickNo={handleModalClickNo}>
+            리마인드 옵션 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
+            확정하시겠습니까 ?
+          </ModalBasic>
+        </Modal>
       )}
-    </div>
+    </>
   );
 }

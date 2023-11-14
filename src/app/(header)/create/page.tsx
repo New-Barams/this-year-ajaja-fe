@@ -12,6 +12,14 @@ type remindOptionType = {
   Time: number;
 };
 
+type remindMessageListType = Array<{
+  date: {
+    month: number;
+    day: number;
+  };
+  message: string;
+}>;
+
 // 로그인 여부 판단해서 로그인 x => 로그인 페이지로 redirect
 // 시즌인지 여부 판단해서 시즌 x => /home으로 redirect?
 
@@ -27,7 +35,7 @@ export default function CreatePage() {
   const [remindOptions, setRemindOptions] = useState<remindOptionType>({
     TotalPeriod: 12,
     Term: 1,
-    Date: 15,
+    Date: 1,
     Time: 9,
   });
 
@@ -52,11 +60,8 @@ export default function CreatePage() {
     console.log('확정 버튼 클릭으로 인한 날짜 변경 ');
   };
 
-  const [remindMessageList, setRemindMessageList] = useState([
-    { date: { month: 3, day: 2 }, message: '1번 리마인드 메세지' },
-    { date: { month: 6, day: 2 }, message: '2번 리마인드 메세지' },
-    { date: { month: 9, day: 2 }, message: '3번 리마인드 메세지' },
-  ]);
+  const [remindMessageList, setRemindMessageList] =
+    useState<remindMessageListType>([]);
 
   // month, day에 해당하는 리마인드 날짜에 대한 message를 업데이트해주는 함수
   const handleChangeRemindMessage = (
@@ -97,7 +102,7 @@ export default function CreatePage() {
   return (
     <div className={classNames('create-page')}>
       <WritableRemind
-        isEditPage={true}
+        isEditPage={false}
         isRemindOn={isRemindOn}
         toggleIsRemindOn={toggleIsRemindOn}
         remindOption={remindOptions}
