@@ -142,7 +142,7 @@ export default function WritableRemindItem({
           </div>
         )}
       </div>
-      {isSameMessageModalOpen && isSameMessageChecked === false && (
+      {isSameMessageModalOpen && !isSameMessageChecked && (
         <Modal>
           <ModalBasic
             onClickYes={handleModalClickYes}
