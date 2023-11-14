@@ -1,6 +1,6 @@
 'use client';
 
-import { Dropdown, IconSwitchButton } from '@/components';
+import { Button, Dropdown, IconSwitchButton } from '@/components';
 import classNames from 'classnames';
 import React from 'react';
 import WritableRemindItem from '../../RemindItem/WritableRemindItem/WritableRemindItem';
@@ -32,10 +32,6 @@ interface WritableRemindProps {
   setRemindMessage: (month: number, day: number, newMessage: string) => void; // date에 해당하는 리마인드 메세지를 newMessage로 업데이트해주는 함수
   makeAllRemindMessageSame: () => void; // 모든 리마인드 메세지 동일하게 만드는 함수
 }
-
-// 리마인드 컴포넌트 내 자체적으로 가지고 있어야 할 것들
-// 4개 옵션 배열
-// 날짜 계산 함수 => {month: number, day: number} 객체를 여러개 가지고 있는 배열을 리턴해주는 함수 ?
 
 const TOTAL_PERIOD_OPTIONS = [
   { value: 12, name: '1년' },
@@ -76,20 +72,22 @@ export default function WritableRemind({
   return (
     <div className={classNames('remind-item')}>
       {isEditPage ? (
-        <div className={classNames('edit-page__title')}>
-          <span className={classNames('edit-page__title__text')}>리마인드</span>
+        <div className={classNames('remind-item--edit')}>
+          <span className={classNames('remind-item--edit__title')}>
+            리마인드
+          </span>
           <IconSwitchButton
             onIconName="NOTIFICATION_ON"
             offIconName="NOTIFICATION_OFF"
             onClick={toggleIsRemindOn!}
             isActive={isRemindOn!}
           />
-          <span className={classNames('edit-page__title__remind-on')}>
+          <span className={classNames('remind-item--edit__toggle')}>
             {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
           </span>
         </div>
       ) : (
-        <div className={classNames('create-page__title')}>
+        <div className={classNames('remind-item--create__title')}>
           언제 리마인드 받고 싶나요?
         </div>
       )}
@@ -126,9 +124,17 @@ export default function WritableRemind({
           }}
         />
         <span>에 리마인드를 받을래요 !</span>
-        <button className={classNames('remind-options__change-button')}>
+
+        <Button
+          background="primary"
+          color="white-100"
+          size="sm"
+          border={false}
+          onClick={() => {
+            console.log('모달 연결');
+          }}>
           확정
-        </button>
+        </Button>
       </div>
 
       {remindMessageList.length !== 0 && ( // 메세지가 없을 때는 리스트 렌더링 x
@@ -147,6 +153,7 @@ export default function WritableRemind({
                     setRemindMessage(item.date.month, item.date.day, text);
                   }}
                   makeAllRemindMessageSame={makeAllRemindMessageSame}
+                  classNameList={['remind__message__item']}
                 />
               ) : (
                 <WritableRemindItem
@@ -156,6 +163,7 @@ export default function WritableRemind({
                   handleChangeRemindMessage={(text: string) => {
                     setRemindMessage(item.date.month, item.date.day, text);
                   }}
+                  classNameList={['remind__message__item']}
                 />
               );
             })}
