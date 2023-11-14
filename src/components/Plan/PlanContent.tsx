@@ -7,10 +7,12 @@ import './index.scss';
 interface PlanContentProps {
   editable: boolean;
   plan: Plan;
+  inputTagValue: string;
   tags: string[];
   onChangeTitle: () => void;
   onChangeContent: () => void;
-  onInputTagSubmit: (tagContent: string) => void;
+  onChangeInputTag: (value: string) => void;
+  onInputTagSubmit: () => void;
   removeTag: (tagIndex: number) => void;
 }
 interface Plan {
@@ -24,7 +26,9 @@ export default function PlanContent({
   tags,
   onChangeTitle,
   onChangeContent,
+  onChangeInputTag,
   onInputTagSubmit,
+  inputTagValue,
   removeTag,
 }: PlanContentProps) {
   const color: Color[] = [
@@ -53,7 +57,13 @@ export default function PlanContent({
         editable={editable}
       />
       <div className="planContent__tags">
-        {editable && <InputTag onSubmit={onInputTagSubmit} />}
+        {editable && (
+          <InputTag
+            onSubmit={onInputTagSubmit}
+            inputValue={inputTagValue}
+            onChange={onChangeInputTag}
+          />
+        )}
         {tags.map((tag, index) => (
           <Tag
             key={index}
