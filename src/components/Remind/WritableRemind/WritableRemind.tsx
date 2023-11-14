@@ -70,10 +70,10 @@ export default function WritableRemind({
   makeAllRemindMessageSame,
 }: WritableRemindProps) {
   return (
-    <div className={classNames('remind-item')}>
+    <div className={classNames('writable-remind')}>
       {isEditPage ? (
-        <div className={classNames('remind-item--edit')}>
-          <span className={classNames('remind-item--edit__title')}>
+        <div className={classNames('writable-remind--edit')}>
+          <span className={classNames('writable-remind--edit__title')}>
             리마인드
           </span>
           <IconSwitchButton
@@ -82,39 +82,46 @@ export default function WritableRemind({
             onClick={toggleIsRemindOn!}
             isActive={isRemindOn!}
           />
-          <span className={classNames('remind-item--edit__toggle')}>
+          <span className={classNames('writable-remind--edit__toggle')}>
             {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
           </span>
         </div>
       ) : (
-        <div className={classNames('remind-item--create__title')}>
+        <div className={classNames('writable-remind--create__title')}>
           언제 리마인드 받고 싶나요?
         </div>
       )}
 
-      <div className={classNames('remind-options')}>
+      <div className={classNames('writable-remind__options')}>
         <Dropdown
           options={TOTAL_PERIOD_OPTIONS}
           selectedValue={remindOption.TotalPeriod}
           setSelectedValue={(newSelectedValue: number) => {
             setRemindOption('TotalPeriod', newSelectedValue);
           }}
+          classNameList={['writable-remind__options__dropdown']}
         />
-        <span>동안</span>
+        <span className={classNames('writable-remind--options__text')}>
+          동안
+        </span>
         <Dropdown
           options={TERM_OPTIONS}
           selectedValue={remindOption.Term}
           setSelectedValue={(newSelectedValue: number) => {
             setRemindOption('Term', newSelectedValue);
           }}
+          classNameList={['writable-remind__options__dropdown']}
         />
-        <span>마다 매달</span>
+        <span className={classNames('writable-remind--options__text')}>
+          마다 매달
+        </span>
         <Dropdown
           options={DATE_OPTIONS}
           selectedValue={remindOption.Date}
           setSelectedValue={(newSelectedValue: number) => {
             setRemindOption('Date', newSelectedValue);
           }}
+          classNameList={['writable-remind__options__dropdown']}
         />
         <Dropdown
           options={TIME_OPTIONS}
@@ -122,8 +129,11 @@ export default function WritableRemind({
           setSelectedValue={(newSelectedValue: number) => {
             setRemindOption('Time', newSelectedValue);
           }}
+          classNameList={['writable-remind__options__dropdown']}
         />
-        <span>에 리마인드를 받을래요 !</span>
+        <span className={classNames('writable-remind--options__text')}>
+          에 리마인드를 받을래요 !
+        </span>
 
         <Button
           background="primary"
@@ -139,10 +149,10 @@ export default function WritableRemind({
 
       {remindMessageList.length !== 0 && ( // 메세지가 없을 때는 리스트 렌더링 x
         <>
-          <div className={classNames('remind__message__title')}>
+          <div className={classNames('writable-remind__message__title')}>
             리마인드 메세지를 작성해주세요 !
           </div>
-          <div className={classNames('remind__message__list')}>
+          <div className={classNames('writable-remind__message__list')}>
             {remindMessageList.map((item, index) => {
               return index === 0 ? ( // 첫 번째 아이템만 동일한 메세지 체크박스 렌더링 해줘야 함
                 <WritableRemindItem
@@ -153,7 +163,7 @@ export default function WritableRemind({
                     setRemindMessage(item.date.month, item.date.day, text);
                   }}
                   makeAllRemindMessageSame={makeAllRemindMessageSame}
-                  classNameList={['remind__message__item']}
+                  classNameList={['writable-remind__message__item']}
                 />
               ) : (
                 <WritableRemindItem
@@ -163,7 +173,7 @@ export default function WritableRemind({
                   handleChangeRemindMessage={(text: string) => {
                     setRemindMessage(item.date.month, item.date.day, text);
                   }}
-                  classNameList={['remind__message__item']}
+                  classNameList={['writable-remind__message__item']}
                 />
               );
             })}

@@ -1,7 +1,9 @@
 'use client';
 
 import { WritableRemind } from '@/components';
+import classNames from 'classnames';
 import { useState } from 'react';
+import './index.scss';
 
 type remindOptionType = {
   TotalPeriod: number;
@@ -9,6 +11,9 @@ type remindOptionType = {
   Date: number;
   Time: number;
 };
+
+// 로그인 여부 판단해서 로그인 x => 로그인 페이지로 redirect
+// 시즌인지 여부 판단해서 시즌 x => /home으로 redirect?
 
 export default function CreatePage() {
   // 리마인드 알림 여부 state => 원래는 서버에서 받아올 것
@@ -90,16 +95,18 @@ export default function CreatePage() {
   };
 
   return (
-    <WritableRemind
-      isEditPage={true}
-      isRemindOn={isRemindOn}
-      toggleIsRemindOn={toggleIsRemindOn}
-      remindOption={remindOptions}
-      setRemindOption={handleChangeRemindOption}
-      fixRemindOptions={fixRemindOptions}
-      remindMessageList={remindMessageList}
-      setRemindMessage={handleChangeRemindMessage}
-      makeAllRemindMessageSame={makeAllRemindMessageSame}
-    />
+    <div className={classNames('create-page')}>
+      <WritableRemind
+        isEditPage={true}
+        isRemindOn={isRemindOn}
+        toggleIsRemindOn={toggleIsRemindOn}
+        remindOption={remindOptions}
+        setRemindOption={handleChangeRemindOption}
+        fixRemindOptions={fixRemindOptions}
+        remindMessageList={remindMessageList}
+        setRemindMessage={handleChangeRemindMessage}
+        makeAllRemindMessageSame={makeAllRemindMessageSame}
+      />
+    </div>
   );
 }
