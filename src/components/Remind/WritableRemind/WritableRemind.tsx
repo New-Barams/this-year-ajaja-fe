@@ -18,8 +18,6 @@ interface remindOptionType {
   Date: number;
   Time: number;
 }
-
-type remindMessageListType = remindItemType[];
 interface remindItemType {
   date: {
     month: number;
@@ -29,22 +27,21 @@ interface remindItemType {
 }
 
 interface WritableRemindProps {
-  isEditPage: boolean; // 계획 수정 페이지인지 여부 => 아니면 생성 페이지일 것임
-  isRemindOn?: boolean; // 수정 페이지인경우에만 전달
-  toggleIsRemindOn?: () => void; // 수정 페이지인경우에만 전달
-  remindOption: remindOptionType; // 4개의 리마인드 옵션이 한 객체에 정의되어있음
-  setRemindOption: (optionKey: string, newOptionValue: number) => void; // remindOption 객체 안 특정 키에 대한 value를 업데이트
-  fixRemindOptions: () => void; // 확정 버튼 클릭 후 모달 클릭 시, 리마인드 옵션 4개에 따라 remindMessageList를 새로 다 설정해주는 함수
-  remindMessageList: remindMessageListType;
-  setRemindMessage: (month: number, day: number, newMessage: string) => void; // date에 해당하는 리마인드 메세지를 newMessage로 업데이트해주는 함수
-  makeAllRemindMessageSame: () => void; // 모든 리마인드 메세지 동일하게 만드는 함수
+  isEditPage: boolean;
+  isRemindOn?: boolean;
+  toggleIsRemindOn?: () => void;
+  remindOption: remindOptionType;
+  setRemindOption: (optionKey: string, newOptionValue: number) => void;
+  fixRemindOptions: () => void;
+  remindMessageList: remindItemType[];
+  setRemindMessage: (month: number, day: number, newMessage: string) => void;
+  makeAllRemindMessageSame: () => void;
 }
 
 const TOTAL_PERIOD_OPTIONS = [
   { value: 12, name: '1년' },
   { value: 6, name: '6개월' },
   { value: 3, name: '3개월' },
-  { value: 1, name: '1개월' },
 ];
 
 const TERM_OPTIONS = [
@@ -63,9 +60,8 @@ const TIME_OPTIONS = [
   { value: 9, name: '9:00시' },
   { value: 13, name: '13:00시' },
   { value: 20, name: '20:00시' },
-]; // 나중에 이를 서버에 전송할 때는 9 => "morning" 이런식으로 바꿔주는 함수 필요
+];
 
-// 계획 작성 페이지, 계획 수정 페이지에서 사용되는 리마인드 컴포넌트
 export default function WritableRemind({
   isEditPage,
   isRemindOn,
@@ -89,7 +85,6 @@ export default function WritableRemind({
   };
 
   const filteredTermOptions = useMemo(() => {
-    console.log('period 변경 => 선택 가능한 term 변경');
     return TERM_OPTIONS.filter(
       (option) => option.value <= remindOption.TotalPeriod,
     );
@@ -180,14 +175,14 @@ export default function WritableRemind({
           </Button>
         </div>
 
-        {remindMessageList.length !== 0 && ( // 메세지가 없을 때는 리스트 렌더링 x
+        {remindMessageList.length !== 0 && (
           <>
             <div className={classNames('writable-remind__message__title')}>
               리마인드 메세지를 작성해주세요 !
             </div>
             <div className={classNames('writable-remind__message__list')}>
               {remindMessageList.map((item, index) => {
-                return index === 0 ? ( // 첫 번째 아이템만 동일한 메세지 체크박스 렌더링 해줘야 함
+                return index === 0 ? (
                   <WritableRemindItem
                     key={index}
                     remindMonth={item.date.month}

@@ -65,7 +65,7 @@ export default function WritableRemindItem({
     if (isFirstRemindItem && isSameMessageChecked) {
       makeAllRemindMessageSame!();
     }
-  }, [isFirstRemindItem, isSameMessageChecked, makeAllRemindMessageSame]);
+  }, [isFirstRemindItem, isSameMessageChecked]);
 
   return (
     <>
