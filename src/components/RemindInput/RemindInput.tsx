@@ -6,9 +6,9 @@ import './index.scss';
 
 interface RemindInputProps {
   textInput: string;
-  onChangeInput: (text: string) => void;
-  placeholder: string;
-  maxLength: number;
+  onChangeInput?: (text: string) => void;
+  placeholder?: string;
+  maxLength?: number;
   editable?: boolean;
 }
 
@@ -20,18 +20,25 @@ export default function RemindInput({
   editable = false,
 }: RemindInputProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    if (event.target.value.length <= maxLength) {
+    if (maxLength && onChangeInput && event.target.value.length <= maxLength) {
       onChangeInput(event.target.value);
     }
   };
 
-  return (
+  return editable ? (
     <textarea
       id="remindInput"
-      readOnly={!editable}
+      readOnly={false}
       value={textInput}
       onChange={handleChangeInput}
       placeholder={placeholder}
+      className={classNames('remindInput')}
+    />
+  ) : (
+    <textarea
+      id="remindInput"
+      readOnly={true}
+      value={textInput}
       className={classNames('remindInput')}
     />
   );
