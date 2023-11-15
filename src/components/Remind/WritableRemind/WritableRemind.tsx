@@ -6,10 +6,10 @@ import {
   IconSwitchButton,
   Modal,
   ModalBasic,
+  WritableRemindItem,
 } from '@/components';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import WritableRemindItem from '../../RemindItem/WritableRemindItem/WritableRemindItem';
 import './index.scss';
 
 type remindMessageListType = Array<{
