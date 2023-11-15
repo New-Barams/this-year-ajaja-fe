@@ -11,6 +11,7 @@ interface WritableRemindItemProps {
   remindMessage: string;
   handleChangeRemindMessage: (text: string) => void;
   makeAllRemindMessageSame?: () => void;
+  classNameList?: string[];
 }
 
 const MAX_REMIND_MESSAGE_LENGTH = 255;
@@ -21,6 +22,7 @@ export default function WritableRemindItem({
   remindMessage,
   handleChangeRemindMessage,
   makeAllRemindMessageSame,
+  classNameList = [],
 }: WritableRemindItemProps) {
   const isRemindMessageEmpty = useMemo(() => {
     return remindMessage.length === 0;
@@ -63,11 +65,11 @@ export default function WritableRemindItem({
     if (isFirstRemindItem && isSameMessageChecked) {
       makeAllRemindMessageSame!();
     }
-  }, [isFirstRemindItem, isSameMessageChecked, makeAllRemindMessageSame]);
+  }, [isFirstRemindItem, isSameMessageChecked]);
 
   return (
     <>
-      <div className="remind-item">
+      <div className={classNames('remind-item', classNameList)}>
         <div
           className="remind-item__header"
           onClick={handleClickToggleIsItemOpened}>

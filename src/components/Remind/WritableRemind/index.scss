@@ -1,0 +1,59 @@
+.writable-remind {
+  display: flex;
+  flex-direction: column;
+
+  &--edit {
+    display: flex;
+    align-items: center;
+
+    &__title {
+      font-size: 2rem;
+      line-height: 2rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    &__toggle {
+      margin-left: 0.5rem;
+      font-size: 0.625rem;
+      color: var(--origin-gray-200);
+    }
+  }
+
+  &--create__title {
+    font-size: 2rem;
+  }
+}
+
+.writable-remind__options {
+  display: flex;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  align-items: center;
+  gap: 1rem;
+
+  &__text{
+    margin-left: 1rem;
+  }
+
+  &__change-button {
+  }
+}
+
+.writable-remind__message {
+  &__title {
+    font-size: 1.5rem;
+    margin-top: 1.75rem;
+  }
+
+  &__list {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__item {
+  }
+}

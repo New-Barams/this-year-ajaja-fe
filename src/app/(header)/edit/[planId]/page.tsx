@@ -20,7 +20,12 @@ interface remindItemType {
   message: string;
 }
 
-export default function CreatePage() {
+export default function EditPage() {
+  const [isRemindOn, setIsRemindOn] = useState(true);
+  const toggleIsRemindOn = () => {
+    setIsRemindOn(!isRemindOn);
+  };
+
   const [remindOptions, setRemindOptions] = useState<remindOptionType>({
     TotalPeriod: 12,
     Term: 1,
@@ -92,9 +97,11 @@ export default function CreatePage() {
   }, [remindMessageList]);
 
   return (
-    <div className={classNames('create-page')}>
+    <div className={classNames('edit-page')}>
       <WritableRemind
-        isEditPage={false}
+        isEditPage={true}
+        isRemindOn={isRemindOn}
+        toggleIsRemindOn={toggleIsRemindOn}
         remindOption={remindOptions}
         setRemindOption={handleChangeRemindOption}
         fixRemindOptions={fixRemindOptions}
