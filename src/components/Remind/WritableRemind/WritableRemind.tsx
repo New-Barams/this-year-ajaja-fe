@@ -12,20 +12,21 @@ import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import './index.scss';
 
-type remindMessageListType = Array<{
+interface remindOptionType {
+  TotalPeriod: number;
+  Term: number;
+  Date: number;
+  Time: number;
+}
+
+type remindMessageListType = remindItemType[];
+interface remindItemType {
   date: {
     month: number;
     day: number;
   };
   message: string;
-}>;
-
-type remindOptionType = {
-  TotalPeriod: number;
-  Term: number;
-  Date: number;
-  Time: number;
-};
+}
 
 interface WritableRemindProps {
   isEditPage: boolean; // 계획 수정 페이지인지 여부 => 아니면 생성 페이지일 것임
@@ -86,10 +87,6 @@ export default function WritableRemind({
   const handleModalClickNo = () => {
     setIsFixOptionsModalOpen(false);
   };
-
-  // const selectedPeriod = useMemo(() => {
-  //   return remindOption.TotalPeriod;
-  // }, [remindOption.TotalPeriod]);
 
   const filteredTermOptions = useMemo(() => {
     console.log('period 변경 => 선택 가능한 term 변경');
@@ -192,6 +189,7 @@ export default function WritableRemind({
               {remindMessageList.map((item, index) => {
                 return index === 0 ? ( // 첫 번째 아이템만 동일한 메세지 체크박스 렌더링 해줘야 함
                   <WritableRemindItem
+                    key={index}
                     remindMonth={item.date.month}
                     remindDay={item.date.day}
                     remindMessage={item.message}
@@ -203,6 +201,7 @@ export default function WritableRemind({
                   />
                 ) : (
                   <WritableRemindItem
+                    key={index}
                     remindMonth={item.date.month}
                     remindDay={item.date.day}
                     remindMessage={item.message}

@@ -1,37 +1,34 @@
 'use client';
 
 import { WritableRemind } from '@/components';
+import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import { useState } from 'react';
 import './index.scss';
 
-type remindOptionType = {
+interface remindOptionType {
   TotalPeriod: number;
   Term: number;
   Date: number;
   Time: number;
-};
+}
 
-type remindMessageListType = Array<{
+type remindMessageListType = remindItemType[];
+interface remindItemType {
   date: {
     month: number;
     day: number;
   };
   message: string;
-}>;
-
-// 로그인 여부 판단해서 로그인 x => 로그인 페이지로 redirect
-// 시즌인지 여부 판단해서 시즌 x => /home으로 redirect?
+}
 
 export default function CreatePage() {
-  // 리마인드 알림 여부 state => 원래는 서버에서 받아올 것
   const [isRemindOn, setIsRemindOn] = useState(true);
   const toggleIsRemindOn = () => {
     setIsRemindOn(!isRemindOn);
     console.log('리마인드 알림 여부 toggle');
   };
 
-  // 리마인드 옵션 4개 => 기본값은 서버에서 받아올 것
   const [remindOptions, setRemindOptions] = useState<remindOptionType>({
     TotalPeriod: 12,
     Term: 1,
@@ -40,7 +37,6 @@ export default function CreatePage() {
   });
 
   const handleChangeRemindOption = (
-    // 솔직히 이거 근데 잘 될지 모르겠음
     optionKey: string,
     newOptionValue: number,
   ) => {
@@ -57,6 +53,24 @@ export default function CreatePage() {
     // 1. 현재 remindOption 4개를 기반으로 새로운 리마인드 받는 특정 날짜 배열 생성
     // 2. 각 날짜에 대한 메세지 값을 빈 string ""로 설정
     // 3. 이렇게 만들어진 배열로 update
+    const fixedRemindDate = decideRemindDate(
+      remindOptions.TotalPeriod,
+      remindOptions.Term,
+      remindOptions.Date,
+    );
+
+    const newRemindMessageList: remindMessageListType = [];
+    fixedRemindDate?.forEach((newDate) => {
+      newRemindMessageList.push({
+        date: {
+          month: newDate.month,
+          day: newDate.day,
+        },
+        message: '',
+      });
+    });
+
+    setRemindMessageList(newRemindMessageList);
     console.log('확정 버튼 클릭으로 인한 날짜 변경 ');
   };
 
