@@ -1,0 +1,26 @@
+.home {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+
+    &-dropdown {
+      height: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &--year {
+      margin: 0.5rem;
+    }
+  }
+  &__plans {
+    display: grid;
+    align-items: center;
+    grid-template-rows: repeat(2, 17.5rem);
+    grid-template-columns: repeat(2, 20rem);
+  }
+}
