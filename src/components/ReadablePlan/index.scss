@@ -1,0 +1,25 @@
+.readablePlan {
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+  &__header,
+  &__bottom {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    &::after {
+      content: '';
+      color: var(--origin-gray-200);
+      font-size: 0.7rem;
+    }
+  }
+  &__header::after {
+    content: '계획 공개';
+  }
+  &__bottom::after {
+    content: '월요일 18:00 마다 \A 응원 메시지 알림 활성화';
+    white-space: pre;
+    display: inline;
+    text-align: center;
+  }
+}

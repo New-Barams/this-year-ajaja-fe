@@ -15,11 +15,11 @@ interface PlanBasic {
   onSubmitInputTag?: () => void;
   removeTag?: (id: number) => void;
 }
-type Plan = {
+export type Plan = {
   title: string;
   description: string;
 };
-type Tag = {
+export type Tag = {
   id: number;
   text: string;
 };
@@ -67,7 +67,7 @@ export default function PlanBasic({
             onChange={onChangeInputTag ? onChangeInputTag : () => {}}
           />
         )}
-        {tagList.map((tag, index) => (
+        {tagList.slice(0, 5).map((tag, index) => (
           <Tag
             key={tag.id}
             color={color[index % 5]}
