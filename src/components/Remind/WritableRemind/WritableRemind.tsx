@@ -9,7 +9,7 @@ import {
   WritableRemindItem,
 } from '@/components';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './index.scss';
 
 type remindMessageListType = Array<{
@@ -87,6 +87,23 @@ export default function WritableRemind({
     setIsFixOptionsModalOpen(false);
   };
 
+  // const selectedPeriod = useMemo(() => {
+  //   return remindOption.TotalPeriod;
+  // }, [remindOption.TotalPeriod]);
+
+  const filteredTermOptions = useMemo(() => {
+    console.log('period 변경 => 선택 가능한 term 변경');
+    return TERM_OPTIONS.filter(
+      (option) => option.value <= remindOption.TotalPeriod,
+    );
+  }, [remindOption.TotalPeriod]);
+
+  useEffect(() => {
+    if (remindOption.Term > remindOption.TotalPeriod) {
+      setRemindOption('Term', 1);
+    }
+  }, [remindOption.TotalPeriod, remindOption.Term, setRemindOption]);
+
   return (
     <>
       <div className={classNames('writable-remind')}>
@@ -124,7 +141,7 @@ export default function WritableRemind({
             동안
           </span>
           <Dropdown
-            options={TERM_OPTIONS}
+            options={filteredTermOptions}
             selectedValue={remindOption.Term}
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Term', newSelectedValue);
