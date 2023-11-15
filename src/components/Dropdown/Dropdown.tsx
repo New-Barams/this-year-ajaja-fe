@@ -54,7 +54,7 @@ export default function Dropdown({
         checked={isDropdownOpened}
       />
       <label
-        className="dropdown__label"
+        className={classNames('dropdown__label', 'background-origin-white-100')}
         htmlFor="dropdown"
         onClick={handleClickLabel}>
         <div className="dropdown__label__text">
@@ -68,7 +68,11 @@ export default function Dropdown({
         />
       </label>
 
-      <div className="dropdown__content">
+      <div
+        className={classNames(
+          'dropdown__content',
+          'background-origin-white-100',
+        )}>
         <ul className="dropdown__content__list">
           {options.map((option) => {
             return (
