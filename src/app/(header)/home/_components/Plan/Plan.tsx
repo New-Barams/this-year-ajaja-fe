@@ -26,9 +26,9 @@ export default function Plan({ title, achieveRate, icon }: PlanProps) {
 }
 
 const achieveColorChange = (achieveRate: number) => {
-  if (33 < achieveRate) {
+  if (33 < achieveRate && achieveRate < 67) {
     return 'orange-300';
-  } else if (achieveRate < 67) {
+  } else if (67 <= achieveRate) {
     return 'green-300';
   }
   return 'primary';
