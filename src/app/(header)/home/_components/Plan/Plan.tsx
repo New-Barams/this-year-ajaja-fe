@@ -1,4 +1,5 @@
 import { Icon, Tag } from '@/components';
+import { planIcons } from '@/constants/planIcons';
 import { Color } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
@@ -10,13 +11,12 @@ type PlanProps = {
 };
 
 export default function Plan({ title, achieveRate, icon }: PlanProps) {
-  console.log(icon);
   const achieveColor: Color = achieveColorChange(achieveRate);
 
   return (
     <div className={classNames('plan__wrapper')}>
       <div className={classNames('plan__wrapper--icon')}>
-        <Icon name="AJAJA" size="9xl" color="orange-300" />
+        <Icon name={planIcons[icon]} size="9xl" color="orange-300" />
       </div>
       <p>{title}</p>
       <Tag color={achieveColor}>달성률: {achieveRate}%</Tag>
