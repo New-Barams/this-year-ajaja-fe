@@ -1,3 +1,5 @@
+'use client';
+
 import { IconSwitchButton, ReadOnlyRemindItem } from '@/components';
 import { ReadOnlyRemindType, RemindOptionsTypes } from '@/types/Remind';
 import classNames from 'classnames';
@@ -9,6 +11,7 @@ import {
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
 } from './../constants/remindOptions';
+import './index.scss';
 
 interface ReadOnlyRemindProps {
   data: ReadOnlyRemindType;
@@ -49,7 +52,9 @@ export default function ReadOnlyRemind({ data }: ReadOnlyRemindProps) {
         <IconSwitchButton
           onIconName="NOTIFICATION_ON"
           offIconName="NOTIFICATION_OFF"
-          onClick={toggleIsRemindOn(true)!}
+          onClick={() => {
+            toggleIsRemindOn(true);
+          }}
           isActive={isRemindOn!}
         />
         <span className={classNames('readonly-remind__header__toggle')}>
@@ -58,27 +63,25 @@ export default function ReadOnlyRemind({ data }: ReadOnlyRemindProps) {
       </div>
 
       <div className={classNames('readonly-remind__options')}>
-        <span className={classNames('readonly-remind--options__option')}>
+        <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(TOTAL_PERIOD_OPTIONS, remindTotalPeriod)}
         </span>
-        <span className={classNames('readonly-remind--options__text')}>
+        <span className={classNames('readonly-remind__options__text')}>
           동안
         </span>
 
-        <span className={classNames('readonly-remind--options__option')}>
+        <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(TERM_OPTIONS, remindTerm)}
         </span>
-        <span className={classNames('readonly-remind--options__text')}>
-          마다 매달
-        </span>
+        <span>마다 매달</span>
 
-        <span className={classNames('readonly-remind--options__option')}>
+        <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(DATE_OPTIONS, remindDate)}
         </span>
-        <span className={classNames('readonly-remind--options__option')}>
+        <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(TIME_OPTIONS, remindTime)}
         </span>
-        <span className={classNames('readonly-remind--options__text')}>
+        <span className={classNames('readonly-remind__options__text')}>
           에 리마인드를 받고 있어요 !
         </span>
       </div>
@@ -86,7 +89,13 @@ export default function ReadOnlyRemind({ data }: ReadOnlyRemindProps) {
       {remindMessageList.length !== 0 && (
         <ul className={classNames('readonly-remind__message__list')}>
           {remindMessageList.map((item, index) => {
-            return <ReadOnlyRemindItem key={index} data={item} />;
+            return (
+              <ReadOnlyRemindItem
+                key={index}
+                data={item}
+                classNameList={['readonly-remind__message__item']}
+              />
+            );
           })}
         </ul>
       )}
