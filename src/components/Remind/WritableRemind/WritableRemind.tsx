@@ -111,7 +111,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             동안
           </span>
           <Dropdown
@@ -122,7 +122,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             마다 매달
           </span>
           <Dropdown
@@ -141,7 +141,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             에 리마인드를 받을래요 !
           </span>
 
