@@ -9,6 +9,7 @@ import './_components/index.scss';
 export default async function HomePage() {
   // const { data } = await getMyPlans('1');
   // console.log(data.getPlanList);
+  const maxLength = 4;
   const getPlanList = [
     { title: '매일 운동하기', isRemindable: true, achieveRate: 90, icon: 1 },
     { title: '매일 코딩하기', isRemindable: true, achieveRate: 60, icon: 2 },
@@ -33,25 +34,19 @@ export default async function HomePage() {
           전체 달성률 : {50}%
         </div>
         <div className={classNames('home__plans')}>
-          {(() => {
-            const planElements = [];
-            for (let i = 0; i < 4; i++) {
-              const x = getPlanList[i];
-              planElements.push(
-                x ? (
-                  <Plan
-                    key={i}
-                    title={x.title}
-                    achieveRate={x.achieveRate}
-                    icon={x.icon}
-                  />
-                ) : (
-                  <NewPlan />
-                ),
-              );
-            }
-            return planElements;
-          })()}
+          {getPlanList.map((plan, index) => {
+            return (
+              <Plan
+                key={index}
+                title={plan.title}
+                achieveRate={plan.achieveRate}
+                icon={plan.icon}
+              />
+            );
+          })}
+          {Array.from({ length: maxLength - getPlanList.length }, (_, i) => {
+            return <NewPlan key={i} />;
+          })}
         </div>
       </div>
     </>
