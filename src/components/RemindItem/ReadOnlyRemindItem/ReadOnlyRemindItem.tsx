@@ -81,7 +81,7 @@ export default function ReadOnlyRemindItem({
           <div className="readonly-item__side">
             {isReminded && (
               <CircleProgressBar
-                isFeedbackDone={isFeedback! || isExpired}
+                isFeedbackDone={isFeedback! || isExpired!}
                 percent={rate}
                 onClick={handleClickFeedBack}
               />
