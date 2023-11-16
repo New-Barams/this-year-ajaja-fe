@@ -28,7 +28,7 @@ const achieveColorChange = (achieveRate: number) => {
   if (33 < achieveRate) {
     return 'orange-300';
   } else if (achieveRate < 67) {
-    return 'gray-300';
+    return 'green-300';
   }
   return 'primary';
 };
