@@ -13,10 +13,10 @@ interface BasicPlanProps {
   canAjaja: boolean;
   onToggleCanAjaja: () => void;
   inputTagValue?: string;
-  onChangInputTag?: () => void;
+  onChangInputTag?: (text: string) => void;
   onSubmitInputTag?: () => void;
-  onChangePlanTitle?: () => void;
-  onChangePlanDescription?: () => void;
+  onChangePlanTitle?: (text: string) => void;
+  onChangePlanDescription?: (text: string) => void;
   onClickTag?: (id: string) => void;
 }
 export default function BasicPlan({
