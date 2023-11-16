@@ -1,7 +1,8 @@
 'use client';
 
 import { Icon } from '@/components';
-import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+import React, { useRef, useState } from 'react';
 import './index.scss';
 
 type optionsType = {
@@ -13,32 +14,17 @@ interface DropdownProps {
   options: optionsType[];
   selectedValue: number;
   setSelectedValue: (newSelectedValue: number) => void;
+  classNameList?: string[];
 }
 
 export default function Dropdown({
   options,
   selectedValue,
   setSelectedValue,
+  classNameList = [],
 }: DropdownProps) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const backgroundRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        backgroundRef.current &&
-        !backgroundRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpened(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   const handleClickLabel = () => {
     setIsDropdownOpened(!isDropdownOpened);
@@ -58,7 +44,9 @@ export default function Dropdown({
   };
 
   return (
-    <div className="dropdown__container" ref={backgroundRef}>
+    <div
+      className={classNames('dropdown__container', classNameList)}
+      ref={backgroundRef}>
       <input
         id="dropdown"
         className="dropdown__checkbox"
@@ -66,7 +54,7 @@ export default function Dropdown({
         checked={isDropdownOpened}
       />
       <label
-        className="dropdown__label"
+        className={classNames('dropdown__label', 'background-origin-white-100')}
         htmlFor="dropdown"
         onClick={handleClickLabel}>
         <div className="dropdown__label__text">
@@ -80,7 +68,11 @@ export default function Dropdown({
         />
       </label>
 
-      <div className="dropdown__content">
+      <div
+        className={classNames(
+          'dropdown__content',
+          'background-origin-white-100',
+        )}>
         <ul className="dropdown__content__list">
           {options.map((option) => {
             return (

@@ -1,6 +1,9 @@
 .dropdown {
   &__container {
     width: 10rem;
+    position: relative;
+    z-index: 10;
+    background-color: transparent;
   }
 
   &__checkbox {
@@ -38,11 +41,11 @@
   }
 
   &__content {
+    font-size: 1rem;
     display: none;
     position: absolute;
     width: 100%;
     left: 0;
-    background: white;
 
     &__list {
       border: var(--border-width) solid var(--origin-primary);
@@ -65,10 +68,6 @@
         background-color: var(--origin-primary);
       }
     }
-  }
-
-  &__container {
-    position: absolute;
   }
 }
 
