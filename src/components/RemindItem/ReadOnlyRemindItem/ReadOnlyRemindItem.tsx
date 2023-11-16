@@ -2,37 +2,34 @@
 
 import { Icon, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
+import { ReadOnlyRemindItemType } from '@/types/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import './index.scss';
 
 interface ReadOnlyRemindItemProps {
-  remindMonth: number;
-  remindDay: number;
-  remindMessage: string;
-  isReminded?: boolean; // 리마인드 받았는지 여부
-  isFeedback?: boolean; // 피드백 했는지 여부
-  feedbackId?: number;
-  rate?: number;
-  isExpired?: boolean; // 피드백 기간 만료되었는지 여부
-  expireDate?: string;
+  data: ReadOnlyRemindItemType;
   classNameList?: string[];
 }
 
 export default function ReadOnlyRemindItem({
-  remindMonth,
-  remindDay,
-  remindMessage,
-  isReminded = false, // 시즌아닐 때는 안 넘겨질텐데 리마인드 안 받은 것이므로 false가 기본값
-  isFeedback = false,
-  feedbackId,
-  rate = 0,
-  isExpired = false,
-  expireDate,
+  data,
   classNameList = [],
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
+
+  const {
+    remindMonth,
+    remindDay,
+    remindMessage,
+    isReminded,
+    isFeedback,
+    feedbackId,
+    rate,
+    isExpired,
+    deadLine,
+  } = data;
 
   const canCheckRemindMessage = useMemo(() => {
     // 시즌O || 시즌X && 리마인드 받음o 일때만 리마인드 메세지 확인 가능
@@ -52,12 +49,12 @@ export default function ReadOnlyRemindItem({
     if (!isExpired && !isFeedback) {
       console.log(`${feedbackId}에 대한 피드백 평가 모달 띄우기`);
     }
-    event.stopPropagation(); // item 토글 안 되도록
+    event.stopPropagation(); // 상위 요소에 대한 onClick handler인 item 토글시키는 동작 안 되도록
   };
 
   return (
     <>
-      <div className={classNames('readonly-item', classNameList)}>
+      <li className={classNames('readonly-item', classNameList)}>
         <div className="readonly-item__header" onClick={toggleIsItemOpened}>
           {isReminded && !isFeedback && !isExpired && (
             <div
@@ -71,7 +68,7 @@ export default function ReadOnlyRemindItem({
                   'readonly-item__warning__text',
                   'color-origin-white-100',
                 )}>
-                {expireDate}까지 피드백하지 않으면 달성률이 0%로 반영됩니다
+                {deadLine}까지 피드백하지 않으면 달성률이 0%로 반영됩니다
               </span>
             </div>
           )}
@@ -117,7 +114,7 @@ export default function ReadOnlyRemindItem({
             <RemindInput textInput={remindMessage} editable={false} />
           </div>
         )}
-      </div>
+      </li>
     </>
   );
 }
