@@ -12,7 +12,8 @@ interface ReadOnlyRemindItemProps {
   remindDay: number;
   remindMessage: string;
   isReminded?: boolean; // 리마인드 받았는지 여부
-  isFeedbackDone?: boolean; // 피드백 했는지 여부
+  isFeedback?: boolean; // 피드백 했는지 여부
+  feedbackId?: number;
   rate?: number;
   isExpired?: boolean; // 피드백 기간 만료되었는지 여부
   expireDate?: string;
@@ -23,10 +24,11 @@ export default function ReadOnlyRemindItem({
   remindMonth,
   remindDay,
   remindMessage,
-  isReminded,
-  isFeedbackDone,
-  rate,
-  isExpired,
+  isReminded = false, // 시즌아닐 때는 안 넘겨질텐데 리마인드 안 받은 것이므로 false가 기본값
+  isFeedback = false,
+  feedbackId,
+  rate = 0,
+  isExpired = false,
   expireDate,
   classNameList = [],
 }: ReadOnlyRemindItemProps) {
@@ -47,7 +49,9 @@ export default function ReadOnlyRemindItem({
   const handleClickFeedBack = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
-    console.log('피드백 평가 모달 띄우기');
+    if (!isExpired && !isFeedback) {
+      console.log(`${feedbackId}에 대한 피드백 평가 모달 띄우기`);
+    }
     event.stopPropagation(); // item 토글 안 되도록
   };
 
@@ -55,7 +59,7 @@ export default function ReadOnlyRemindItem({
     <>
       <div className={classNames('readonly-item', classNameList)}>
         <div className="readonly-item__header" onClick={toggleIsItemOpened}>
-          {isReminded && !isFeedbackDone && !isExpired && (
+          {isReminded && !isFeedback && !isExpired && (
             <div
               className={classNames(
                 'readonly-item__warning',
@@ -78,10 +82,10 @@ export default function ReadOnlyRemindItem({
           </p>
 
           <div className="readonly-item__side">
-            {!isSeason && isReminded && (
+            {isReminded && (
               <CircleProgressBar
-                isFeedbackDone={isFeedbackDone!}
-                percent={rate} //
+                isFeedbackDone={isFeedback! || isExpired}
+                percent={rate}
                 onClick={handleClickFeedBack}
               />
             )}
