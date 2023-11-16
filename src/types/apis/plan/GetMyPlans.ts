@@ -1,14 +1,17 @@
-export type GetMyPlansResponse = {
+export interface GetMyPlansResponse {
   success: boolean;
-  data: {
-    totalAchieveRate: number;
-    getPlanList: Plan[];
-  };
-};
+  data: YearPlan[];
+}
 
-type Plan = {
+interface Plan {
   title: string;
   isRemindable: boolean;
   achieveRate: number;
   icon: number;
-};
+}
+
+interface YearPlan {
+  year: number;
+  totalAchieveRate: number;
+  getPlanList: Plan[];
+}
