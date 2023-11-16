@@ -4,7 +4,7 @@ import { Color } from '@/types';
 import { InputTag, PlanInput, Tag } from '..';
 import './index.scss';
 
-interface PlanBasic {
+interface PlanBase {
   isEditable: boolean;
   plan: Plan;
   tagList: Tag[];
@@ -13,17 +13,17 @@ interface PlanBasic {
   onChangePlanDescription?: (text: string) => void;
   onChangeInputTag?: (text: string) => void;
   onSubmitInputTag?: () => void;
-  removeTag?: (id: number) => void;
+  onClickTag?: (id: string) => void;
 }
 export type Plan = {
   title: string;
   description: string;
 };
 export type Tag = {
-  id: number;
+  id: string;
   text: string;
 };
-export default function PlanBasic({
+export default function PlanBase({
   isEditable,
   plan,
   tagList,
@@ -32,8 +32,8 @@ export default function PlanBasic({
   inputTagValue = '',
   onChangeInputTag,
   onSubmitInputTag,
-  removeTag,
-}: PlanBasic) {
+  onClickTag,
+}: PlanBase) {
   const color: Color[] = [
     'primary',
     'orange-300',
@@ -42,15 +42,17 @@ export default function PlanBasic({
     'purple-300',
   ];
   return (
-    <div className="planBasic">
+    <div className="planBase">
       <PlanInput
         kind="title"
+        editable={isEditable}
         placeholder={isEditable ? '어떤 계획을 가지고 계신가요?' : ''}
         textInput={plan.title}
         onChangeInput={onChangePlanTitle ? onChangePlanTitle : () => {}}
         maxLength={40}
       />
       <PlanInput
+        editable={isEditable}
         kind="content"
         placeholder={isEditable ? '계획에 대해서 자세히 설명해주세요!' : ''}
         textInput={plan.description}
@@ -59,7 +61,7 @@ export default function PlanBasic({
         }
         maxLength={250}
       />
-      <div className="planBasic__tag">
+      <div className="planBase__tag">
         {isEditable && (
           <InputTag
             inputValue={inputTagValue}
@@ -72,9 +74,9 @@ export default function PlanBasic({
             key={tag.id}
             color={color[index % 5]}
             onClick={
-              removeTag
+              onClickTag
                 ? () => {
-                    removeTag(tag.id);
+                    onClickTag(tag.id);
                   }
                 : undefined
             }>

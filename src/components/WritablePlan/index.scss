@@ -1,0 +1,24 @@
+.writablePlan {
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+  &__header {
+    .help_button {
+      cursor: pointer;
+    }
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    position: relative;
+    .questionMarkIcon {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    &::after {
+      content: '계획 공개';
+      color: var(--origin-gray-200);
+      font-size: 0.7rem;
+    }
+  }
+}

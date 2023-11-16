@@ -26,8 +26,9 @@ export default function InputTag({
   };
   return (
     <Tag color="orange-200" style={style} {...props}>
-      <form onSubmit={handleInputSubmit}>
+      <form className="inputTag" onSubmit={handleInputSubmit}>
         <input
+          className="inputTag__tag"
           type="text"
           placeholder="태그를 입력해주세요"
           value={inputValue}
