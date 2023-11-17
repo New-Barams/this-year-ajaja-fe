@@ -2,8 +2,10 @@
 
 import { Button, WritableRemind } from '@/components';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
+import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
@@ -22,7 +24,10 @@ type createPlanData = {
 
 export default function CreatePage() {
   // 시즌이 아니거나 로그인 안 되어있을 때, 로그인 페이지로 redirect
-  // 계획 공개 여부, 계획 제목, 계획 내용, 태그 state 및 setter 정의해줘야 함
+  // const [title, setTitle] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [isPublic, setPublic] = useState(true);
+  // const [tags, setTags] = useState([]);
 
   const [remindOptions, setRemindOptions] = useState<RemindOptionType>({
     TotalPeriod: 12,
@@ -62,9 +67,6 @@ export default function CreatePage() {
 
   // 리마인드 옵션 확정버튼 클릭 시 이에 따라 리마인드 날짜 생성 및 리마인드 아이템 렌더링해주는 함수
   const fixRemindOptions = () => {
-    // 1.  decideRemindDate 유틸 함수에 현재 리마인드 옵션 state를 인자로 넣어 새로운 리마인드 날짜 생성
-    // 2. 각 날짜에 대한 메세지 값을 빈 string ""로 설정
-    // 3. 이렇게 만들어진 배열로 리마인드 아이템들을 update
     const fixedRemindDate = decideRemindDate(
       remindOptions.TotalPeriod,
       remindOptions.Term,
@@ -85,15 +87,11 @@ export default function CreatePage() {
     setRemindMessageList(newRemindMessageList);
   };
 
-  // 동일한 리마인드 메세지 받도록 만들어주는 함수
   const makeAllRemindMessageSame = useCallback(() => {
     if (remindMessageList.length <= 1) {
       return;
     }
-
     const firstRemindMessage = remindMessageList[0].message;
-
-    // 모든 메세지를 첫번째 리마인드 메세지와 동일하게 설정해줌.
     const updatedList = remindMessageList.map((item) => {
       return { ...item, message: firstRemindMessage };
     });
@@ -102,13 +100,12 @@ export default function CreatePage() {
   }, [remindMessageList]);
 
   const createNewPlan = () => {
-    // TODO: 이렇게 컴포넌트 내 state를 로직에 사용하는 함수는 하위 컴포넌트에서 호출해도 런타임 때 최신 state의 값이 사용되나 ?
     const data: createPlanData = {
-      icon: 1, // 홈 페이지에서 받아와야 함
-      isPublic: true, // state로 변경 필요
-      title: 'title', // state로 변경 필요
-      description: 'des', // state로 변경 필요
-      tags: [''], // state로 변경 필요
+      icon: decideRandomIconNumber(),
+      isPublic: isPublic,
+      title: title,
+      description: description,
+      tags: tags,
       remindTotalPeriod: remindOptions.TotalPeriod,
       remindTerm: remindOptions.Term,
       remindDate: remindOptions.Date,
@@ -118,7 +115,7 @@ export default function CreatePage() {
       }),
     };
 
-    console.log(`${data}`);
+    console.log(`위 데이터를 이용해 새 계획 생성 API 호출 : ${data}`);
   };
 
   return (
@@ -133,14 +130,28 @@ export default function CreatePage() {
         makeAllRemindMessageSame={makeAllRemindMessageSame}
       />
 
-      <Button
-        background="primary"
-        color="white-100"
-        size="lg"
-        border={false}
-        onClick={createNewPlan}>
-        계획 생성 완료
-      </Button>
+      <div className={classNames('create-page__button__container')}>
+        <Button
+          background="white-100"
+          color="primary"
+          size="lg"
+          border={true}
+          onClick={() => {
+            createNewPlan();
+          }}>
+          작성 완료
+        </Button>
+        <Link href={`/home`}>
+          <Button
+            background="primary"
+            color="white-100"
+            size="lg"
+            border={false}
+            onClick={() => {}}>
+            나가기
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
