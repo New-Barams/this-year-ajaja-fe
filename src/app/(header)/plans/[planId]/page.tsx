@@ -1,9 +1,10 @@
 'use client';
 
-import { Button, ReadOnlyRemind } from '@/components';
+import { Button, Modal, ModalBasic, ReadOnlyRemind } from '@/components';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
@@ -13,7 +14,18 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const isMyPlan = true;
   const isSeason = checkIsSeason();
 
-  const deletePlan = (planId: string) => {
+  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
+
+  const handleModalClickYes = () => {
+    setIsDeletePlanModalOpen(false);
+    deletePlanAPI(planId);
+  };
+
+  const handleModalClickNo = () => {
+    setIsDeletePlanModalOpen(false);
+  };
+
+  const deletePlanAPI = (planId: string) => {
     console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
   };
 
@@ -38,11 +50,21 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             size="lg"
             border={false}
             onClick={() => {
-              deletePlan(planId);
+              setIsDeletePlanModalOpen(true);
             }}>
             삭제
           </Button>
         </div>
+      )}
+
+      {isDeletePlanModalOpen && (
+        <Modal>
+          <ModalBasic
+            onClickYes={handleModalClickYes}
+            onClickNo={handleModalClickNo}>
+            정말 해당 계획을 삭제하시겠습니까 ?
+          </ModalBasic>
+        </Modal>
       )}
     </div>
   );
