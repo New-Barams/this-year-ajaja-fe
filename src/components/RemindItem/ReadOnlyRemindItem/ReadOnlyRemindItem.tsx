@@ -2,14 +2,14 @@
 
 import { Icon, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
-import { ReadOnlyRemindItemType } from '@/types/Remind';
+import { ReadOnlyRemindItemData } from '@/types/components/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import './index.scss';
 
 interface ReadOnlyRemindItemProps {
-  data: ReadOnlyRemindItemType;
+  data: ReadOnlyRemindItemData;
   classNameList?: string[];
 }
 

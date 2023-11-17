@@ -1,7 +1,10 @@
 'use client';
 
 import { IconSwitchButton, ReadOnlyRemindItem } from '@/components';
-import { ReadOnlyRemindType, RemindOptionsTypes } from '@/types/Remind';
+import {
+  ReadOnlyRemindData,
+  RemindOptionObjectType,
+} from '@/types/components/Remind';
 import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
@@ -10,7 +13,7 @@ import {
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from './../constants/remindOptions';
+} from '@constants/components/remindOptions';
 import './index.scss';
 
 interface ReadOnlyRemindProps {
@@ -19,7 +22,7 @@ interface ReadOnlyRemindProps {
 
 // 선택된 리마인드 옵션에 따라 이에 해당하는 text를 return 해주는 함수
 export const makeRemindOptionToString = (
-  remindOptions: RemindOptionsTypes[],
+  remindOptions: RemindOptionObjectType[],
   selectedValue: number,
 ) => {
   const selectedOptions = remindOptions.filter((option) => {
@@ -32,7 +35,7 @@ export const makeRemindOptionToString = (
 // 내 계획 상세 페이지(시즌, 비시즌) 에서 사용되는 컴포넌트
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
-  const data: ReadOnlyRemindType = {
+  const data: ReadOnlyRemindData = {
     isRemindable: true,
     remindTime: 9,
     remindDate: 1,

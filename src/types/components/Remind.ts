@@ -1,9 +1,24 @@
-export type RemindOptionsTypes = {
+export type RemindOptionObjectType = {
   value: number;
   name: string;
 };
 
-export interface ReadOnlyRemindItemType {
+export type RemindOptionType = {
+  TotalPeriod: number;
+  Term: number;
+  Date: number;
+  Time: number;
+};
+
+export interface RemindItemType {
+  date: {
+    month: number;
+    day: number;
+  };
+  message: string;
+}
+
+export interface ReadOnlyRemindItemData {
   remindMonth: number;
   remindDay: number;
   remindMessage: string;
@@ -15,11 +30,11 @@ export interface ReadOnlyRemindItemType {
   deadLine?: string;
 }
 
-export interface ReadOnlyRemindType {
+export interface ReadOnlyRemindData {
   isRemindable: boolean;
   remindTime: number;
   remindDate: number;
   remindTerm: number;
   remindTotalPeriod: number;
-  remindMessageList: ReadOnlyRemindItemType[];
+  remindMessageList: ReadOnlyRemindItemData[];
 }
