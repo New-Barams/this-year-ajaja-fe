@@ -48,7 +48,7 @@ export default function ReadOnlyPlan({ isMine, data }: ReadOnlyPlanProps) {
     createdAt,
     isCanAjaja,
   } = data;
-
+  //TODO nan에러핸들링
   const createdYear = new Date(createdAt).getFullYear();
   const colors: Color[] = [
     'primary',
