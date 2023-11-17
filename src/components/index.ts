@@ -8,3 +8,4 @@ export { default as Icon } from '@components/Icon/Icon';
 export { default as Modal } from '@components/Modal/Modal';
 export { default as ModalBasic } from '@components/Modal/ModalBasic';
 export { default as PlanInput } from '@components/PlanInput/PlanInput';
+export { default as ReadOnlyPlan } from '@components/ReadOnlyPlan/ReadOnlyPlan';
