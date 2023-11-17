@@ -1,0 +1,9 @@
+.plans-page {
+  padding: 2.5rem;
+
+  &__button__container {
+    display: flex;
+    justify-content: center;
+    gap: 13rem;
+  }
+}

@@ -10,6 +10,12 @@ import {
 } from '@/components';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
+import {
+  DATE_OPTIONS,
+  TERM_OPTIONS,
+  TIME_OPTIONS,
+  TOTAL_PERIOD_OPTIONS,
+} from '../../../constants/components/remindOptions';
 import './index.scss';
 
 interface remindOptionType {
@@ -37,30 +43,6 @@ interface WritableRemindProps {
   setRemindMessage: (month: number, day: number, newMessage: string) => void;
   makeAllRemindMessageSame: () => void;
 }
-
-const TOTAL_PERIOD_OPTIONS = [
-  { value: 12, name: '1년' },
-  { value: 6, name: '6개월' },
-  { value: 3, name: '3개월' },
-];
-
-const TERM_OPTIONS = [
-  { value: 12, name: '1년' },
-  { value: 6, name: '6개월' },
-  { value: 3, name: '3개월' },
-  { value: 1, name: '1개월' },
-];
-
-const DATE_OPTIONS = Array.from({ length: 31 }, (_, index) => ({
-  value: index + 1,
-  name: `${index + 1}일`,
-}));
-
-const TIME_OPTIONS = [
-  { value: 9, name: '9:00시' },
-  { value: 13, name: '13:00시' },
-  { value: 20, name: '20:00시' },
-];
 
 export default function WritableRemind({
   isEditPage,
@@ -129,7 +111,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             동안
           </span>
           <Dropdown
@@ -140,7 +122,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             마다 매달
           </span>
           <Dropdown
@@ -159,7 +141,7 @@ export default function WritableRemind({
             }}
             classNameList={['writable-remind__options__dropdown']}
           />
-          <span className={classNames('writable-remind--options__text')}>
+          <span className={classNames('writable-remind__options__text')}>
             에 리마인드를 받을래요 !
           </span>
 
@@ -180,7 +162,7 @@ export default function WritableRemind({
             <div className={classNames('writable-remind__message__title')}>
               리마인드 메세지를 작성해주세요 !
             </div>
-            <div className={classNames('writable-remind__message__list')}>
+            <ul className={classNames('writable-remind__message__list')}>
               {remindMessageList.map((item, index) => {
                 return index === 0 ? (
                   <WritableRemindItem
@@ -207,7 +189,7 @@ export default function WritableRemind({
                   />
                 );
               })}
-            </div>
+            </ul>
           </>
         )}
       </div>

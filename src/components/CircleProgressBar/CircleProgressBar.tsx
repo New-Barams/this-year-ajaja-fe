@@ -1,13 +1,12 @@
 import { COLOR } from '@/constants';
 import classNames from 'classnames';
-import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import './index.scss';
 
 interface CircleProgressBarProps {
   isFeedbackDone: boolean;
   percent?: number;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const TEXT = {

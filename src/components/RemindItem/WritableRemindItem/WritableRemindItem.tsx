@@ -69,7 +69,7 @@ export default function WritableRemindItem({
 
   return (
     <>
-      <div className={classNames('remind-item', classNameList)}>
+      <li className={classNames('remind-item', classNameList)}>
         <div
           className="remind-item__header"
           onClick={handleClickToggleIsItemOpened}>
@@ -143,7 +143,7 @@ export default function WritableRemindItem({
             )}
           </div>
         )}
-      </div>
+      </li>
       {isSameMessageModalOpen && !isSameMessageChecked && (
         <Modal>
           <ModalBasic
