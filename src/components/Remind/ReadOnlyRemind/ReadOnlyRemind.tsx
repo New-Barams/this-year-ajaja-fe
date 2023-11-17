@@ -1,10 +1,10 @@
 'use client';
 
-import { IconSwitchButton, ReadOnlyRemindItem } from '@/components';
+import { ReadOnlyRemindItem } from '@/components';
+import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
 import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
 import classNames from 'classnames';
 import React from 'react';
-import { useState } from 'react';
 import {
   DATE_OPTIONS,
   TERM_OPTIONS,
@@ -99,9 +99,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     remindMessageList,
   } = data;
 
-  const [isRemindOn, toggleIsRemindOn] = useState(isRemindable);
   const handleToggleIsRemindable = () => {
-    toggleIsRemindOn(true);
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
   };
 
@@ -111,15 +109,11 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
         <span className={classNames('readonly-remind__header__title')}>
           리마인드
         </span>
-        <IconSwitchButton
-          onIconName="NOTIFICATION_ON"
-          offIconName="NOTIFICATION_OFF"
-          onClick={handleToggleIsRemindable}
-          isActive={isRemindOn!}
+        <DebounceSwitchButton
+          defaultIsOn={isRemindable}
+          submitToggleAPI={handleToggleIsRemindable}
+          toggleName="remind"
         />
-        <span className={classNames('readonly-remind__header__toggle')}>
-          {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
-        </span>
       </div>
 
       <div className={classNames('readonly-remind__options')}>
