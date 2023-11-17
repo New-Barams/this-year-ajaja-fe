@@ -14,3 +14,5 @@ export { default as SwitchButton } from '@components/SwitchButton/SwitchButton';
 export { default as Tag } from '@components/Tag/Tag';
 export { default as WritableRemind } from '@components/Remind/WritableRemind/WritableRemind';
 export { default as WritableRemindItem } from '@components/RemindItem/WritableRemindItem/WritableRemindItem';
+
+export { default as ReadOnlyPlan } from '@components/ReadOnlyPlan/ReadOnlyPlan';

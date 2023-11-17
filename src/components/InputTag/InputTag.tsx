@@ -1,28 +1,34 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { Tag } from '..';
 import './index.scss';
 
 interface InputTagProps {
   style?: React.CSSProperties;
-  onSubmit: (submitValue: string) => void;
+  inputValue: string;
+  onSubmit: () => void;
+  onChange: (changeValue: string) => void;
 }
-export default function InputTag({ style, onSubmit, ...props }: InputTagProps) {
-  const [inputValue, setInputValue] = useState<string>('');
-
+export default function InputTag({
+  style,
+  onChange,
+  inputValue,
+  onSubmit,
+  ...props
+}: InputTagProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    onChange(event.target.value);
   };
   const handleInputSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(inputValue);
-    setInputValue('');
+    onSubmit();
   };
   return (
     <Tag color="orange-200" style={style} {...props}>
-      <form onSubmit={handleInputSubmit}>
+      <form className="inputTag" onSubmit={handleInputSubmit}>
         <input
+          className="inputTag__tag"
           type="text"
           placeholder="태그를 입력해주세요"
           value={inputValue}

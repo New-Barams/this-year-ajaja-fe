@@ -1,8 +1,22 @@
-input {
-  border: none;
-  background-color: inherit;
-  width: 8rem;
-  &:focus {
-    outline: none;
+.inputTag {
+  position: relative;
+  &:focus-within {
+    &::after {
+      content: '엔터시 입력, 태그 클릭시 삭제 , 최대 5개 ';
+      position: absolute;
+      color: black;
+      left: 0;
+      bottom: -20px;
+      display: block;
+    }
+  }
+  &__tag {
+    border: none;
+    background-color: inherit;
+    width: 8rem;
+    &:focus {
+      outline: none;
+      overflow: visible;
+    }
   }
 }
