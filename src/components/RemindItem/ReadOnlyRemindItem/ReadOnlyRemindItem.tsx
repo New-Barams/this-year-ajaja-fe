@@ -1,6 +1,7 @@
 'use client';
 
-import { Icon, RemindInput } from '@/components';
+import ModalEvaluate from '@/app/(header)/plans/[planId]/_components/ModalEvaluate/ModalEvaluate';
+import { Icon, Modal, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
 import { ReadOnlyRemindItemData } from '@/types/components/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
@@ -38,19 +39,35 @@ export default function ReadOnlyRemindItem({
   }, [isSeason, isReminded]);
 
   const [isItemOpened, setIsItemOpened] = useState(false);
+  const [isFeedBackModalOpened, setIsFeedBackModalOpened] = useState(false);
+
   const toggleIsItemOpened = () => {
     if (canCheckRemindMessage) {
       setIsItemOpened(!isItemOpened);
     }
   };
 
-  const handleClickFeedBack = (
+  const handleClickFeedBackModalOpen = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     if (!isExpired && !isFeedback) {
+      setIsFeedBackModalOpened(true);
       console.log(`${feedbackId}에 대한 피드백 평가 모달 띄우기`);
     }
-    event.stopPropagation(); // 상위 요소에 대한 onClick handler인 item 토글시키는 동작 안 되도록
+    event.stopPropagation(); // 상위 요소 item-header에 대한 onClick handler인 item 토글시키는 동작 안 되도록
+  };
+
+  const handleClickModalFinish = (rate: number) => {
+    console.log(
+      `${feedbackId}에 대한 피드백 평가 ${rate}$로 평가 완료 피드백 수행 API 호출`,
+    );
+    setIsFeedBackModalOpened(false);
+    console.log('피드백 모달 닫기');
+  };
+
+  const handleClickModalExit = () => {
+    setIsFeedBackModalOpened(false);
+    console.log('피드백 모달 닫기');
   };
 
   return (
@@ -85,7 +102,7 @@ export default function ReadOnlyRemindItem({
               <CircleProgressBar
                 isFeedbackDone={isFeedback! || isExpired!}
                 percent={rate}
-                onClick={handleClickFeedBack}
+                onClick={handleClickFeedBackModalOpen}
               />
             )}
 
@@ -117,6 +134,16 @@ export default function ReadOnlyRemindItem({
           </div>
         )}
       </li>
+
+      {isFeedBackModalOpened && (
+        <Modal>
+          <ModalEvaluate
+            onClickFinish={handleClickModalFinish}
+            onClickExit={handleClickModalExit}>
+            {`${remindMonth}월 ${remindDate}까지 계획을 얼마나 잘 이행했나요 ? `}
+          </ModalEvaluate>
+        </Modal>
+      )}
     </>
   );
 }

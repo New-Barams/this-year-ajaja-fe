@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 
-const percents = ['0', '25', '50', '75', '100'];
+const percents = [0, 25, 50, 75, 100];
 const list: Record<string, string> = {
   '0': '전혀 못함',
   '25': '대체로 못함',
@@ -10,15 +10,16 @@ const list: Record<string, string> = {
   '100': '매우 잘함',
 };
 
-export default function ModalRadio() {
-  const [feedbackResult, setFeedbackResult] = useState<string | null>(null);
+interface ModalRadioProp {
+  rate: number;
+  setRate: (rate: number) => void;
+}
 
+export default function ModalRadio({ rate, setRate }: ModalRadioProp) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    setFeedbackResult(e.target.value);
-    //value를 평가완료 버튼 클릭시 send할 예정
-    console.log(feedbackResult);
+    setRate(parseInt(e.target.value, 10));
   };
+
   return (
     <fieldset className={classNames('modal__radio')}>
       {percents.map((percent) => {
@@ -34,6 +35,7 @@ export default function ModalRadio() {
                   value={percent}
                   onChange={handleChange}
                   style={{ display: 'none' }}
+                  checked={percent === rate}
                 />
                 <label htmlFor={`radio-${percent}`} />
               </div>
