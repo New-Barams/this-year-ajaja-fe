@@ -1,14 +1,16 @@
+'use server';
+
 import { NETWORK } from '@/constants/api';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { getCookie } from 'cookies-next';
+import { cookies } from 'next/headers';
 
-export const axiosInstance = axios.create({
+export const axiosInstanceServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_TEST_API_END_POINT,
   timeout: NETWORK.TIMEOUT,
   authorization: true,
 });
 
-axiosInstance.interceptors.request.use(
+axiosInstanceServer.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (
       !config.authorization ||
@@ -17,12 +19,14 @@ axiosInstance.interceptors.request.use(
     )
       return config;
 
-    const auth = getCookie('auth');
+    const auth = cookies().get('auth');
 
     if (!auth) {
-      throw new Error('토큰이 존재하지 않습니다');
+      throw new Error('Server Component: 토큰이 존재하지 않습니다');
     }
-    config.headers.Authorization = `Bearer ${JSON.parse(auth).accessToken}`;
+    config.headers.Authorization = `Bearer ${
+      JSON.parse(auth.value).accessToken
+    }`;
     return config;
   },
   (error: AxiosError) => {
