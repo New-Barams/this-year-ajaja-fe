@@ -8,7 +8,7 @@ export default function HeaderLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={classNames('header-layout', 'background-origin-white-200')}>
+    <div className={classNames('header-layout')}>
       <div className={classNames('header-layout__wrapper')}>
         <Header />
         <div

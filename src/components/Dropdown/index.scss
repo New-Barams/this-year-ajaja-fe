@@ -1,6 +1,9 @@
 .dropdown {
   &__container {
     width: 10rem;
+    position: relative;
+    z-index: 10;
+    background-color: transparent;
   }
 
   &__checkbox {
@@ -22,7 +25,7 @@
     align-items: center;
     position: relative;
     padding: 0.5rem 0.75rem;
-    border: var(--border-weight) solid var(--origin-primary);
+    border: var(--border-width) solid var(--origin-primary);
     border-radius: var(--border-radius);
 
     &__text {
@@ -38,14 +41,14 @@
   }
 
   &__content {
+    font-size: 1rem;
     display: none;
     position: absolute;
     width: 100%;
     left: 0;
-    background: white;
 
     &__list {
-      border: var(--border-weight) solid var(--origin-primary);
+      border: var(--border-width) solid var(--origin-primary);
       border-top: none;
       list-style-type: none;
       text-align: center;
@@ -58,17 +61,13 @@
       cursor: pointer;
 
       &:last-child {
-        border-radius: 0px 0px 9px 9px;  
+        border-radius: 0px 0px 9px 9px;
       }
 
       &:hover {
         background-color: var(--origin-primary);
       }
     }
-  }
-
-  &__container {
-    position: absolute;
   }
 }
 
