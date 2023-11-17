@@ -1,16 +1,3 @@
-// "data": {
-//   "id": 0,
-//   "userId": 0,
-//   "nickname": "string",
-//   "title": "string",
-//   "description": "string",
-//   "isPublic": true,
-//   "ajajas": 0,
-//   "tags": [
-//     "string"
-//   ],
-//   "createdAt": "2023-11-16T15:43:16.516Z"
-// }
 import { Color } from '@/types';
 import classNames from 'classnames';
 import { AjajaButton, IconSwitchButton, PlanInput, Tag } from '..';
@@ -18,24 +5,23 @@ import './index.scss';
 
 interface ReadOnlyPlanProps {
   isMine: boolean; // 나/ 타인 구분
-  data: PlanData;
+  planData: PlanData;
 }
 export type PlanData = {
-  id: number;
-  userId: number;
-  nickname: string;
-  title: string;
-  description: string;
-  isPublic: boolean;
-  ajajas: number;
-  tags: string[];
-  isAjajaOn: boolean; // 아자자 여부 상태
-  createdAt: string;
-  canAjaja: boolean;
+  id: number; //계힉 Id
+  userId: number; // 유저 Id
+  nickname: string; // 유저 닉네임
+  title: string; //계획 타이틀
+  description: string; // 계획 설명
+  isPublic: boolean; // 공개여부
+  tags: string[]; // tag 리스트,  태그는 타입 변경 예정
+  ajajas: number; // 아자자 개수
+  isAjajaOn: boolean; // 아자자 클릭 여부
   isCanAjaja: boolean; // 응원 메세지 알람 여부
+  createdAt: string; // 계획 생성 일자
 };
 
-export default function ReadOnlyPlan({ isMine, data }: ReadOnlyPlanProps) {
+export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
   const {
     id,
     nickname,
@@ -47,9 +33,10 @@ export default function ReadOnlyPlan({ isMine, data }: ReadOnlyPlanProps) {
     tags,
     createdAt,
     isCanAjaja,
-  } = data;
-  //TODO nan에러핸들링
+  } = planData;
+
   const createdYear = new Date(createdAt).getFullYear();
+
   const colors: Color[] = [
     'primary',
     'orange-300',
@@ -82,7 +69,9 @@ export default function ReadOnlyPlan({ isMine, data }: ReadOnlyPlanProps) {
             'plan__header--after color-origin-gray-200',
             !isMine && 'bottom-line',
           )}>
-          {isMine ? `계획 공개` : `${createdYear}년 작성`}
+          {isMine
+            ? `계획 공개`
+            : `${createdYear ? createdYear : '0000'}년 작성`}
         </span>
       </div>
 
