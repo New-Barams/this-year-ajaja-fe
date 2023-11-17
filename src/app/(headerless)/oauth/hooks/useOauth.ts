@@ -11,7 +11,7 @@ export default function useOauth() {
     const code = new URL(window.location.href).searchParams.get('code');
     (async () => {
       await fetch(
-        `${process.env.NEXT_PUBLIC_TEST_API_END_POINT}/mock/login?code=${code}`,
+        `${process.env.NEXT_PUBLIC_TEST_API_END_POINT}/login?code=${code}`,
         {
           method: 'POST',
         },
@@ -22,6 +22,7 @@ export default function useOauth() {
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
           };
+          console.log('useOauth:', auth);
           setAuth(auth);
         });
 

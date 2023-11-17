@@ -15,4 +15,16 @@ export type IconName =
   | 'HELP'
   | 'DROP_DOWN'
   | 'DROP_UP'
-  | 'CLOSE';
+  | 'CLOSE'
+  | 'CHECKED'
+  | 'UN_CHECKED'
+  | 'FLUTTER_DASH'
+  | 'RAVEN'
+  | 'POTTED_PLANT'
+  | 'FLIGHT'
+  | 'GLOBE'
+  | 'SOCIAL_LEADERBOARD'
+  | 'STRATEGY'
+  | 'TROPHY'
+  | 'STAR'
+  | 'FAVORITE';

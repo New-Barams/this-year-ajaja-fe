@@ -1,3 +1,4 @@
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { AtomEffect, atom } from 'recoil';
 
 export interface auth {
@@ -5,30 +6,26 @@ export interface auth {
   refreshToken: string;
 }
 
-const local = typeof window !== 'undefined' ? window.localStorage : undefined;
-
-const localStorageEffect: <T>(key: string) => AtomEffect<T> =
+const cookiesEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
   ({ setSelf, onSet }) => {
-    if (local) {
-      const savedValue = local.getItem(key);
-      if (savedValue !== null) {
-        setSelf(JSON.parse(savedValue));
+    const savedValue = getCookie(key);
+    if (savedValue !== undefined) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue) => {
+      if (newValue === null) {
+        deleteCookie(key);
+        return null;
       }
 
-      onSet((newValue) => {
-        if (newValue === null) {
-          local.removeItem(key);
-          return null;
-        }
-
-        return local.setItem(key, JSON.stringify(newValue));
-      });
-    }
+      return setCookie(key, JSON.stringify(newValue));
+    });
   };
 
 export const authStore = atom<auth | null>({
   key: 'authState',
   default: null,
-  effects: [localStorageEffect<auth | null>('auth')],
+  effects: [cookiesEffect<auth | null>('auth')],
 });

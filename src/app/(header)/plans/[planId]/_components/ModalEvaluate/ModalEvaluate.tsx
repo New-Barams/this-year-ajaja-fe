@@ -50,7 +50,7 @@ export default function ModalEvaluate({
           onClick={onClickFinish}>
           피드백 완료
         </Button>
-        <div className={classNames('modal-evaluate-wrapper__worning')}>
+        <div className={classNames('modal-evaluate-wrapper__warning')}>
           <Icon name="WARNING" color="primary" size="3xl" />
           <span className={classNames('font-size-2xl', 'color-origin-primary')}>
             피드백이 완료되면 다시 평가할 수 없습니다.
