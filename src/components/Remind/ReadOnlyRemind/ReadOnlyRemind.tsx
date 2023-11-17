@@ -14,7 +14,7 @@ import {
 import './index.scss';
 
 interface ReadOnlyRemindProps {
-  planId: number;
+  planId: string;
 }
 
 // 선택된 리마인드 옵션에 따라 이에 해당하는 text를 return 해주는 함수
