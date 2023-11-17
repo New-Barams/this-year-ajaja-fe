@@ -33,6 +33,7 @@ export default function InputTag({
           placeholder="태그를 입력해주세요"
           value={inputValue}
           onChange={handleInputChange}
+          maxLength={10}
         />
       </form>
     </Tag>
