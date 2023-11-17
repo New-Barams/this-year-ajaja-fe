@@ -2,12 +2,16 @@
   position: relative;
   &:focus-within {
     &::after {
-      content: '엔터시 입력, 태그 클릭시 삭제 , 최대 5개 ';
+      content: '엔터시 태그가 추가되며, 최대 5개, 태그 클릭시 삭제 ';
       position: absolute;
-      color: black;
+      color: var(--origin-white-200);
+      background-color: var(--origin-gray-200);
       left: 0;
-      bottom: -20px;
+      margin-top: 0.5rem;
       display: block;
+      border-radius: var(--border-radius);
+      padding: 0 0.5rem 0 0.5rem;
+      z-index: 1;
     }
   }
   &__tag {
