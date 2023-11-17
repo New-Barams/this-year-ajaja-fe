@@ -31,7 +31,7 @@ export interface ReadOnlyRemindItemData {
   endDate: number;
 }
 
-export interface ReadOnlyRemindData {
+export interface RemindData {
   isRemindable: boolean;
   remindTime: number;
   remindDate: number;

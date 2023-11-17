@@ -146,8 +146,7 @@ export default function CreatePage() {
             background="primary"
             color="white-100"
             size="lg"
-            border={false}
-            onClick={() => {}}>
+            border={false}>
             나가기
           </Button>
         </Link>

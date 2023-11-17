@@ -1,10 +1,7 @@
 'use client';
 
 import { IconSwitchButton, ReadOnlyRemindItem } from '@/components';
-import {
-  ReadOnlyRemindData,
-  RemindOptionObjectType,
-} from '@/types/components/Remind';
+import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
 import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
@@ -35,7 +32,7 @@ export const makeRemindOptionToString = (
 // 내 계획 상세 페이지(시즌, 비시즌) 에서 사용되는 컴포넌트
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
-  const data: ReadOnlyRemindData = {
+  const data: RemindData = {
     isRemindable: true,
     remindTime: 9,
     remindDate: 1,
