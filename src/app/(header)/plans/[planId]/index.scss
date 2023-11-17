@@ -1,5 +1,19 @@
 .plans-page {
   padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+
+  &__remind {
+    &:before {
+      content: '';
+      display: block;
+      height: 0.3px;
+      box-sizing: content-box;
+      background-color: var(--origin-gray-100);
+      border: 1px solid var(--origin-gray-100);
+      margin: 5rem 0 5rem 0;
+    }
+  }
 
   &__button__container {
     display: flex;
