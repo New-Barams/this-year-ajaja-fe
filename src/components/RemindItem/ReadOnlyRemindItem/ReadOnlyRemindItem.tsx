@@ -21,14 +21,15 @@ export default function ReadOnlyRemindItem({
 
   const {
     remindMonth,
-    remindDay,
+    remindDate,
     remindMessage,
     isReminded,
     isFeedback,
     feedbackId,
     rate,
     isExpired,
-    deadLine,
+    endMonth,
+    endDate,
   } = data;
 
   const canCheckRemindMessage = useMemo(() => {
@@ -68,13 +69,14 @@ export default function ReadOnlyRemindItem({
                   'readonly-item__warning__text',
                   'color-origin-white-100',
                 )}>
-                {deadLine}까지 피드백하지 않으면 달성률이 0%로 반영됩니다
+                {`${endMonth}월 ${endDate}일`}까지 피드백하지 않으면 달성률이
+                0%로 반영됩니다
               </span>
             </div>
           )}
 
           <p className="readonly-item__title">
-            {remindMonth}월 {remindDay}일에 {isReminded ? '받은 ' : '받을 '}
+            {remindMonth}월 {remindDate}일에 {isReminded ? '받은 ' : '받을 '}
             리마인드 메세지
           </p>
 

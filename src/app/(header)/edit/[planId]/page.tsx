@@ -1,32 +1,23 @@
 'use client';
 
 import { WritableRemind } from '@/components';
+import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
-interface remindOptionType {
-  TotalPeriod: number;
-  Term: number;
-  Date: number;
-  Time: number;
-}
-interface remindItemType {
-  date: {
-    month: number;
-    day: number;
-  };
-  message: string;
-}
-
 export default function EditPage() {
+  // const remindData: ReadOnlyRemindData  = {
+  // 초기값 받아오기
+  // }
+
   const [isRemindOn, setIsRemindOn] = useState(true);
   const toggleIsRemindOn = () => {
     setIsRemindOn(!isRemindOn);
   };
 
-  const [remindOptions, setRemindOptions] = useState<remindOptionType>({
+  const [remindOptions, setRemindOptions] = useState<RemindOptionType>({
     TotalPeriod: 12,
     Term: 1,
     Date: 1,
@@ -43,7 +34,7 @@ export default function EditPage() {
     });
   };
 
-  const [remindMessageList, setRemindMessageList] = useState<remindItemType[]>(
+  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>(
     [],
   );
 
@@ -69,7 +60,7 @@ export default function EditPage() {
       remindOptions.Date,
     );
 
-    const newRemindMessageList: remindItemType[] = [];
+    const newRemindMessageList: RemindItemType[] = [];
     fixedRemindDate?.forEach((newDate) => {
       newRemindMessageList.push({
         date: {
