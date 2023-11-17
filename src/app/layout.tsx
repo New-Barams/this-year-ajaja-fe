@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
+import '@styles/webkit.scss';
 
 const noto_sans = Noto_Sans_KR({
   subsets: ['latin'],

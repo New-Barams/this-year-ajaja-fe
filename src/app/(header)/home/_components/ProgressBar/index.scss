@@ -1,0 +1,23 @@
+progress {
+  appearance: none;
+  width: 30rem;
+  height: 0.75rem;
+
+  &::-webkit-progress-value {
+    background-color: var(--origin-green-300);
+    border-radius: 5px;
+  }
+
+  &::-webkit-progress-bar {
+    background-color: var(--origin-orange-200);
+    border-radius: 5px;
+  }
+}
+
+.progress {
+  &__wrapper {
+    display: flex;
+    padding: 0.25rem 0.5rem;
+    margin: 0.5rem;
+  }
+}
