@@ -33,17 +33,17 @@ export default function EditPage({ params }: { params: { planId: string } }) {
 
   // 1. 서버에서 planId에 해당하는 계획, 리마인드 data 받아오기
   const planData: PlanData = {
-    id: 123, //계힉 Id
-    userId: 123, // 유저 Id
-    nickname: 'nononoere', // 유저 닉네임
-    title: '계획 제목 테스트', //계획 타이틀
-    description: '계획 설명 테스트', // 계획 설명
-    isPublic: true, // 공개여부
-    tags: ['태그1', '태그1', '태그1', '태그1', '태그1'], // tag 리스트,  태그는 타입 변경 예정
-    ajajas: 100, // 아좌좌 개수
-    isAjajaOn: true, // 아좌좌 클릭 여부
-    isCanAjaja: true, // 응원 메세지 알람 여부
-    createdAt: '2023-06-15', // 계획 생성 일자
+    id: 123,
+    userId: 123,
+    nickname: 'nononoere',
+    title: '계획 제목 테스트',
+    description: '계획 설명 테스트',
+    isPublic: true,
+    tags: ['태그1', '태그1', '태그1', '태그1', '태그1'],
+    ajajas: 100,
+    isAjajaOn: true,
+    isCanAjaja: true,
+    createdAt: '2023-06-15',
   };
 
   const remindData: RemindData = {
@@ -200,12 +200,10 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     setRemindMessageList(updatedList);
   }, [remindMessageList]);
 
-  // 모든 리마인드 메세지가 다 작성되어 있는지 여부
   const isAllRemindMessageExists =
     remindMessageList.length > 0 &&
     remindMessageList.every((remindItem) => remindItem.message.length > 0);
 
-  // 작성 완료 버튼을 누를 수 있는 조건
   const isEditPossible =
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
