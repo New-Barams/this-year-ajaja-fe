@@ -42,6 +42,7 @@ interface WritableRemindProps {
   remindMessageList: remindItemType[];
   setRemindMessage: (month: number, day: number, newMessage: string) => void;
   makeAllRemindMessageSame: () => void;
+  classNameList?: string[];
 }
 
 export default function WritableRemind({
@@ -54,6 +55,7 @@ export default function WritableRemind({
   remindMessageList,
   setRemindMessage,
   makeAllRemindMessageSame,
+  classNameList = [],
 }: WritableRemindProps) {
   const [isFixOptionsModalOpen, setIsFixOptionsModalOpen] = useState(false);
 
@@ -80,7 +82,7 @@ export default function WritableRemind({
 
   return (
     <>
-      <div className={classNames('writable-remind')}>
+      <div className={classNames('writable-remind', classNameList)}>
         {isEditPage ? (
           <div className={classNames('writable-remind--edit')}>
             <span className={classNames('writable-remind--edit__title')}>
