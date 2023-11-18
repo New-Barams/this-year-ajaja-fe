@@ -104,6 +104,8 @@ export default function CreatePage() {
 
   // 작성 페이지의 state들을 createPlandata에 담아 계획 생성 API를 호출하는함수
   const createNewPlan = () => {
+    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출`);
+
     const data: createPlanData = {
       icon: decideRandomIconNumber(),
       isPublic: isPublic,
@@ -163,7 +165,7 @@ export default function CreatePage() {
           onClick={() => {
             createNewPlan();
           }}
-          disabled={isCreatePossible}>
+          disabled={!isCreatePossible}>
           작성 완료
         </Button>
         <Link href={`/home`}>
