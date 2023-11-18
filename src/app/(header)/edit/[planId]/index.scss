@@ -1,3 +1,10 @@
-.edit-page{
+.edit-page {
   padding: 2.5rem;
+
+  &__button__container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 13rem;
+  }
 }

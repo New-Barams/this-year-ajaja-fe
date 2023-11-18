@@ -1,32 +1,26 @@
 'use client';
 
-import { WritableRemind } from '@/components';
+import { Button, WritableRemind } from '@/components';
+import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
-interface remindOptionType {
-  TotalPeriod: number;
-  Term: number;
-  Date: number;
-  Time: number;
-}
-interface remindItemType {
-  date: {
-    month: number;
-    day: number;
-  };
-  message: string;
-}
+export default function EditPage({ params }: { params: { planId: string } }) {
+  const { planId } = params;
 
-export default function EditPage() {
+  const editPlan = () => {
+    console.log(`${planId}에 해당하는 계획 수정 API 호출 `);
+  };
+
   const [isRemindOn, setIsRemindOn] = useState(true);
   const toggleIsRemindOn = () => {
     setIsRemindOn(!isRemindOn);
   };
 
-  const [remindOptions, setRemindOptions] = useState<remindOptionType>({
+  const [remindOptions, setRemindOptions] = useState<RemindOptionType>({
     TotalPeriod: 12,
     Term: 1,
     Date: 1,
@@ -43,7 +37,7 @@ export default function EditPage() {
     });
   };
 
-  const [remindMessageList, setRemindMessageList] = useState<remindItemType[]>(
+  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>(
     [],
   );
 
@@ -69,7 +63,7 @@ export default function EditPage() {
       remindOptions.Date,
     );
 
-    const newRemindMessageList: remindItemType[] = [];
+    const newRemindMessageList: RemindItemType[] = [];
     fixedRemindDate?.forEach((newDate) => {
       newRemindMessageList.push({
         date: {
@@ -109,6 +103,28 @@ export default function EditPage() {
         setRemindMessage={handleChangeRemindMessage}
         makeAllRemindMessageSame={makeAllRemindMessageSame}
       />
+
+      <div className={classNames('edit-page__button__container')}>
+        <Button
+          background="white-100"
+          color="primary"
+          size="lg"
+          border={true}
+          onClick={() => {
+            editPlan();
+          }}>
+          수정 완료
+        </Button>
+        <Link href={`/plans/${planId}`}>
+          <Button
+            background="primary"
+            color="white-100"
+            size="lg"
+            border={false}>
+            나가기
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }

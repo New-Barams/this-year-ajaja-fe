@@ -19,18 +19,19 @@ export interface RemindItemType {
 }
 
 export interface ReadOnlyRemindItemData {
-  remindMonth: number;
-  remindDay: number;
+  feedbackId: number;
   remindMessage: string;
-  isReminded?: boolean; // 리마인드 받았는지 여부
-  isFeedback?: boolean; // 피드백 했는지 여부
-  feedbackId?: number;
-  rate?: number;
-  isExpired?: boolean; // 피드백 기간 만료되었는지 여부
-  deadLine?: string;
+  remindMonth: number;
+  remindDate: number;
+  rate: number;
+  isFeedback: boolean;
+  isExpired: boolean;
+  isReminded: boolean;
+  endMonth: number;
+  endDate: number;
 }
 
-export interface ReadOnlyRemindData {
+export interface RemindData {
   isRemindable: boolean;
   remindTime: number;
   remindDate: number;

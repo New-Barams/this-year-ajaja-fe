@@ -35,6 +35,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const deletePlanAPI = (planId: string) => {
     console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
   };
+
   const planData: PlanData = {
     id: 2342342, //계힉 Id
     userId: 2342342, // 유저 Id
@@ -52,6 +53,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   return (
     <div className={classNames('plans-page')}>
       <ReadOnlyPlan isMine={isMyPlan} planData={planData} />
+
       <div className="plans-page__remind">
         {isMyPlan && <ReadOnlyRemind planId={planId} />}
       </div>

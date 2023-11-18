@@ -2,11 +2,13 @@ import { Button, Icon } from '@/components';
 import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
 import { useRef } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import ModalRadio from './ModalRadio';
 import './index.scss';
 
 type ModalProps = {
-  onClickFinish: () => void;
+  onClickFinish: (rate: number) => void;
   onClickExit: () => void;
   children: React.ReactNode;
 };
@@ -16,6 +18,12 @@ export default function ModalEvaluate({
   onClickExit,
   children,
 }: ModalProps) {
+  const [rate, setRate] = useState(50); // 기본 rate = 50 => 이를 input에 반영해줘야 한다
+
+  useEffect(() => {
+    console.log(`rate변화: ${rate}로 변경`);
+  }, [rate]);
+
   const backgroundRef = useRef<HTMLDivElement | null>(null);
   useModalClose(backgroundRef, onClickExit);
   return (
@@ -41,13 +49,15 @@ export default function ModalEvaluate({
           )}>
           {children}
         </div>
-        <ModalRadio />
+        <ModalRadio rate={rate} setRate={setRate} />
         <Button
           background="primary"
           color="white-100"
           size="lg"
           border={false}
-          onClick={onClickFinish}>
+          onClick={() => {
+            onClickFinish(rate);
+          }}>
           피드백 완료
         </Button>
         <div className={classNames('modal-evaluate-wrapper__warning')}>

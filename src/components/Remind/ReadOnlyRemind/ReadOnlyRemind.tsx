@@ -1,13 +1,10 @@
 'use client';
 
-import { IconSwitchButton, ReadOnlyRemindItem } from '@/components';
-import {
-  ReadOnlyRemindData,
-  RemindOptionObjectType,
-} from '@/types/components/Remind';
+import { ReadOnlyRemindItem } from '@/components';
+import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
+import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
 import classNames from 'classnames';
 import React from 'react';
-import { useState } from 'react';
 import {
   DATE_OPTIONS,
   TERM_OPTIONS,
@@ -35,7 +32,7 @@ export const makeRemindOptionToString = (
 // 내 계획 상세 페이지(시즌, 비시즌) 에서 사용되는 컴포넌트
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
-  const data: ReadOnlyRemindData = {
+  const data: RemindData = {
     isRemindable: true,
     remindTime: 9,
     remindDate: 1,
@@ -44,47 +41,51 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     remindMessageList: [
       {
         remindMonth: 3,
-        remindDay: 15,
+        remindDate: 15,
         remindMessage: '리마인드 받았지만 만료되서 피드백 0%로 처리 ',
         isReminded: true,
         isFeedback: false,
         feedbackId: 12,
         rate: 0,
         isExpired: true,
-        deadLine: '12/2',
+        endMonth: 12,
+        endDate: 1,
       },
       {
         remindMonth: 6,
-        remindDay: 15,
+        remindDate: 15,
         remindMessage: '리마인드 받아서 피드백함',
         isReminded: true,
         isFeedback: true,
         feedbackId: 12,
         rate: 75,
         isExpired: true,
-        deadLine: '12/2',
+        endMonth: 12,
+        endDate: 1,
       },
       {
         remindMonth: 9,
-        remindDay: 15,
+        remindDate: 15,
         remindMessage: '예시',
         isReminded: true,
         isFeedback: false,
         feedbackId: 12,
         rate: 0,
         isExpired: false,
-        deadLine: '12/2',
+        endMonth: 12,
+        endDate: 1,
       },
       {
         remindMonth: 12,
-        remindDay: 15,
+        remindDate: 15,
         remindMessage: '예시',
         isReminded: false,
         isFeedback: false,
         feedbackId: 12,
         rate: 0,
         isExpired: false,
-        deadLine: '12/2',
+        endMonth: 12,
+        endDate: 1,
       },
     ],
   };
@@ -98,9 +99,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     remindMessageList,
   } = data;
 
-  const [isRemindOn, toggleIsRemindOn] = useState(isRemindable);
   const handleToggleIsRemindable = () => {
-    toggleIsRemindOn(true);
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
   };
 
@@ -110,15 +109,11 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
         <span className={classNames('readonly-remind__header__title')}>
           리마인드
         </span>
-        <IconSwitchButton
-          onIconName="NOTIFICATION_ON"
-          offIconName="NOTIFICATION_OFF"
-          onClick={handleToggleIsRemindable}
-          isActive={isRemindOn!}
+        <DebounceSwitchButton
+          defaultIsOn={isRemindable}
+          submitToggleAPI={handleToggleIsRemindable}
+          toggleName="remind"
         />
-        <span className={classNames('readonly-remind__header__toggle')}>
-          {isRemindOn ? '리마인드 알림 활성화' : '리마인드 알림 비활성화'}
-        </span>
       </div>
 
       <div className={classNames('readonly-remind__options')}>
