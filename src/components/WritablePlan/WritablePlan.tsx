@@ -78,7 +78,7 @@ export default function WritablePlan({
           offIconName="PLAN_CLOSE"
         />
         <span className="plan__header--after color-origin-gray-200">
-          계획 공개
+          {isPublic ? '계획 공개' : '계획 비공개'}
         </span>
         {isEditPage && (
           <button
@@ -125,7 +125,11 @@ export default function WritablePlan({
       </div>
       {isEditPage && (
         <div className="plan__bottom">
-          <AjajaButton isFilled={isAjajaOn} ajajaCount={ajajas} />
+          <AjajaButton
+            isFilled={isAjajaOn}
+            ajajaCount={ajajas}
+            disabled={true}
+          />
           <IconSwitchButton
             onIconName="NOTIFICATION_ON"
             offIconName="NOTIFICATION_OFF"
@@ -133,8 +137,14 @@ export default function WritablePlan({
             onClick={onToggleCanAjaja ? onToggleCanAjaja : () => {}}
           />
           <div className="plan__bottom--after color-origin-gray-200 font-size-xs">
-            <span>월요일 18:00 마다</span>
-            <span>응원 메시지 알람 활성화</span>
+            {canAjaja ? (
+              <>
+                <span>월요일 18:00 마다</span>
+                <span>응원 메시지 알림 활성화</span>
+              </>
+            ) : (
+              <span>응원 메세지 알림 비활성화</span>
+            )}
           </div>
         </div>
       )}

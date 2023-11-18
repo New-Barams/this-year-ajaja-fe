@@ -54,9 +54,11 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     <div className={classNames('plans-page')}>
       <ReadOnlyPlan isMine={isMyPlan} planData={planData} />
 
-      <div className="plans-page__remind">
-        {isMyPlan && <ReadOnlyRemind planId={planId} />}
-      </div>
+      {isMyPlan && (
+        <div className="plans-page__remind">
+          <ReadOnlyRemind planId={planId} />{' '}
+        </div>
+      )}
 
       {isMyPlan && !isSeason && (
         <div className={classNames('plans-page__button__container')}>

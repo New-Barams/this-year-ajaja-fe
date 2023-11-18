@@ -4,9 +4,11 @@ import { Icon } from '@/components';
 import { useDebounce } from '@/hooks/useDebounce';
 import classNames from 'classnames';
 import { useState } from 'react';
+import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import './index.scss';
 
-interface AjajaButtonProps {
+interface AjajaButtonProps
+  extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   isFilled: boolean;
   ajajaCount: number;
 }
