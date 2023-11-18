@@ -13,6 +13,7 @@ interface PostNewPlanRequestBody {
   icon: number;
 }
 
-export const postNewPlan = (body: PostNewPlanRequestBody) => {
-  return axiosInstanceClient.post('/plans', { data: body });
+export const postNewPlan = async (body: PostNewPlanRequestBody) => {
+  const { data } = await axiosInstanceClient.post('/plans', { data: body });
+  return data;
 };
