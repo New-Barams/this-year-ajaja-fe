@@ -122,6 +122,15 @@ export default function CreatePage() {
     console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출 : ${data}`);
   };
 
+  // 모든 리마인드 메세지가 다 작성되어 있는지 여부
+  const isAllRemindMessageExists =
+    remindMessageList.length > 0 &&
+    remindMessageList.every((remindItem) => remindItem.message.length > 0);
+
+  // 작성 완료 버튼을 누를 수 있는 조건
+  const isCreatePossible =
+    isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
+
   return (
     <div className={classNames('create-page')}>
       <WritablePlan
@@ -147,13 +156,14 @@ export default function CreatePage() {
       />
       <div className={classNames('create-page__button__container')}>
         <Button
-          background="white-100"
-          color="primary"
+          background={isCreatePossible ? 'primary' : 'gray-200'}
+          color="white-100"
           size="lg"
-          border={true}
+          border={false}
           onClick={() => {
             createNewPlan();
-          }}>
+          }}
+          disabled={isCreatePossible}>
           작성 완료
         </Button>
         <Link href={`/home`}>
