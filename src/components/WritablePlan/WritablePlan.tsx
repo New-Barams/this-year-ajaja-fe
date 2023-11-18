@@ -125,7 +125,11 @@ export default function WritablePlan({
       </div>
       {isEditPage && (
         <div className="plan__bottom">
-          <AjajaButton isFilled={isAjajaOn} ajajaCount={ajajas} />
+          <AjajaButton
+            isFilled={isAjajaOn}
+            ajajaCount={ajajas}
+            disabled={true}
+          />
           <IconSwitchButton
             onIconName="NOTIFICATION_ON"
             offIconName="NOTIFICATION_OFF"

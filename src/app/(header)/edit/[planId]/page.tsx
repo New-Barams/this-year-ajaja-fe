@@ -260,6 +260,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         remindMessageList={remindMessageList}
         setRemindMessage={handleChangeRemindMessage}
         makeAllRemindMessageSame={makeAllRemindMessageSame}
+        classNameList={['edit-page__remind']}
       />
 
       <div className={classNames('edit-page__button__container')}>
