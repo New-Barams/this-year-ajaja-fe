@@ -117,7 +117,8 @@ export default function ModalVerification({
               value={code}
               onChange={handleChangeCode}
             />
-            <div className={classNames(emailState.success || 'visible-hidden')}>
+            <div
+              className={classNames(!emailState.success && 'visible-hidden')}>
               <Button
                 border={false}
                 size="sm"
