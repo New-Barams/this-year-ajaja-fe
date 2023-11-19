@@ -7,6 +7,7 @@ import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
@@ -106,8 +107,6 @@ export default function CreatePage() {
 
   // 작성 페이지의 state들을 createPlandata에 담아 계획 생성 API를 호출하는함수
   const createNewPlan = () => {
-    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출`);
-
     const data: createPlanData = {
       icon: decideRandomIconNumber(),
       isPublic: isPublic,
@@ -159,17 +158,19 @@ export default function CreatePage() {
         classNameList={['create-page__remind']}
       />
       <div className={classNames('create-page__button__container')}>
-        <Button
-          background={isCreatePossible ? 'primary' : 'gray-200'}
-          color="white-100"
-          size="lg"
-          border={false}
-          onClick={() => {
-            createNewPlan();
-          }}
-          disabled={!isCreatePossible}>
-          작성 완료
-        </Button>
+        <Link href="/home">
+          <Button
+            background={isCreatePossible ? 'primary' : 'gray-200'}
+            color="white-100"
+            size="lg"
+            border={false}
+            onClick={() => {
+              createNewPlan();
+            }}
+            disabled={!isCreatePossible}>
+            작성 완료
+          </Button>
+        </Link>
         <Button
           background="primary"
           color="white-100"

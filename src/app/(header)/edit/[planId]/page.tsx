@@ -11,6 +11,7 @@ import {
 } from '@/types/components/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
@@ -264,15 +265,17 @@ export default function EditPage({ params }: { params: { planId: string } }) {
       />
 
       <div className={classNames('edit-page__button__container')}>
-        <Button
-          background={isEditPossible ? 'primary' : 'gray-200'}
-          color="white-100"
-          size="lg"
-          border={false}
-          onClick={editPlan}
-          disabled={!isEditPossible}>
-          수정 완료
-        </Button>
+        <Link href={`/plans/${planId}`}>
+          <Button
+            background={isEditPossible ? 'primary' : 'gray-200'}
+            color="white-100"
+            size="lg"
+            border={false}
+            onClick={editPlan}
+            disabled={!isEditPossible}>
+            수정 완료
+          </Button>
+        </Link>
         <Button
           background="primary"
           color="white-100"

@@ -2,9 +2,7 @@
 
 import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
-import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
-import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React from 'react';
 import {
@@ -34,10 +32,10 @@ export const makeRemindOptionToString = (
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
 
-  const { data: serverRemindData, isLoading } = useGetRemindQuery(
-    parseInt(planId, 10),
-    checkIsSeason(),
-  );
+  // const { data: serverRemindData, isLoading } = useGetRemindQuery(
+  //   parseInt(planId, 10),
+  //   checkIsSeason(),
+  // );
 
   const remindData: RemindData = {
     isRemindable: true,
@@ -108,9 +106,10 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
 
   const handleToggleIsRemindable = () => {
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
-    console.log(
-      `서버에서 받아온 data : ${serverRemindData}, isLoading: ${isLoading}`,
-    );
+    console
+      .log
+      // `서버에서 받아온 data : ${serverRemindData}, isLoading: ${isLoading}`,
+      ();
   };
 
   return (
