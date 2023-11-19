@@ -3,6 +3,7 @@
 import { Icon } from '@/components';
 import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
+import { useEffect } from 'react';
 import './index.scss';
 
 type optionsType = {
@@ -25,6 +26,23 @@ export default function Dropdown({
 }: DropdownProps) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const backgroundRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        backgroundRef.current &&
+        !backgroundRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpened(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleClickLabel = () => {
     setIsDropdownOpened(!isDropdownOpened);
@@ -52,6 +70,7 @@ export default function Dropdown({
         className="dropdown__checkbox"
         type="checkbox"
         checked={isDropdownOpened}
+        disabled={true}
       />
       <label
         className={classNames('dropdown__label', 'background-origin-white-100')}
