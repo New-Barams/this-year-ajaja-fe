@@ -9,8 +9,15 @@ $tab_underline_height: 0.125rem;
     &-year {
       width: $tab_width;
     }
+    &-sort {
+      display: flex;
+      width: $tab_width;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin: 1rem 0 1rem 0;
+    }
   }
-  &__menu {
+  &__year-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
@@ -27,6 +34,7 @@ $tab_underline_height: 0.125rem;
       }
     }
     &--normal {
+      color: var(--origin-gray-200);
       &:hover {
         cursor: pointer;
       }
@@ -41,5 +49,24 @@ $tab_underline_height: 0.125rem;
   &__line {
     width: $tab_width;
     height: $tab_underline_height;
+  }
+  &__sort-menu {
+    &--align {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    &--focused {
+      color: var(--origin-orange-300);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--normal {
+      color: var(--origin-gray-200);
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
