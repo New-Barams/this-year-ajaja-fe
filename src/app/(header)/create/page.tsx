@@ -1,12 +1,12 @@
 'use client';
 
-import { Button, WritableRemind } from '@/components';
+import { Button, Modal, WritableRemind } from '@/components';
+import ModalExit from '@/components/Modal/ModalExit';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
@@ -67,6 +67,8 @@ export default function CreatePage() {
 
     setRemindMessageList(newRemindList);
   };
+
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
 
   // 리마인드 옵션 확정버튼 클릭 시 이에 따라 리마인드 날짜 생성 및 리마인드 아이템 렌더링해주는 함수
   const fixRemindOptions = () => {
@@ -168,16 +170,29 @@ export default function CreatePage() {
           disabled={!isCreatePossible}>
           작성 완료
         </Button>
-        <Link href={`/home`}>
-          <Button
-            background="primary"
-            color="white-100"
-            size="lg"
-            border={false}>
-            나가기
-          </Button>
-        </Link>
+        <Button
+          background="primary"
+          color="white-100"
+          size="lg"
+          border={false}
+          onClick={() => {
+            setIsExitModalOpen(true);
+          }}>
+          나가기
+        </Button>
       </div>
+
+      {isExitModalOpen && (
+        <Modal>
+          <ModalExit
+            exitLink="/home"
+            closeModal={() => {
+              setIsExitModalOpen(false);
+            }}>
+            작성 중인 계획이 있습니다. 정말 페이지를 나가시겠습니까 ?
+          </ModalExit>
+        </Modal>
+      )}
     </div>
   );
 }
