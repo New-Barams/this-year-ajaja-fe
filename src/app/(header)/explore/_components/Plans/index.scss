@@ -1,0 +1,13 @@
+.plans {
+  &__wrapper {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    margin-top: 1rem;
+    grid-template-rows: repeat(auto-fill, 12rem);
+    grid-template-columns: repeat(auto-fill, 21rem);
+    grid-row-gap: 3rem;
+  }
+}
