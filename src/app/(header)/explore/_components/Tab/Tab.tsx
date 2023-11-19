@@ -18,11 +18,9 @@ export default function Tab() {
 
   const selectYearMenuHandler = (index: number) => {
     setCurrentYearTab(index);
-    console.log(index);
   };
   const selectSortMenuHandler = (index: number) => {
     setCurrentSortTab(index);
-    console.log(index);
   };
   return (
     <div className={classNames('tab__wrapper')}>
