@@ -1,12 +1,15 @@
 import { Color } from '@/types';
 import classNames from 'classnames';
+import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import './index.scss';
 
-interface ButtonProps {
+interface ButtonProps
+  extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   background: Color;
   color: Color;
   size: 'lg' | 'md' | 'sm';
   border: boolean;
+  classNameList?: string[];
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -16,6 +19,7 @@ export default function Button({
   color,
   size,
   border,
+  classNameList = [],
   children,
   onClick,
   ...props
@@ -41,6 +45,7 @@ export default function Button({
         `color-origin-${color}`,
         `font-size-${fontSize}`,
         `border-round`,
+        classNameList,
       )}
       onClick={onClick}
       {...props}>

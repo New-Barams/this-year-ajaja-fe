@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, WritableRemind } from '@/components';
+import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
@@ -23,11 +24,13 @@ type createPlanData = {
 };
 
 export default function CreatePage() {
-  // 시즌이 아니거나 로그인 안 되어있을 때, 로그인 페이지로 redirect
-  // const [title, setTitle] = useState('');
-  // const [description, setDescription] = useState('');
-  // const [isPublic, setPublic] = useState(true);
-  // const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [isPublic, setPublic] = useState(true);
+  const toggleIsPublic = () => {
+    setPublic(!isPublic);
+  };
 
   const [remindOptions, setRemindOptions] = useState<RemindOptionType>({
     TotalPeriod: 12,
@@ -99,7 +102,10 @@ export default function CreatePage() {
     setRemindMessageList(updatedList);
   }, [remindMessageList]);
 
+  // 작성 페이지의 state들을 createPlandata에 담아 계획 생성 API를 호출하는함수
   const createNewPlan = () => {
+    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출`);
+
     const data: createPlanData = {
       icon: decideRandomIconNumber(),
       isPublic: isPublic,
@@ -115,11 +121,31 @@ export default function CreatePage() {
       }),
     };
 
-    console.log(`위 데이터를 이용해 새 계획 생성 API 호출 : ${data}`);
+    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출 : ${data}`);
   };
+
+  // 모든 리마인드 메세지가 다 작성되어 있는지 여부
+  const isAllRemindMessageExists =
+    remindMessageList.length > 0 &&
+    remindMessageList.every((remindItem) => remindItem.message.length > 0);
+
+  // 작성 완료 버튼을 누를 수 있는 조건
+  const isCreatePossible =
+    isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   return (
     <div className={classNames('create-page')}>
+      <WritablePlan
+        isEditPage={false}
+        isPublic={isPublic}
+        onToggleIsPublic={toggleIsPublic}
+        title={title}
+        description={description}
+        onChangeTitle={setTitle}
+        onChangeDescription={setDescription}
+        tags={tags}
+        changeTags={setTags}
+      />
       <WritableRemind
         isEditPage={false}
         remindOption={remindOptions}
@@ -128,17 +154,18 @@ export default function CreatePage() {
         remindMessageList={remindMessageList}
         setRemindMessage={handleChangeRemindMessage}
         makeAllRemindMessageSame={makeAllRemindMessageSame}
+        classNameList={['create-page__remind']}
       />
-
       <div className={classNames('create-page__button__container')}>
         <Button
-          background="white-100"
-          color="primary"
+          background={isCreatePossible ? 'primary' : 'gray-200'}
+          color="white-100"
           size="lg"
-          border={true}
+          border={false}
           onClick={() => {
             createNewPlan();
-          }}>
+          }}
+          disabled={!isCreatePossible}>
           작성 완료
         </Button>
         <Link href={`/home`}>

@@ -1,6 +1,17 @@
 .edit-page {
   padding: 2.5rem;
 
+  &__remind {
+    &:before {
+      content: '';
+      display: block;
+      height: 0.3px;
+      background-color: var(--origin-gray-100);
+      border: 1px solid var(--origin-gray-100);
+      margin: 3rem 0 3rem 0;
+    }
+  }
+
   &__button__container {
     margin-top: 2rem;
     display: flex;
