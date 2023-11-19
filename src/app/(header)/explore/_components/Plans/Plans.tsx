@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 // import { useAllPlansQuery } from '@/hooks/apis/plans/useAllPlansQuery';
 import Card from '../Card/Card';
 
@@ -36,7 +37,7 @@ export default function Plans() {
         createdAt: '2023-??',
       },
       {
-        id: 1,
+        id: 2,
         userId: 2,
         nickname: '윈드밀하는 미어캣',
         title: '올해도 아좌좌 아좌좌',
@@ -51,7 +52,7 @@ export default function Plans() {
         createdAt: '2023-??',
       },
       {
-        id: 1,
+        id: 3,
         userId: 2,
         nickname: '윈드밀하는 미어캣',
         title: '올해도 아좌좌 아좌좌',
@@ -64,7 +65,11 @@ export default function Plans() {
   return (
     <>
       {allPlans.data.map((plan, index) => {
-        return <Card key={index} plan={plan} />;
+        return (
+          <Link key={index} href={`/plans/${plan.id}`}>
+            <Card key={index} plan={plan} />
+          </Link>
+        );
       })}
     </>
   );
