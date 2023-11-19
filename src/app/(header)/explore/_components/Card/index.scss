@@ -1,0 +1,25 @@
+@use 'sass:math';
+
+$card_width: 20rem;
+$card_height: 12rem;
+$card_gap: 0.5rem;
+
+.card {
+  &__wrapper {
+    width: $card_width;
+    height: $card_height;
+    position: relative;
+  }
+  &__background {
+    width: calc($card_width - $card_gap);
+    height: calc($card_height - $card_gap);
+    margin-left: $card_gap;
+  }
+  &__contents {
+    width: calc($card_width - $card_gap);
+    height: calc($card_height - $card_gap);
+    border-width: 5px;
+    position: absolute;
+    top: $card_gap;
+  }
+}
