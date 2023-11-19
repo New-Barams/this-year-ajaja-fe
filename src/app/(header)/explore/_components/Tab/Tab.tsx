@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import { useState } from 'react';
+import React from 'react';
 import './index.scss';
 
 export default function Tab() {
@@ -57,7 +58,7 @@ export default function Tab() {
       <div className={classNames('tab__wrapper-sort', 'font-size-sm')}>
         {sortMenu.map((el, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               {!!index && (
                 <p className={classNames('color-origin-gray-200')}>|</p>
               )}
@@ -72,7 +73,7 @@ export default function Tab() {
                 onClick={() => selectSortMenuHandler(index)}>
                 {el.name}
               </li>
-            </>
+            </React.Fragment>
           );
         })}
       </div>
