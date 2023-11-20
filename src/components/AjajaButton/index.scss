@@ -2,8 +2,8 @@
   &-button {
     display: flex;
     align-items: center;
+    background-color: transparent;
     gap: 5px;
-    font-weight: bold;
     border: none;
     &:hover {
       cursor: pointer;

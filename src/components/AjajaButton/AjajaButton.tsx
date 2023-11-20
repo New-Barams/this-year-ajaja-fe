@@ -11,11 +11,13 @@ interface AjajaButtonProps
   extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   isFilled: boolean;
   ajajaCount: number;
+  classNameList?: string[];
 }
 
 export default function AjajaButton({
   isFilled,
   ajajaCount,
+  classNameList = [],
   ...props
 }: AjajaButtonProps) {
   const [count, setCount] = useState(ajajaCount);
@@ -42,9 +44,9 @@ export default function AjajaButton({
     <button
       className={classNames(
         `ajaja-button`,
-        `background-origin-white-200`,
         `color-origin-gray-300`,
-        `font-size-base`,
+        `font-size-sm`,
+        classNameList,
       )}
       onClick={handleAjaja}
       {...props}>
@@ -61,7 +63,7 @@ export default function AjajaButton({
           아좌좌
         </p>
       </div>
-      {count}
+      {count >= 1000 ? Math.floor(count / 1000) + 'k' : count}
     </button>
   );
 }
