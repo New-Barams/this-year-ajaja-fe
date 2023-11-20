@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, WritableRemind } from '@/components';
+import { Button, Modal, WritableRemind } from '@/components';
+import ModalExit from '@/components/Modal/ModalExit';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
@@ -68,6 +69,8 @@ export default function CreatePage() {
     setRemindMessageList(newRemindList);
   };
 
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+
   // 리마인드 옵션 확정버튼 클릭 시 이에 따라 리마인드 날짜 생성 및 리마인드 아이템 렌더링해주는 함수
   const fixRemindOptions = () => {
     const fixedRemindDate = decideRemindDate(
@@ -104,8 +107,6 @@ export default function CreatePage() {
 
   // 작성 페이지의 state들을 createPlandata에 담아 계획 생성 API를 호출하는함수
   const createNewPlan = () => {
-    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출`);
-
     const data: createPlanData = {
       icon: decideRandomIconNumber(),
       isPublic: isPublic,
@@ -157,27 +158,42 @@ export default function CreatePage() {
         classNameList={['create-page__remind']}
       />
       <div className={classNames('create-page__button__container')}>
+        <Link href="/home">
+          <Button
+            background={isCreatePossible ? 'primary' : 'gray-200'}
+            color="white-100"
+            size="lg"
+            border={false}
+            onClick={() => {
+              createNewPlan();
+            }}
+            disabled={!isCreatePossible}>
+            작성 완료
+          </Button>
+        </Link>
         <Button
-          background={isCreatePossible ? 'primary' : 'gray-200'}
+          background="primary"
           color="white-100"
           size="lg"
           border={false}
           onClick={() => {
-            createNewPlan();
-          }}
-          disabled={!isCreatePossible}>
-          작성 완료
+            setIsExitModalOpen(true);
+          }}>
+          나가기
         </Button>
-        <Link href={`/home`}>
-          <Button
-            background="primary"
-            color="white-100"
-            size="lg"
-            border={false}>
-            나가기
-          </Button>
-        </Link>
       </div>
+
+      {isExitModalOpen && (
+        <Modal>
+          <ModalExit
+            exitLink="/home"
+            closeModal={() => {
+              setIsExitModalOpen(false);
+            }}>
+            작성 중인 계획이 있습니다. 정말 페이지를 나가시겠습니까 ?
+          </ModalExit>
+        </Modal>
+      )}
     </div>
   );
 }

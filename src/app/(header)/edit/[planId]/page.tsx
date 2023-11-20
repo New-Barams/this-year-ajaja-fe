@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, WritableRemind } from '@/components';
+import { Button, Modal, WritableRemind } from '@/components';
+import ModalExit from '@/components/Modal/ModalExit';
 import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import {
@@ -166,6 +167,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     setRemindMessageList(newRemindList);
   };
 
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+
   const fixRemindOptions = () => {
     const fixedRemindDate = decideRemindDate(
       remindOptions.TotalPeriod,
@@ -262,25 +265,40 @@ export default function EditPage({ params }: { params: { planId: string } }) {
       />
 
       <div className={classNames('edit-page__button__container')}>
+        <Link href={`/plans/${planId}`}>
+          <Button
+            background={isEditPossible ? 'primary' : 'gray-200'}
+            color="white-100"
+            size="lg"
+            border={false}
+            onClick={editPlan}
+            disabled={!isEditPossible}>
+            수정 완료
+          </Button>
+        </Link>
         <Button
-          background={isEditPossible ? 'primary' : 'gray-200'}
+          background="primary"
           color="white-100"
           size="lg"
           border={false}
-          onClick={editPlan}
-          disabled={!isEditPossible}>
-          수정 완료
+          onClick={() => {
+            setIsExitModalOpen(true);
+          }}>
+          나가기
         </Button>
-        <Link href={`/plans/${planId}`}>
-          <Button
-            background="primary"
-            color="white-100"
-            size="lg"
-            border={false}>
-            나가기
-          </Button>
-        </Link>
       </div>
+
+      {isExitModalOpen && (
+        <Modal>
+          <ModalExit
+            exitLink={`/plans/${planId}`}
+            closeModal={() => {
+              setIsExitModalOpen(false);
+            }}>
+            수정 중인 계획이 있습니다. 정말 페이지를 나가시겠습니까 ?
+          </ModalExit>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -29,10 +29,15 @@ export const makeRemindOptionToString = (
   return selectedOptions.length === 1 ? selectedOptions[0].name : '';
 };
 
-// 내 계획 상세 페이지(시즌, 비시즌) 에서 사용되는 컴포넌트
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
-  const data: RemindData = {
+
+  // const { data: serverRemindData, isLoading } = useGetRemindQuery(
+  //   parseInt(planId, 10),
+  //   checkIsSeason(),
+  // );
+
+  const remindData: RemindData = {
     isRemindable: true,
     remindTime: 9,
     remindDate: 1,
@@ -97,10 +102,14 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     remindTerm,
     remindTotalPeriod,
     remindMessageList,
-  } = data;
+  } = remindData;
 
   const handleToggleIsRemindable = () => {
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
+    console
+      .log
+      // `서버에서 받아온 data : ${serverRemindData}, isLoading: ${isLoading}`,
+      ();
   };
 
   return (
