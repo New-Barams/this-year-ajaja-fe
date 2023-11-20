@@ -12,25 +12,27 @@ export default function FloatingButton() {
   const throttle = useThrottle();
 
   useEffect(() => {
-    const wrapper = floatingButton.current?.parentElement as HTMLDivElement;
+    const scrolledContainer = floatingButton.current
+      ?.parentElement as HTMLDivElement;
 
     const checkScroll = () => {
       throttle(() => {
-        wrapper.scrollTop >= 300 ? setIsOpen(true) : setIsOpen(false);
+        scrolledContainer.scrollTop >= 300 ? setIsOpen(true) : setIsOpen(false);
       }, 0.2);
     };
-    if (wrapper) {
-      wrapper.addEventListener('scroll', checkScroll);
+    if (scrolledContainer) {
+      scrolledContainer.addEventListener('scroll', checkScroll);
     }
     return () => {
-      wrapper.removeEventListener('scroll', checkScroll);
+      scrolledContainer.removeEventListener('scroll', checkScroll);
     };
   }, [throttle, floatingButton]);
 
   const handleGoToTop = () => {
     if (floatingButton.current?.parentElement) {
-      const page = floatingButton.current?.parentElement as HTMLDivElement;
-      page.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      const scrolledContainer = floatingButton.current
+        ?.parentElement as HTMLDivElement;
+      scrolledContainer.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
   };
   return (
