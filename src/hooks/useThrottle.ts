@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 
-export const useThrottle = (delaySecond: number) => {
+export const useThrottle = () => {
   const throttle = useCallback(() => {
     let timer: NodeJS.Timeout | null;
-    return (callback: () => void) => {
+    return (callback: () => void, delaySecond = 1) => {
       if (timer) return;
       callback();
       timer = setTimeout(() => {
         timer = null;
       }, delaySecond * 1000);
     };
-  }, [delaySecond]);
+  }, []);
   return throttle();
 };

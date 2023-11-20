@@ -1,0 +1,15 @@
+.to-top-button {
+  width: 50px;
+  height: 50px;
+  background-color: var(--origin-primary);
+  bottom: 10px;
+  right: 30px;
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  visibility: hidden;
+  &.visible {
+    visibility: visible;
+  }
+}
