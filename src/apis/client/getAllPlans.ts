@@ -1,12 +1,12 @@
+import { GetAllPlansResponse } from '@/types/apis/plan/GetAllPlans';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const getAllPlans = async () => {
-  try {
-    const { data } = await axiosInstanceClient.get('/plans', {
+  const { data } = await axiosInstanceClient.get<GetAllPlansResponse>(
+    '/plans',
+    {
       authorization: false,
-    });
-    return data;
-  } catch (error) {
-    console.log('Error:', error);
-  }
+    },
+  );
+  return data;
 };

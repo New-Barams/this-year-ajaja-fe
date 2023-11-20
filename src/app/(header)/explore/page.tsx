@@ -1,3 +1,5 @@
+import ExplorePlans from './_components/ExplorePlans';
+
 export default function ExplorePage() {
-  return <h2>explorePage</h2>;
+  return <ExplorePlans />;
 }

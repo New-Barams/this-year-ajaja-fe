@@ -1,0 +1,72 @@
+$tab_width: 100%;
+$tab_underline_height: 0.125rem;
+.tab {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    &-year {
+      width: $tab_width;
+    }
+    &-sort {
+      display: flex;
+      width: $tab_width;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin: 1rem 0 1rem 0;
+    }
+  }
+  &__year-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 2rem 0 1rem 0.875rem;
+    &--align {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    &--focused {
+      color: var(--origin-primary);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--normal {
+      color: var(--origin-gray-200);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--underline {
+      position: absolute;
+      top: 2rem;
+      height: $tab_underline_height;
+      width: 200%;
+    }
+  }
+  &__line {
+    width: $tab_width;
+    height: $tab_underline_height;
+  }
+  &__sort-menu {
+    &--align {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    &--focused {
+      color: var(--origin-orange-300);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--normal {
+      color: var(--origin-gray-200);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use 'sass:math';
+
+$card_width: 19rem;
+$card_height: 12rem;
+$card_gap: 0.5rem;
+
+@mixin ellipsis($line) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+.card {
+  &__wrapper {
+    width: $card_width;
+    height: $card_height;
+    position: relative;
+  }
+  &__background {
+    width: calc($card_width - $card_gap);
+    height: calc($card_height - $card_gap);
+    margin-left: $card_gap;
+  }
+  &__contents {
+    width: calc($card_width - $card_gap);
+    height: calc($card_height - $card_gap);
+    border-width: 5px;
+    position: absolute;
+    top: $card_gap;
+    display: flex;
+    justify-content: center;
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+    }
+    &--title {
+      width: calc($card_width - 3rem);
+      @include ellipsis(2);
+      margin-top: 2rem;
+    }
+    &--nickname {
+      @include ellipsis(1);
+      position: absolute;
+      margin-top: 5rem;
+    }
+    &--tags {
+      @include ellipsis(1);
+      position: absolute;
+      margin: 6.5rem 0 0 -0.4rem;
+    }
+    &--ajaja {
+      position: absolute;
+      margin: 8.25rem 0 0 calc($card_width - 6.5rem);
+    }
+  }
+}

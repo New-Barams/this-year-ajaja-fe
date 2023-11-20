@@ -35,26 +35,30 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const deletePlanAPI = (planId: string) => {
     console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
   };
+
   const planData: PlanData = {
-    id: 2342342, //계힉 Id
-    userId: 2342342, // 유저 Id
-    nickname: 'nononoere', // 유저 닉네임
-    title: '테스테 타이틀이양', //계획 타이틀
-    description: '테스트 설명이야', // 계획 설명
-    isPublic: true, // 공개여부
-    tags: ['태그1', '태그1', '태그1', '태그1', '태그1'], // tag 리스트,  태그는 타입 변경 예정
-    ajajas: 32343, // 아자자 개수
-    isAjajaOn: true, // 아자자 클릭 여부
-    isCanAjaja: false, // 응원 메세지 알람 여부
-    createdAt: '2023-06-15', // 계획 생성 일자
+    id: 2342342,
+    userId: 2342342,
+    nickname: '유저 닉네임',
+    title: '계획 내용 테스트 ',
+    description: '계획 설명',
+    isPublic: true,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+    ajajas: 32343,
+    isAjajaOn: true,
+    isCanAjaja: false,
+    createdAt: '2023-06-15',
   };
 
   return (
     <div className={classNames('plans-page')}>
       <ReadOnlyPlan isMine={isMyPlan} planData={planData} />
-      <div className="plans-page__remind">
-        {isMyPlan && <ReadOnlyRemind planId={planId} />}
-      </div>
+
+      {isMyPlan && (
+        <div className="plans-page__remind">
+          <ReadOnlyRemind planId={planId} />{' '}
+        </div>
+      )}
 
       {isMyPlan && !isSeason && (
         <div className={classNames('plans-page__button__container')}>
