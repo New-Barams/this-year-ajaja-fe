@@ -10,28 +10,32 @@ export const DOMAIN = {
   POST_USERS_LOGOUT: '/mock/users/logout',
   DELETE_USERS: '/mock/users',
 
-  POST_FEEDBACKS: (feedbackId: string) => `/mock/feedbacks/${feedbackId}`,
-  GET_FEEDBACKS: (userId: string) => `/feedbacks/${userId}`,
-  GET_FEEDBACKS_EACH: (planId: string) => `/mock/${planId}/feedbacks`,
+  POST_FEEDBACKS: (feedbackId: number) => `/mock/feedbacks/${feedbackId}`,
+  GET_FEEDBACKS: (userId: number) => `/feedbacks/${userId}`,
+  GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
 
   POST_REISSUE: '/mock/reissue',
   POST_LOGIN: '/mock/login',
 
-  GET_PLANS_REMINDS: (planId: string) => `/mock/plans/${planId}/reminds`,
-  PUT_PLANS_REMINDS: (planId: string) => `/mock/plans/${planId}/reminds`,
-  POST_PLANS_REMINDS: (planId: string) => `/mock/plans/${planId}/reminds`,
-  GET_PLANS_REMINDS_MESSAGES: (userId: string) =>
+  GET_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
+  PUT_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
+  POST_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
+  GET_PLANS_REMINDS_MESSAGES: (userId: number) =>
     `/mock/plans/${userId}/reminds/messages`,
-  GET_PLANS: (id: string) => `/mock/plans/${id}`,
-  PUT_PLANS: (id: string) => `/mock/plans/${id}`,
-  DELETE_PLANS: (id: string) => `/mock/plans/${id}`,
-  PUT_PLANS_SWITCH_REMINDABLE: (id: string) => `/mock/plans/${id}/remindable`,
-  PUT_PLANS_SWITCH_PUBLIC: (id: string) => `/mock/plans/${id}/public`,
-  PUT_PLANS_SWITCH_AJAJA: (id: string) => `/mock/plans/${id}/ajaja`,
+  GET_PLANS: (planId: number) => `/mock/plans/${planId}`,
+  PUT_PLANS: (planId: number) => `/mock/plans/${planId}`,
+  DELETE_PLANS: (planId: number) => `/mock/plans/${planId}`,
+  PUT_PLANS_SWITCH_REMINDABLE: (planId: number) =>
+    `/mock/plans/${planId}/remindable`,
+  PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/mock/plans/${planId}/public`,
+  PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/mock/plans/${planId}/ajaja`,
   GET_PLANS_ALL: '/mock/plans',
   POST_PLANS: '/mock/plans',
-  GET_PLANS_FEEDBAKS: (planId: string) => `/plans/${planId}/feedbacks`,
-  GET_PLANS_MAIN: (userId: string) => `/mock/plans/main/${userId}`,
+  GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
+  GET_PLANS_MAIN: (userId: number) => `/mock/plans/main/${userId}`,
+
+  GET_REMINDS: (planId: number) => `/reminds/${planId}`,
+  GET_REMINDS_MODIFY: (planId: number) => `/reminds/modify/${planId}`,
 };
 
 //실제 API -> swagger 순서입니다.
@@ -42,19 +46,22 @@ export const DOMAIN = {
 // POST_USERS_LOGOUT: '/users/logout',
 // DELETE_USERS: '/users',
 
-// POST_FEEDBACKS: (feedbackId: string) => `/feedbacks/${feedbackId}`,
-// GET_FEEDBACKS: (userId: string) => `/feedbacks/${userId}`,
+// POST_FEEDBACKS: (feedbackId: number) => `/feedbacks/${feedbackId}`,
+// GET_FEEDBACKS: (userId: number) => `/feedbacks/${userId}`,
 
 // POST_REISSUE: '/reissue',
 // POST_LOGIN: '/login',
 
-// GET_PLANS: (id: string) => `/plans/${id}`,
-// PUT_PLANS: (id: string) => `/plans/${id}`,
-// DELETE_PLANS: (id: string) => `/plans/${id}`,
-// PUT_PLANS_SWITCH_REMINDABLE: (id: string) => `/plans/${id}/remindable`,
-// PUT_PLANS_SWITCH_PUBLIC: (id: string) => `/plans/${id}/public`,
-// PUT_PLANS_SWITCH_AJAJA: (id: string) => `/plans/${id}/ajaja`,
+// GET_PLANS: (planId: number) => `/plans/${planId}`,
+// PUT_PLANS: (planId: number) => `/plans/${planId}`,
+// DELETE_PLANS: (planId: number) => `/plans/${planId}`,
+// PUT_PLANS_SWITCH_REMINDABLE: (planId: number) => `/plans/${planId}/remindable`,
+// PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/plans/${planId}/public`,
+// PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
 // GET_PLANS_ALL: '/plans',
 // POST_PLANS: '/plans',
-// GET_PLANS_FEEDBAKS: (planId: string) => `/plans/${planId}/feedbacks`,
-// GET_PLANS_MAIN: (userId: string) => `/plans/main/${userId}`,
+// GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
+// GET_PLANS_MAIN: (userId: number) => `/plans/main/${userId}`,
+
+// GET_REMINDS : (planId: number) => `/reminds/${planId}`,
+// GET_REMINDS_MODIFY : (planId: number) => `/reminds/modify/${planId}`,
