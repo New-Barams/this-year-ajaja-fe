@@ -5,7 +5,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { cookies } from 'next/headers';
 
 export const axiosInstanceServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_TEST_API_END_POINT,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: NETWORK.TIMEOUT,
   authorization: true,
 });
