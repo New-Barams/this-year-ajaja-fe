@@ -19,8 +19,8 @@ export default function HeaderLayout({
             'border-round',
           )}>
           {children}
+          <FloatingButton />
         </div>
-        <FloatingButton />
       </div>
     </div>
   );
