@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Icon } from '..';
 import './index.scss';
 
-export default function FloatingButton() {
+export default function ToTopFloatingButton() {
   const floatingButton = useRef<HTMLButtonElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const throttle = useThrottle();
