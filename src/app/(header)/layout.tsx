@@ -1,3 +1,4 @@
+import { ToTopFloatingButton } from '@/components';
 import classNames from 'classnames';
 import Header from './_components/Header/Header';
 import './_components/index.scss';
@@ -18,6 +19,7 @@ export default function HeaderLayout({
             'border-round',
           )}>
           {children}
+          <ToTopFloatingButton />
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
+import { DOMAIN } from '@/constants/api';
 import { GetAllPlansResponse } from '@/types/apis/plan/GetAllPlans';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const getAllPlans = async () => {
   const { data } = await axiosInstanceClient.get<GetAllPlansResponse>(
-    '/plans',
+    DOMAIN.GET_PLANS_ALL,
     {
       authorization: false,
     },
