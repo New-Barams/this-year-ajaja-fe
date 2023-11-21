@@ -2,23 +2,24 @@ name: Auto PR dev to main
 
 on:
   schedule:
-    - cron: '13 8 * * 1,2' # 매주 월요일(1)과 수요일(3) 9:00 시에 실행되도록 스케줄 설정 (Cron 표현식)
+    - cron: '53 8 * * 1,2' # 매주 월요일(1)과 수요일(3) 9:00 시에 실행되도록 스케줄 설정 (Cron 표현식)
 
 jobs:
-  create_pr:
+  createPullRequest:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Create Pull Request
         if: github.event_name == 'schedule'
         uses: peter-evans/create-pull-request@v5
         with:
+          token: ${{ secrets.ACTION_TOKEN }}
           title: '[전체] - 자동 배포 PR'
           body: '자동 생성 PR dev -> main Merge'
-          branch: main
-          base: dev
-          labels: '🍐배포'
-          token: ${{ secrets.ACTION_TOKEN }}
+          branch: dev
+          base: main
+          labels: |
+            🍐배
+          reviewers: MinwooP, qkdl60, suehdn
