@@ -1,11 +1,14 @@
 name: 'slack-notify'
+description: This action does send slack-notify
 
 inputs:
   status:
     required: false
     default: 'failure'
+    description: when input status is not entered default failure
   slack_incoming_url:
     required: true
+    description: slack incoming url
 
 runs:
   using: 'composite'
