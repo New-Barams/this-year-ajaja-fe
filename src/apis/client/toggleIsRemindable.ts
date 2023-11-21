@@ -1,5 +1,6 @@
+import { DOMAIN } from '@/constants/api';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const toggleIsRemindable = (planId: number) => {
-  return axiosInstanceClient.put(`/plans/${planId}/remindable`);
+  return axiosInstanceClient.put(DOMAIN.PUT_PLANS_SWITCH_REMINDABLE(planId));
 };

@@ -63,7 +63,7 @@ export default function AjajaButton({
           아좌좌
         </p>
       </div>
-      {count >= 1000 ? Math.floor(count / 1000) + 'k' : count}
+      {count}
     </button>
   );
 }

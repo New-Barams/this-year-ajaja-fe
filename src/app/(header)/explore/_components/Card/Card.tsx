@@ -62,7 +62,7 @@ export default function Card({ plan }: CardProps) {
           </div>
           <AjajaButton
             ajajaCount={plan.ajajas}
-            isFilled={!!plan.ajajas}
+            isFilled={true}
             classNameList={['card__contents--ajaja']}
             disabled
           />

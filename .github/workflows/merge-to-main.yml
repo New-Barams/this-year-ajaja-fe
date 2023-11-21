@@ -1,0 +1,32 @@
+name: Merge to Main
+
+on:
+  schedule:
+    - cron: '00 5 * * 1,2' # 매주 월요일(1)과 수요일(3) 9:00 시에 실행되도록 스케줄 설정 (Cron 표현식)
+
+jobs:
+  merge-to-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge to Main
+        run: |
+          git checkout main
+          git merge dev --no-ff --no-edit
+          git push origin main
+
+      - name: Send slack when failed
+        if: ${{ failure() }}
+        uses: ./.github/actions/slack-notify
+        with:
+          slack_incoming_url: ${{ secrets.SLACK_INCOMING_URL }}
+
+      - name: Send slack if completed
+        if: ${{ success() }}
+        uses: ./.github/actions/slack-notify
+        with:
+          status: success
+          slack_incoming_url: ${{ secrets.SLACK_INCOMING_URL }}

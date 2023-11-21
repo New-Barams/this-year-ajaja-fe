@@ -1,3 +1,4 @@
+import { DOMAIN } from '@/constants/api';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 interface PostNewPlanRequestBody {
@@ -14,6 +15,8 @@ interface PostNewPlanRequestBody {
 }
 
 export const postNewPlan = async (body: PostNewPlanRequestBody) => {
-  const { data } = await axiosInstanceClient.post('/plans', { data: body });
+  const { data } = await axiosInstanceClient.post(DOMAIN.POST_PLANS, {
+    data: body,
+  });
   return data;
 };

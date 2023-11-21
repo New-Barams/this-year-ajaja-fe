@@ -10,12 +10,9 @@ export default function useOauth() {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     (async () => {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_TEST_API_END_POINT}/login?code=${code}`,
-        {
-          method: 'POST',
-        },
-      )
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login?code=${code}`, {
+        method: 'POST',
+      })
         .then((res) => res.json())
         .then((data) => {
           const auth: auth = {
