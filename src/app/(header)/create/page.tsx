@@ -1,11 +1,12 @@
 'use client';
 
-import { PostNewPlanRequestBody } from '@/apis/client/postNewPlan';
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
+import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
+import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
@@ -115,7 +116,7 @@ export default function CreatePage() {
       remindTotalPeriod: remindOptions.TotalPeriod,
       remindTerm: remindOptions.Term,
       remindDate: remindOptions.Date,
-      remindTime: remindOptions.Time,
+      remindTime: changeRemindTimeToString(remindOptions.Time),
       messages: remindMessageList.map((messageItem) => {
         return messageItem.message;
       }),

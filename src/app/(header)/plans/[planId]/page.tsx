@@ -12,11 +12,12 @@ import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
+  const router = useRouter();
   // TODO: 계획 단건 조회 API 구현 후 리액트 쿼리 훅에서 받아오는 걸로 변경하기
   const planData: PlanData = {
     id: 2342342,
@@ -49,8 +50,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
   };
-
-  const router = useRouter();
 
   return (
     <div className={classNames('plans-page')}>

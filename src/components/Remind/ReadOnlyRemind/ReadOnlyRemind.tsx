@@ -4,6 +4,7 @@ import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
+import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import classNames from 'classnames';
 import React from 'react';
 import {
@@ -40,7 +41,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
 
   const remindData: RemindData = {
     isRemindable: true,
-    remindTime: 9,
+    remindTime: 'Morning',
     remindDate: 1,
     remindTerm: 1,
     remindTotalPeriod: 12,
@@ -142,7 +143,10 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
           {makeRemindOptionToString(DATE_OPTIONS, remindDate)}
         </span>
         <span className={classNames('readonly-remind__options__option')}>
-          {makeRemindOptionToString(TIME_OPTIONS, remindTime)}
+          {makeRemindOptionToString(
+            TIME_OPTIONS,
+            changeRemindTimeToNumber(remindTime),
+          )}
         </span>
         <span className={classNames('readonly-remind__options__text')}>
           에 리마인드를 받고 있어요 !
