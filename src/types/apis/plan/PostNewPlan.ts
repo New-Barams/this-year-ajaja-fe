@@ -8,5 +8,5 @@ export interface PostNewPlanRequestBody {
   isPublic: boolean;
   tags: string[];
   messages: string[];
-  icon: number;
+  iconNumber: number;
 }

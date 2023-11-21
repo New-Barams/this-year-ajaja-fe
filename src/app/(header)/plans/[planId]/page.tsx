@@ -18,7 +18,8 @@ import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const router = useRouter();
-  // TODO: 계획 단건 조회 API 구현 후 리액트 쿼리 훅에서 받아오는 걸로 변경하기
+
+  // TODO: 1. 계획 단건 조회 API를 통해 받아오는 걸로 변경
   const planData: PlanData = {
     id: 2342342,
     userId: 2342342,
@@ -35,7 +36,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
 
   const { planId } = params;
   const isSeason = checkIsSeason();
-  const isMyPlan = true; // TODO: 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
+  const isMyPlan = true; // TODO: 2. 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, 1번 planData의 userId와 비교해야 함
 
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
 
@@ -44,7 +45,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
     deletePlanAPI(parseInt(planId, 10));
-    router.back(); // 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동 시켜줘야 함
+    router.back(); // 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동
   };
 
   const handleModalClickNo = () => {

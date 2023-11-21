@@ -2,9 +2,11 @@
 
 import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
-import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
+import { RemindOptionObjectType } from '@/types/components/Remind';
 import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
+import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React from 'react';
 import {
@@ -33,78 +35,10 @@ const makeRemindOptionToString = (
 
 export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
   // 리마인드 정보 조회 API 호출해서 받아온 data
-
-  // const { data: serverRemindData, isLoading } = useGetRemindQuery(
-  //   parseInt(planId, 10),
-  //   checkIsSeason(),
-  // );
-
-  const remindData: RemindData = {
-    isRemindable: true,
-    remindTime: 'Morning',
-    remindDate: 1,
-    remindTerm: 1,
-    remindTotalPeriod: 12,
-    remindMessageList: [
-      {
-        remindMonth: 3,
-        remindDate: 15,
-        remindMessage: '리마인드 받았지만 만료되서 피드백 0%로 처리 ',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 6,
-        remindDate: 15,
-        remindMessage: '리마인드 받아서 피드백함',
-        isReminded: true,
-        isFeedback: true,
-        feedbackId: 12,
-        rate: 75,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 9,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 12,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: false,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-    ],
-  };
-
-  const {
-    isRemindable,
-    remindTime,
-    remindDate,
-    remindTerm,
-    remindTotalPeriod,
-    remindMessageList,
-  } = remindData;
+  const { remindData } = useGetRemindQuery(
+    parseInt(planId, 10),
+    checkIsSeason(),
+  );
 
   const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation();
 
@@ -120,7 +54,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
           리마인드
         </span>
         <DebounceSwitchButton
-          defaultIsOn={isRemindable}
+          defaultIsOn={remindData.isRemindable}
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />
@@ -128,24 +62,27 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
 
       <div className={classNames('readonly-remind__options')}>
         <span className={classNames('readonly-remind__options__option')}>
-          {makeRemindOptionToString(TOTAL_PERIOD_OPTIONS, remindTotalPeriod)}
+          {makeRemindOptionToString(
+            TOTAL_PERIOD_OPTIONS,
+            remindData.remindTotalPeriod,
+          )}
         </span>
         <span className={classNames('readonly-remind__options__text')}>
           동안
         </span>
 
         <span className={classNames('readonly-remind__options__option')}>
-          {makeRemindOptionToString(TERM_OPTIONS, remindTerm)}
+          {makeRemindOptionToString(TERM_OPTIONS, remindData.remindTerm)}
         </span>
         <span>마다 매달</span>
 
         <span className={classNames('readonly-remind__options__option')}>
-          {makeRemindOptionToString(DATE_OPTIONS, remindDate)}
+          {makeRemindOptionToString(DATE_OPTIONS, remindData.remindDate)}
         </span>
         <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(
             TIME_OPTIONS,
-            changeRemindTimeToNumber(remindTime),
+            changeRemindTimeToNumber(remindData.remindTime),
           )}
         </span>
         <span className={classNames('readonly-remind__options__text')}>
@@ -153,9 +90,9 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
         </span>
       </div>
 
-      {remindMessageList.length !== 0 && (
+      {remindData.remindMessageList.length !== 0 && (
         <ul className={classNames('readonly-remind__message__list')}>
-          {remindMessageList.map((item, index) => {
+          {remindData.remindMessageList.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}

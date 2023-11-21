@@ -15,7 +15,6 @@ import { useCallback, useState } from 'react';
 import './index.scss';
 
 export default function CreatePage() {
-  const { mutate: createNewPlan, isPending } = usePostNewPlanMutation();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -96,19 +95,18 @@ export default function CreatePage() {
     setRemindMessageList(updatedList);
   }, [remindMessageList]);
 
-  // 모든 리마인드 메세지가 다 작성되어 있는지 여부
   const isAllRemindMessageExists =
     remindMessageList.length > 0 &&
     remindMessageList.every((remindItem) => remindItem.message.length > 0);
 
-  // 작성 완료 버튼을 누를 수 있는 조건
   const isCreatePossible =
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
-  // 작성 페이지의 state들을 data에 담아 계획 생성 API를 호출하는함수
+  // 계획 생성 API 부분
+  const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
   const handleCreateNewPlan = () => {
     const data: PostNewPlanRequestBody = {
-      icon: decideRandomIconNumber(),
+      iconNumber: decideRandomIconNumber(),
       isPublic: isPublic,
       title: title,
       description: description,
@@ -121,10 +119,7 @@ export default function CreatePage() {
         return messageItem.message;
       }),
     };
-
-    createNewPlan(data); // 실제 계획 생성 api 호출
-
-    console.log(`로딩 중 : ${isPending}`);
+    createNewPlanAPI(data);
   };
 
   return (
