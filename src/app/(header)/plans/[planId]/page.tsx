@@ -33,8 +33,8 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   };
 
   const { planId } = params;
-  const isMyPlan = true; // TODO: 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
   const isSeason = checkIsSeason();
+  const isMyPlan = true; // TODO: 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
 
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
 

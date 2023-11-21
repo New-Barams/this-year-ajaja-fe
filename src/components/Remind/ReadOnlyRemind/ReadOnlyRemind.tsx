@@ -2,6 +2,7 @@
 
 import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
+import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { RemindData, RemindOptionObjectType } from '@/types/components/Remind';
 import classNames from 'classnames';
 import React from 'react';
@@ -104,7 +105,10 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     remindMessageList,
   } = remindData;
 
+  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation();
+
   const handleToggleIsRemindable = () => {
+    toggleIsRemindableAPI(parseInt(planId, 10));
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
   };
 
