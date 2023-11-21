@@ -27,4 +27,5 @@ export type IconName =
   | 'STRATEGY'
   | 'TROPHY'
   | 'STAR'
-  | 'FAVORITE';
+  | 'FAVORITE'
+  | 'ARROW_UP';
