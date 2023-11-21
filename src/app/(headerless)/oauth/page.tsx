@@ -1,8 +1,8 @@
 'use client';
 
-import useOauth from './hooks/useOauth';
+import useOauthPage from './hooks/useOauthPage';
 
 export default function OauthPage() {
-  useOauth();
+  useOauthPage();
   return;
 }
