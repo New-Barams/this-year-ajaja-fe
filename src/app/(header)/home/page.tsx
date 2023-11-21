@@ -1,4 +1,5 @@
 // import { getMyPlans } from '@/hooks/apis/plans/useMyPlansQuery';
+import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 // import NewPlan from './_components/NewPlan/NewPlan';
 // import Plan from './_components/Plan/Plan';
@@ -13,30 +14,30 @@ export default async function HomePage() {
   const myPlans = {
     success: true,
     data: [
-      {
-        year: 2023,
-        totalAchieveRate: 50,
-        getPlanList: [
-          {
-            title: '매일 운동하기',
-            isRemindable: true,
-            achieveRate: 90,
-            icon: 5,
-          },
-          {
-            title: '매일 코딩하기',
-            isRemindable: true,
-            achieveRate: 90,
-            icon: 8,
-          },
-          {
-            title: '매일 아침 9시에 일어나기',
-            isRemindable: false,
-            achieveRate: 20,
-            icon: 3,
-          },
-        ],
-      },
+      // {
+      //   year: 2023,
+      //   totalAchieveRate: 50,
+      //   getPlanList: [
+      //     {
+      //       title: '매일 운동하기',
+      //       isRemindable: true,
+      //       achieveRate: 90,
+      //       icon: 5,
+      //     },
+      //     {
+      //       title: '매일 코딩하기',
+      //       isRemindable: true,
+      //       achieveRate: 90,
+      //       icon: 8,
+      //     },
+      //     {
+      //       title: '매일 아침 9시에 일어나기',
+      //       isRemindable: false,
+      //       achieveRate: 20,
+      //       icon: 3,
+      //     },
+      //   ],
+      // },
       {
         year: 2022,
         totalAchieveRate: 80,
@@ -63,6 +64,13 @@ export default async function HomePage() {
       },
     ],
   };
+  if (!myPlans.data.length || myPlans.data[0].year !== checkThisYear()) {
+    myPlans.data.unshift({
+      year: checkThisYear(),
+      totalAchieveRate: 50,
+      getPlanList: [],
+    });
+  }
 
   return (
     <>
