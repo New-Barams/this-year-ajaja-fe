@@ -3,7 +3,7 @@
 import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
-import useLogin from './hooks/useLogin';
+import useLogin from './hooks/useLoginPage';
 import './index.scss';
 
 export default function LoginPage() {
