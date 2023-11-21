@@ -18,7 +18,7 @@ jobs:
         with:
           title: '[전체] - 자동 배포 PR'
           body: '자동 생성 PR dev -> main Merge'
-          branch: dev
-          base: main
+          branch: main
+          base: dev
           labels: '🍐배포'
           token: ${{ secrets.ACTION_TOKEN }}
