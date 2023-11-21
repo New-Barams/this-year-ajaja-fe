@@ -32,6 +32,7 @@ const ICON_NAME_MAP = {
   TROPHY: 'trophy',
   STAR: 'star',
   FAVORITE: 'favorite',
+  ARROW_UP: 'arrow_upward',
 };
 
 interface IconProps {
