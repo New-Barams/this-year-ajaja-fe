@@ -8,16 +8,16 @@ import {
   ReadOnlyRemind,
 } from '@/components';
 import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
+import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
-  // 계획 단건 조회로 계획 데이터 받아와 계획 컴포넌트 렌러링
-  // TODO : 노철님이 구현하시면 리액트 쿼리 훅에서 받아오는 걸로 변경하기
-
+  // TODO: 계획 단건 조회 API 구현 후 리액트 쿼리 훅에서 받아오는 걸로 변경하기
   const planData: PlanData = {
     id: 2342342,
     userId: 2342342,
@@ -33,23 +33,24 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   };
 
   const { planId } = params;
-  const isMyPlan = true; // 쿠키에 잇는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
+  const isMyPlan = true; // TODO: 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
   const isSeason = checkIsSeason();
 
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
 
+  const { mutate: deletePlanAPI } = useDeletePlanMutation();
+
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
-    deletePlanAPI(planId);
+    deletePlanAPI(parseInt(planId, 10));
+    router.back(); // 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동 시켜줘야 함
   };
 
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
   };
 
-  const deletePlanAPI = (planId: string) => {
-    console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
-  };
+  const router = useRouter();
 
   return (
     <div className={classNames('plans-page')}>
