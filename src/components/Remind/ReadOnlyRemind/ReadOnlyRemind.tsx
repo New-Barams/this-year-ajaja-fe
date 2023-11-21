@@ -18,7 +18,7 @@ interface ReadOnlyRemindProps {
 }
 
 // 선택된 리마인드 옵션에 따라 이에 해당하는 text를 return 해주는 함수
-export const makeRemindOptionToString = (
+const makeRemindOptionToString = (
   remindOptions: RemindOptionObjectType[],
   selectedValue: number,
 ) => {
@@ -106,10 +106,6 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
 
   const handleToggleIsRemindable = () => {
     console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
-    console
-      .log
-      // `서버에서 받아온 data : ${serverRemindData}, isLoading: ${isLoading}`,
-      ();
   };
 
   return (

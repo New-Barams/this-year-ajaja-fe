@@ -16,9 +16,24 @@ import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
   // 계획 단건 조회로 계획 데이터 받아와 계획 컴포넌트 렌러링
-  // 계획 data안 userId와 현재 유저의 userId 비교해서 내 계획인지 여부인 isMyPlan 값 할당
+  // TODO : 노철님이 구현하시면 리액트 쿼리 훅에서 받아오는 걸로 변경하기
+
+  const planData: PlanData = {
+    id: 2342342,
+    userId: 2342342,
+    nickname: '유저 닉네임',
+    title: '계획 내용 테스트 ',
+    description: '계획 설명',
+    isPublic: true,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+    ajajas: 32343,
+    isAjajaOn: true,
+    isCanAjaja: false,
+    createdAt: '2023-06-15',
+  };
+
   const { planId } = params;
-  const isMyPlan = true;
+  const isMyPlan = true; // 쿠키에 잇는 토큰을 decode해서 userId를 받아온 후, planData의 userId와 비교해야 함
   const isSeason = checkIsSeason();
 
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
@@ -34,20 +49,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
 
   const deletePlanAPI = (planId: string) => {
     console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
-  };
-
-  const planData: PlanData = {
-    id: 2342342,
-    userId: 2342342,
-    nickname: '유저 닉네임',
-    title: '계획 내용 테스트 ',
-    description: '계획 설명',
-    isPublic: true,
-    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
-    ajajas: 32343,
-    isAjajaOn: true,
-    isCanAjaja: false,
-    createdAt: '2023-06-15',
   };
 
   return (

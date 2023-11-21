@@ -1,7 +1,7 @@
 import { DOMAIN } from '@/constants/api';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
-interface PostNewPlanRequestBody {
+export interface PostNewPlanRequestBody {
   title: string;
   description: string;
   remindTotalPeriod: number;
