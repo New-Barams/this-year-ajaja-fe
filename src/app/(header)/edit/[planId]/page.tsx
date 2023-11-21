@@ -4,11 +4,9 @@ import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
 import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
-import {
-  RemindData,
-  RemindItemType,
-  RemindOptionType,
-} from '@/types/components/Remind';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
+import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
+import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -40,70 +38,76 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     title: '계획 제목 테스트',
     description: '계획 설명 테스트',
     isPublic: true,
-    tags: ['태그1', '태그1', '태그1', '태그1', '태그1'],
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
     ajajas: 100,
     isAjajaOn: true,
     isCanAjaja: true,
     createdAt: '2023-06-15',
   };
 
-  const remindData: RemindData = {
-    isRemindable: true,
-    remindTime: 9,
-    remindDate: 1,
-    remindTerm: 1,
-    remindTotalPeriod: 12,
-    remindMessageList: [
-      {
-        remindMonth: 3,
-        remindDate: 15,
-        remindMessage: '리마인드 받았지만 만료되서 피드백 0%로 처리 ',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 6,
-        remindDate: 15,
-        remindMessage: '리마인드 받아서 피드백함',
-        isReminded: true,
-        isFeedback: true,
-        feedbackId: 12,
-        rate: 75,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 9,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 12,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: false,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-    ],
-  };
+  // 리마인드 정보 조회 API 호출해서 받아온 data
+  const { remindData } = useGetRemindQuery(
+    parseInt(planId, 10),
+    checkIsSeason(),
+  );
+
+  // const remindData: RemindData = {
+  //   isRemindable: true,
+  //   remindTime: 9,
+  //   remindDate: 1,
+  //   remindTerm: 1,
+  //   remindTotalPeriod: 12,
+  //   remindMessageList: [
+  //     {
+  //       remindMonth: 3,
+  //       remindDate: 15,
+  //       remindMessage: '리마인드 받았지만 만료되서 피드백 0%로 처리 ',
+  //       isReminded: true,
+  //       isFeedback: false,
+  //       feedbackId: 12,
+  //       rate: 0,
+  //       isExpired: true,
+  //       endMonth: 12,
+  //       endDate: 1,
+  //     },
+  //     {
+  //       remindMonth: 6,
+  //       remindDate: 15,
+  //       remindMessage: '리마인드 받아서 피드백함',
+  //       isReminded: true,
+  //       isFeedback: true,
+  //       feedbackId: 12,
+  //       rate: 75,
+  //       isExpired: true,
+  //       endMonth: 12,
+  //       endDate: 1,
+  //     },
+  //     {
+  //       remindMonth: 9,
+  //       remindDate: 15,
+  //       remindMessage: '예시',
+  //       isReminded: true,
+  //       isFeedback: false,
+  //       feedbackId: 12,
+  //       rate: 0,
+  //       isExpired: false,
+  //       endMonth: 12,
+  //       endDate: 1,
+  //     },
+  //     {
+  //       remindMonth: 12,
+  //       remindDate: 15,
+  //       remindMessage: '예시',
+  //       isReminded: false,
+  //       isFeedback: false,
+  //       feedbackId: 12,
+  //       rate: 0,
+  //       isExpired: false,
+  //       endMonth: 12,
+  //       endDate: 1,
+  //     },
+  //   ],
+  // };
 
   // 2. 계획 수정을 위해 관리되어야 하는 state 및 핸들러의 기본값에 1번에서 받은 값을 넣어준다.
   const [title, setTitle] = useState(planData.title);
