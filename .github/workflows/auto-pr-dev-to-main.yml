@@ -2,7 +2,7 @@ name: Auto PR dev to main
 
 on:
   schedule:
-    - cron: '25 6 * * 1,2' # 매주 월요일(1)과 수요일(3) 9:00 시에 실행되도록 스케줄 설정 (Cron 표현식)
+    - cron: '33 6 * * 1,2' # 매주 월요일(1)과 수요일(3) 9:00 시에 실행되도록 스케줄 설정 (Cron 표현식)
   push:
     branches:
       - dev
