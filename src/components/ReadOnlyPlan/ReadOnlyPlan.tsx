@@ -1,3 +1,5 @@
+import { useToggleAjajaNotificationMutation } from '@/hooks/apis/useToggleAjajaNotificationMutation';
+import { useToggleIsPublicMutation } from '@/hooks/apis/useToggleIsPublicMutation';
 import { Color } from '@/types';
 import classNames from 'classnames';
 import { AjajaButton, IconSwitchButton, PlanInput, Tag } from '..';
@@ -44,12 +46,20 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
     'blue-300',
     'purple-300',
   ];
+  const { mutate: toggleIsPublic } = useToggleIsPublicMutation();
+  const { mutate: toggleAjajaNotification } =
+    useToggleAjajaNotificationMutation();
+
   const handleToggleIsPublic = () => {
+    toggleIsPublic(id);
     console.log(`${id}를 통해서 공개여부 변경`);
   };
+
   const handleToggleIsCanAjaja = () => {
+    toggleAjajaNotification(id);
     console.log(`${id}를 통해서 응원메세지 알림여부 변경`);
   };
+
   return (
     <div className="plan__container">
       <div className="plan__header">
