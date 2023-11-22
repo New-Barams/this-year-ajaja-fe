@@ -1,5 +1,6 @@
 export { default as AjajaButton } from '@components/AjajaButton/AjajaButton';
 export { default as Button } from '@components/Button/Button';
+export { default as DebounceSwitchButton } from '@/components/DebounceSwitchButton/DebounceSwitchButton';
 export { default as Dropdown } from '@components/Dropdown/Dropdown';
 export { default as Icon } from '@components/Icon/Icon';
 export { default as IconSwitchButton } from '@components/IconSwitchButton/IconSwitchButton';

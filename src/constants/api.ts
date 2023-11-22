@@ -15,7 +15,7 @@ export const DOMAIN = {
   GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
 
   POST_REISSUE: '/mock/reissue',
-  POST_LOGIN: '/mock/login',
+  POST_LOGIN: (code: string) => `/mock/login?code=${code}`,
 
   GET_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
   PUT_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
@@ -34,8 +34,8 @@ export const DOMAIN = {
   GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
   GET_PLANS_MAIN: (userId: number) => `/mock/plans/main/${userId}`,
 
-  GET_REMINDS: (planId: number) => `/reminds/${planId}`,
-  GET_REMINDS_MODIFY: (planId: number) => `/reminds/modify/${planId}`,
+  GET_REMINDS: (planId: number) => `/mock/reminds/${planId}`,
+  GET_REMINDS_MODIFY: (planId: number) => `/mock/reminds/modify/${planId}`,
 };
 
 //실제 API -> swagger 순서입니다.

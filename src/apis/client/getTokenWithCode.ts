@@ -1,9 +1,10 @@
-import { axiosInstanceClient } from '@/apis/axiosInstanceClient';
-import { getTokenWithCodeResponse } from '@/types/apis/users/getTokenWithCoin';
+import { DOMAIN } from '@/constants/api';
+import { getTokenWithCodeResponse } from '@/types/apis/users/GetTokenWithCoin';
+import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const getTokenWithCode = async (code: string) => {
   const { data } = await axiosInstanceClient.post<getTokenWithCodeResponse>(
-    `/login?code=${code}`,
+    DOMAIN.POST_LOGIN(code),
     null,
     {
       authorization: false,

@@ -1,6 +1,8 @@
+import { useToggleAjajaNotificationMutation } from '@/hooks/apis/useToggleAjajaNotificationMutation';
+import { useToggleIsPublicMutation } from '@/hooks/apis/useToggleIsPublicMutation';
 import { Color } from '@/types';
 import classNames from 'classnames';
-import { AjajaButton, IconSwitchButton, PlanInput, Tag } from '..';
+import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
@@ -44,12 +46,20 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
     'blue-300',
     'purple-300',
   ];
+  const { mutate: toggleIsPublic } = useToggleIsPublicMutation();
+  const { mutate: toggleAjajaNotification } =
+    useToggleAjajaNotificationMutation();
+
   const handleToggleIsPublic = () => {
+    toggleIsPublic(id);
     console.log(`${id}를 통해서 공개여부 변경`);
   };
+
   const handleToggleIsCanAjaja = () => {
+    toggleAjajaNotification(id);
     console.log(`${id}를 통해서 응원메세지 알림여부 변경`);
   };
+
   return (
     <div className="plan__container">
       <div className="plan__header">
@@ -57,11 +67,10 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
           {isMine ? '계획' : `${nickname}님의 계획입니다.`}
         </h1>
         {isMine && (
-          <IconSwitchButton
-            isActive={isPublic}
-            offIconName="PLAN_CLOSE"
-            onIconName="PLAN_OPEN"
-            onClick={handleToggleIsPublic}
+          <DebounceSwitchButton
+            defaultIsOn={isPublic}
+            toggleName="public"
+            submitToggleAPI={handleToggleIsPublic}
           />
         )}
         <span
@@ -69,9 +78,7 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
             'plan__header--after color-origin-gray-200',
             !isMine && 'bottom-line',
           )}>
-          {isMine
-            ? `계획 공개`
-            : `${createdYear ? createdYear : '0000'}년 작성`}
+          {isMine || `${createdYear ? createdYear : '0000'}년 작성`}
         </span>
       </div>
 
@@ -104,16 +111,11 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
         <AjajaButton isFilled={isAjajaOn} ajajaCount={ajajas} />
         {isMine && (
           <>
-            <IconSwitchButton
-              onIconName="NOTIFICATION_ON"
-              offIconName="NOTIFICATION_OFF"
-              isActive={isCanAjaja}
-              onClick={handleToggleIsCanAjaja}
+            <DebounceSwitchButton
+              toggleName="ajaja"
+              defaultIsOn={isCanAjaja}
+              submitToggleAPI={handleToggleIsCanAjaja}
             />
-            <div className="plan__bottom--after color-origin-gray-200">
-              <span>월요일 18:00 마다</span>
-              <span>응원 메시지 알림 활성화 </span>
-            </div>
           </>
         )}
       </div>
