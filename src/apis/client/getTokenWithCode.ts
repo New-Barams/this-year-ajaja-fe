@@ -1,5 +1,5 @@
-import { getTokenWithCodeResponse } from '@/types/apis/login/getTokenWithCoin';
-import { axiosInstanceClient } from '../axiosInstanceClient';
+import { axiosInstanceClient } from '@/apis/axiosInstanceClient';
+import { getTokenWithCodeResponse } from '@/types/apis/users/getTokenWithCoin';
 
 export const getTokenWithCode = async (code: string) => {
   const { data } = await axiosInstanceClient.post<getTokenWithCodeResponse>(
