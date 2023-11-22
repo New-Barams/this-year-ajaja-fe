@@ -1,3 +1,4 @@
+import { requestEmailVerification } from '@/apis/client/requestEmailVerification';
 import { Button, Icon } from '@/components';
 import classNames from 'classnames';
 import { useState } from 'react';
@@ -34,15 +35,19 @@ export default function ModalVerification({
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = () => {
+  const handleSubmitEmail = async () => {
     if (EmailRegExp.test(email)) {
       setEmailState({ error: false, success: false, isFetching: true });
       console.log('이메일 전송중');
-      setTimeout(() => {
-        setEmailState({ error: false, isFetching: false, success: true });
-        //TODO input의 value는 변경될 가능성이 있다. 그래서 api를 통해서 변경된 이메일을 받아서 넣어준다 .
-        setVerifiedEmail(email);
-      }, 2000);
+      try {
+        const { data } = await requestEmailVerification(email);
+        console.log(data);
+        setEmailState({ error: false, success: true, isFetching: false });
+      } catch (error) {
+        //TODO 에러핸들링
+        console.log(error);
+        setEmailState({ isFetching: false, error: true, success: false });
+      }
     } else {
       setEmailState({ isFetching: false, success: false, error: true });
     }
@@ -54,6 +59,7 @@ export default function ModalVerification({
     setVerificationState({ success: false, error: false, isFetching: true });
     setTimeout(() => {
       setVerificationState({ success: true, error: false, isFetching: false });
+      //TODO 모달분리를 위해 선택 함수로 분리
       setVerifiedEmail(email);
     });
     // 실패시 에러안내
