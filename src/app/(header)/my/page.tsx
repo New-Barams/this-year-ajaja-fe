@@ -3,6 +3,7 @@
 import { expireToken } from '@/apis/client/expireToken';
 import { refreshNickname } from '@/apis/client/refreshNickname';
 import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
+// import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
@@ -14,6 +15,13 @@ type EmailData = {
   email: string | null;
 };
 export default function MyPage() {
+  // const {
+  //   userInformation,
+  //   isError,
+  //   isFetching: isLoading,
+  // } = useGetUserInformationQuery();
+  // console.log(userInformation, isError, isLoading);
+
   const [myNickname, setMyNickname] = useState<string>('초기 닉네임');
   const [emailData, setEmailData] = useState<EmailData>({
     kakao: 'test@naver.com',
