@@ -30,7 +30,7 @@ export const DOMAIN = {
   PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/mock/plans/${planId}/public`,
   PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/mock/plans/${planId}/ajaja`,
   GET_PLANS_ALL: '/mock/plans',
-  POST_PLANS: '/mock/plans',
+  POST_PLANS: '/plans', // 계획 생성 API
   GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
   GET_PLANS_MAIN: (userId: number) => `/mock/plans/main/${userId}`,
 
