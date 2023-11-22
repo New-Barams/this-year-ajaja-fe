@@ -21,7 +21,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
 
   // TODO: 1. 계획 단건 조회 API를 통해 받아오는 걸로 변경
   const planData: PlanData = {
-    id: 2342342,
+    id: 7,
     userId: 2342342,
     nickname: '유저 닉네임',
     title: '계획 내용 테스트 ',
@@ -30,7 +30,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
     ajajas: 32343,
     isAjajaOn: true,
-    isCanAjaja: false,
+    isCanAjaja: true,
     createdAt: '2023-06-15',
   };
 
@@ -45,7 +45,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
     deletePlanAPI(parseInt(planId, 10));
-    router.back(); // 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동
+    router.replace('/home'); // TODO: 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동하려고 back으로 했는데 일단 잘 안되서 /home으로 변경
   };
 
   const handleModalClickNo = () => {
@@ -58,11 +58,11 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
 
       {isMyPlan && (
         <div className="plans-page__remind">
-          <ReadOnlyRemind planId={planId} />{' '}
+          <ReadOnlyRemind planId={planId} />
         </div>
       )}
 
-      {isMyPlan && !isSeason && (
+      {isMyPlan && isSeason && (
         <div className={classNames('plans-page__button__container')}>
           <Link href={`/edit/${planId}`}>
             <Button

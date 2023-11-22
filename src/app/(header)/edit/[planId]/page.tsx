@@ -20,7 +20,7 @@ import './index.scss';
 export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
 
-  // 1-1. 계획 단건 조회 API를 통해 계획 data 받아오기
+  // 1-1. TODO: 계획 단건 조회 API를 통해 계획 data 받아오기
   const planData: PlanData = {
     id: 123,
     userId: 123,

@@ -11,3 +11,8 @@ export interface EditPlanData {
   tags: string[];
   messages: string[];
 }
+
+export interface editPlanProps {
+  planId: number;
+  planData: EditPlanData;
+}

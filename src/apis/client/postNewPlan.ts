@@ -9,7 +9,7 @@ export const postNewPlan = async (body: PostNewPlanRequestBody) => {
       ...body,
     },
     {
-      headers: { Month: 1 }, // TODO: currentMonth로 바꿔줘야 함
+      headers: { Month: 1 }, // TODO: Month: currentMonth()로 바꿔줘야 함
     },
   );
   return data;
