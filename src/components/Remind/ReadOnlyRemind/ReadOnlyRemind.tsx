@@ -90,9 +90,9 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
         </span>
       </div>
 
-      {remindData.remindMessageList.length !== 0 && (
-        <ul className={classNames('readonly-remind__message__list')}>
-          {remindData.remindMessageList.map((item, index) => {
+      <ul className={classNames('readonly-remind__message__list')}>
+        {remindData.sentRemindResponses.length !== 0 &&
+          remindData.sentRemindResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}
@@ -101,8 +101,17 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
               />
             );
           })}
-        </ul>
-      )}
+        {remindData.futureRemindResponses.length !== 0 &&
+          remindData.futureRemindResponses.map((item, index) => {
+            return (
+              <ReadOnlyRemindItem
+                key={index}
+                data={item}
+                classNameList={['readonly-remind__message__item']}
+              />
+            );
+          })}
+      </ul>
     </div>
   );
 }

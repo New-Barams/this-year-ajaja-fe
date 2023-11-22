@@ -76,8 +76,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     });
   };
 
-  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>(
-    remindData.remindMessageList.map((remindItem) => {
+  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>([
+    ...remindData.sentRemindResponses.map((remindItem) => {
       return {
         date: {
           month: remindItem.remindMonth,
@@ -86,7 +86,16 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         message: remindItem.remindMessage,
       };
     }),
-  );
+    ...remindData.futureRemindResponses.map((remindItem) => {
+      return {
+        date: {
+          month: remindItem.remindMonth,
+          day: remindItem.remindDate,
+        },
+        message: remindItem.remindMessage,
+      };
+    }),
+  ]);
 
   const handleChangeRemindMessage = (
     month: number,

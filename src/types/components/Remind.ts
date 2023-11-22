@@ -37,5 +37,6 @@ export interface RemindData {
   remindDate: number;
   remindTerm: number;
   remindTotalPeriod: number;
-  remindMessageList: ReadOnlyRemindItemData[];
+  sentRemindResponses: ReadOnlyRemindItemData[] | [];
+  futureRemindResponses: ReadOnlyRemindItemData[] | [];
 }
