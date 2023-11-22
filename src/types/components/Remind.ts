@@ -33,7 +33,7 @@ export interface ReadOnlyRemindItemData {
 
 export interface RemindData {
   isRemindable: boolean;
-  remindTime: 'Morning' | 'Afternoon' | 'Evening';
+  remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
   remindDate: number;
   remindTerm: number;
   remindTotalPeriod: number;
