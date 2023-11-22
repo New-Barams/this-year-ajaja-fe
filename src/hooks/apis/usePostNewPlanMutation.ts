@@ -6,7 +6,3 @@ export const usePostNewPlanMutation = () => {
     mutationFn: postNewPlan,
   });
 };
-
-// 사용 예시
-// const { mutate: 쓰고싶은이름명, isLoading: 쓰고싶은이름명, } = usePostNewPlanMutation();
-// onSuccess에 내 계획 정보 조  회 refetch 위해 invalidQueries?

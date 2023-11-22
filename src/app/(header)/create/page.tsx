@@ -3,26 +3,16 @@
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
+import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
+import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
+import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
-
-type createPlanData = {
-  title: string;
-  description: string;
-  remindTotalPeriod: number;
-  remindTerm: number;
-  remindDate: number;
-  remindTime: number;
-  isPublic: boolean;
-  tags: string[];
-  messages: string[];
-  icon: number;
-};
 
 export default function CreatePage() {
   const [title, setTitle] = useState('');
@@ -105,10 +95,18 @@ export default function CreatePage() {
     setRemindMessageList(updatedList);
   }, [remindMessageList]);
 
-  // 작성 페이지의 state들을 createPlandata에 담아 계획 생성 API를 호출하는함수
-  const createNewPlan = () => {
-    const data: createPlanData = {
-      icon: decideRandomIconNumber(),
+  const isAllRemindMessageExists =
+    remindMessageList.length > 0 &&
+    remindMessageList.every((remindItem) => remindItem.message.length > 0);
+
+  const isCreatePossible =
+    isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
+
+  // 계획 생성 API 부분
+  const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
+  const handleCreateNewPlan = () => {
+    const data: PostNewPlanRequestBody = {
+      iconNumber: decideRandomIconNumber(),
       isPublic: isPublic,
       title: title,
       description: description,
@@ -116,23 +114,13 @@ export default function CreatePage() {
       remindTotalPeriod: remindOptions.TotalPeriod,
       remindTerm: remindOptions.Term,
       remindDate: remindOptions.Date,
-      remindTime: remindOptions.Time,
+      remindTime: changeRemindTimeToString(remindOptions.Time),
       messages: remindMessageList.map((messageItem) => {
         return messageItem.message;
       }),
     };
-
-    console.log(`작성 페이지의 state를 이용해 새 계획 생성 API 호출 : ${data}`);
+    createNewPlanAPI(data);
   };
-
-  // 모든 리마인드 메세지가 다 작성되어 있는지 여부
-  const isAllRemindMessageExists =
-    remindMessageList.length > 0 &&
-    remindMessageList.every((remindItem) => remindItem.message.length > 0);
-
-  // 작성 완료 버튼을 누를 수 있는 조건
-  const isCreatePossible =
-    isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   return (
     <div className={classNames('create-page')}>
@@ -165,7 +153,7 @@ export default function CreatePage() {
             size="lg"
             border={false}
             onClick={() => {
-              createNewPlan();
+              handleCreateNewPlan();
             }}
             disabled={!isCreatePossible}>
             작성 완료

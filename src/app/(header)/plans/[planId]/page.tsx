@@ -8,34 +8,18 @@ import {
   ReadOnlyRemind,
 } from '@/components';
 import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
+import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
-  // 계획 단건 조회로 계획 데이터 받아와 계획 컴포넌트 렌러링
-  // 계획 data안 userId와 현재 유저의 userId 비교해서 내 계획인지 여부인 isMyPlan 값 할당
-  const { planId } = params;
-  const isMyPlan = true;
-  const isSeason = checkIsSeason();
+  const router = useRouter();
 
-  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-
-  const handleModalClickYes = () => {
-    setIsDeletePlanModalOpen(false);
-    deletePlanAPI(planId);
-  };
-
-  const handleModalClickNo = () => {
-    setIsDeletePlanModalOpen(false);
-  };
-
-  const deletePlanAPI = (planId: string) => {
-    console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
-  };
-
+  // TODO: 1. 계획 단건 조회 API를 통해 받아오는 걸로 변경
   const planData: PlanData = {
     id: 2342342,
     userId: 2342342,
@@ -48,6 +32,24 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     isAjajaOn: true,
     isCanAjaja: false,
     createdAt: '2023-06-15',
+  };
+
+  const { planId } = params;
+  const isSeason = checkIsSeason();
+  const isMyPlan = true; // TODO: 2. 쿠키에 있는 토큰을 decode해서 userId를 받아온 후, 1번 planData의 userId와 비교해야 함
+
+  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
+
+  const { mutate: deletePlanAPI } = useDeletePlanMutation();
+
+  const handleModalClickYes = () => {
+    setIsDeletePlanModalOpen(false);
+    deletePlanAPI(parseInt(planId, 10));
+    router.back(); // 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동
+  };
+
+  const handleModalClickNo = () => {
+    setIsDeletePlanModalOpen(false);
   };
 
   return (
