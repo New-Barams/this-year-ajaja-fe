@@ -1,7 +1,9 @@
 'use client';
 
+import { expireToken } from '@/apis/client/expireToken';
 import { refreshNickname } from '@/apis/client/refreshNickname';
 import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import ModalVerification from './_components/ModalVerification';
@@ -47,8 +49,11 @@ export default function MyPage() {
     setIsOpenLogOutModal(true);
   };
 
-  const handleRealLogOut = () => {
+  const handleRealLogOut = async () => {
     console.log('정말 아웃, 홈으로 ');
+    await expireToken();
+    deleteCookie('auth');
+    //TODO에러핸들링, 리다이렉트
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);

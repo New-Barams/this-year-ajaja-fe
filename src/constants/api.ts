@@ -7,7 +7,7 @@ export const DOMAIN = {
   POST_USERS_VERIFY: '/mock/users/verify-email',
   POST_USERS_SEND_VERIFICATION: '/mock/users/send-verification',
   POST_USERS_REFRESH: '/users/refresh',
-  POST_USERS_LOGOUT: '/mock/users/logout',
+  POST_USERS_LOGOUT: '/users/logout',
   DELETE_USERS: '/mock/users',
 
   POST_FEEDBACKS: (feedbackId: number) => `/mock/feedbacks/${feedbackId}`,
