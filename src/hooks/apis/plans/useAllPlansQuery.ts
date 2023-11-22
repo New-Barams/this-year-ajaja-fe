@@ -6,7 +6,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useAllPlansQuery = (query: GetAllPlansRequestQuery) => {
   const { data } = useSuspenseQuery({
-    queryKey: ['getAllPlans'],
+    queryKey: ['getAllPlans', query.sortCondition, query.isNewYear],
     queryFn: () => getAllPlans(query),
     staleTime: 10000,
   });
