@@ -1,4 +1,4 @@
-export interface GetPlansResponse {
+export interface GetPlanResponse {
   success: boolean;
   data: plan;
 }
