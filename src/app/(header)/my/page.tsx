@@ -1,5 +1,6 @@
 'use client';
 
+import { refreshNickname } from '@/apis/client/refreshNickname';
 import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
@@ -11,7 +12,7 @@ type EmailData = {
   email: string | null;
 };
 export default function MyPage() {
-  const [myNickname, setMyNickname] = useState<string>('춤 추는 하마');
+  const [myNickname, setMyNickname] = useState<string>('초기 닉네임');
   const [emailData, setEmailData] = useState<EmailData>({
     kakao: 'test@naver.com',
     email: null,
@@ -22,12 +23,19 @@ export default function MyPage() {
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
     useState<boolean>(false);
 
-  const handleChangeNickName = () => {
+  const handleChangeNickName = async () => {
     setIsFetching(true);
-    setTimeout(() => {
-      setMyNickname('이름이바뀐 하마');
+    try {
+      const {
+        data: { data: nickname },
+      } = await refreshNickname();
+      setMyNickname(nickname);
+    } catch (error) {
+      //TODO 에러 핸들링
+      console.log('에러 났어 ㅠㅠ ');
+    } finally {
       setIsFetching(false);
-    }, 5000);
+    }
   };
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);

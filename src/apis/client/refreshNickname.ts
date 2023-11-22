@@ -1,4 +1,4 @@
-import { RefreshNicknameResponse } from '@/types/apis/users/refreshNickname';
+import { RefreshNicknameResponse } from '@/types/apis/users/RefreshNickname';
 import { axiosInstanceClient } from '@apis/axiosInstanceClient';
 import { DOMAIN } from '@constants/api';
 
