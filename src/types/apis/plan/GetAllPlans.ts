@@ -14,9 +14,11 @@ export interface CardPlans {
 }
 
 export interface GetAllPlansRequestQuery {
-  sortCondition: 'createdAt' | 'ajaja';
+  sortCondition: SortType;
   isNewYear: boolean;
   cursorCreatedAt?: string;
   cursorId?: number;
   pageSize: number;
 }
+
+export type SortType = 'createdAt' | 'ajaja';
