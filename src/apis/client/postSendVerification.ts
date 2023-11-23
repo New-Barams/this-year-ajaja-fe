@@ -1,6 +1,6 @@
 import { DOMAIN } from '@/constants/api';
-import { PostSendVerificationRequestBody } from '@/types/apis/users/RequestEmailVerification';
-import { axiosInstanceClient } from '../axiosInstanceClient';
+import { PostSendVerificationRequestBody } from '@/types/apis/users/PostSendVerification';
+import { axiosInstanceClient } from '@apis/axiosInstanceClient';
 
 export const postSendVerification = async (email: string) => {
   const data: PostSendVerificationRequestBody = { email: email };

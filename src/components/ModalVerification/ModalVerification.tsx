@@ -10,7 +10,7 @@ import './index.scss';
 
 interface ModalVerificationProps {
   handleCloseModal: () => void;
-  setVerifiedEmail?: (text: string) => void;
+  setVerifiedEmail?: () => void;
 }
 export default function ModalVerification({
   handleCloseModal,
@@ -53,10 +53,10 @@ export default function ModalVerification({
     const inputValue = event.target.value.replace(/[^0-9]/g, '');
     setCode(inputValue);
   };
-  const handleSubmitCode = () => {
+  const handleSubmitCode = async () => {
     if (code.length == 6) {
-      submitCertification(code);
-      setVerifiedEmail && setVerifiedEmail(email);
+      await submitCertification(code);
+      setVerifiedEmail && setVerifiedEmail();
     }
   };
   return (

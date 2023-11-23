@@ -1,10 +1,10 @@
-import { refreshNickname } from '@/apis/client/refreshNickname';
+import { postUsersRefresh } from '@/apis/client/postUsersRefresh';
 import { useMutation } from '@tanstack/react-query';
 
-export const useRefreshNicknameMutation = () => {
-  const { data, mutate: refreshNicknameMutation } = useMutation({
-    mutationFn: refreshNickname,
+export const usePostUsersRefreshMutation = () => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: postUsersRefresh,
   });
 
-  return { refreshedNickname: data!.data.data, refreshNicknameMutation };
+  return { refreshNickname: mutate, isPending };
 };
