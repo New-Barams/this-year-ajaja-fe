@@ -6,7 +6,7 @@ import LinkIconText from '../LinkIconText/LinkIconText';
 import './index.scss';
 
 export default function Header() {
-  const auth = cookies().get('auth');
+  const auth = cookies().has('auth');
   const isLogin = auth ? true : false;
   return (
     <div className={classNames(`header`)}>
