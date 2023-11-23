@@ -4,9 +4,9 @@ import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
+import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { EditPlanData } from '@/types/apis/plan/EditPlan';
-import { PlanData } from '@/types/apis/plan/GetPlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
@@ -21,20 +21,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
 
   // 1-1. TODO: 계획 단건 조회 API를 통해 계획 data 받아오기
-  const planData: PlanData = {
-    id: 123,
-    userId: 123,
-    nickname: 'nononoere',
-    title: '계획 제목 테스트',
-    description: '계획 설명 테스트',
-    isPublic: true,
-    canRemind: true,
-    canAjaja: true,
-    ajajas: 100,
-    isPressAjaja: true,
-    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
-    createdAt: '2023-06-15',
-  };
+  const { plan: planData } = useGetPlanQuery(Number(planId));
 
   // 1-2. 리마인드 정보 조회 API 호출해서 받아온 data 받아오기
   const { remindData } = useGetRemindQuery(

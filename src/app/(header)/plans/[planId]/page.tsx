@@ -19,8 +19,8 @@ import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
-  const isSeason = checkIsSeason();
   const router = useRouter();
+  const isSeason = checkIsSeason();
 
   const { plan } = useGetPlanQuery(Number(planId));
   const isMyPlan = checkIsMyPlan(plan.userId);
