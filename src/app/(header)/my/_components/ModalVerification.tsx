@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import './index.scss';
 
-//TODO 리렌더링 최적화 필요
+//TODO 리렌더링 최적화 필요, 이메일 검증 함수 분리
 const EmailRegExp = new RegExp(
   '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
 );
@@ -59,10 +59,9 @@ export default function ModalVerification({
     setVerificationState({ success: false, error: false, isFetching: true });
     setTimeout(() => {
       setVerificationState({ success: true, error: false, isFetching: false });
-      //TODO 모달분리를 위해 선택 함수로 분리
+      //TODO 모달분리를 위해 선택 함수로 분리, 실패시 백엔드 에러메세지 전달
       setVerifiedEmail(email);
     });
-    // 실패시 에러안내
   };
   return (
     <div

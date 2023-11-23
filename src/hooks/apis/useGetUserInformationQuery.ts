@@ -6,9 +6,6 @@ export const useGetUserInformationQuery = () => {
     queryKey: ['userInformation'],
     queryFn: getUserInformation,
   });
-  if (data) {
-    const { data: userInformation } = data;
-    return { userInformation, isError, error, isFetching };
-  }
-  return { userInformation: undefined, isError, error, isFetching };
+
+  return { userInformation: data!.data.data, isError, error, isFetching };
 };

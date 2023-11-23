@@ -9,6 +9,7 @@ export const DOMAIN = {
   POST_USERS_REFRESH: '/users/refresh',
   POST_USERS_LOGOUT: '/users/logout',
   DELETE_USERS: '/mock/users',
+  GET_USERS: '/users',
 
   POST_FEEDBACKS: (feedbackId: number) => `/mock/feedbacks/${feedbackId}`,
   GET_FEEDBACKS: (userId: number) => `/feedbacks/${userId}`,

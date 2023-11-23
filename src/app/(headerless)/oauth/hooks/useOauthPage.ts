@@ -19,7 +19,7 @@ export default function useOauthPage() {
             console.log(error);
           })
           .finally(() => {
-            router.push('/home');
+            // router.push('/home');
           });
       }
     })();
