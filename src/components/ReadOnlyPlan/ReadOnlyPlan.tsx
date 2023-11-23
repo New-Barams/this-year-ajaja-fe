@@ -1,6 +1,7 @@
 import { useToggleAjajaNotificationMutation } from '@/hooks/apis/useToggleAjajaNotificationMutation';
 import { useToggleIsPublicMutation } from '@/hooks/apis/useToggleIsPublicMutation';
 import { Color } from '@/types';
+import { PlanData } from '@/types/apis/plan/GetPlan';
 import classNames from 'classnames';
 import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
 import './index.scss';
@@ -9,19 +10,6 @@ interface ReadOnlyPlanProps {
   isMine: boolean; // 나/ 타인 구분
   planData: PlanData;
 }
-export type PlanData = {
-  id: number; //계힉 Id
-  userId: number; // 유저 Id
-  nickname: string; // 유저 닉네임
-  title: string; //계획 타이틀
-  description: string; // 계획 설명
-  isPublic: boolean; // 공개여부
-  tags: string[]; // tag 리스트,  태그는 타입 변경 예정
-  ajajas: number; // 아자자 개수
-  isAjajaOn: boolean; // 아자자 클릭 여부
-  isCanAjaja: boolean; // 응원 메세지 알람 여부
-  createdAt: string; // 계획 생성 일자
-};
 
 export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
   const {
@@ -31,10 +19,10 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
     description,
     isPublic,
     ajajas,
-    isAjajaOn,
-    tags,
     createdAt,
-    isCanAjaja,
+    isPressAjaja,
+    tags,
+    canAjaja,
   } = planData;
 
   const createdYear = new Date(createdAt).getFullYear();
@@ -108,12 +96,12 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
       </div>
 
       <div className="plan__bottom">
-        <AjajaButton isFilled={isAjajaOn} ajajaCount={ajajas} />
+        <AjajaButton isFilled={isPressAjaja} ajajaCount={ajajas} />
         {isMine && (
           <>
             <DebounceSwitchButton
               toggleName="ajaja"
-              defaultIsOn={isCanAjaja}
+              defaultIsOn={canAjaja}
               submitToggleAPI={handleToggleIsCanAjaja}
             />
           </>

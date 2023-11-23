@@ -6,5 +6,5 @@ export const useGetPlanQuery = (id: number) => {
     queryKey: ['plan'],
     queryFn: () => getPlan(id),
   });
-  return { Plan: data!.data, isFetching, isError };
+  return { plan: data!.data, isFetching, isError };
 };
