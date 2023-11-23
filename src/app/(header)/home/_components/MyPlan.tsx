@@ -31,6 +31,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
     <>
       <div className={classNames(`home__wrapper-dropdown`)}>
         <Dropdown
+          dropdownId="homePageDropdown"
           options={PERIOD_OPTIONS}
           selectedValue={period}
           setSelectedValue={setPeriod}
