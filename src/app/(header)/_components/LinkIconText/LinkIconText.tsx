@@ -11,6 +11,7 @@ type LinkIconTextProps = {
   background: Color;
   color: Color;
   isFilled?: boolean;
+  border?: Color;
   children: React.ReactNode;
 };
 
@@ -20,6 +21,7 @@ export default function LinkIconText({
   background,
   color,
   isFilled,
+  border,
   children,
   ...props
 }: LinkIconTextProps) {
@@ -31,6 +33,7 @@ export default function LinkIconText({
         `color-origin-${color}`,
         `border-round`,
         `font-size-base`,
+        { [`border-origin-${border}`]: border },
       )}>
       <Link href={link} className={classNames(`link-icon-text__a`)} {...props}>
         <Icon name={iconName} color={color} isFilled={isFilled} />
