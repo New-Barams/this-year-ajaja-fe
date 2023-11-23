@@ -2,11 +2,11 @@
 
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
-import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { EditPlanData } from '@/types/apis/plan/EditPlan';
+import { PlanData } from '@/types/apis/plan/GetPlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
@@ -28,10 +28,11 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     title: '계획 제목 테스트',
     description: '계획 설명 테스트',
     isPublic: true,
-    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
+    canRemind: true,
+    canAjaja: true,
     ajajas: 100,
-    isAjajaOn: true,
-    isCanAjaja: true,
+    isPressAjaja: true,
+    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
     createdAt: '2023-06-15',
   };
 
@@ -49,7 +50,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const toggleIsPublic = () => {
     setPublic(!isPublic);
   };
-  const [canAjaja, setCanAjaja] = useState(planData.isCanAjaja);
+  const [canAjaja, setCanAjaja] = useState(planData.canAjaja);
   const toggleCanAjaja = () => {
     setCanAjaja(!canAjaja);
   };
@@ -193,7 +194,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         tags={tags}
         changeTags={setTags}
         ajajas={planData.ajajas}
-        isAjajaOn={planData.isAjajaOn}
+        isAjajaOn={planData.isPressAjaja}
         canAjaja={canAjaja}
         onToggleCanAjaja={toggleCanAjaja}
       />
