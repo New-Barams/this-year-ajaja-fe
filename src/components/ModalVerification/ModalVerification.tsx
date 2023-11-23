@@ -11,13 +11,13 @@ const EmailRegExp = new RegExp(
 
 interface ModalVerificationPorps {
   handleCloseModal: () => void;
-  setVerifiedEmail: (text: string) => void;
   children: React.ReactNode;
+  setVerifiedEmail?: (text: string) => void;
 }
 export default function ModalVerification({
   handleCloseModal,
-  setVerifiedEmail,
   children,
+  setVerifiedEmail,
 }: ModalVerificationPorps) {
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState('');
@@ -59,8 +59,8 @@ export default function ModalVerification({
     setVerificationState({ success: false, error: false, isFetching: true });
     setTimeout(() => {
       setVerificationState({ success: true, error: false, isFetching: false });
-      //TODO 모달분리를 위해 선택 함수로 분리, 실패시 백엔드 에러메세지 전달
-      setVerifiedEmail(email);
+      //TODO 실패시 백엔드 에러메세지 전달
+      setVerifiedEmail && setVerifiedEmail(email);
     });
   };
   return (

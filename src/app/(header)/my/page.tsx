@@ -1,13 +1,19 @@
 'use client';
 
-import { expireToken } from '@/apis/client/expireToken';
+import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
 import { refreshNickname } from '@/apis/client/refreshNickname';
-import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
+import {
+  Button,
+  Icon,
+  Modal,
+  ModalBasic,
+  ModalVerification,
+  Tag,
+} from '@/components';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import ModalVerification from './_components/ModalVerification';
 import './index.scss';
 
 type EmailData = {
@@ -55,7 +61,7 @@ export default function MyPage() {
 
   const handleRealLogOut = async () => {
     console.log('정말 아웃, 홈으로 ');
-    await expireToken();
+    await postUsersLogOut();
     deleteCookie('auth');
     //TODO에러핸들링, 리다이렉트
   };
