@@ -13,7 +13,8 @@ import {
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import './index.scss';
 
 type EmailData = {
@@ -34,7 +35,7 @@ export default function MyPage() {
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
     useState<boolean>(false);
-
+  const router = useRouter();
   const handleChangeNickName = async () => {
     setIsFetching(true);
     try {
@@ -52,9 +53,9 @@ export default function MyPage() {
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);
   };
-  const handleCloseEmailVerificationModal = useCallback(() => {
+  const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
-  }, []);
+  };
   const handleLogOut = () => {
     setIsOpenLogOutModal(true);
   };
@@ -63,6 +64,7 @@ export default function MyPage() {
     console.log('정말 아웃, 홈으로 ');
     await postUsersLogOut();
     deleteCookie('auth');
+    router.push('/login');
     //TODO에러핸들링, 리다이렉트
   };
   const handleCloseLogOutModal = () => {

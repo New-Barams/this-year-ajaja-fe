@@ -1,3 +1,5 @@
+'use client';
+
 import { requestEmailVerification } from '@/apis/client/requestEmailVerification';
 import { Button, Icon } from '@/components';
 import classNames from 'classnames';
