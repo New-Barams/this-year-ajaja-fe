@@ -4,10 +4,15 @@ export interface EditPlanData {
   remindTotalPeriod: number;
   remindTerm: number;
   remindDate: number;
-  remindTime: 'Morning' | 'Afternoon' | 'Evening';
+  remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
   isPublic: boolean;
   canRemind: boolean;
   canAjaja: boolean;
   tags: string[];
   messages: string[];
+}
+
+export interface editPlanProps {
+  planId: number;
+  planData: EditPlanData;
 }

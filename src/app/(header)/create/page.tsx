@@ -119,6 +119,7 @@ export default function CreatePage() {
         return messageItem.message;
       }),
     };
+
     createNewPlanAPI(data);
   };
 
