@@ -58,6 +58,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
             <Plan
               key={index}
               title={plan.title}
+              planId={plan.planId}
               achieveRate={plan.achieveRate}
               icon={plan.icon}
             />

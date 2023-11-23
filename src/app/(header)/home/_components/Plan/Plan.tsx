@@ -7,15 +7,16 @@ import './index.scss';
 
 type PlanProps = {
   title: string;
+  planId: number;
   achieveRate: number;
   icon: number;
 };
 
-export default function Plan({ title, achieveRate, icon }: PlanProps) {
+export default function Plan({ title, planId, achieveRate, icon }: PlanProps) {
   const achieveColor: Color = achieveColorChange(achieveRate);
 
   return (
-    <Link href={'/plans/1'} className={classNames('plan__wrapper')}>
+    <Link href={`/plans/${planId}`} className={classNames('plan__wrapper')}>
       <div className={classNames('plan__wrapper--icon')}>
         <Icon name={planIcons[icon]} size="9xl" color="orange-300" />
       </div>
