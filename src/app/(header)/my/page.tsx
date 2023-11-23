@@ -159,9 +159,8 @@ export default function MyPage() {
         <Modal>
           <ModalVerification
             setVerifiedEmail={handleSetVerifiedEmail}
-            handleCloseModal={handleCloseEmailVerificationModal}>
-            이메일 인증
-          </ModalVerification>
+            handleCloseModal={handleCloseEmailVerificationModal}
+          />
         </Modal>
       )}
       {isOpenLogOutModal && (

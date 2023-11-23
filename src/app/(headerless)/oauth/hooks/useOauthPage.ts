@@ -20,7 +20,7 @@ export default function useOauthPage() {
             console.log('로그인 실패' + error);
           })
           .finally(() => {
-            router.push('/home');
+            // router.push('/home');
           });
       }
     })();
