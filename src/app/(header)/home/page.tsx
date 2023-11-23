@@ -1,15 +1,13 @@
-import { getMyPlans } from '@/apis/server/getMyPlans';
+'use client';
+
+import { useGetMyPlansQuery } from '@/hooks/apis/plans/useGetMyPlansQuery';
 import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
-// import NewPlan from './_components/NewPlan/NewPlan';
-// import Plan from './_components/Plan/Plan';
-// import ProgressBar from './_components/ProgressBar/ProgressBar';
 import MyPlan from './_components/MyPlan';
 import './_components/index.scss';
 
-export default async function HomePage() {
-  const myPlans = await getMyPlans();
-  // console.log(data.getPlanList);
+export default function HomePage() {
+  const { myPlans } = useGetMyPlansQuery();
 
   // const myPlans = {
   //   success: true,
