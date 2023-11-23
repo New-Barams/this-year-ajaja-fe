@@ -3,7 +3,7 @@
 import { expireToken } from '@/apis/client/expireToken';
 import { refreshNickname } from '@/apis/client/refreshNickname';
 import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
-// import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
+import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
@@ -15,14 +15,10 @@ type EmailData = {
   email: string | null;
 };
 export default function MyPage() {
-  // const {
-  //   userInformation,
-  //   isError,
-  //   isFetching: isLoading,
-  // } = useGetUserInformationQuery();
-  // console.log(userInformation, isError, isLoading);
-
-  const [myNickname, setMyNickname] = useState<string>('초기 닉네임');
+  const { userInformation } = useGetUserInformationQuery();
+  const { isEmailVerified, nickname, remindEmail } = userInformation;
+  console.log(userInformation);
+  const [myNickname, setMyNickname] = useState<string>(nickname);
   const [emailData, setEmailData] = useState<EmailData>({
     kakao: 'test@naver.com',
     email: null,
@@ -103,7 +99,7 @@ export default function MyPage() {
           )}
         </div>
         <div className="my-page__remind-way">
-          {emailData.email ? (
+          {isEmailVerified ? (
             <h1>
               현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
               있어요
@@ -121,7 +117,7 @@ export default function MyPage() {
         <div className="my-page__email">
           <h1>
             이메일:
-            {emailData.email ? emailData.email : '  ---'}
+            {isEmailVerified ? remindEmail : '  ---'}
           </h1>
           <Button
             size="sm"
