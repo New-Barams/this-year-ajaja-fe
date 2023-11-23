@@ -1,5 +1,6 @@
 'use client';
 
+import { postAjaja } from '@/apis/client/postAaja';
 import { Icon } from '@/components';
 import { useDebounce } from '@/hooks/useDebounce';
 import classNames from 'classnames';
@@ -9,12 +10,14 @@ import './index.scss';
 
 interface AjajaButtonProps
   extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
+  planId?: number;
   isFilled: boolean;
   ajajaCount: number;
   classNameList?: string[];
 }
 
 export default function AjajaButton({
+  planId,
   isFilled,
   ajajaCount,
   classNameList = [],
@@ -33,7 +36,7 @@ export default function AjajaButton({
   const compare = () => {
     console.log(originalCopy, fill);
     if (originalCopy !== fill) {
-      console.log('서버 전송 API: ', count, fill);
+      planId && postAjaja(planId);
       setOriginalCopy(fill);
     }
   };

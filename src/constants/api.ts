@@ -29,10 +29,12 @@ export const DOMAIN = {
     `/plans/${planId}/remindable`,
   PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/plans/${planId}/public`,
   PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
-  GET_PLANS_ALL: '/mock/plans',
+  GET_PLANS_ALL: '/plans',
   POST_PLANS: '/plans',
   GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
-  GET_PLANS_MAIN: (userId: number) => `/mock/plans/main/${userId}`,
+  GET_PLANS_MAIN: `/plans/main`,
+
+  POST_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
 
   GET_REMINDS: (planId: number) => `/reminds/${planId}`,
   GET_REMINDS_MODIFY: (planId: number) => `/reminds/modify/${planId}`,

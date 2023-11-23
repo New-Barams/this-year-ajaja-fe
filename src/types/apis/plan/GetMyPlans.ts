@@ -4,10 +4,13 @@ export interface GetMyPlansResponse {
 }
 
 interface Plan {
+  year: number;
+  planId: number;
   title: string;
   isRemindable: boolean;
   achieveRate: number;
   icon: number;
+  isVerified: false;
 }
 
 interface YearPlan {

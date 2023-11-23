@@ -12,3 +12,13 @@ export interface CardPlans {
   tags: string[];
   createdAt: string;
 }
+
+export interface GetAllPlansRequestQuery {
+  sortCondition: SortType;
+  isNewYear: boolean;
+  cursorCreatedAt?: string;
+  cursorId?: number;
+  pageSize: number;
+}
+
+export type SortType = 'createdAt' | 'ajaja';

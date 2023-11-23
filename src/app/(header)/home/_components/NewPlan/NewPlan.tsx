@@ -6,7 +6,12 @@ import './index.scss';
 
 export default function NewPlan() {
   return (
-    <Link href={'/create'} className={classNames('new-plan__wrapper')}>
+    <Link
+      href={checkIsSeason() ? '/create' : {}}
+      className={classNames('new-plan__wrapper')}
+      style={{
+        cursor: checkIsSeason() ? 'pointer' : 'default',
+      }}>
       <div className={classNames('new-plan__wrapper--icon')}>
         <Icon
           name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'AJAJA'}

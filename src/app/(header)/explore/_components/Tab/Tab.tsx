@@ -5,7 +5,12 @@ import { useState } from 'react';
 import React from 'react';
 import './index.scss';
 
-export default function Tab() {
+type TabProps = {
+  handleSort: (condition: 'createdAt' | 'ajaja') => void;
+  handleYear: (isNewYear: boolean) => void;
+};
+
+export default function Tab({ handleSort, handleYear }: TabProps) {
   const [currentYearTab, setCurrentYearTab] = useState(0);
   const [currentSortTab, setCurrentSortTab] = useState(0);
 
@@ -19,9 +24,11 @@ export default function Tab() {
 
   const selectYearMenuHandler = (index: number) => {
     setCurrentYearTab(index);
+    handleYear(index === 0 ? true : false);
   };
   const selectSortMenuHandler = (index: number) => {
     setCurrentSortTab(index);
+    handleSort(index === 0 ? 'createdAt' : 'ajaja');
   };
   return (
     <div className={classNames('tab__wrapper')}>

@@ -43,14 +43,14 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
         )}>
         {period}년 나의 계획은?
       </div>
-      <ProgressBar percent={50} />
+      <ProgressBar percent={myPlansData[0].totalAchieveRate} />
       <div
         className={classNames(
           `home__wrapper--year`,
           `font-size-base`,
           `color-origin-gray-200`,
         )}>
-        전체 달성률 : {50}%
+        전체 달성률 : {myPlansData[0].totalAchieveRate}%
       </div>
       <div className={classNames('home__plans')}>
         {yearData.getPlanList.map((plan, index) => {
