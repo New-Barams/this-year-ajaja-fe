@@ -1,9 +1,9 @@
 import { DOMAIN } from '@/constants/api';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
-import { axiosInstanceServer } from '@apis/axiosInstanceServer';
+import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const getMyPlans = async () => {
-  const { data } = await axiosInstanceServer.get<GetMyPlansResponse>(
+  const { data } = await axiosInstanceClient.get<GetMyPlansResponse>(
     DOMAIN.GET_PLANS_MAIN,
   );
   return data;
