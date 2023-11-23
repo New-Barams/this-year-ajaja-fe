@@ -15,7 +15,7 @@ export const DOMAIN = {
   GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
 
   POST_REISSUE: '/mock/reissue',
-  POST_LOGIN: (code: string) => `/mock/login?code=${code}`,
+  POST_LOGIN: `/mock/login`,
 
   GET_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
   PUT_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
