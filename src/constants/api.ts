@@ -6,9 +6,10 @@ export const DOMAIN = {
   PUT_USERS_RECEIVE: '/users/receive',
   POST_USERS_VERIFY: '/mock/users/verify-email',
   POST_USERS_SEND_VERIFICATION: '/mock/users/send-verification',
-  POST_USERS_REFRESH: '/mock/users/refresh',
-  POST_USERS_LOGOUT: '/mock/users/logout',
+  POST_USERS_REFRESH: '/users/refresh',
+  POST_USERS_LOGOUT: '/users/logout',
   DELETE_USERS: '/mock/users',
+  GET_USERS: '/users',
 
   POST_FEEDBACKS: (feedbackId: number) => `/feedbacks/${feedbackId}`,
   GET_FEEDBACKS: (userId: number) => `/feedbacks/${userId}`,

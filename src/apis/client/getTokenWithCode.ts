@@ -2,7 +2,7 @@ import { DOMAIN } from '@/constants/api';
 import {
   getTokenWithCodeRequestBody,
   getTokenWithCodeResponse,
-} from '@/types/apis/login/getTokenWithCoin';
+} from '@/types/apis/users/GetTokenWithCoin';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const getTokenWithCode = async (code: string) => {

@@ -1,9 +1,20 @@
 'use client';
 
-import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
+import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
+import { refreshNickname } from '@/apis/client/refreshNickname';
+import {
+  Button,
+  Icon,
+  Modal,
+  ModalBasic,
+  ModalVerification,
+  Tag,
+} from '@/components';
+import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
-import ModalVerification from './_components/ModalVerification';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import './index.scss';
 
 type EmailData = {
@@ -11,7 +22,10 @@ type EmailData = {
   email: string | null;
 };
 export default function MyPage() {
-  const [myNickname, setMyNickname] = useState<string>('춤 추는 하마');
+  const { userInformation } = useGetUserInformationQuery();
+  const { isEmailVerified, nickname, remindEmail } = userInformation;
+  console.log(userInformation);
+  const [myNickname, setMyNickname] = useState<string>(nickname);
   const [emailData, setEmailData] = useState<EmailData>({
     kakao: 'test@naver.com',
     email: null,
@@ -21,26 +35,37 @@ export default function MyPage() {
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
     useState<boolean>(false);
-
-  const handleChangeNickName = () => {
+  const router = useRouter();
+  const handleChangeNickName = async () => {
     setIsFetching(true);
-    setTimeout(() => {
-      setMyNickname('이름이바뀐 하마');
+    try {
+      const {
+        data: { data: nickname },
+      } = await refreshNickname();
+      setMyNickname(nickname);
+    } catch (error) {
+      //TODO 에러 핸들링
+      console.log('에러 났어 ㅠㅠ ');
+    } finally {
       setIsFetching(false);
-    }, 5000);
+    }
   };
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);
   };
-  const handleCloseEmailVerificationModal = useCallback(() => {
+  const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
-  }, []);
+  };
   const handleLogOut = () => {
     setIsOpenLogOutModal(true);
   };
 
-  const handleRealLogOut = () => {
+  const handleRealLogOut = async () => {
     console.log('정말 아웃, 홈으로 ');
+    await postUsersLogOut();
+    deleteCookie('auth');
+    router.push('/login');
+    //TODO에러핸들링, 리다이렉트
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);
@@ -82,7 +107,7 @@ export default function MyPage() {
           )}
         </div>
         <div className="my-page__remind-way">
-          {emailData.email ? (
+          {isEmailVerified ? (
             <h1>
               현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
               있어요
@@ -100,7 +125,7 @@ export default function MyPage() {
         <div className="my-page__email">
           <h1>
             이메일:
-            {emailData.email ? emailData.email : '  ---'}
+            {isEmailVerified ? remindEmail : '  ---'}
           </h1>
           <Button
             size="sm"

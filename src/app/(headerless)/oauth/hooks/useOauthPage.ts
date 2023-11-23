@@ -8,6 +8,7 @@ export default function useOauthPage() {
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
+
     (async () => {
       if (code) {
         await getTokenWithCode(code)
@@ -16,7 +17,7 @@ export default function useOauthPage() {
             setCookie('auth', data);
           })
           .catch((error) => {
-            console.log(error);
+            console.log('로그인 실패' + error);
           })
           .finally(() => {
             router.push('/home');
