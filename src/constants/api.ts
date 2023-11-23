@@ -15,7 +15,7 @@ export const DOMAIN = {
   GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
 
   POST_REISSUE: '/mock/reissue',
-  POST_LOGIN: '/mock/login',
+  POST_LOGIN: (code: string) => `/mock/login?code=${code}`,
 
   GET_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
   PUT_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
@@ -23,24 +23,24 @@ export const DOMAIN = {
   GET_PLANS_REMINDS_MESSAGES: (userId: number) =>
     `/mock/plans/${userId}/reminds/messages`,
   GET_PLANS: (planId: number) => `/mock/plans/${planId}`,
-  PUT_PLANS: (planId: number) => `/mock/plans/${planId}`,
-  DELETE_PLANS: (planId: number) => `/mock/plans/${planId}`,
+  PUT_PLANS: (planId: number) => `/plans/${planId}`,
+  DELETE_PLANS: (planId: number) => `/plans/${planId}`,
   PUT_PLANS_SWITCH_REMINDABLE: (planId: number) =>
-    `/mock/plans/${planId}/remindable`,
-  PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/mock/plans/${planId}/public`,
-  PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/mock/plans/${planId}/ajaja`,
+    `/plans/${planId}/remindable`,
+  PUT_PLANS_SWITCH_PUBLIC: (planId: number) => `/plans/${planId}/public`,
+  PUT_PLANS_SWITCH_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
   GET_PLANS_ALL: '/plans',
-  POST_PLANS: '/mock/plans',
+  POST_PLANS: '/plans',
   GET_PLANS_FEEDBAKS: (planId: number) => `/plans/${planId}/feedbacks`,
   GET_PLANS_MAIN: `/plans/main`,
 
   POST_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
 
-  GET_REMINDS: (planId: number) => `/mock/reminds/${planId}`,
-  GET_REMINDS_MODIFY: (planId: number) => `/mock/reminds/modify/${planId}`,
+  GET_REMINDS: (planId: number) => `/reminds/${planId}`,
+  GET_REMINDS_MODIFY: (planId: number) => `/reminds/modify/${planId}`,
 };
 
-//실제 API -> swagger 순서입니다.
+// 실제 API -> swagger 순서입니다.
 // PUT_USERS_RECEIVE: '/users/receive',
 // POST_USERS_VERIFY: '/users/verify',
 // POST_USERS_SEND_VERIFICATION: '/users/send-verification',
