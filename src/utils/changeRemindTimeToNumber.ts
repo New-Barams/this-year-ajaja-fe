@@ -1,12 +1,12 @@
 export const changeRemindTimeToNumber = (
-  remindTime: 'Morning' | 'Afternoon' | 'Evening',
+  remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING',
 ): 9 | 13 | 20 => {
   switch (remindTime) {
-    case 'Morning':
+    case 'MORNING':
       return 9;
-    case 'Afternoon':
+    case 'AFTERNOON':
       return 13;
-    case 'Evening':
+    case 'EVENING':
       return 20;
   }
 };

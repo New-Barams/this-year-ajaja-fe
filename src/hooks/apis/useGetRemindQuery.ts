@@ -10,5 +10,5 @@ export const useGetRemindQuery = (planId: number, isSeason: boolean) => {
     },
   });
 
-  return { remindData: data! };
+  return { remindData: data!.data };
 };
