@@ -3,6 +3,7 @@
 import ModalEvaluate from '@/app/(header)/plans/[planId]/_components/ModalEvaluate/ModalEvaluate';
 import { Icon, Modal, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
+import { usePostFeedbackMutation } from '@/hooks/apis/feedback/usePostFeedbackMutation';
 import { ReadOnlyRemindItemData } from '@/types/components/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
@@ -19,6 +20,8 @@ export default function ReadOnlyRemindItem({
   classNameList = [],
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
+
+  const { mutate: postFeedbackAPI } = usePostFeedbackMutation();
 
   const {
     remindMonth,
@@ -52,22 +55,20 @@ export default function ReadOnlyRemindItem({
   ) => {
     if (!isExpired && !isFeedback) {
       setIsFeedBackModalOpened(true);
-      console.log(`${feedbackId}에 대한 피드백 평가 모달 띄우기`);
     }
     event.stopPropagation(); // 상위 요소 item-header에 대한 onClick handler인 item 토글시키는 동작 안 되도록
   };
 
   const handleClickModalFinish = (rate: number) => {
     console.log(
-      `${feedbackId}에 대한 피드백 평가 ${rate}$로 평가 완료 피드백 수행 API 호출`,
+      `${feedbackId}번 피드백에 대한 피드백 ${rate}%로 평가 완료 피드백 수행 API 호출`,
     );
+    postFeedbackAPI({ feedbackId, body: { rate: rate } });
     setIsFeedBackModalOpened(false);
-    console.log('피드백 모달 닫기');
   };
 
   const handleClickModalExit = () => {
     setIsFeedBackModalOpened(false);
-    console.log('피드백 모달 닫기');
   };
 
   return (
