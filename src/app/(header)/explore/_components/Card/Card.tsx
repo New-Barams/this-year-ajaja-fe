@@ -61,6 +61,7 @@ export default function Card({ plan }: CardProps) {
             })}
           </div>
           <AjajaButton
+            planId={plan.id}
             ajajaCount={plan.ajajas}
             isFilled={true}
             classNameList={['card__contents--ajaja']}

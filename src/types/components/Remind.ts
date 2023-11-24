@@ -7,7 +7,7 @@ export type RemindOptionType = {
   TotalPeriod: number;
   Term: number;
   Date: number;
-  Time: number;
+  Time: 9 | 13 | 20;
 };
 
 export interface RemindItemType {
@@ -33,9 +33,10 @@ export interface ReadOnlyRemindItemData {
 
 export interface RemindData {
   isRemindable: boolean;
-  remindTime: number;
+  remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
   remindDate: number;
   remindTerm: number;
   remindTotalPeriod: number;
-  remindMessageList: ReadOnlyRemindItemData[];
+  sentRemindResponses: ReadOnlyRemindItemData[] | [];
+  futureRemindResponses: ReadOnlyRemindItemData[] | [];
 }

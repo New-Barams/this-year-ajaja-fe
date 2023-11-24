@@ -1,46 +1,58 @@
 'use client';
 
-import { Button, Icon, Modal, ModalBasic, Tag } from '@/components';
+import { deleteUsers } from '@/apis/client/deleteUsers';
+import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
+import {
+  Button,
+  Icon,
+  Modal,
+  ModalBasic,
+  ModalVerification,
+  Tag,
+} from '@/components';
+import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
+import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
+import { useQueryClient } from '@tanstack/react-query';
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
-import ModalVerification from './_components/ModalVerification';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import './index.scss';
 
-type EmailData = {
-  kakao: string | null;
-  email: string | null;
-};
 export default function MyPage() {
-  const [myNickname, setMyNickname] = useState<string>('춤 추는 하마');
-  const [emailData, setEmailData] = useState<EmailData>({
-    kakao: 'test@naver.com',
-    email: null,
-  });
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+  const { userInformation } = useGetUserInformationQuery();
+  const { refreshNickname, isPending } = usePostUsersRefreshMutation();
+  const { isEmailVerified, nickname, remindEmail } = userInformation;
+
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
     useState<boolean>(false);
 
+  const router = useRouter();
   const handleChangeNickName = () => {
-    setIsFetching(true);
-    setTimeout(() => {
-      setMyNickname('이름이바뀐 하마');
-      setIsFetching(false);
-    }, 5000);
+    refreshNickname(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['userInformation'] });
+      },
+    });
   };
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);
   };
-  const handleCloseEmailVerificationModal = useCallback(() => {
+  const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
-  }, []);
+  };
   const handleLogOut = () => {
     setIsOpenLogOutModal(true);
   };
 
-  const handleRealLogOut = () => {
-    console.log('정말 아웃, 홈으로 ');
+  const handleRealLogOut = async () => {
+    await postUsersLogOut();
+    deleteCookie('auth');
+    router.push('/login');
+    //TODO에러핸들링,
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);
@@ -48,14 +60,16 @@ export default function MyPage() {
   const handleWithdrawal = () => {
     setIsOpenWithdrawalModal(true);
   };
-  const handleRealWithdrawal = () => {
-    console.log('정말 회원 탈퇴 진행, 홈으로 ');
+  const handleRealWithdrawal = async () => {
+    await deleteUsers();
+    deleteCookie('auth');
+    router.push('/login');
   };
   const handleCloseWithdrawalModal = () => {
     setIsOpenWithdrawalModal(false);
   };
-  const handleSetVerifiedEmail = (text: string) => {
-    setEmailData({ ...emailData, email: text });
+  const handleSetVerifiedEmail = () => {
+    queryClient.invalidateQueries({ queryKey: ['userInformation'] });
   };
   return (
     <>
@@ -70,8 +84,8 @@ export default function MyPage() {
           <h1 className="color-origin-orange-300 my-page__name--header">
             나의 이름은
           </h1>
-          {myNickname}
-          {isFetching ? (
+          {nickname}
+          {isPending ? (
             <div className="circle-rotate">
               <Icon name="REFRESH" />
             </div>
@@ -82,7 +96,7 @@ export default function MyPage() {
           )}
         </div>
         <div className="my-page__remind-way">
-          {emailData.email ? (
+          {isEmailVerified ? (
             <h1>
               현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
               있어요
@@ -100,7 +114,7 @@ export default function MyPage() {
         <div className="my-page__email">
           <h1>
             이메일:
-            {emailData.email ? emailData.email : '  ---'}
+            {isEmailVerified ? remindEmail : '  ---'}
           </h1>
           <Button
             size="sm"
@@ -133,10 +147,9 @@ export default function MyPage() {
       {isOpenEmailModal && (
         <Modal>
           <ModalVerification
+            handleCloseModal={handleCloseEmailVerificationModal}
             setVerifiedEmail={handleSetVerifiedEmail}
-            handleCloseModal={handleCloseEmailVerificationModal}>
-            이메일 인증
-          </ModalVerification>
+          />
         </Modal>
       )}
       {isOpenLogOutModal && (

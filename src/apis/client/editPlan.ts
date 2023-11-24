@@ -1,7 +1,14 @@
 import { DOMAIN } from '@/constants/api';
+import { editPlanProps } from '@/types/apis/plan/EditPlan';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
-// 헤더에 date 추가해줘야 함
-export const editPlan = (planId: number) => {
-  return axiosInstanceClient.put(DOMAIN.PUT_PLANS(planId));
+export const editPlan = async ({ planId, planData }: editPlanProps) => {
+  const { data } = await axiosInstanceClient.put(
+    DOMAIN.PUT_PLANS(planId),
+    { ...planData },
+    {
+      headers: { Month: 1 }, // TODO: Month: currentMonth()로 바꿔줘야 함
+    },
+  );
+  return data;
 };

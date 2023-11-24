@@ -1,62 +1,63 @@
+'use client';
+
 import { Button, Icon } from '@/components';
+import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
+import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
+import { checkEmailValidation } from '@/utils/checkEmailValidation';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
 
-//TODO 리렌더링 최적화 필요
-const EmailRegExp = new RegExp(
-  '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
-);
-
-interface ModalVerificationPorps {
+interface ModalVerificationProps {
   handleCloseModal: () => void;
-  setVerifiedEmail: (text: string) => void;
-  children: React.ReactNode;
+  setVerifiedEmail?: () => void;
 }
 export default function ModalVerification({
   handleCloseModal,
   setVerifiedEmail,
-  children,
-}: ModalVerificationPorps) {
+}: ModalVerificationProps) {
+  const {
+    mutateAsync: submitEmail,
+    isError,
+    isPending,
+    isSuccess,
+    error,
+  } = usePostSendVerificationMutation();
+  const {
+    mutateAsync: submitCertification,
+    isPending: isVerifyPending,
+    isError: isVerifyError,
+    error: verifyError,
+    isSuccess: isVerifySuccess,
+  } = usePostVerifyMutation();
+  useEffect(() => {
+    console.log(
+      `isPending: ${isVerifyPending}, isError:${isVerifyError},error: ${verifyError?.message} isSuccess:${isVerifySuccess} `,
+    );
+  }, [isVerifyPending, isVerifyError, verifyError, isVerifySuccess]);
+
   const [email, setEmail] = useState<string>('');
-  const [code, setCode] = useState('');
-  const [emailState, setEmailState] = useState({
-    isFetching: false,
-    success: false,
-    error: false,
-  });
-  const [verificationState, setVerificationState] = useState({
-    isFetching: false,
-    success: false,
-    error: false,
-  });
+  const [code, setCode] = useState<string>('');
+
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = () => {
-    if (EmailRegExp.test(email)) {
-      setEmailState({ error: false, success: false, isFetching: true });
-      console.log('이메일 전송중');
-      setTimeout(() => {
-        setEmailState({ error: false, isFetching: false, success: true });
-        //TODO input의 value는 변경될 가능성이 있다. 그래서 api를 통해서 변경된 이메일을 받아서 넣어준다 .
-        setVerifiedEmail(email);
-      }, 2000);
-    } else {
-      setEmailState({ isFetching: false, success: false, error: true });
+  const handleSubmitEmail = async () => {
+    const isValidate = checkEmailValidation(email);
+    if (isValidate) {
+      submitEmail(email);
     }
   };
   const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(event.target.value);
+    const inputValue = event.target.value.replace(/[^0-9]/g, '');
+    setCode(inputValue);
   };
-  const handleSubmitCode = () => {
-    setVerificationState({ success: false, error: false, isFetching: true });
-    setTimeout(() => {
-      setVerificationState({ success: true, error: false, isFetching: false });
-      setVerifiedEmail(email);
-    });
-    // 실패시 에러안내
+  const handleSubmitCode = async () => {
+    if (code.length == 6) {
+      await submitCertification(code);
+      setVerifiedEmail && setVerifiedEmail();
+    }
   };
   return (
     <div
@@ -72,14 +73,14 @@ export default function ModalVerification({
       </div>
 
       <div className={classNames(`modal-verification-wrapper__content`)}>
-        <div
+        <h1
           className={classNames(
             `font-size-2xl`,
             `color-origin-gray-300`,
             `modal-verification-wrapper__text`,
           )}>
-          {children}
-        </div>
+          이메일 인증
+        </h1>
 
         <div className="modal-verification-wrapper__items">
           <div className="modal-verification-wrapper__items--item">
@@ -98,13 +99,11 @@ export default function ModalVerification({
             </Button>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {emailState.isFetching && <div>코드 전송중</div>}
-            {emailState.error && (
-              <div className="color-origin-primary">
-                이메일 형식이 옳지 않습니다. 이메일을 확인해주세요{' '}
-              </div>
+            {isPending && <div>코드 전송중</div>}
+            {isError && (
+              <div className="color-origin-primary">{error?.message}</div>
             )}
-            {emailState.success && (
+            {isSuccess && (
               <div className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
               </div>
@@ -112,13 +111,11 @@ export default function ModalVerification({
           </div>
           <div className="modal-verification-wrapper__items--item">
             <input
-              type="text"
               placeholder="인증 코드를 입력해주세요"
               value={code}
               onChange={handleChangeCode}
             />
-            <div
-              className={classNames(!emailState.success && 'visible-hidden')}>
+            <div className={classNames(!isSuccess && 'visible-hidden')}>
               <Button
                 border={false}
                 size="sm"
@@ -131,16 +128,14 @@ export default function ModalVerification({
           </div>
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {verificationState.isFetching && <div>인증 코드 확인중...</div>}
-            {verificationState.success && (
+            {isVerifyPending && <div>인증 코드 확인중...</div>}
+            {isVerifySuccess && (
               <div className="color-origin-green-300">
-                인증에 성공하셨습니다.{' '}
+                인증에 성공하셨습니다.
               </div>
             )}
-            {verificationState.error && (
-              <div className="color-origin-primary">
-                인증에 실패했습니다. 다시 시도해주세요
-              </div>
+            {isVerifyError && (
+              <div className="color-origin-primary">{verifyError?.message}</div>
             )}
           </div>
         </div>

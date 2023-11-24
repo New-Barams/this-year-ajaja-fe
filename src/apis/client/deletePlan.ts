@@ -1,7 +1,8 @@
 import { DOMAIN } from '@/constants/api';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
-// 헤더에 date 추가해줘야 함
 export const deletePlan = (planId: number) => {
-  return axiosInstanceClient.delete(DOMAIN.DELETE_PLANS(planId));
+  return axiosInstanceClient.delete(DOMAIN.DELETE_PLANS(planId), {
+    headers: { Month: 1 }, // TODO: Month: currentMonth()로 바꿔줘야 함
+  });
 };

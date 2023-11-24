@@ -1,22 +1,16 @@
 import { DOMAIN } from '@/constants/api';
+import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
-interface PostNewPlanRequestBody {
-  title: string;
-  description: string;
-  remindTotalPeriod: number;
-  remindTerm: number;
-  remindDate: number;
-  remindTime: number;
-  isPublic: boolean;
-  tags: string[];
-  messages: string[];
-  icon: number;
-}
-
 export const postNewPlan = async (body: PostNewPlanRequestBody) => {
-  const { data } = await axiosInstanceClient.post(DOMAIN.POST_PLANS, {
-    data: body,
-  });
+  const { data } = await axiosInstanceClient.post(
+    DOMAIN.POST_PLANS,
+    {
+      ...body,
+    },
+    {
+      headers: { Month: 1 }, // TODO: Month: currentMonth()로 바꿔줘야 함
+    },
+  );
   return data;
 };

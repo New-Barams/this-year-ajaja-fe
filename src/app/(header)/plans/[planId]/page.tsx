@@ -7,60 +7,49 @@ import {
   ReadOnlyPlan,
   ReadOnlyRemind,
 } from '@/components';
-import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
+import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
+import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
+import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
-  // 계획 단건 조회로 계획 데이터 받아와 계획 컴포넌트 렌러링
-  // 계획 data안 userId와 현재 유저의 userId 비교해서 내 계획인지 여부인 isMyPlan 값 할당
   const { planId } = params;
-  const isMyPlan = true;
+  const router = useRouter();
   const isSeason = checkIsSeason();
+
+  const { plan } = useGetPlanQuery(Number(planId));
+  const isMyPlan = checkIsMyPlan(plan.userId);
 
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
 
+  const { mutate: deletePlanAPI } = useDeletePlanMutation();
+
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
-    deletePlanAPI(planId);
+    deletePlanAPI(parseInt(planId, 10));
+    router.replace('/home'); // TODO: 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동하려고 back으로 했는데 일단 잘 안되서 /home으로 변경
   };
 
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
   };
 
-  const deletePlanAPI = (planId: string) => {
-    console.log(`${planId}에 해당하는 계획 삭제 API 호출 `);
-  };
-
-  const planData: PlanData = {
-    id: 2342342,
-    userId: 2342342,
-    nickname: '유저 닉네임',
-    title: '계획 내용 테스트 ',
-    description: '계획 설명',
-    isPublic: true,
-    tags: ['태그1', '태그2', '태그3', '태그4', '태그5'],
-    ajajas: 32343,
-    isAjajaOn: true,
-    isCanAjaja: false,
-    createdAt: '2023-06-15',
-  };
-
   return (
     <div className={classNames('plans-page')}>
-      <ReadOnlyPlan isMine={isMyPlan} planData={planData} />
+      <ReadOnlyPlan isMine={isMyPlan} planData={plan} />
 
       {isMyPlan && (
         <div className="plans-page__remind">
-          <ReadOnlyRemind planId={planId} />{' '}
+          <ReadOnlyRemind planId={planId} />
         </div>
       )}
 
-      {isMyPlan && !isSeason && (
+      {isMyPlan && isSeason && (
         <div className={classNames('plans-page__button__container')}>
           <Link href={`/edit/${planId}`}>
             <Button

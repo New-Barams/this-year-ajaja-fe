@@ -1,10 +1,13 @@
 import classNames from 'classnames';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import LinkIconText from '../LinkIconText/LinkIconText';
 import './index.scss';
 
 export default function Header() {
+  const auth = cookies().has('auth');
+  const isLogin = auth ? true : false;
   return (
     <div className={classNames(`header`)}>
       <Link href={'/home'}>
@@ -26,11 +29,12 @@ export default function Header() {
           다른 계획 둘러보기
         </LinkIconText>
         <LinkIconText
-          link="/my"
+          link={isLogin ? '/my' : '/login'}
           iconName="PROFILE"
-          background="primary"
-          color="white-100">
-          마이페이지
+          background={isLogin ? 'primary' : 'white-100'}
+          color={isLogin ? 'white-100' : 'primary'}
+          border={'primary'}>
+          {isLogin ? '마이페이지' : '로그인'}
         </LinkIconText>
       </div>
     </div>

@@ -2,108 +2,32 @@
 
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
-import { PlanData } from '@/components/ReadOnlyPlan/ReadOnlyPlan';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
-import {
-  RemindData,
-  RemindItemType,
-  RemindOptionType,
-} from '@/types/components/Remind';
+import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
+import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
+import { EditPlanData } from '@/types/apis/plan/EditPlan';
+import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
+import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
+import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
+import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
-type EditPlanData = {
-  title: string;
-  description: string;
-  remindTotalPeriod: number;
-  remindTerm: number;
-  remindDate: number;
-  remindTime: number;
-  isPublic: boolean;
-  canRemind: boolean;
-  canAjaja: boolean;
-  tags: string[];
-  messages: string[];
-};
-
 export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
 
-  // 1. 서버에서 planId에 해당하는 계획, 리마인드 data 받아오기
-  const planData: PlanData = {
-    id: 123,
-    userId: 123,
-    nickname: 'nononoere',
-    title: '계획 제목 테스트',
-    description: '계획 설명 테스트',
-    isPublic: true,
-    tags: ['태그1', '태그1', '태그1', '태그1', '태그1'],
-    ajajas: 100,
-    isAjajaOn: true,
-    isCanAjaja: true,
-    createdAt: '2023-06-15',
-  };
+  // 1-1. TODO: 계획 단건 조회 API를 통해 계획 data 받아오기
+  const { plan: planData } = useGetPlanQuery(Number(planId));
 
-  const remindData: RemindData = {
-    isRemindable: true,
-    remindTime: 9,
-    remindDate: 1,
-    remindTerm: 1,
-    remindTotalPeriod: 12,
-    remindMessageList: [
-      {
-        remindMonth: 3,
-        remindDate: 15,
-        remindMessage: '리마인드 받았지만 만료되서 피드백 0%로 처리 ',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 6,
-        remindDate: 15,
-        remindMessage: '리마인드 받아서 피드백함',
-        isReminded: true,
-        isFeedback: true,
-        feedbackId: 12,
-        rate: 75,
-        isExpired: true,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 9,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: true,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-      {
-        remindMonth: 12,
-        remindDate: 15,
-        remindMessage: '예시',
-        isReminded: false,
-        isFeedback: false,
-        feedbackId: 12,
-        rate: 0,
-        isExpired: false,
-        endMonth: 12,
-        endDate: 1,
-      },
-    ],
-  };
+  // 1-2. 리마인드 정보 조회 API 호출해서 받아온 data 받아오기
+  const { remindData } = useGetRemindQuery(
+    parseInt(planId, 10),
+    checkIsSeason(),
+  );
 
   // 2. 계획 수정을 위해 관리되어야 하는 state 및 핸들러의 기본값에 1번에서 받은 값을 넣어준다.
   const [title, setTitle] = useState(planData.title);
@@ -113,7 +37,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const toggleIsPublic = () => {
     setPublic(!isPublic);
   };
-  const [canAjaja, setCanAjaja] = useState(planData.isCanAjaja);
+  const [canAjaja, setCanAjaja] = useState(planData.canAjaja);
   const toggleCanAjaja = () => {
     setCanAjaja(!canAjaja);
   };
@@ -127,7 +51,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     TotalPeriod: remindData.remindTotalPeriod,
     Term: remindData.remindTerm,
     Date: remindData.remindDate,
-    Time: remindData.remindTime,
+    Time: changeRemindTimeToNumber(remindData.remindTime),
   });
 
   const handleChangeRemindOption = (
@@ -140,8 +64,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     });
   };
 
-  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>(
-    remindData.remindMessageList.map((remindItem) => {
+  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>([
+    ...remindData.sentRemindResponses.map((remindItem) => {
       return {
         date: {
           month: remindItem.remindMonth,
@@ -150,7 +74,16 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         message: remindItem.remindMessage,
       };
     }),
-  );
+    ...remindData.futureRemindResponses.map((remindItem) => {
+      return {
+        date: {
+          month: remindItem.remindMonth,
+          day: remindItem.remindDate,
+        },
+        message: remindItem.remindMessage,
+      };
+    }),
+  ]);
 
   const handleChangeRemindMessage = (
     month: number,
@@ -211,6 +144,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   // 3. 수정된 state들을 가지고 호출하는 계획 수정 API
+  const { mutate: editPlanAPI } = useEditPlanMutation();
+
   const editPlan = () => {
     const editPlanData: EditPlanData = {
       title: title,
@@ -218,7 +153,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
       remindTotalPeriod: remindOptions.TotalPeriod,
       remindTerm: remindOptions.Term,
       remindDate: remindOptions.Date,
-      remindTime: remindOptions.Time,
+      remindTime: changeRemindTimeToString(remindOptions.Time),
       isPublic: isPublic,
       canRemind: isRemindOn,
       canAjaja: canAjaja,
@@ -228,9 +163,9 @@ export default function EditPage({ params }: { params: { planId: string } }) {
       }),
     };
 
-    console.log(
-      `${planId}에 해당하는 계획을 ${editPlanData}의 data로 수정하는 계획 수정 API 호출 `,
-    );
+    editPlanAPI({ planId: parseInt(planId, 10), planData: editPlanData });
+
+    console.log(`${planId}에 해당하는 계획 수정 API 호출 `);
   };
 
   return (
@@ -246,7 +181,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         tags={tags}
         changeTags={setTags}
         ajajas={planData.ajajas}
-        isAjajaOn={planData.isAjajaOn}
+        isAjajaOn={planData.isPressAjaja}
         canAjaja={canAjaja}
         onToggleCanAjaja={toggleCanAjaja}
       />
