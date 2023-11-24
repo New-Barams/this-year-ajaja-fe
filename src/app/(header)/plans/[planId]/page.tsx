@@ -21,7 +21,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
-
   const { plan } = useGetPlanQuery(Number(planId));
   const isMyPlan = checkIsMyPlan(plan.userId);
 
@@ -32,7 +31,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
     deletePlanAPI(parseInt(planId, 10));
-    router.replace('/home'); // TODO: 계획 삭제 했으니 상세 페이지 이전으로 1단계 이동하려고 back으로 했는데 일단 잘 안되서 /home으로 변경
+    router.push('/home');
   };
 
   const handleModalClickNo = () => {
