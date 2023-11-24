@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteUsers } from '@/apis/client/deleteUsers';
 import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
 import {
   Button,
@@ -48,11 +49,10 @@ export default function MyPage() {
   };
 
   const handleRealLogOut = async () => {
-    console.log('정말 아웃, 홈으로 ');
     await postUsersLogOut();
     deleteCookie('auth');
     router.push('/login');
-    //TODO에러핸들링, 리다이렉트
+    //TODO에러핸들링,
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);
@@ -60,8 +60,10 @@ export default function MyPage() {
   const handleWithdrawal = () => {
     setIsOpenWithdrawalModal(true);
   };
-  const handleRealWithdrawal = () => {
-    console.log('정말 회원 탈퇴 진행, 홈으로 ');
+  const handleRealWithdrawal = async () => {
+    await deleteUsers();
+    deleteCookie('auth');
+    router.push('/login');
   };
   const handleCloseWithdrawalModal = () => {
     setIsOpenWithdrawalModal(false);
