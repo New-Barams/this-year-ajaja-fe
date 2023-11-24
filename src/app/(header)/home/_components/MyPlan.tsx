@@ -1,6 +1,6 @@
 'use client';
 
-import { Dropdown } from '@/components';
+import { Dropdown, Icon, Tag } from '@/components';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const yearList = myPlansData.map((x) => x.year);
   const [period, setPeriod] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
+  const email_isVerified = myPlansData[0].getPlanList[0].isVerified;
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
   });
@@ -71,6 +72,17 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
           },
         )}
       </div>
+      {email_isVerified ? (
+        <h1 className={classNames('home-email-isVerified')}>
+          현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
+          있어요
+        </h1>
+      ) : (
+        <h1 className={classNames('home-email-isVerified')}>
+          <Icon name="WARNING" size="xl" />
+          현재 인증된 이메일이 없습니다.
+        </h1>
+      )}
     </>
   );
 }
