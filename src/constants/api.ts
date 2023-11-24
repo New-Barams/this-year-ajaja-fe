@@ -23,7 +23,7 @@ export const DOMAIN = {
   POST_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
   GET_PLANS_REMINDS_MESSAGES: (userId: number) =>
     `/mock/plans/${userId}/reminds/messages`,
-  GET_PLANS: (planId: number) => `/mock/plans/${planId}`,
+  GET_PLANS: (planId: number) => `/plans/${planId}`,
   PUT_PLANS: (planId: number) => `/plans/${planId}`,
   DELETE_PLANS: (planId: number) => `/plans/${planId}`,
   PUT_PLANS_SWITCH_REMINDABLE: (planId: number) =>
