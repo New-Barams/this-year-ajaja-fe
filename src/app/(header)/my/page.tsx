@@ -1,7 +1,7 @@
 'use client';
 
+import { deleteUsers } from '@/apis/client/deleteUsers';
 import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
-import { refreshNickname } from '@/apis/client/refreshNickname';
 import {
   Button,
   Icon,
@@ -11,44 +11,32 @@ import {
   Tag,
 } from '@/components';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
+import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
+import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import './index.scss';
 
-type EmailData = {
-  kakao: string | null;
-  email: string | null;
-};
 export default function MyPage() {
+  const queryClient = useQueryClient();
   const { userInformation } = useGetUserInformationQuery();
+  const { refreshNickname, isPending } = usePostUsersRefreshMutation();
   const { isEmailVerified, nickname, remindEmail } = userInformation;
-  console.log(userInformation);
-  const [myNickname, setMyNickname] = useState<string>(nickname);
-  const [emailData, setEmailData] = useState<EmailData>({
-    kakao: 'test@naver.com',
-    email: null,
-  });
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
     useState<boolean>(false);
+
   const router = useRouter();
-  const handleChangeNickName = async () => {
-    setIsFetching(true);
-    try {
-      const {
-        data: { data: nickname },
-      } = await refreshNickname();
-      setMyNickname(nickname);
-    } catch (error) {
-      //TODO 에러 핸들링
-      console.log('에러 났어 ㅠㅠ ');
-    } finally {
-      setIsFetching(false);
-    }
+  const handleChangeNickName = () => {
+    refreshNickname(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['userInformation'] });
+      },
+    });
   };
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);
@@ -61,11 +49,10 @@ export default function MyPage() {
   };
 
   const handleRealLogOut = async () => {
-    console.log('정말 아웃, 홈으로 ');
     await postUsersLogOut();
     deleteCookie('auth');
     router.push('/login');
-    //TODO에러핸들링, 리다이렉트
+    //TODO에러핸들링,
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);
@@ -73,14 +60,16 @@ export default function MyPage() {
   const handleWithdrawal = () => {
     setIsOpenWithdrawalModal(true);
   };
-  const handleRealWithdrawal = () => {
-    console.log('정말 회원 탈퇴 진행, 홈으로 ');
+  const handleRealWithdrawal = async () => {
+    await deleteUsers();
+    deleteCookie('auth');
+    router.push('/login');
   };
   const handleCloseWithdrawalModal = () => {
     setIsOpenWithdrawalModal(false);
   };
-  const handleSetVerifiedEmail = (text: string) => {
-    setEmailData({ ...emailData, email: text });
+  const handleSetVerifiedEmail = () => {
+    queryClient.invalidateQueries({ queryKey: ['userInformation'] });
   };
   return (
     <>
@@ -95,8 +84,8 @@ export default function MyPage() {
           <h1 className="color-origin-orange-300 my-page__name--header">
             나의 이름은
           </h1>
-          {myNickname}
-          {isFetching ? (
+          {nickname}
+          {isPending ? (
             <div className="circle-rotate">
               <Icon name="REFRESH" />
             </div>
@@ -158,10 +147,9 @@ export default function MyPage() {
       {isOpenEmailModal && (
         <Modal>
           <ModalVerification
+            handleCloseModal={handleCloseEmailVerificationModal}
             setVerifiedEmail={handleSetVerifiedEmail}
-            handleCloseModal={handleCloseEmailVerificationModal}>
-            이메일 인증
-          </ModalVerification>
+          />
         </Modal>
       )}
       {isOpenLogOutModal && (

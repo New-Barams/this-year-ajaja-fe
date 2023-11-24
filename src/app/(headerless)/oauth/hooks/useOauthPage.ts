@@ -1,4 +1,4 @@
-import { getTokenWithCode } from '@/apis/client/getTokenWithCode';
+import { postLogin } from '@/apis/client/postLogin';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -11,7 +11,7 @@ export default function useOauthPage() {
 
     (async () => {
       if (code) {
-        await getTokenWithCode(code)
+        await postLogin(code)
           .then((response) => {
             const { data } = response;
             setCookie('auth', data);
@@ -20,7 +20,7 @@ export default function useOauthPage() {
             console.log('로그인 실패' + error);
           })
           .finally(() => {
-            router.push('/home');
+            // router.push('/home');
           });
       }
     })();

@@ -1,69 +1,63 @@
 'use client';
 
-import { requestEmailVerification } from '@/apis/client/requestEmailVerification';
 import { Button, Icon } from '@/components';
+import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
+import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
+import { checkEmailValidation } from '@/utils/checkEmailValidation';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
 
-//TODO 리렌더링 최적화 필요, 이메일 검증 함수 분리
-const EmailRegExp = new RegExp(
-  '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
-);
-
-interface ModalVerificationPorps {
+interface ModalVerificationProps {
   handleCloseModal: () => void;
-  children: React.ReactNode;
-  setVerifiedEmail?: (text: string) => void;
+  setVerifiedEmail?: () => void;
 }
 export default function ModalVerification({
   handleCloseModal,
-  children,
   setVerifiedEmail,
-}: ModalVerificationPorps) {
+}: ModalVerificationProps) {
+  const {
+    mutateAsync: submitEmail,
+    isError,
+    isPending,
+    isSuccess,
+    error,
+  } = usePostSendVerificationMutation();
+  const {
+    mutateAsync: submitCertification,
+    isPending: isVerifyPending,
+    isError: isVerifyError,
+    error: verifyError,
+    isSuccess: isVerifySuccess,
+  } = usePostVerifyMutation();
+  useEffect(() => {
+    console.log(
+      `isPending: ${isVerifyPending}, isError:${isVerifyError},error: ${verifyError?.message} isSuccess:${isVerifySuccess} `,
+    );
+  }, [isVerifyPending, isVerifyError, verifyError, isVerifySuccess]);
+
   const [email, setEmail] = useState<string>('');
-  const [code, setCode] = useState('');
-  const [emailState, setEmailState] = useState({
-    isFetching: false,
-    success: false,
-    error: false,
-  });
-  const [verificationState, setVerificationState] = useState({
-    isFetching: false,
-    success: false,
-    error: false,
-  });
+  const [code, setCode] = useState<string>('');
+
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
   const handleSubmitEmail = async () => {
-    if (EmailRegExp.test(email)) {
-      setEmailState({ error: false, success: false, isFetching: true });
-      console.log('이메일 전송중');
-      try {
-        const { data } = await requestEmailVerification(email);
-        console.log(data);
-        setEmailState({ error: false, success: true, isFetching: false });
-      } catch (error) {
-        //TODO 에러핸들링
-        console.log(error);
-        setEmailState({ isFetching: false, error: true, success: false });
-      }
-    } else {
-      setEmailState({ isFetching: false, success: false, error: true });
+    const isValidate = checkEmailValidation(email);
+    if (isValidate) {
+      submitEmail(email);
     }
   };
   const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(event.target.value);
+    const inputValue = event.target.value.replace(/[^0-9]/g, '');
+    setCode(inputValue);
   };
-  const handleSubmitCode = () => {
-    setVerificationState({ success: false, error: false, isFetching: true });
-    setTimeout(() => {
-      setVerificationState({ success: true, error: false, isFetching: false });
-      //TODO 실패시 백엔드 에러메세지 전달
-      setVerifiedEmail && setVerifiedEmail(email);
-    });
+  const handleSubmitCode = async () => {
+    if (code.length == 6) {
+      await submitCertification(code);
+      setVerifiedEmail && setVerifiedEmail();
+    }
   };
   return (
     <div
@@ -79,14 +73,14 @@ export default function ModalVerification({
       </div>
 
       <div className={classNames(`modal-verification-wrapper__content`)}>
-        <div
+        <h1
           className={classNames(
             `font-size-2xl`,
             `color-origin-gray-300`,
             `modal-verification-wrapper__text`,
           )}>
-          {children}
-        </div>
+          이메일 인증
+        </h1>
 
         <div className="modal-verification-wrapper__items">
           <div className="modal-verification-wrapper__items--item">
@@ -105,13 +99,11 @@ export default function ModalVerification({
             </Button>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {emailState.isFetching && <div>코드 전송중</div>}
-            {emailState.error && (
-              <div className="color-origin-primary">
-                이메일 형식이 옳지 않습니다. 이메일을 확인해주세요{' '}
-              </div>
+            {isPending && <div>코드 전송중</div>}
+            {isError && (
+              <div className="color-origin-primary">{error?.message}</div>
             )}
-            {emailState.success && (
+            {isSuccess && (
               <div className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
               </div>
@@ -119,13 +111,11 @@ export default function ModalVerification({
           </div>
           <div className="modal-verification-wrapper__items--item">
             <input
-              type="text"
               placeholder="인증 코드를 입력해주세요"
               value={code}
               onChange={handleChangeCode}
             />
-            <div
-              className={classNames(!emailState.success && 'visible-hidden')}>
+            <div className={classNames(!isSuccess && 'visible-hidden')}>
               <Button
                 border={false}
                 size="sm"
@@ -138,16 +128,14 @@ export default function ModalVerification({
           </div>
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {verificationState.isFetching && <div>인증 코드 확인중...</div>}
-            {verificationState.success && (
+            {isVerifyPending && <div>인증 코드 확인중...</div>}
+            {isVerifySuccess && (
               <div className="color-origin-green-300">
-                인증에 성공하셨습니다.{' '}
+                인증에 성공하셨습니다.
               </div>
             )}
-            {verificationState.error && (
-              <div className="color-origin-primary">
-                인증에 실패했습니다. 다시 시도해주세요
-              </div>
+            {isVerifyError && (
+              <div className="color-origin-primary">{verifyError?.message}</div>
             )}
           </div>
         </div>

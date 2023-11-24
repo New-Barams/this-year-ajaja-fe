@@ -1,11 +1,11 @@
 import { auth } from '@/stores/authStore';
 
-export interface getTokenWithCodeResponse {
+export interface PostLoginResponse {
   success: boolean;
   data: auth;
 }
 
-export interface getTokenWithCodeRequestBody {
+export interface PostLoginRequestBody {
   authorizationCode: string;
   redirectUrl: string;
 }

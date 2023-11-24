@@ -4,8 +4,8 @@ export const NETWORK = {
 
 export const DOMAIN = {
   PUT_USERS_RECEIVE: '/users/receive',
-  POST_USERS_VERIFY: '/mock/users/verify-email',
-  POST_USERS_SEND_VERIFICATION: '/mock/users/send-verification',
+  POST_USERS_VERIFY: '/users/verify',
+  POST_USERS_SEND_VERIFICATION: '/users/send-verification',
   POST_USERS_REFRESH: '/users/refresh',
   POST_USERS_LOGOUT: '/users/logout',
   DELETE_USERS: '/mock/users',
