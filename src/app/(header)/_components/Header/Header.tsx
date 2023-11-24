@@ -33,7 +33,7 @@ export default function Header() {
           iconName="PROFILE"
           background={isLogin ? 'primary' : 'white-100'}
           color={isLogin ? 'white-100' : 'primary'}
-          border={isLogin ? 'white-100' : 'primary'}>
+          border={'primary'}>
           {isLogin ? '마이페이지' : '로그인'}
         </LinkIconText>
       </div>
