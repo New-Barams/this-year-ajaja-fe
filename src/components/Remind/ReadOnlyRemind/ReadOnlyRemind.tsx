@@ -40,7 +40,9 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     checkIsSeason(),
   );
 
-  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation();
+  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation(
+    parseInt(planId, 10),
+  );
 
   const handleToggleIsRemindable = () => {
     toggleIsRemindableAPI(parseInt(planId, 10));
