@@ -8,7 +8,6 @@ import './index.scss';
 export default function LoginPage() {
   return (
     <>
-      (
       <div className="wrapper">
         <div className="login">
           <Image
@@ -46,7 +45,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      )
     </>
   );
 }
