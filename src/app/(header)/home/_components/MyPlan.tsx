@@ -27,7 +27,9 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   });
 
   const handleOpenEmailVerificationModal = () => {
-    if (!email_isVerified) setIsOpenEmailModal(true);
+    if (!email_isVerified) {
+      setIsOpenEmailModal(true);
+    }
   };
   const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
