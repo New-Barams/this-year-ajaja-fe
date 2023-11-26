@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteUsers } from '@/apis/client/deleteUsers';
-import { postUsersLogOut } from '@/apis/client/postUsersLogOut';
 import {
   Button,
   Icon,
@@ -10,6 +9,7 @@ import {
   ModalVerification,
   Tag,
 } from '@/components';
+import { KAKAO_LOGOUT_URL } from '@/constants/login';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { useQueryClient } from '@tanstack/react-query';
@@ -49,10 +49,7 @@ export default function MyPage() {
   };
 
   const handleRealLogOut = async () => {
-    await postUsersLogOut();
-    deleteCookie('auth');
-    router.push('/login');
-    //TODO에러핸들링,
+    router.push(KAKAO_LOGOUT_URL);
   };
   const handleCloseLogOutModal = () => {
     setIsOpenLogOutModal(false);
