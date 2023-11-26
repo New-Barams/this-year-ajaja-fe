@@ -5,7 +5,7 @@ import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerific
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.scss';
 
 interface ModalVerificationProps {
@@ -30,15 +30,11 @@ export default function ModalVerification({
     error: verifyError,
     isSuccess: isVerifySuccess,
   } = usePostVerifyMutation();
-  useEffect(() => {
-    console.log(
-      `isPending: ${isVerifyPending}, isError:${isVerifyError},error: ${verifyError?.message} isSuccess:${isVerifySuccess} `,
-    );
-  }, [isVerifyPending, isVerifyError, verifyError, isVerifySuccess]);
 
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState<string>('');
-
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+  const [isValidCode, setIsValidCode] = useState<boolean>(true);
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -46,7 +42,10 @@ export default function ModalVerification({
   const handleSubmitEmail = async () => {
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
+      setIsValidEmail(true);
       submitEmail(email);
+    } else {
+      setIsValidEmail(false);
     }
   };
   const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +54,11 @@ export default function ModalVerification({
   };
   const handleSubmitCode = async () => {
     if (code.length == 6) {
+      setIsValidCode(true);
       await submitCertification(code);
       setVerifiedEmail && setVerifiedEmail();
+    } else {
+      setIsValidCode(false);
     }
   };
   return (
@@ -99,6 +101,11 @@ export default function ModalVerification({
             </Button>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
+            {!isValidEmail && (
+              <div className="color-origin-primary">
+                유효하지 않은 이메일입니다. 이메일을 확인해주세요{' '}
+              </div>
+            )}
             {isPending && <div>코드 전송중</div>}
             {isError && (
               <div className="color-origin-primary">{error?.message}</div>
@@ -128,6 +135,11 @@ export default function ModalVerification({
           </div>
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
+            {!isValidCode && (
+              <div className="color-origin-primary">
+                인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
+              </div>
+            )}
             {isVerifyPending && <div>인증 코드 확인중...</div>}
             {isVerifySuccess && (
               <div className="color-origin-green-300">
