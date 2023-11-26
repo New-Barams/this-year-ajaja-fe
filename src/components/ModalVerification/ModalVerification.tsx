@@ -152,14 +152,16 @@ export default function ModalVerification({
           </div>
         </div>
 
-        <Button
-          background="primary"
-          color="white-100"
-          size="md"
-          border={false}
-          onClick={handleCloseModal}>
-          인증 완료
-        </Button>
+        {isVerifySuccess && (
+          <Button
+            background="primary"
+            color="white-100"
+            size="md"
+            border={false}
+            onClick={handleCloseModal}>
+            인증 완료
+          </Button>
+        )}
       </div>
     </div>
   );
