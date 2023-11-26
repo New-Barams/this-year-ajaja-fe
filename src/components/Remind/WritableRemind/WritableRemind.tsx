@@ -106,6 +106,7 @@ export default function WritableRemind({
 
         <div className={classNames('writable-remind__options')}>
           <Dropdown
+            dropdownId="remindPeriodDropdown"
             options={TOTAL_PERIOD_OPTIONS}
             selectedValue={remindOption.TotalPeriod}
             setSelectedValue={(newSelectedValue: number) => {
@@ -117,6 +118,7 @@ export default function WritableRemind({
             동안
           </span>
           <Dropdown
+            dropdownId="remindTermDropdown"
             options={filteredTermOptions}
             selectedValue={remindOption.Term}
             setSelectedValue={(newSelectedValue: number) => {
@@ -128,6 +130,7 @@ export default function WritableRemind({
             마다 매달
           </span>
           <Dropdown
+            dropdownId="remindDateDropdown"
             options={DATE_OPTIONS}
             selectedValue={remindOption.Date}
             setSelectedValue={(newSelectedValue: number) => {
@@ -136,6 +139,7 @@ export default function WritableRemind({
             classNameList={['writable-remind__options__dropdown']}
           />
           <Dropdown
+            dropdownId="remindTimeDropdown"
             options={TIME_OPTIONS}
             selectedValue={remindOption.Time}
             setSelectedValue={(newSelectedValue: number) => {
