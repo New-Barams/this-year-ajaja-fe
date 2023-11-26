@@ -144,7 +144,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   // 3. 수정된 state들을 가지고 호출하는 계획 수정 API
-  const { mutate: editPlanAPI } = useEditPlanMutation();
+  const { mutate: editPlanAPI } = useEditPlanMutation(parseInt(planId, 10));
 
   const editPlan = () => {
     const editPlanData: EditPlanData = {

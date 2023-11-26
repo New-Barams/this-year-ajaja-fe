@@ -104,7 +104,7 @@ export default function CreatePage() {
 
   // 계획 생성 API 부분
   const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
-  const handleCreateNewPlan = () => {
+  const handleClickCreateButton = () => {
     const data: PostNewPlanRequestBody = {
       iconNumber: decideRandomIconNumber(),
       isPublic: isPublic,
@@ -154,7 +154,7 @@ export default function CreatePage() {
             size="lg"
             border={false}
             onClick={() => {
-              handleCreateNewPlan();
+              handleClickCreateButton();
             }}
             disabled={!isCreatePossible}>
             작성 완료

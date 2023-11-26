@@ -96,7 +96,7 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
       </div>
 
       <div className="plan__bottom">
-        <AjajaButton isFilled={isPressAjaja} ajajaCount={ajajas} />
+        <AjajaButton planId={id} isFilled={isPressAjaja} ajajaCount={ajajas} />
         {isMine && (
           <>
             <DebounceSwitchButton
