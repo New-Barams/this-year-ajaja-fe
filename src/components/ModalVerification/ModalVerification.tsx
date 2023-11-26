@@ -103,7 +103,7 @@ export default function ModalVerification({
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidEmail && (
               <div className="color-origin-primary">
-                유효하지 않은 이메일입니다. 이메일을 확인해주세요{' '}
+                유효하지 않은 이메일입니다. 이메일을 확인해주세요
               </div>
             )}
             {isPending && <div>코드 전송중</div>}
