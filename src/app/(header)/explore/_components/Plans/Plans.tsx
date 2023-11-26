@@ -218,7 +218,7 @@ export default function Plans({ allPlans }: PlansProps) {
   // };
   return (
     <div className={classNames('plans__wrapper')}>
-      {allPlans.data.map((plan, index) => {
+      {allPlans.data?.map((plan, index) => {
         return (
           <Link key={index} href={`/plans/${plan.id}`}>
             <Card key={index} plan={plan} />
