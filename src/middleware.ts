@@ -33,11 +33,23 @@ export function middleware(request: NextRequest) {
     if (cookies.has('auth')) {
       return NextResponse.redirect(new URL('/home', request.url));
     }
+  } else if (request.nextUrl.pathname.startsWith('/plans')) {
+    if (!cookies.has('auth')) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/', '/home', '/create', '/edit/:path*', '/my', '/login'],
+  matcher: [
+    '/',
+    '/home',
+    '/create',
+    '/edit/:path*',
+    '/my',
+    '/login',
+    '/plans/:path*',
+  ],
 };
