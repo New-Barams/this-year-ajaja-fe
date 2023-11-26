@@ -13,17 +13,12 @@ export default function useOauthPage() {
       const code = new URL(window.location.href).searchParams.get('code');
       (async () => {
         if (code) {
-          await postLogin(code)
-            .then((response) => {
-              const { data } = response;
-              setCookie('auth', data);
-            })
-            .catch((error) => {
-              console.log('로그인 실패' + error);
-            })
-            .finally(() => {
-              router.push('/home');
-            });
+          console.log(code);
+          await postLogin(code).then((response) => {
+            const { data } = response;
+            setCookie('auth', data);
+            router.push('/home');
+          });
         }
       })();
     } else if (way === 'logout') {
