@@ -8,7 +8,11 @@ import Plans from './Plans/Plans';
 import Tab from './Tab/Tab';
 import './index.scss';
 
-export default function ExplorePlans() {
+type ExplorePlansProps = {
+  isLogin: boolean;
+};
+
+export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
   const [sortCondition, setSortCondition] = useState<SortType>('createdAt');
   const [isNewYear, setIsNewYear] = useState(true);
   const { allPlans } = useAllPlansQuery({
@@ -26,7 +30,7 @@ export default function ExplorePlans() {
   return (
     <div className={classNames('explore-plans__wrapper')}>
       <Tab handleSort={handleSort} handleYear={handleYear} />
-      <Plans allPlans={allPlans} />
+      <Plans allPlans={allPlans} isLogin={isLogin} />
     </div>
   );
 }
