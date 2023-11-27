@@ -1,6 +1,7 @@
 'use client';
 
 import { Dropdown, Icon, Modal, ModalVerification, Tag } from '@/components';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
@@ -35,7 +36,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
     setIsOpenEmailModal(false);
   };
   const handleSetVerifiedEmail = () => {
-    queryClient.invalidateQueries({ queryKey: ['getMyPlans'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] });
   };
 
   useEffect(() => {
