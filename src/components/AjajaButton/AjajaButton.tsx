@@ -41,7 +41,9 @@ export default function AjajaButton({
       planId &&
         postAjaja(planId, {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['plan', planId] });
+            queryClient.invalidateQueries({
+              queryKey: [{ planId: planId }, 'getPlan'],
+            });
           },
         });
       setOriginalCopy(fill);
