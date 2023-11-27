@@ -69,8 +69,12 @@ export default function MyPage() {
     setIsOpenWithdrawalModal(false);
   };
   const handleSetVerifiedEmail = () => {
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USER_INFORMATION] });
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] });
+    Promise.all([
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.USER_INFORMATION],
+      }),
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] }),
+    ]);
   };
   return (
     <>

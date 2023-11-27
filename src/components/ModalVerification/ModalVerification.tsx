@@ -45,12 +45,6 @@ export default function ModalVerification({
     if (isValidate) {
       setIsValidEmail(true);
       submitEmail(email);
-      // .catch((error: AxiosError) => {
-      //   if (error && error.response) {
-      //     const status = error.response.status;
-      //     if (status <= 400 || status >= 500) throw error;
-      //   }
-      // });
     } else {
       setIsValidEmail(false);
     }
