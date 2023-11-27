@@ -1,0 +1,21 @@
+.Basic-Error {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__title {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+
+  &__description {
+    margin-top: 1.3rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
