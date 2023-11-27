@@ -20,7 +20,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const yearList = myPlansData.map((x) => x.year);
   const [period, setPeriod] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
-  const email_isVerified = myPlansData[0].getPlanList[0].isVerified;
+  const email_isVerified = myPlansData[0]?.getPlanList[0]?.isVerified;
   const [isOpenEmailModal, setIsOpenEmailModal] = useState(false);
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };

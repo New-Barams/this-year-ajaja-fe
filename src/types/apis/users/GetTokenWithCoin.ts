@@ -7,5 +7,5 @@ export interface PostLoginResponse {
 
 export interface PostLoginRequestBody {
   authorizationCode: string;
-  redirectUrl: string;
+  redirectUri: string;
 }
