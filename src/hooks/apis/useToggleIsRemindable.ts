@@ -1,4 +1,5 @@
 import { toggleIsRemindable } from '@/apis/client/toggleIsRemindable';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useToggleIsRemindableMutation = (planId: number) => {
@@ -8,8 +9,8 @@ export const useToggleIsRemindableMutation = (planId: number) => {
     mutationFn: toggleIsRemindable,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [{ planId: planId }, 'getRemind'],
-      }); // TODO: planId에 해당하는  getRemind 쿼리 무효화 => 안 하는게 좋을 지도 ?
+        queryKey: [{ planId: planId }, QUERY_KEY.REMIND],
+      });
     },
   });
 };

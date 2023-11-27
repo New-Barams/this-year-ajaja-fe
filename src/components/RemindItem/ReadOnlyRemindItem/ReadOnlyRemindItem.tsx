@@ -12,16 +12,18 @@ import './index.scss';
 
 interface ReadOnlyRemindItemProps {
   data: ReadOnlyRemindItemData;
+  planId: number;
   classNameList?: string[];
 }
 
 export default function ReadOnlyRemindItem({
   data,
+  planId,
   classNameList = [],
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
 
-  const { mutate: postFeedbackAPI } = usePostFeedbackMutation();
+  const { mutate: postFeedbackAPI } = usePostFeedbackMutation(planId);
 
   const {
     remindMonth,

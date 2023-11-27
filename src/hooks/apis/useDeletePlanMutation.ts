@@ -1,4 +1,5 @@
 import { deletePlan } from '@/apis/client/deletePlan';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useDeletePlanMutation = () => {
@@ -8,8 +9,8 @@ export const useDeletePlanMutation = () => {
     mutationFn: deletePlan,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['getMyPlans'],
-      }); // getMyPlans 쿼리(홈 페이지) 무효화
+        queryKey: [QUERY_KEY.MY_PLANS],
+      });
     },
   });
 };

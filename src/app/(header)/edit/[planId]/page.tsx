@@ -29,7 +29,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     if (!isMyPlan) {
       router.push('./home');
     }
-  }, [isMyPlan]);
+  }, [isMyPlan, router]);
 
   // 1-2. 리마인드 정보 조회 API 호출해서 받아온 data 받아오기
   const { remindData } = useGetRemindQuery(
