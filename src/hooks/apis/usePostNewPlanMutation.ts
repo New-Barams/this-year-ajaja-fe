@@ -10,7 +10,7 @@ export const usePostNewPlanMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.MY_PLANS],
-      }); // getMyPlans 쿼리(홈 페이지) 무효화
+      });
     },
   });
 };

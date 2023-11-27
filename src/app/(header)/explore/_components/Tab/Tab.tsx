@@ -1,12 +1,13 @@
 'use client';
 
+import { SortType } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
 import { useState } from 'react';
 import React from 'react';
 import './index.scss';
 
 type TabProps = {
-  handleSort: (condition: 'createdAt' | 'ajaja') => void;
+  handleSort: (condition: SortType) => void;
   handleYear: (isNewYear: boolean) => void;
 };
 
@@ -28,7 +29,7 @@ export default function Tab({ handleSort, handleYear }: TabProps) {
   };
   const selectSortMenuHandler = (index: number) => {
     setCurrentSortTab(index);
-    handleSort(index === 0 ? 'createdAt' : 'ajaja');
+    handleSort(index === 0 ? 'latest' : 'ajaja');
   };
   return (
     <div className={classNames('tab__wrapper')}>

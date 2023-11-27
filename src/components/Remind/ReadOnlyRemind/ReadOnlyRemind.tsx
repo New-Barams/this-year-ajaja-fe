@@ -99,6 +99,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
               <ReadOnlyRemindItem
                 key={index}
                 data={item}
+                planId={parseInt(planId, 10)}
                 classNameList={['readonly-remind__message__item']}
               />
             );
@@ -109,6 +110,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
               <ReadOnlyRemindItem
                 key={index}
                 data={item}
+                planId={parseInt(planId, 10)}
                 classNameList={['readonly-remind__message__item']}
               />
             );
