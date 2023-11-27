@@ -1,4 +1,5 @@
 import { postNewPlan } from '@/apis/client/postNewPlan';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const usePostNewPlanMutation = () => {
@@ -8,8 +9,8 @@ export const usePostNewPlanMutation = () => {
     mutationFn: postNewPlan,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['getMyPlans'],
-      }); // getMyPlans 쿼리(홈 페이지) 무효화
+        queryKey: [QUERY_KEY.MY_PLANS],
+      });
     },
   });
 };
