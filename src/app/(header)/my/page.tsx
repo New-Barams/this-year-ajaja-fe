@@ -10,6 +10,7 @@ import {
   Tag,
 } from '@/components';
 import { KAKAO_LOGOUT_URL } from '@/constants/login';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { useQueryClient } from '@tanstack/react-query';
@@ -34,7 +35,9 @@ export default function MyPage() {
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['userInformation'] });
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEY.USER_INFORMATION],
+        });
       },
     });
   };
@@ -66,7 +69,8 @@ export default function MyPage() {
     setIsOpenWithdrawalModal(false);
   };
   const handleSetVerifiedEmail = () => {
-    queryClient.invalidateQueries({ queryKey: ['userInformation'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USER_INFORMATION] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] });
   };
   return (
     <>
