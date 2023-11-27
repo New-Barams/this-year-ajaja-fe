@@ -12,18 +12,15 @@ type PlansProps = {
 
 export default function Plans({ flatLoadedPlans }: PlansProps) {
   return (
-    <>
-      <div className={classNames('plans__wrapper')}>
-        {flatLoadedPlans?.map((plan, index) => {
-          console.log('plan:', plan);
-          return (
-            <Link key={index} href={`/plans/${plan.id}`}>
-              <Card key={index} plan={plan} />
-            </Link>
-          );
-        })}
-      </div>
-    </>
+    <div className={classNames('plans__wrapper')}>
+      {flatLoadedPlans?.map((plan, index) => {
+        return (
+          <Link key={index} href={`/plans/${plan.id}`}>
+            <Card key={index} plan={plan} />
+          </Link>
+        );
+      })}
+    </div>
   );
 }
 // const allPlans = {
