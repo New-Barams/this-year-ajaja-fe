@@ -1,7 +1,8 @@
 'use client';
 
-import { Dropdown, Icon, Tag } from '@/components';
+import { Dropdown, Icon, Modal, ModalVerification, Tag } from '@/components';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import NewPlan from './NewPlan/NewPlan';
@@ -14,14 +15,28 @@ type MyPlanProps = {
 
 export default function MyPlan({ myPlans }: MyPlanProps) {
   const maxLength = 4;
+  const queryClient = useQueryClient();
   const { data: myPlansData } = myPlans;
   const yearList = myPlansData.map((x) => x.year);
   const [period, setPeriod] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
   const email_isVerified = myPlansData[0]?.getPlanList[0]?.isVerified;
+  const [isOpenEmailModal, setIsOpenEmailModal] = useState(false);
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
   });
+
+  const handleOpenEmailVerificationModal = () => {
+    if (!email_isVerified) {
+      setIsOpenEmailModal(true);
+    }
+  };
+  const handleCloseEmailVerificationModal = () => {
+    setIsOpenEmailModal(false);
+  };
+  const handleSetVerifiedEmail = () => {
+    queryClient.invalidateQueries({ queryKey: ['getMyPlans'] });
+  };
 
   useEffect(() => {
     setYearData(myPlansData.find((x) => x.year === period)!);
@@ -69,7 +84,15 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
         {Array.from(
           { length: maxLength - yearData.getPlanList.length },
           (_, i) => {
-            return <NewPlan key={i} />;
+            return (
+              <NewPlan
+                key={i}
+                email_isVerified={email_isVerified}
+                handleOpenEmailVerificationModal={
+                  handleOpenEmailVerificationModal
+                }
+              />
+            );
           },
         )}
       </div>
@@ -83,6 +106,14 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
           <Icon name="WARNING" size="xl" />
           현재 인증된 이메일이 없습니다.
         </h1>
+      )}
+      {isOpenEmailModal && (
+        <Modal>
+          <ModalVerification
+            handleCloseModal={handleCloseEmailVerificationModal}
+            setVerifiedEmail={handleSetVerifiedEmail}
+          />
+        </Modal>
       )}
     </>
   );

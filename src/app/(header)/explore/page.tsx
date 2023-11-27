@@ -1,5 +1,7 @@
+import { cookies } from 'next/headers';
 import ExplorePlans from './_components/ExplorePlans';
 
 export default function ExplorePage() {
-  return <ExplorePlans />;
+  const isLogin = cookies().has('auth');
+  return <ExplorePlans isLogin={isLogin} />;
 }

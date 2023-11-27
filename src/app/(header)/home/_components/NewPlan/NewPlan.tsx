@@ -4,14 +4,23 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import './index.scss';
 
-export default function NewPlan() {
+type NewPlanProps = {
+  email_isVerified: boolean;
+  handleOpenEmailVerificationModal: () => void;
+};
+
+export default function NewPlan({
+  email_isVerified,
+  handleOpenEmailVerificationModal,
+}: NewPlanProps) {
   return (
     <Link
-      href={checkIsSeason() ? '/create' : {}}
+      href={checkIsSeason() && email_isVerified ? '/create' : {}}
       className={classNames('new-plan__wrapper')}
       style={{
         cursor: checkIsSeason() ? 'pointer' : 'default',
-      }}>
+      }}
+      onClick={handleOpenEmailVerificationModal}>
       <div className={classNames('new-plan__wrapper--icon')}>
         <Icon
           name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'AJAJA'}
