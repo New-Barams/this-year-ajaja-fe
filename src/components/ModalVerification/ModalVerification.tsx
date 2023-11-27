@@ -4,6 +4,7 @@ import { Button, Icon } from '@/components';
 import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
+import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import { useState } from 'react';
 import './index.scss';
@@ -17,7 +18,7 @@ export default function ModalVerification({
   setVerifiedEmail,
 }: ModalVerificationProps) {
   const {
-    mutateAsync: submitEmail,
+    mutate: submitEmail,
     isError,
     isPending,
     isSuccess,
@@ -39,7 +40,7 @@ export default function ModalVerification({
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = async () => {
+  const handleSubmitEmail = () => {
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
       setIsValidEmail(true);
@@ -55,7 +56,12 @@ export default function ModalVerification({
   const handleSubmitCode = async () => {
     if (code.length == 6) {
       setIsValidCode(true);
-      await submitCertification(code);
+      await submitCertification(code).catch((error: AxiosError) => {
+        if (error && error.response) {
+          const status = error.response.status;
+          if (status <= 400 || status >= 500) throw error;
+        }
+      });
       setVerifiedEmail && setVerifiedEmail();
     } else {
       setIsValidCode(false);
@@ -106,11 +112,13 @@ export default function ModalVerification({
                 유효하지 않은 이메일입니다. 이메일을 확인해주세요
               </div>
             )}
-            {isPending && <div>코드 전송중</div>}
-            {isError && (
-              <div className="color-origin-primary">{error?.message}</div>
+            {isValidEmail && isPending && <div>코드 전송중...</div>}
+            {isValidEmail && isError && (
+              <div className="color-origin-primary">
+                {error?.response?.data.errorMessage}
+              </div>
             )}
-            {isSuccess && (
+            {isValidEmail && isSuccess && (
               <div className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
               </div>
@@ -140,26 +148,30 @@ export default function ModalVerification({
                 인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
               </div>
             )}
-            {isVerifyPending && <div>인증 코드 확인중...</div>}
-            {isVerifySuccess && (
+            {isValidCode && isVerifyPending && <div>인증 코드 확인중...</div>}
+            {isValidCode && isVerifySuccess && (
               <div className="color-origin-green-300">
                 인증에 성공하셨습니다.
               </div>
             )}
-            {isVerifyError && (
-              <div className="color-origin-primary">{verifyError?.message}</div>
+            {isValidCode && isVerifyError && (
+              <div className="color-origin-primary">
+                {verifyError?.response?.data.errorMessage}
+              </div>
             )}
           </div>
         </div>
 
-        <Button
-          background="primary"
-          color="white-100"
-          size="md"
-          border={false}
-          onClick={handleCloseModal}>
-          인증 완료
-        </Button>
+        {isVerifySuccess && (
+          <Button
+            background="primary"
+            color="white-100"
+            size="md"
+            border={false}
+            onClick={handleCloseModal}>
+            인증 완료
+          </Button>
+        )}
       </div>
     </div>
   );
