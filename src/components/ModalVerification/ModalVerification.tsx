@@ -18,7 +18,7 @@ export default function ModalVerification({
   setVerifiedEmail,
 }: ModalVerificationProps) {
   const {
-    mutateAsync: submitEmail,
+    mutate: submitEmail,
     isError,
     isPending,
     isSuccess,
@@ -40,16 +40,17 @@ export default function ModalVerification({
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = async () => {
+  const handleSubmitEmail = () => {
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
       setIsValidEmail(true);
-      await submitEmail(email).catch((error: AxiosError) => {
-        if (error && error.response) {
-          const status = error.response.status;
-          if (status <= 400 || status >= 500) throw error;
-        }
-      });
+      submitEmail(email);
+      // .catch((error: AxiosError) => {
+      //   if (error && error.response) {
+      //     const status = error.response.status;
+      //     if (status <= 400 || status >= 500) throw error;
+      //   }
+      // });
     } else {
       setIsValidEmail(false);
     }

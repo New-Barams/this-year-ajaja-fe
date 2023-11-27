@@ -3,18 +3,15 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export const usePostSendVerificationMutation = () => {
-  const {
-    mutateAsync,
-    isError,
-    isSuccess,
-    error,
-
-    isPending,
-  } = useMutation<AxiosResponse, AxiosError<ErrorResponseData>, string>({
+  const { mutate, isError, isSuccess, error, isPending } = useMutation<
+    AxiosResponse,
+    AxiosError<ErrorResponseData>,
+    string
+  >({
     mutationFn: (email: string) => postSendVerification(email),
   });
   return {
-    mutateAsync,
+    mutate,
     isPending,
     isSuccess,
     isError,
