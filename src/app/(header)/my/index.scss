@@ -22,15 +22,11 @@
   &__name {
     display: flex;
     align-items: center;
-
+    position: relative;
     & .circle-rotate {
       padding: 0;
       animation: rotate_image 1s linear infinite;
-      transform-origin: 50% 50%;
-
-      & > span {
-        vertical-align: bottom;
-      }
+      transform-origin: center;
     }
 
     & > button {

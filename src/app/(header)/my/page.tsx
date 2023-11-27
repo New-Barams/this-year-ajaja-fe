@@ -83,7 +83,7 @@ export default function MyPage() {
         />
         <div className="my-page__main">
           <div>
-            <div className="my-page__name font-size-4xl">
+            <div className="my-page__name font-size-3xl">
               <h1 className="color-origin-orange-300 my-page__name--header">
                 나의 이름은
               </h1>
