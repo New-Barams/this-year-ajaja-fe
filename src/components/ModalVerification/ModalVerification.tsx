@@ -4,6 +4,7 @@ import { Button, Icon } from '@/components';
 import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
+import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import { useState } from 'react';
 import './index.scss';
@@ -43,7 +44,12 @@ export default function ModalVerification({
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
       setIsValidEmail(true);
-      submitEmail(email);
+      await submitEmail(email).catch((error: AxiosError) => {
+        if (error && error.response) {
+          const status = error.response.status;
+          if (status <= 400 || status >= 500) throw error;
+        }
+      });
     } else {
       setIsValidEmail(false);
     }
@@ -55,7 +61,12 @@ export default function ModalVerification({
   const handleSubmitCode = async () => {
     if (code.length == 6) {
       setIsValidCode(true);
-      await submitCertification(code);
+      await submitCertification(code).catch((error: AxiosError) => {
+        if (error && error.response) {
+          const status = error.response.status;
+          if (status <= 400 || status >= 500) throw error;
+        }
+      });
       setVerifiedEmail && setVerifiedEmail();
     } else {
       setIsValidCode(false);
@@ -106,9 +117,11 @@ export default function ModalVerification({
                 유효하지 않은 이메일입니다. 이메일을 확인해주세요
               </div>
             )}
-            {isValidEmail && isPending && <div>코드 전송중</div>}
+            {isValidEmail && isPending && <div>코드 전송중...</div>}
             {isValidEmail && isError && (
-              <div className="color-origin-primary">{error?.message}</div>
+              <div className="color-origin-primary">
+                {error?.response?.data.errorMessage}
+              </div>
             )}
             {isValidEmail && isSuccess && (
               <div className="color-origin-green-300">
@@ -147,7 +160,9 @@ export default function ModalVerification({
               </div>
             )}
             {isValidCode && isVerifyError && (
-              <div className="color-origin-primary">{verifyError?.message}</div>
+              <div className="color-origin-primary">
+                {verifyError?.response?.data.errorMessage}
+              </div>
             )}
           </div>
         </div>

@@ -13,7 +13,6 @@ export default function useOauthPage() {
       const code = new URL(window.location.href).searchParams.get('code');
       (async () => {
         if (code) {
-          console.log(code);
           await postLogin(code).then((response) => {
             const { data } = response;
             setCookie('auth', data);

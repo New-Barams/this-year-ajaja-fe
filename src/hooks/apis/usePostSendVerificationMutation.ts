@@ -1,21 +1,19 @@
 import { postSendVerification } from '@/apis/client/postSendVerification';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export const usePostSendVerificationMutation = () => {
   const {
-    data,
     mutateAsync,
     isError,
     isSuccess,
     error,
-    failureReason,
+
     isPending,
-  } = useMutation({
+  } = useMutation<AxiosResponse, AxiosError<ErrorResponseData>, string>({
     mutationFn: (email: string) => postSendVerification(email),
   });
   return {
-    failureReason,
-    data,
     mutateAsync,
     isPending,
     isSuccess,
@@ -23,3 +21,7 @@ export const usePostSendVerificationMutation = () => {
     error,
   };
 };
+
+interface ErrorResponseData {
+  errorMessage: string;
+}
