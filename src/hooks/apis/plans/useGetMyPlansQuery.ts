@@ -8,7 +8,7 @@ export const useGetMyPlansQuery = () => {
   const { data } = useSuspenseQuery({
     queryKey: [QUERY_KEY.MY_PLANS],
     queryFn: getMyPlans,
-    staleTime: 10000,
+    staleTime: Infinity,
   });
   return { myPlans: data! };
 };
