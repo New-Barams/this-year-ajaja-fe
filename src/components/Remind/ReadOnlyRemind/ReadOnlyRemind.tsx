@@ -93,7 +93,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
       </div>
 
       <ul className={classNames('readonly-remind__message__list')}>
-        {remindData.sentRemindResponses.length !== 0 &&
+        {remindData.sentRemindResponses &&
           remindData.sentRemindResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
@@ -103,7 +103,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
               />
             );
           })}
-        {remindData.futureRemindResponses.length !== 0 &&
+        {remindData.futureRemindResponses &&
           remindData.futureRemindResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
