@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon } from '@/components';
+import { QUERY_KEY } from '@/constants/queryKey';
 import { usePostAjajaMutation } from '@/hooks/apis/usePostAjajaMutation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQueryClient } from '@tanstack/react-query';
@@ -42,7 +43,7 @@ export default function AjajaButton({
         postAjaja(planId, {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [{ planId: planId }, 'getPlan'],
+              queryKey: [{ planId: planId }, QUERY_KEY.PLAN],
             });
           },
         });
