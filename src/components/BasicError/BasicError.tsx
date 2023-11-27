@@ -9,7 +9,7 @@ export default function BasicError({ reset }: { reset: () => void }) {
   return (
     <div className="Basic-Error__wrapper">
       <Image
-        src="/404-page.svg"
+        src="/error-boundary.svg"
         alt="This Year Ajaja 404"
         width={350}
         height={350}
