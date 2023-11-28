@@ -12,5 +12,6 @@ export const useToggleAjajaNotificationMutation = (planId: number) => {
         queryKey: [{ planId: planId }, QUERY_KEY.PLAN],
       });
     },
+    throwOnError: true,
   });
 };
