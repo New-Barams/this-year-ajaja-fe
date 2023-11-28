@@ -40,7 +40,9 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
     checkIsSeason(),
   );
 
-  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation();
+  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation(
+    parseInt(planId, 10),
+  );
 
   const handleToggleIsRemindable = () => {
     toggleIsRemindableAPI(parseInt(planId, 10));
@@ -91,22 +93,24 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
       </div>
 
       <ul className={classNames('readonly-remind__message__list')}>
-        {remindData.sentRemindResponses.length !== 0 &&
+        {remindData.sentRemindResponses &&
           remindData.sentRemindResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}
                 data={item}
+                planId={parseInt(planId, 10)}
                 classNameList={['readonly-remind__message__item']}
               />
             );
           })}
-        {remindData.futureRemindResponses.length !== 0 &&
+        {remindData.futureRemindResponses &&
           remindData.futureRemindResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}
                 data={item}
+                planId={parseInt(planId, 10)}
                 classNameList={['readonly-remind__message__item']}
               />
             );

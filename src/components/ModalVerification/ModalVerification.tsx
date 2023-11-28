@@ -4,8 +4,9 @@ import { Button, Icon } from '@/components';
 import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
+import { AxiosError } from 'axios';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.scss';
 
 interface ModalVerificationProps {
@@ -17,7 +18,7 @@ export default function ModalVerification({
   setVerifiedEmail,
 }: ModalVerificationProps) {
   const {
-    mutateAsync: submitEmail,
+    mutate: submitEmail,
     isError,
     isPending,
     isSuccess,
@@ -30,23 +31,22 @@ export default function ModalVerification({
     error: verifyError,
     isSuccess: isVerifySuccess,
   } = usePostVerifyMutation();
-  useEffect(() => {
-    console.log(
-      `isPending: ${isVerifyPending}, isError:${isVerifyError},error: ${verifyError?.message} isSuccess:${isVerifySuccess} `,
-    );
-  }, [isVerifyPending, isVerifyError, verifyError, isVerifySuccess]);
 
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState<string>('');
-
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+  const [isValidCode, setIsValidCode] = useState<boolean>(true);
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = async () => {
+  const handleSubmitEmail = () => {
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
+      setIsValidEmail(true);
       submitEmail(email);
+    } else {
+      setIsValidEmail(false);
     }
   };
   const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +55,16 @@ export default function ModalVerification({
   };
   const handleSubmitCode = async () => {
     if (code.length == 6) {
-      await submitCertification(code);
+      setIsValidCode(true);
+      await submitCertification(code).catch((error: AxiosError) => {
+        if (error && error.response) {
+          const status = error.response.status;
+          if (status <= 400 || status >= 500) throw error;
+        }
+      });
       setVerifiedEmail && setVerifiedEmail();
+    } else {
+      setIsValidCode(false);
     }
   };
   return (
@@ -98,17 +106,24 @@ export default function ModalVerification({
               인증코드 보내기
             </Button>
           </div>
-          <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {isPending && <div>코드 전송중</div>}
-            {isError && (
-              <div className="color-origin-primary">{error?.message}</div>
+          <span className="font-size-xs modal-verification-wrapper__items--item--message">
+            {!isValidEmail && (
+              <div className="color-origin-primary">
+                유효하지 않은 이메일입니다. 이메일을 확인해주세요
+              </div>
             )}
-            {isSuccess && (
+            {isValidEmail && isPending && <div>코드 전송중...</div>}
+            {isValidEmail && isError && (
+              <span className="color-origin-primary">
+                {error?.response?.data.errorMessage}
+              </span>
+            )}
+            {isValidEmail && isSuccess && (
               <div className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
               </div>
             )}
-          </div>
+          </span>
           <div className="modal-verification-wrapper__items--item">
             <input
               placeholder="인증 코드를 입력해주세요"
@@ -128,19 +143,27 @@ export default function ModalVerification({
           </div>
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {isVerifyPending && <div>인증 코드 확인중...</div>}
-            {isVerifySuccess && (
+            {!isValidCode && (
+              <span className="color-origin-primary">
+                인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
+              </span>
+            )}
+            {isValidCode && isVerifyPending && <div>인증 코드 확인중...</div>}
+            {isValidCode && isVerifySuccess && (
               <div className="color-origin-green-300">
                 인증에 성공하셨습니다.
               </div>
             )}
-            {isVerifyError && (
-              <div className="color-origin-primary">{verifyError?.message}</div>
+            {isValidCode && isVerifyError && (
+              <div className="color-origin-primary">
+                {verifyError?.response?.data.errorMessage}
+              </div>
             )}
           </div>
         </div>
 
         <Button
+          className={classNames(isVerifySuccess ? '' : 'visible-hidden')}
           background="primary"
           color="white-100"
           size="md"

@@ -39,15 +39,16 @@
     &__items {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-
+      gap: 2rem;
+      align-items: center;
       &--item {
         display: flex;
-        :first-child {
+        &:first-child {
           flex-grow: 1;
         }
         &--message {
           height: 0.75rem;
+          margin-top: -1rem;
         }
       }
     }

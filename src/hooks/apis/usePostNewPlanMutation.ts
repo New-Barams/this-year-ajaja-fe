@@ -1,8 +1,16 @@
 import { postNewPlan } from '@/apis/client/postNewPlan';
-import { useMutation } from '@tanstack/react-query';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const usePostNewPlanMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: postNewPlan,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.MY_PLANS],
+      });
+    },
   });
 };

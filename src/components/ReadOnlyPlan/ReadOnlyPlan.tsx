@@ -34,9 +34,9 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
     'blue-300',
     'purple-300',
   ];
-  const { mutate: toggleIsPublic } = useToggleIsPublicMutation();
+  const { mutate: toggleIsPublic } = useToggleIsPublicMutation(id);
   const { mutate: toggleAjajaNotification } =
-    useToggleAjajaNotificationMutation();
+    useToggleAjajaNotificationMutation(id);
 
   const handleToggleIsPublic = () => {
     toggleIsPublic(id);
@@ -96,7 +96,7 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
       </div>
 
       <div className="plan__bottom">
-        <AjajaButton isFilled={isPressAjaja} ajajaCount={ajajas} />
+        <AjajaButton planId={id} isFilled={isPressAjaja} ajajaCount={ajajas} />
         {isMine && (
           <>
             <DebounceSwitchButton

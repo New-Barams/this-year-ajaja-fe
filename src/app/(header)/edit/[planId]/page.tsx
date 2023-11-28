@@ -10,18 +10,26 @@ import { EditPlanData } from '@/types/apis/plan/EditPlan';
 import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
 import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
+import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import './index.scss';
 
 export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
-
+  const router = useRouter();
   // 1-1. TODO: 계획 단건 조회 API를 통해 계획 data 받아오기
   const { plan: planData } = useGetPlanQuery(Number(planId));
+  const isMyPlan = checkIsMyPlan(planData.userId);
+  useEffect(() => {
+    if (!isMyPlan) {
+      router.push('./home');
+    }
+  }, [isMyPlan, router]);
 
   // 1-2. 리마인드 정보 조회 API 호출해서 받아온 data 받아오기
   const { remindData } = useGetRemindQuery(
@@ -144,7 +152,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   // 3. 수정된 state들을 가지고 호출하는 계획 수정 API
-  const { mutate: editPlanAPI } = useEditPlanMutation();
+  const { mutate: editPlanAPI } = useEditPlanMutation(parseInt(planId, 10));
 
   const editPlan = () => {
     const editPlanData: EditPlanData = {

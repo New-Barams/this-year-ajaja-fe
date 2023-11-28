@@ -1,4 +1,5 @@
 export { default as AjajaButton } from '@components/AjajaButton/AjajaButton';
+export { default as BasicError } from '@components/BasicError/BasicError';
 export { default as Button } from '@components/Button/Button';
 export { default as DebounceSwitchButton } from '@/components/DebounceSwitchButton/DebounceSwitchButton';
 export { default as Dropdown } from '@components/Dropdown/Dropdown';
@@ -7,6 +8,7 @@ export { default as IconSwitchButton } from '@components/IconSwitchButton/IconSw
 export { default as InputTag } from '@components/InputTag/InputTag';
 export { default as Modal } from '@components/Modal/Modal';
 export { default as ModalBasic } from '@components/Modal/ModalBasic';
+export { default as ModalExit } from '@components/Modal/ModalExit';
 export { default as ModalVerification } from '@components/ModalVerification/ModalVerification';
 export { default as PlanInput } from '@components/PlanInput/PlanInput';
 export { default as ReadOnlyRemind } from '@components/Remind/ReadOnlyRemind/ReadOnlyRemind';

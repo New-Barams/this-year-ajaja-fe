@@ -12,6 +12,7 @@ type optionsType = {
 };
 
 interface DropdownProps {
+  dropdownId: string;
   options: optionsType[];
   selectedValue: number;
   setSelectedValue: (newSelectedValue: number) => void;
@@ -19,6 +20,7 @@ interface DropdownProps {
 }
 
 export default function Dropdown({
+  dropdownId,
   options,
   selectedValue,
   setSelectedValue,
@@ -66,7 +68,7 @@ export default function Dropdown({
       className={classNames('dropdown__container', classNameList)}
       ref={backgroundRef}>
       <input
-        id="dropdown"
+        id={dropdownId}
         className="dropdown__checkbox"
         type="checkbox"
         checked={isDropdownOpened}
@@ -74,7 +76,7 @@ export default function Dropdown({
       />
       <label
         className={classNames('dropdown__label', 'background-origin-white-100')}
-        htmlFor="dropdown"
+        htmlFor={dropdownId}
         onClick={handleClickLabel}>
         <div className="dropdown__label__text">
           {selectedOptionName(selectedValue)}
