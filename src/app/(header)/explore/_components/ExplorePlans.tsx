@@ -2,7 +2,7 @@
 
 import { ToTopFloatingButton } from '@/components';
 import { COLOR } from '@/constants';
-import { useAllPlansQuery } from '@/hooks/apis/plans/useAllPlansQuery';
+import { useAllPlansQuery } from '@/hooks/apis/useAllPlansQuery';
 import { SortType } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
