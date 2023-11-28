@@ -4,5 +4,6 @@ import { useMutation } from '@tanstack/react-query';
 export const usePostAjajaMutation = () => {
   return useMutation({
     mutationFn: postAjaja,
+    throwOnError: true,
   });
 };
