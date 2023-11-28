@@ -86,7 +86,7 @@ export default function MyPage() {
           alt="올해도 아좌좌"
         />
         <div className="my-page__main">
-          <div>
+          <div className="my-page__main--nickname">
             <div className="my-page__name font-size-3xl">
               <h1 className="color-origin-orange-300 my-page__name--header">
                 나의 이름은
@@ -132,8 +132,8 @@ export default function MyPage() {
           </h1>
           <Button
             size="sm"
-            background="white-100"
-            color="primary"
+            background="primary"
+            color="white-100"
             border={true}
             onClick={handleGoEmailVerification}>
             이메일 변경하기
