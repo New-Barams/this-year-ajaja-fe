@@ -3,11 +3,11 @@
 import { getAllPlans } from '@/apis/client/getAllPlans';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { GetAllPlansRequestQuery } from '@/types/apis/plan/GetAllPlans';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 export const useAllPlansQuery = (query: GetAllPlansRequestQuery) => {
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
-    useInfiniteQuery({
+    useSuspenseInfiniteQuery({
       queryKey: [QUERY_KEY.ALL_PLANS, query.sort, query.current],
       queryFn: async ({ pageParam = {} }) => {
         let params = {
