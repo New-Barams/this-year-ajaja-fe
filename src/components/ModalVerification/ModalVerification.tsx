@@ -4,9 +4,8 @@ import { Button, Icon } from '@/components';
 import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
-import { AxiosError } from 'axios';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
 
 interface ModalVerificationProps {
@@ -36,6 +35,26 @@ export default function ModalVerification({
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (error && error.response) {
+      const status = error.response.status;
+      if (status <= 400 || status >= 500) {
+        throw error;
+      }
+    } else if (error) {
+      throw error;
+    }
+    if (verifyError && verifyError.response) {
+      const status = verifyError.response.status;
+      if (status <= 400 || status >= 500) {
+        throw verifyError;
+      }
+    } else if (verifyError) {
+      throw verifyError;
+    }
+  }, [error, verifyError]);
+
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -56,12 +75,7 @@ export default function ModalVerification({
   const handleSubmitCode = async () => {
     if (code.length == 6) {
       setIsValidCode(true);
-      await submitCertification(code).catch((error: AxiosError) => {
-        if (error && error.response) {
-          const status = error.response.status;
-          if (status <= 400 || status >= 500) throw error;
-        }
-      });
+      await submitCertification(code);
       setVerifiedEmail && setVerifiedEmail();
     } else {
       setIsValidCode(false);
