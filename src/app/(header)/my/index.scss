@@ -17,6 +17,7 @@
     &--nickname {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 1rem;
     }
   }
@@ -42,6 +43,11 @@
         vertical-align: bottom;
       }
     }
+  }
+  &__remind-way {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__email {

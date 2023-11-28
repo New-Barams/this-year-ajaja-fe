@@ -120,7 +120,7 @@ export default function ModalVerification({
               인증코드 보내기
             </Button>
           </div>
-          <span className="font-size-xs modal-verification-wrapper__items--item--message">
+          <div className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidEmail && (
               <div className="color-origin-primary">
                 유효하지 않은 이메일입니다. 이메일을 확인해주세요
@@ -137,7 +137,7 @@ export default function ModalVerification({
                 이메일에서 인증코드를 확인해주세요
               </div>
             )}
-          </span>
+          </div>
           <div className="modal-verification-wrapper__items--item">
             <input
               placeholder="인증 코드를 입력해주세요"
@@ -177,9 +177,9 @@ export default function ModalVerification({
         </div>
 
         <Button
-          className={classNames(isVerifySuccess ? '' : 'visible-hidden')}
-          background="primary"
-          color="white-100"
+          disabled={!isVerifySuccess}
+          background={isVerifySuccess ? 'primary' : 'gray-200'}
+          color={'white-100'}
           size="md"
           border={false}
           onClick={handleCloseModal}>
