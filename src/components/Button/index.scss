@@ -15,7 +15,7 @@ $sizes: ('lg', 'md', 'sm');
         padding: 5px 15px;
       } @else if $size== 'sm' {
         height: 25px;
-        padding: 2px 7.5px;
+        padding: 3px 10px;
       }
     }
   }
