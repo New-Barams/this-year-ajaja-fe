@@ -1,4 +1,4 @@
-import { postAjaja } from '@/apis/client/postAaja';
+import { postAjaja } from '@/apis/client/postAjaja';
 import { useMutation } from '@tanstack/react-query';
 
 export const usePostAjajaMutation = () => {
