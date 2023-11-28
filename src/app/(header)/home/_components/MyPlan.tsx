@@ -35,11 +35,13 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
   };
-  const handleSetVerifiedEmail = async () => {
-    await queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] });
-    await queryClient.invalidateQueries({
-      queryKey: [QUERY_KEY.USER_INFORMATION],
-    });
+  const handleSetVerifiedEmail = () => {
+    Promise.all([
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] }),
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.USER_INFORMATION],
+      }),
+    ]);
   };
 
   useEffect(() => {
