@@ -162,16 +162,15 @@ export default function ModalVerification({
           </div>
         </div>
 
-        {isVerifySuccess && (
-          <Button
-            background="primary"
-            color="white-100"
-            size="md"
-            border={false}
-            onClick={handleCloseModal}>
-            인증 완료
-          </Button>
-        )}
+        <Button
+          className={classNames(isVerifySuccess ? '' : 'visible-hidden')}
+          background="primary"
+          color="white-100"
+          size="md"
+          border={false}
+          onClick={handleCloseModal}>
+          인증 완료
+        </Button>
       </div>
     </div>
   );
