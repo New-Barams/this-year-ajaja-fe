@@ -6,7 +6,7 @@ import { usePostAjajaMutation } from '@/hooks/apis/usePostAjajaMutation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import './index.scss';
 
@@ -52,6 +52,10 @@ export default function AjajaButton({
   };
 
   useDebounce(compare, 500, []);
+
+  useEffect(() => {
+    setCount(ajajaCount);
+  }, [ajajaCount]);
 
   return (
     <button
