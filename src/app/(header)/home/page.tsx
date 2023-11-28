@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetMyPlansQuery } from '@/hooks/apis/plans/useGetMyPlansQuery';
+import { useGetMyPlansQuery } from '@/hooks/apis/useGetMyPlansQuery';
 import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 import MyPlan from './_components/MyPlan';

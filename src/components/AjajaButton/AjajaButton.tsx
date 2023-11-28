@@ -37,7 +37,6 @@ export default function AjajaButton({
   };
 
   const compare = () => {
-    console.log(originalCopy, fill);
     if (originalCopy !== fill) {
       planId &&
         postAjaja(planId, {

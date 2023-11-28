@@ -136,7 +136,7 @@ export default function MyPage() {
             color="white-100"
             border={true}
             onClick={handleGoEmailVerification}>
-            이메일 변경하기
+            {isEmailVerified ? '이메일 변경하기' : '이메일 인증하기'}
           </Button>
         </div>
 

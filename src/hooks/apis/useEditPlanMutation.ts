@@ -17,5 +17,6 @@ export const useEditPlanMutation = (planId: number) => {
         }),
       ]);
     },
+    throwOnError: true,
   });
 };

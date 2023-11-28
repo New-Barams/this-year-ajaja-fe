@@ -15,5 +15,6 @@ export const usePostFeedbackMutation = (planId: number) => {
         queryKey: [{ planId: planId }, QUERY_KEY.REMIND],
       });
     },
+    throwOnError: true,
   });
 };

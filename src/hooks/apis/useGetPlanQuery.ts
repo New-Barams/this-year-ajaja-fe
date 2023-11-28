@@ -1,9 +1,9 @@
 import { getPlan } from '@/apis/client/getPlan';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetPlanQuery = (id: number) => {
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError } = useSuspenseQuery({
     queryKey: [{ planId: id }, QUERY_KEY.PLAN],
     queryFn: () => getPlan(id),
     staleTime: Infinity,
