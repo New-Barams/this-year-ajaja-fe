@@ -106,7 +106,7 @@ export default function ModalVerification({
               인증코드 보내기
             </Button>
           </div>
-          <div className="font-size-xs modal-verification-wrapper__items--item--message">
+          <span className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidEmail && (
               <div className="color-origin-primary">
                 유효하지 않은 이메일입니다. 이메일을 확인해주세요
@@ -114,16 +114,16 @@ export default function ModalVerification({
             )}
             {isValidEmail && isPending && <div>코드 전송중...</div>}
             {isValidEmail && isError && (
-              <div className="color-origin-primary">
+              <span className="color-origin-primary">
                 {error?.response?.data.errorMessage}
-              </div>
+              </span>
             )}
             {isValidEmail && isSuccess && (
               <div className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
               </div>
             )}
-          </div>
+          </span>
           <div className="modal-verification-wrapper__items--item">
             <input
               placeholder="인증 코드를 입력해주세요"
@@ -144,9 +144,9 @@ export default function ModalVerification({
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidCode && (
-              <div className="color-origin-primary">
+              <span className="color-origin-primary">
                 인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
-              </div>
+              </span>
             )}
             {isValidCode && isVerifyPending && <div>인증 코드 확인중...</div>}
             {isValidCode && isVerifySuccess && (
