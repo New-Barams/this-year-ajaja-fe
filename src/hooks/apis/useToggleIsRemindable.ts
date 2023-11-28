@@ -12,5 +12,6 @@ export const useToggleIsRemindableMutation = (planId: number) => {
         queryKey: [{ planId: planId }, QUERY_KEY.REMIND],
       });
     },
+    throwOnError: true,
   });
 };

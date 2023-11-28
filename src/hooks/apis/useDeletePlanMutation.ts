@@ -12,5 +12,6 @@ export const useDeletePlanMutation = () => {
         queryKey: [QUERY_KEY.MY_PLANS],
       });
     },
+    throwOnError: true,
   });
 };
