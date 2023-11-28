@@ -47,7 +47,6 @@
     width: 100%;
     left: 0;
     border-radius: 0px 0px var(--border-radius) var(--border-radius);
-    padding-bottom: 3rem;
 
     &__list {
       border: var(--border-width) solid var(--origin-primary);
@@ -73,6 +72,8 @@
       }
     }
   }
+
+
 }
 
 #dropdown:checked + label + div {
