@@ -8,12 +8,14 @@ export const useEditPlanMutation = (planId: number) => {
   return useMutation({
     mutationFn: editPlan,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [{ planId: planId }],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.MY_PLANS],
-      });
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [{ planId: planId }],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEY.MY_PLANS],
+        }),
+      ]);
     },
   });
 };
