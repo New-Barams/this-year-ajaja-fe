@@ -16,7 +16,6 @@ export default function HeaderLayout({
           className={classNames(
             'header-layout__content',
             'border-origin-orange-300',
-            'border-round',
           )}>
           {children}
           <ToTopFloatingButton />
