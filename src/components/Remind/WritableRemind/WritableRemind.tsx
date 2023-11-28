@@ -74,6 +74,14 @@ export default function WritableRemind({
     );
   }, [remindOption.TotalPeriod]);
 
+  const handleFixButtonClick = () => {
+    if (remindMessageList && remindMessageList.length > 0) {
+      setIsFixOptionsModalOpen(true);
+    } else {
+      fixRemindOptions();
+    }
+  };
+
   useEffect(() => {
     if (remindOption.Term > remindOption.TotalPeriod) {
       setRemindOption('Term', 1);
@@ -157,7 +165,7 @@ export default function WritableRemind({
             size="sm"
             border={false}
             onClick={() => {
-              setIsFixOptionsModalOpen(true);
+              handleFixButtonClick();
             }}>
             확정
           </Button>
