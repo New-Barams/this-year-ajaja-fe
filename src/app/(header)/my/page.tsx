@@ -14,7 +14,6 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { useQueryClient } from '@tanstack/react-query';
-import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -60,10 +59,10 @@ export default function MyPage() {
   const handleWithdrawal = () => {
     setIsOpenWithdrawalModal(true);
   };
-  const handleRealWithdrawal = async () => {
-    await deleteUsers();
-    deleteCookie('auth');
-    router.push('/login');
+  const handleRealWithdrawal = () => {
+    deleteUsers().then(() => {
+      router.push('/oauth?way=logout');
+    });
   };
   const handleCloseWithdrawalModal = () => {
     setIsOpenWithdrawalModal(false);
