@@ -25,32 +25,30 @@ export default function Plans({ flatLoadedPlans, isLogin }: PlansProps) {
     <div className={classNames('plans__wrapper')}>
       {flatLoadedPlans?.map((plan, index) => {
         return (
-          <>
-            <Link
-              key={index}
-              href={isLogin ? `/plans/${plan.id}` : {}}
-              onClick={() => {
-                handleModal(true);
-              }}>
-              <Card key={index} plan={plan} />
-            </Link>
-            {isOpenModal && (
-              <Modal>
-                <ModalExit
-                  exitLink={`/login`}
-                  closeModal={() => {
-                    setTimeout(() => {
-                      handleModal(false);
-                    }, 100);
-                  }}>
-                  상세 계획을 보려면 로그인이 필요합니다!<br></br>
-                  로그인 하시겠습니까?
-                </ModalExit>
-              </Modal>
-            )}
-          </>
+          <Link
+            key={index}
+            href={isLogin ? `/plans/${plan.id}` : {}}
+            onClick={() => {
+              handleModal(true);
+            }}>
+            <Card key={index} plan={plan} />
+          </Link>
         );
       })}
+      {isOpenModal && (
+        <Modal>
+          <ModalExit
+            exitLink={`/login`}
+            closeModal={() => {
+              setTimeout(() => {
+                handleModal(false);
+              }, 100);
+            }}>
+            상세 계획을 보려면 로그인이 필요합니다!<br></br>
+            로그인 하시겠습니까?
+          </ModalExit>
+        </Modal>
+      )}
     </div>
   );
 }
