@@ -120,7 +120,10 @@ export default function WritableRemind({
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('TotalPeriod', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             동안
@@ -132,7 +135,10 @@ export default function WritableRemind({
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Term', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             마다 매달
@@ -144,7 +150,10 @@ export default function WritableRemind({
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Date', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <Dropdown
             dropdownId="remindTimeDropdown"
@@ -153,7 +162,10 @@ export default function WritableRemind({
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Time', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             에 리마인드를 받을래요 !
