@@ -19,7 +19,6 @@
   }
   &__plans {
     display: grid;
-    align-items: center;
     grid-template-rows: repeat(2, 17.5rem);
     grid-template-columns: repeat(2, 20rem);
   }
@@ -31,3 +30,10 @@
     margin: 0.5rem 0;
   }
 }
+
+// @media screen and (max-width: 768px) {
+//   .home__plans {
+//     grid-template-rows: repeat(auto-fill, 17.5rem);
+//     grid-template-columns: repeat(1, 20rem);
+//   }
+// }
