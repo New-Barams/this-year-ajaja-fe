@@ -18,4 +18,13 @@
       align-items: center;
     }
   }
+  &__title {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__tag {
+    padding: 0.4rem 0.6rem;
+  }
 }
