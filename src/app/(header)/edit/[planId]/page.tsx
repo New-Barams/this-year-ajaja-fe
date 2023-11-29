@@ -23,7 +23,6 @@ import './index.scss';
 export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
-  // 1-1. TODO: 계획 단건 조회 API를 통해 계획 data 받아오기
   const { plan: planData } = useGetPlanQuery(Number(planId));
   const isMyPlan = checkIsMyPlan(planData.userId);
   useEffect(() => {
@@ -32,13 +31,11 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     }
   }, [isMyPlan, router]);
 
-  // 1-2. 리마인드 정보 조회 API 호출해서 받아온 data 받아오기
   const { remindData } = useGetRemindQuery(
     parseInt(planId, 10),
     checkIsSeason(),
   );
 
-  // 2. 계획 수정을 위해 관리되어야 하는 state 및 핸들러의 기본값에 1번에서 받은 값을 넣어준다.
   const [title, setTitle] = useState(planData.title);
   const [description, setDescription] = useState(planData.description);
   const [tags, setTags] = useState<string[]>(planData.tags);
@@ -99,14 +96,14 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     day: number,
     newMessage: string,
   ) => {
-    const newRemindList = remindMessageList.map((item) => {
-      if (item.date.month === month && item.date.day === day) {
-        return { ...item, message: newMessage };
-      }
-      return item;
+    setRemindMessageList((prevRemindMessageList) => {
+      return prevRemindMessageList.map((item) => {
+        if (item.date.month === month && item.date.day === day) {
+          return { ...item, message: newMessage };
+        }
+        return item;
+      });
     });
-
-    setRemindMessageList(newRemindList);
   };
 
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
@@ -133,17 +130,14 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   };
 
   const makeAllRemindMessageSame = useCallback(() => {
-    if (remindMessageList.length <= 1) {
-      return;
-    }
-
-    const firstRemindMessage = remindMessageList[0].message;
-    const updatedList = remindMessageList.map((item) => {
-      return { ...item, message: firstRemindMessage };
+    setRemindMessageList((prevList) => {
+      if (prevList.length > 1) {
+        const firstMessage = prevList[0].message;
+        return prevList.map((item) => ({ ...item, message: firstMessage }));
+      }
+      return prevList;
     });
-
-    setRemindMessageList(updatedList);
-  }, [remindMessageList]);
+  }, []);
 
   const isAllRemindMessageExists =
     remindMessageList.length > 0 &&
@@ -152,7 +146,6 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const isEditPossible =
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
-  // 3. 수정된 state들을 가지고 호출하는 계획 수정 API
   const { mutate: editPlanAPI } = useEditPlanMutation(parseInt(planId, 10));
 
   const editPlan = () => {
