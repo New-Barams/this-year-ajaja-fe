@@ -50,19 +50,18 @@ export default function CreatePage() {
     day: number,
     newMessage: string,
   ) => {
-    const newRemindList = remindMessageList.map((item) => {
-      if (item.date.month === month && item.date.day === day) {
-        return { ...item, message: newMessage };
-      }
-      return item;
+    setRemindMessageList((prevRemindMessageList) => {
+      return prevRemindMessageList.map((item) => {
+        if (item.date.month === month && item.date.day === day) {
+          return { ...item, message: newMessage };
+        }
+        return item;
+      });
     });
-
-    setRemindMessageList(newRemindList);
   };
 
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
 
-  // 리마인드 옵션 확정버튼 클릭 시 이에 따라 리마인드 날짜 생성 및 리마인드 아이템 렌더링해주는 함수
   const fixRemindOptions = () => {
     const fixedRemindDate = decideRemindDate(
       remindOptions.TotalPeriod,
@@ -71,6 +70,7 @@ export default function CreatePage() {
     );
 
     const newRemindMessageList: RemindItemType[] = [];
+
     fixedRemindDate?.forEach((newDate) => {
       newRemindMessageList.push({
         date: {
@@ -85,16 +85,14 @@ export default function CreatePage() {
   };
 
   const makeAllRemindMessageSame = useCallback(() => {
-    if (remindMessageList.length <= 1) {
-      return;
-    }
-    const firstRemindMessage = remindMessageList[0].message;
-    const updatedList = remindMessageList.map((item) => {
-      return { ...item, message: firstRemindMessage };
+    setRemindMessageList((prevList) => {
+      if (prevList.length > 1) {
+        const firstMessage = prevList[0].message;
+        return prevList.map((item) => ({ ...item, message: firstMessage }));
+      }
+      return prevList;
     });
-
-    setRemindMessageList(updatedList);
-  }, [remindMessageList]);
+  }, []);
 
   const isAllRemindMessageExists =
     remindMessageList.length > 0 &&
@@ -103,7 +101,6 @@ export default function CreatePage() {
   const isCreatePossible =
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
-  // 계획 생성 API 부분
   const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
   const handleClickCreateButton = () => {
     const data: PostNewPlanRequestBody = {
