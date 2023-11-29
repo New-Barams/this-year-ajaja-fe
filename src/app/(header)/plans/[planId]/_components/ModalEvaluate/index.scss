@@ -9,8 +9,8 @@ $percents: (
 .modal {
   &-evaluate-wrapper {
     border-radius: var(--border-radius);
-    width: 900px;
-    height: 600px;
+    width: 40rem;
+    height: 30rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,15 +39,16 @@ $percents: (
     }
   }
   &__radio {
-    margin: 2rem 0 4rem 0;
+    margin: 2rem 0;
     display: flex;
-    gap: 5rem;
+
     &-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       height: 7rem;
+      width: 7rem;
     }
     @each $percent, $rem in $percents {
       &--#{$percent} {
