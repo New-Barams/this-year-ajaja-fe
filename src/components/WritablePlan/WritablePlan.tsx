@@ -80,13 +80,12 @@ export default function WritablePlan({
         <span className="plan__header--after color-origin-gray-200">
           {isPublic ? '계획 공개' : '계획 비공개'}
         </span>
-        {isEditPage && (
-          <button
-            className="plan__header--after--guide-button"
-            onClick={handlePopUpGuide}>
-            <Icon name="HELP" />
-          </button>
-        )}
+
+        <button
+          className="plan__header--after--guide-button"
+          onClick={handlePopUpGuide}>
+          <Icon name="HELP" />
+        </button>
       </div>
       <div className="plan__content">
         <PlanInput
