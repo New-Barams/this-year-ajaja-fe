@@ -112,30 +112,30 @@ export default function ModalVerification({
               placeholder="이메일을 입력해주세요"
             />
             <Button
-              size="sm"
+              size="md"
               border={false}
               color="white-100"
               background="primary"
               onClick={handleSubmitEmail}>
-              인증코드 보내기
+              인증코드 전송
             </Button>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidEmail && (
-              <div className="color-origin-primary">
-                유효하지 않은 이메일입니다. 이메일을 확인해주세요
-              </div>
-            )}
-            {isValidEmail && isPending && <div>코드 전송중...</div>}
-            {isValidEmail && isError && (
               <span className="color-origin-primary">
+                유효하지 않은 이메일입니다. 이메일을 확인해주세요
+              </span>
+            )}
+            {isValidEmail && isPending && <span>코드 전송중...</span>}
+            {isValidEmail && isError && (
+              <span className="color-origin-primary ">
                 {error?.response?.data.errorMessage}
               </span>
             )}
             {isValidEmail && isSuccess && (
-              <div className="color-origin-green-300">
+              <span className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
-              </div>
+              </span>
             )}
           </div>
           <div className="modal-verification-wrapper__items--item">
@@ -147,7 +147,7 @@ export default function ModalVerification({
             <div className={classNames(!isSuccess && 'visible-hidden')}>
               <Button
                 border={false}
-                size="sm"
+                size="md"
                 color="white-100"
                 background="primary"
                 onClick={handleSubmitCode}>
@@ -162,16 +162,16 @@ export default function ModalVerification({
                 인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
               </span>
             )}
-            {isValidCode && isVerifyPending && <div>인증 코드 확인중...</div>}
+            {isValidCode && isVerifyPending && <span>인증 코드 확인중...</span>}
             {isValidCode && isVerifySuccess && (
               <div className="color-origin-green-300">
                 인증에 성공하셨습니다.
               </div>
             )}
             {isValidCode && isVerifyError && (
-              <div className="color-origin-primary">
+              <span className="color-origin-primary">
                 {verifyError?.response?.data.errorMessage}
-              </div>
+              </span>
             )}
           </div>
         </div>
