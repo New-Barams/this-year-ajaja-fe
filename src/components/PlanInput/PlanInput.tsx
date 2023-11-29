@@ -13,7 +13,7 @@ interface PlanInputProps {
   placeholder: string;
   maxLength: number;
   editable?: boolean;
-  nextTextAreaRef: RefObject<HTMLTextAreaElement>;
+  nextTextAreaRef?: RefObject<HTMLTextAreaElement>;
 }
 
 export default function PlanInput({
@@ -33,7 +33,7 @@ export default function PlanInput({
 
   // Enter 키를 눌렀을 때 호출되는 함수
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (kind === 'title' && event.key === 'Enter') {
+    if (nextTextAreaRef && kind === 'title' && event.key === 'Enter') {
       event.preventDefault();
       if (nextTextAreaRef.current) {
         nextTextAreaRef.current.focus();
