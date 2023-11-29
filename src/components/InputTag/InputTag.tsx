@@ -28,9 +28,9 @@ export default function InputTag({
     <Tag color="orange-200" style={style} {...props}>
       <form className="inputTag" onSubmit={handleInputSubmit}>
         <input
-          className="inputTag__tag"
+          className="inputTag__tag font-size-base"
           type="text"
-          placeholder="태그를 입력해주세요"
+          placeholder="태그 입력(최대 10글자)"
           value={inputValue}
           onChange={handleInputChange}
           maxLength={10}
