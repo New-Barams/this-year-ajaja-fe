@@ -1,4 +1,5 @@
 import { editPlan } from '@/apis/client/editPlan';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -16,6 +17,7 @@ export const useEditPlanMutation = (planId: number) => {
           queryKey: [QUERY_KEY.MY_PLANS],
         }),
       ]);
+      ajajaToast.success('계획 수정 완료');
     },
     throwOnError: true,
   });

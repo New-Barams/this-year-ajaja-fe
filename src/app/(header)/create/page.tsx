@@ -11,11 +11,12 @@ import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
 export default function CreatePage() {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -102,24 +103,30 @@ export default function CreatePage() {
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
   const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
-  const handleClickCreateButton = () => {
-    const data: PostNewPlanRequestBody = {
-      iconNumber: decideRandomIconNumber(),
-      isPublic: isPublic,
-      title: title,
-      description: description,
-      tags: tags,
-      remindTotalPeriod: remindOptions.TotalPeriod,
-      remindTerm: remindOptions.Term,
-      remindDate: remindOptions.Date,
-      remindTime: changeRemindTimeToString(remindOptions.Time),
-      messages: remindMessageList.map((messageItem) => {
-        return messageItem.message;
-      }),
-    };
 
-    createNewPlanAPI(data);
-    ajajaToast.success('새 계획 생성 완료');
+  const handleClickCreateButton = () => {
+    if (isCreatePossible) {
+      const data: PostNewPlanRequestBody = {
+        iconNumber: decideRandomIconNumber(),
+        isPublic: isPublic,
+        title: title,
+        description: description,
+        tags: tags,
+        remindTotalPeriod: remindOptions.TotalPeriod,
+        remindTerm: remindOptions.Term,
+        remindDate: remindOptions.Date,
+        remindTime: changeRemindTimeToString(remindOptions.Time),
+        messages: remindMessageList.map((messageItem) => {
+          return messageItem.message;
+        }),
+      };
+
+      createNewPlanAPI(data);
+
+      router.push('/home');
+    } else {
+      ajajaToast.error('모든 항목을 입력해주세요 !');
+    }
   };
 
   return (
@@ -146,19 +153,16 @@ export default function CreatePage() {
         classNameList={['create-page__remind']}
       />
       <div className={classNames('create-page__button__container')}>
-        <Link href="/home">
-          <Button
-            background={isCreatePossible ? 'primary' : 'gray-200'}
-            color="white-100"
-            size="lg"
-            border={false}
-            onClick={() => {
-              handleClickCreateButton();
-            }}
-            disabled={!isCreatePossible}>
-            작성 완료
-          </Button>
-        </Link>
+        <Button
+          background={isCreatePossible ? 'primary' : 'gray-200'}
+          color="white-100"
+          size="lg"
+          border={false}
+          onClick={() => {
+            handleClickCreateButton();
+          }}>
+          작성 완료
+        </Button>
         <Button
           background="primary"
           color="white-100"

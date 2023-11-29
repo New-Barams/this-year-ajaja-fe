@@ -2,7 +2,6 @@
 
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
-import { ajajaToast } from '@/components/Toaster/customToast';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
@@ -166,9 +165,6 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     };
 
     editPlanAPI({ planId: parseInt(planId, 10), planData: editPlanData });
-    ajajaToast.success('계획 수정 완료');
-
-    console.log(`${planId}에 해당하는 계획 수정 API 호출 `);
   };
 
   return (
