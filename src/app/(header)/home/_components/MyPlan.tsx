@@ -2,6 +2,7 @@
 
 import { Dropdown, Icon, Modal, ModalVerification, Tag } from '@/components';
 import { QUERY_KEY } from '@/constants/queryKey';
+import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
@@ -21,7 +22,8 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const yearList = myPlansData.map((x) => x.year);
   const [period, setPeriod] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
-  const email_isVerified = myPlansData[0]?.getPlanList[0]?.isVerified;
+  const { userInformation } = useGetUserInformationQuery();
+  const email_isVerified = userInformation?.emailVerified;
   const [isOpenEmailModal, setIsOpenEmailModal] = useState(false);
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
