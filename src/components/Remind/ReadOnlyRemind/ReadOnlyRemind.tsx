@@ -46,7 +46,6 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
 
   const handleToggleIsRemindable = () => {
     toggleIsRemindableAPI(parseInt(planId, 10));
-    console.log(`${planId}에 대한 리마인드 알림 여부 toggle API호출 `);
   };
 
   return (
