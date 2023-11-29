@@ -71,7 +71,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
       <ProgressBar percent={myPlansData[0].totalAchieveRate} />
       <div
         className={classNames(
-          `home__wrapper--year`,
+          `home__wrapper--total`,
           `font-size-base`,
           `color-origin-gray-200`,
         )}>
@@ -106,8 +106,11 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
       </div>
       {email_isVerified ? (
         <p className={classNames('home-email-isVerified')}>
-          현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
-          있어요
+          현재{' '}
+          <Tag color="green-300" classNameList={['home-email--tag']}>
+            이메일
+          </Tag>
+          을 통해서 리마인드를 받고 있어요
         </p>
       ) : (
         <p className={classNames('home-email-isVerified')}>
