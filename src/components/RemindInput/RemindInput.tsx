@@ -38,6 +38,7 @@ export default function RemindInput({
     <textarea
       id="remindInput"
       readOnly={true}
+      disabled
       value={textInput}
       className={classNames('remindInput')}
     />

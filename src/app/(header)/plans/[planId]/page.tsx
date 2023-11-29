@@ -7,7 +7,6 @@ import {
   ReadOnlyPlan,
   ReadOnlyRemind,
 } from '@/components';
-import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
@@ -33,7 +32,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     setIsDeletePlanModalOpen(false);
     deletePlanAPI(parseInt(planId, 10));
     router.push('/home');
-    ajajaToast.success('계획 삭제 완료');
   };
 
   const handleModalClickNo = () => {

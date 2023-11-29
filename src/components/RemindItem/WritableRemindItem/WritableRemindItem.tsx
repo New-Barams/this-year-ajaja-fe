@@ -65,7 +65,12 @@ export default function WritableRemindItem({
     if (isFirstRemindItem && isSameMessageChecked) {
       makeAllRemindMessageSame!();
     }
-  }, [isFirstRemindItem, isSameMessageChecked]);
+  }, [
+    isFirstRemindItem,
+    isSameMessageChecked,
+    makeAllRemindMessageSame,
+    remindMessage,
+  ]);
 
   return (
     <>
@@ -84,7 +89,7 @@ export default function WritableRemindItem({
                   'remind-item__header__warning',
                   'background-origin-primary',
                 )}>
-                <Icon name="WARNING" size="xs" color="white-100" />
+                <Icon name="WARNING" size="base" color="white-100" />
                 <span
                   className={classNames(
                     'remind-item__header__warning__text',
@@ -94,9 +99,6 @@ export default function WritableRemindItem({
                 </span>
               </div>
             )}
-            <span className="remind-item__header__button-text">
-              {isRemindMessageEmpty ? '작성하기' : '수정하기'}
-            </span>
             <Icon
               name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
               size="xl"

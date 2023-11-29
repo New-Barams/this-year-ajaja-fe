@@ -27,6 +27,7 @@
     padding: 0.5rem 0.75rem;
     border: var(--border-width) solid var(--origin-primary);
     border-radius: var(--border-radius);
+    cursor: pointer;
 
     &__text {
       text-align: center;
