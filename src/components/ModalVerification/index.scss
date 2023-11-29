@@ -35,7 +35,7 @@
       width: 80%;
     }
     &__text {
-      padding: 40px;
+      padding: 20px;
     }
     &__items {
       width: 100%;
@@ -45,15 +45,30 @@
 
       &--item {
         display: flex;
+        gap: 1rem;
+        align-items: center;
+        & > input {
+          padding: 0.75rem 1rem;
+        }
         & > input:first-child {
           flex-grow: 1;
         }
         &--message {
-          height: 0.75rem;
-          margin-top: -1rem;
+          overflow: visible;
           flex-basis: 0;
+          line-height: 1.5rem;
+          height: 0;
+          position: relative;
+          & > span {
+            position: absolute;
+            top: -1.5rem;
+          }
         }
       }
     }
   }
+}
+
+.visible-hidden {
+  visibility: hidden;
 }

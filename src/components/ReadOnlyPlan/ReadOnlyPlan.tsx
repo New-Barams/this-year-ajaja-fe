@@ -40,12 +40,10 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
 
   const handleToggleIsPublic = () => {
     toggleIsPublic(id);
-    console.log(`${id}를 통해서 공개여부 변경`);
   };
 
   const handleToggleIsCanAjaja = () => {
     toggleAjajaNotification(id);
-    console.log(`${id}를 통해서 응원메세지 알림여부 변경`);
   };
 
   return (

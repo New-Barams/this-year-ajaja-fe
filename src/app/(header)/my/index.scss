@@ -1,12 +1,18 @@
 .my-page {
   height: 100%;
-  justify-content: center;
-  margin: auto;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  text-align: center;
+  justify-content: center;
+  &__wrapper {
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    padding: 2rem;
+  }
 
   &__main {
     display: flex;

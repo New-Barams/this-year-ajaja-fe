@@ -34,13 +34,15 @@ export default function PlanInput({
       <textarea
         id="planInput"
         readOnly={!editable}
+        disabled={!editable}
         value={textInput}
         onChange={handleChangeInput}
         placeholder={placeholder}
         className={classNames(
           'planInput',
-          { 'planInput--editable': editable },
           `planInput--${kind === 'content' ? 'content' : 'title'}`,
+          { 'planInput--editable': editable },
+          { 'planInput--disabled': !editable },
         )}
       />
       {editable && (

@@ -15,7 +15,7 @@
 
     &__toggle {
       margin-left: 0.5rem;
-      font-size: 0.625rem;
+      font-size: 1rem;
       color: var(--origin-gray-200);
     }
   }
@@ -26,14 +26,10 @@
 
   &__options {
     display: flex;
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     font-size: 1.5rem;
     align-items: center;
     gap: 1rem;
-
-    &__text {
-      margin-left: 1rem;
-    }
   }
 
   &__message {

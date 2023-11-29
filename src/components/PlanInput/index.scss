@@ -24,7 +24,13 @@
     height: 10rem;
   }
 
+  &--disabled{
+    border: none;
+    background-color: var(--origin-white-300);
+  }
+
   &--editable {
+    
     &::placeholder {
       opacity: 0;
     }

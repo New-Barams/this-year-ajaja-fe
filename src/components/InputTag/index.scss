@@ -2,16 +2,19 @@
   position: relative;
   &:focus-within {
     &::after {
-      content: '엔터시 태그가 추가되며, 최대 5개, 태그 클릭시 삭제 ';
+      content: '엔터 입력시 태그를 등록 할 수 있고 등록된 태그는 클릭시 삭제됩니다.\A태그는 최대 5개까지 추가 할 수 있습니다.';
       position: absolute;
       color: var(--origin-white-200);
+      line-height: 1.5rem;
+      white-space: pre;
       background-color: var(--origin-gray-200);
       left: 0;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
       display: block;
       border-radius: var(--border-radius);
-      padding: 0 0.5rem 0 0.5rem;
+      padding: 0.5rem 1rem;
       z-index: 1;
+      margin-left: -1rem;
     }
   }
   &__tag {
