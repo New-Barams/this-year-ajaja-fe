@@ -9,11 +9,13 @@ import {
   ModalVerification,
   Tag,
 } from '@/components';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { KAKAO_LOGOUT_URL } from '@/constants/login';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { useQueryClient } from '@tanstack/react-query';
+import { deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -61,7 +63,9 @@ export default function MyPage() {
   };
   const handleRealWithdrawal = () => {
     deleteUsers().then(() => {
-      router.push('/oauth?way=logout');
+      deleteCookie('auth');
+      router.push('/login');
+      ajajaToast.success('회원탈퇴에 성공했습니다.');
     });
   };
   const handleCloseWithdrawalModal = () => {
