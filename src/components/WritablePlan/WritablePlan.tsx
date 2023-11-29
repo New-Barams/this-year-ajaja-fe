@@ -77,7 +77,7 @@ export default function WritablePlan({
           onIconName="PLAN_OPEN"
           offIconName="PLAN_CLOSE"
         />
-        <span className="plan__header--after color-origin-gray-200">
+        <span className="plan__header--after color-origin-gray-200 font-size-base">
           {isPublic ? '계획 공개' : '계획 비공개'}
         </span>
 
@@ -135,7 +135,7 @@ export default function WritablePlan({
             isActive={canAjaja}
             onClick={onToggleCanAjaja ? onToggleCanAjaja : () => {}}
           />
-          <div className="plan__bottom--after color-origin-gray-200 font-size-xs">
+          <div className="plan__bottom--after color-origin-gray-200 font-size-base">
             {canAjaja ? (
               <>
                 <span>월요일 18:00 마다</span>
