@@ -30,7 +30,7 @@ export default function InputTag({
         <input
           className="inputTag__tag font-size-base"
           type="text"
-          placeholder="태그 입력(최대 10글자)"
+          placeholder="태그입력(최대10글자)"
           value={inputValue}
           onChange={handleInputChange}
           maxLength={10}

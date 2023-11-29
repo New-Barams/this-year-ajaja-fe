@@ -22,14 +22,17 @@
     margin: 0;
     line-height: normal;
     background-color: inherit;
-    width: 8rem;
+    width: 10rem;
     border: none;
     display: inline-block;
     height: 1rem;
+
     &::placeholder {
-      font-size: 0.75rem;
+      font-size: 1rem;
       line-height: normal;
       height: 1rem;
+
+      overflow: visible;
     }
     &:focus {
       outline: none;
