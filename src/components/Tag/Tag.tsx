@@ -2,7 +2,7 @@ import { Color } from '@/types';
 import classNames from 'classnames';
 import './index.scss';
 
-interface TagProps extends React.ComponentProps<'div'> {
+interface TagProps {
   color?: Color;
   style?: React.CSSProperties;
   children: React.ReactNode;

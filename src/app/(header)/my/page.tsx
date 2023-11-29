@@ -131,7 +131,7 @@ export default function MyPage() {
               {emailVerified ? remindEmail : '  ---'}
             </h1>
             <Button
-              size="sm"
+              size="md"
               background="primary"
               color="white-100"
               border={true}
