@@ -1,5 +1,7 @@
 .edit-page {
   padding: 1.75rem 2.5rem;
+  display: flex;
+  flex-direction: column;
 
   &__remind {
     &:before {
