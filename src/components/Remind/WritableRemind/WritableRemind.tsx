@@ -167,7 +167,7 @@ export default function WritableRemind({
             onClick={() => {
               handleFixButtonClick();
             }}>
-            확정
+            날짜 확정
           </Button>
         </div>
 
@@ -212,7 +212,7 @@ export default function WritableRemind({
           <ModalBasic
             onClickYes={handleModalClickYes}
             onClickNo={handleModalClickNo}>
-            리마인드 옵션 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
+            리마인드 날짜 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
             확정하시겠습니까 ?
           </ModalBasic>
         </Modal>
