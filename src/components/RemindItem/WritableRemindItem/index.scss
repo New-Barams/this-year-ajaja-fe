@@ -31,23 +31,18 @@
       transition: all 1s ease;
       display: flex;
       margin-right: 0.75rem;
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem 1rem;
       border-radius: var(--border-radius);
+      align-items: center;
 
       &__text {
         margin-left: 0.25rem;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
         line-height: 0.7rem;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-    }
-
-    &__button-text {
-      font-size: 1rem;
-      line-height: 1rem;
-      margin-right: 1.25rem;
     }
 
     &__icon {
