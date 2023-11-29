@@ -87,13 +87,3 @@
     }
   }
 }
-
-@media (max-width: 750px) {
-  .remind-item {
-    &__header {
-      &__button-text {
-        display: none;
-      }
-    }
-  }
-}
