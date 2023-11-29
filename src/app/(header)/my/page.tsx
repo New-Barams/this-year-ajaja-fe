@@ -23,7 +23,7 @@ export default function MyPage() {
   const queryClient = useQueryClient();
   const { userInformation } = useGetUserInformationQuery();
   const { refreshNickname, isPending } = usePostUsersRefreshMutation();
-  const { isEmailVerified, nickname, remindEmail } = userInformation;
+  const { emailVerified, nickname, remindEmail } = userInformation;
 
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
@@ -107,7 +107,7 @@ export default function MyPage() {
           </div>
 
           <div className="my-page__remind-way">
-            {isEmailVerified ? (
+            {emailVerified ? (
               <h1>
                 현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를
                 받고 있어요
@@ -127,7 +127,7 @@ export default function MyPage() {
         <div className="my-page__email">
           <h1 className="font-size-2xl">
             이메일:
-            {isEmailVerified ? remindEmail : '  ---'}
+            {emailVerified ? remindEmail : '  ---'}
           </h1>
           <Button
             size="sm"
@@ -135,7 +135,7 @@ export default function MyPage() {
             color="white-100"
             border={true}
             onClick={handleGoEmailVerification}>
-            {isEmailVerified ? '이메일 변경하기' : '이메일 인증하기'}
+            {emailVerified ? '이메일 변경하기' : '이메일 인증하기'}
           </Button>
         </div>
 
