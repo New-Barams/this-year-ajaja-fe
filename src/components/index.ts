@@ -20,3 +20,5 @@ export { default as ToTopFloatingButton } from '@/components/ToTopFloatingButton
 export { default as WritableRemind } from '@components/Remind/WritableRemind/WritableRemind';
 export { default as WritableRemindItem } from '@components/RemindItem/WritableRemindItem/WritableRemindItem';
 export { default as ReadOnlyPlan } from '@components/ReadOnlyPlan/ReadOnlyPlan';
+export { default as ErrorToast } from '@components/Svg/ErrorToast';
+export { default as SuccessToast } from '@components/Svg/SuccessToast';

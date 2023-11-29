@@ -2,6 +2,7 @@
 
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
 import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
@@ -121,6 +122,7 @@ export default function CreatePage() {
     };
 
     createNewPlanAPI(data);
+    ajajaToast.success('새 계획 생성 완료');
   };
 
   return (
