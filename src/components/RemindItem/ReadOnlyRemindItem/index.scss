@@ -19,13 +19,14 @@
     display: flex;
     position: absolute;
     left: 1rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.3rem 0.75rem;
     border-radius: var(--border-radius);
+    align-items: center;
 
     &__text {
       margin-left: 0.25rem;
-      font-size: 0.6rem;
-      line-height: 0.7rem;
+      font-size: 0.8rem;
+      line-height: 0.8rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
