@@ -71,7 +71,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
       <ProgressBar percent={myPlansData[0].totalAchieveRate} />
       <div
         className={classNames(
-          `home__wrapper--year`,
+          `home__wrapper--total`,
           `font-size-base`,
           `color-origin-gray-200`,
         )}>
@@ -105,16 +105,22 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
         )}
       </div>
       {email_isVerified ? (
-        <h1 className={classNames('home-email-isVerified')}>
-          현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를 받고
-          있어요
-        </h1>
+        <p className={classNames('home-email-isVerified')}>
+          현재{' '}
+          <Tag color="green-300" classNameList={['home-email--tag']}>
+            이메일
+          </Tag>
+          을 통해서 리마인드를 받고 있어요
+        </p>
       ) : (
-        <h1 className={classNames('home-email-isVerified')}>
+        <p className={classNames('home-email-isVerified')}>
           <Icon name="WARNING" size="xl" />
           현재 인증된 이메일이 없습니다.
-        </h1>
+        </p>
       )}
+      <p className={classNames('font-size-sm', 'color-origin-gray-200')}>
+        마이페이지에서 리마인드 방식을 변경할 수 있어요!
+      </p>
       {isOpenEmailModal && (
         <Modal>
           <ModalVerification

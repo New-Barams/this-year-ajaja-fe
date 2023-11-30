@@ -20,8 +20,12 @@ export default function Plan({ title, planId, achieveRate, icon }: PlanProps) {
       <div className={classNames('plan__wrapper--icon')}>
         <Icon name={planIcons[icon]} size="9xl" color="orange-300" />
       </div>
-      <p className={classNames(`color-origin-gray-300`)}>{title}</p>
-      <Tag color={achieveColor}>달성률: {achieveRate}%</Tag>
+      <p className={classNames(`color-origin-gray-300`, `plan__title`)}>
+        {title}
+      </p>
+      <Tag color={achieveColor} classNameList={['plan__tag']}>
+        달성률: {achieveRate}%
+      </Tag>
     </Link>
   );
 }
