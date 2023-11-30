@@ -119,13 +119,11 @@ export default function MyPage() {
                   받고 있어요
                 </h1>
               ) : (
-                <>
+                <h1 className="my-page__remind-way--no-verified">
                   <Icon name="WARNING" />
-                  <h1>
-                    현재 인증된 이메일이 없습니다. 인증을 진행하고 리마인드를
-                    받으세요!
-                  </h1>
-                </>
+                  현재 인증된 이메일이 없습니다. 인증을 진행하고 리마인드를
+                  받으세요!
+                </h1>
               )}
               <h1 className="font-size-2xl">
                 이메일:

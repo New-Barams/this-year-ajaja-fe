@@ -107,6 +107,7 @@ export default function ModalVerification({
         <div className="modal-verification-wrapper__items">
           <div className="modal-verification-wrapper__items--item">
             <input
+              className="modal-verification-wrapper__items--input"
               type="email"
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
@@ -140,6 +141,7 @@ export default function ModalVerification({
           </div>
           <div className="modal-verification-wrapper__items--item">
             <input
+              className="modal-verification-wrapper__items--input"
               placeholder="인증 코드를 입력해주세요"
               value={code}
               onChange={handleChangeCode}
@@ -164,9 +166,9 @@ export default function ModalVerification({
             )}
             {isValidCode && isVerifyPending && <span>인증 코드 확인중...</span>}
             {isValidCode && isVerifySuccess && (
-              <div className="color-origin-green-300">
+              <span className="color-origin-green-300">
                 인증에 성공하셨습니다.
-              </div>
+              </span>
             )}
             {isValidCode && isVerifyError && (
               <span className="color-origin-primary">
@@ -181,7 +183,7 @@ export default function ModalVerification({
           background={isVerifySuccess ? 'primary' : 'gray-200'}
           color={'white-100'}
           size="md"
-          border={false}
+          border={true}
           onClick={handleCloseModal}>
           인증 완료
         </Button>
