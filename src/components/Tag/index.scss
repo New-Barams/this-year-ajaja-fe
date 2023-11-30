@@ -6,7 +6,8 @@
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
   margin: 0.25rem;
-
+  position: relative;
+  overflow: visible;
   &.pointer {
     cursor: pointer;
   }
