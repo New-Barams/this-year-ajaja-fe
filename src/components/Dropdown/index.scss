@@ -74,7 +74,9 @@
     }
   }
 
-
+  &--remind{
+    width: 7rem;
+  }
 }
 
 #dropdown:checked + label + div {
