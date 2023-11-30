@@ -14,6 +14,9 @@ export const useDeletePlanMutation = () => {
       });
       ajajaToast.success('계획 삭제 완료');
     },
+    onError: () => {
+      ajajaToast.error('계획 삭제 실패');
+    },
     throwOnError: true,
   });
 };

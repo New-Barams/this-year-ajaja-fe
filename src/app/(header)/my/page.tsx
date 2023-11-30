@@ -92,10 +92,11 @@ export default function MyPage() {
           <div className="my-page__main">
             <div className="my-page__main--nickname">
               <div className="my-page__name font-size-3xl">
-                <h1 className="color-origin-orange-300 my-page__name--header">
-                  나의 이름은
+                <h1 className="color-origin-orange-300">
+                  나의 이름은&nbsp;
+                  <span className="color-origin-gray-300">{nickname}</span>
                 </h1>
-                {nickname}
+
                 {isPending ? (
                   <div className="circle-rotate">
                     <Icon name="REFRESH" />
@@ -126,14 +127,14 @@ export default function MyPage() {
                   </h1>
                 </>
               )}
+              <h1 className="font-size-2xl">
+                이메일:
+                {emailVerified ? remindEmail : '  ---'}
+              </h1>
             </div>
           </div>
 
           <div className="my-page__email">
-            <h1 className="font-size-2xl">
-              이메일:
-              {emailVerified ? remindEmail : '  ---'}
-            </h1>
             <Button
               size="md"
               background="primary"

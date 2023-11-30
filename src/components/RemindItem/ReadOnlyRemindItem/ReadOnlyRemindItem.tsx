@@ -143,7 +143,7 @@ export default function ReadOnlyRemindItem({
           <ModalEvaluate
             onClickFinish={handleClickModalFinish}
             onClickExit={handleClickModalExit}>
-            {`${remindMonth}월 ${remindDate}까지 계획을 얼마나 잘 이행했나요 ? `}
+            {`${remindMonth}월 ${remindDate}일까지 계획을 얼마나 잘 이행했나요 ? `}
           </ModalEvaluate>
         </Modal>
       )}

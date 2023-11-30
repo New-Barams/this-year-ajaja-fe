@@ -28,11 +28,19 @@ export default function NewPlan({
           color="gray-200"
         />
       </div>
-      <p className={classNames('color-origin-gray-200')}>
-        {checkIsSeason()
-          ? '새로운 신년 계획을 생성해보세요!'
-          : '[작성 시즌 종료] 내년에 만나요!'}
-      </p>
+      <div className={classNames('color-origin-gray-200', 'new-plan--p')}>
+        {checkIsSeason() ? (
+          <>
+            <p>[작성 시즌]</p>
+            <p>새로운 신년 계획을 생성해보세요!</p>
+          </>
+        ) : (
+          <>
+            <p>[작성 시즌 종료] </p>
+            <p>내년에 만나요!</p>
+          </>
+        )}
+      </div>
     </Link>
   );
 }

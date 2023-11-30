@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent, RefObject } from 'react';
 import './index.scss';
 
 type kindType = 'title' | 'content';
@@ -13,6 +13,7 @@ interface PlanInputProps {
   placeholder: string;
   maxLength: number;
   editable?: boolean;
+  nextTextAreaRef?: RefObject<HTMLTextAreaElement>;
 }
 
 export default function PlanInput({
@@ -22,6 +23,7 @@ export default function PlanInput({
   placeholder,
   maxLength,
   editable = false,
+  nextTextAreaRef,
 }: PlanInputProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxLength) {
@@ -29,14 +31,26 @@ export default function PlanInput({
     }
   };
 
+  // Enter 키를 눌렀을 때 호출되는 함수
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (nextTextAreaRef && kind === 'title' && event.key === 'Enter') {
+      event.preventDefault();
+      if (nextTextAreaRef.current) {
+        nextTextAreaRef.current.focus();
+      }
+    }
+  };
+
   return (
     <div className="planInput--container">
       <textarea
         id="planInput"
+        ref={kind === 'content' ? nextTextAreaRef : null}
         readOnly={!editable}
         disabled={!editable}
         value={textInput}
         onChange={handleChangeInput}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         className={classNames(
           'planInput',
