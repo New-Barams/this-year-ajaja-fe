@@ -1,5 +1,5 @@
-import { ToTopFloatingButton } from '@/components';
 import classNames from 'classnames';
+import Content from './_components/Content';
 import Header from './_components/Header/Header';
 import './_components/index.scss';
 
@@ -12,14 +12,7 @@ export default function HeaderLayout({
     <div className={classNames('header-layout')}>
       <div className={classNames('header-layout__wrapper')}>
         <Header />
-        <div
-          className={classNames(
-            'header-layout__content',
-            'border-origin-orange-300',
-          )}>
-          {children}
-          <ToTopFloatingButton />
-        </div>
+        <Content>{children}</Content>
       </div>
     </div>
   );
