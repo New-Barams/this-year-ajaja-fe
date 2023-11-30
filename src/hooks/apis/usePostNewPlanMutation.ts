@@ -14,5 +14,8 @@ export const usePostNewPlanMutation = () => {
       });
       ajajaToast.success('계획 생성 완료');
     },
+    onError: () => {
+      ajajaToast.error('계획 생성 실패');
+    },
   });
 };
