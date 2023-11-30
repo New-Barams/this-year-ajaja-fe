@@ -166,9 +166,9 @@ export default function ModalVerification({
             )}
             {isValidCode && isVerifyPending && <span>인증 코드 확인중...</span>}
             {isValidCode && isVerifySuccess && (
-              <div className="color-origin-green-300">
+              <span className="color-origin-green-300">
                 인증에 성공하셨습니다.
-              </div>
+              </span>
             )}
             {isValidCode && isVerifyError && (
               <span className="color-origin-primary">
