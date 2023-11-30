@@ -54,12 +54,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   &__email {
     margin-top: 2rem;
     display: flex;
-    gap: 1rem;
     flex-direction: column;
     align-items: center;
   }

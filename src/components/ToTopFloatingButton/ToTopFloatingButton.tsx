@@ -18,7 +18,7 @@ export default function ToTopFloatingButton() {
     const checkScroll = () => {
       throttle(() => {
         scrolledContainer.scrollTop >= 300 ? setIsOpen(true) : setIsOpen(false);
-      }, 0.2);
+      }, 0.1);
     };
     if (scrolledContainer) {
       scrolledContainer.addEventListener('scroll', checkScroll);
