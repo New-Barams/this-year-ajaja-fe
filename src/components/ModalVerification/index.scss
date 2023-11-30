@@ -9,15 +9,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    & input {
-      border-radius: var(--border-radius);
-      outline: none;
-      border-style: solid;
-      border-color: var(--origin-orange-200);
-      &:focus {
-        border-color: var(--origin-orange-300);
-      }
-    }
 
     &__exit {
       position: absolute;
@@ -47,8 +38,19 @@
         display: flex;
         gap: 1rem;
         align-items: center;
+        & button {
+          font-size: 1rem;
+        }
+
         & > input {
-          padding: 0.75rem 1rem;
+          border-radius: var(--border-radius);
+          outline: none;
+          border: 2px solid var(--origin-orange-200);
+          padding: 0.5rem 1rem;
+
+          &:focus {
+            border-color: var(--origin-orange-300);
+          }
         }
         & > input:first-child {
           flex-grow: 1;
