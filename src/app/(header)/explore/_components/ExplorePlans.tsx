@@ -3,9 +3,10 @@
 import { ToTopFloatingButton } from '@/components';
 import { COLOR } from '@/constants';
 import { useAllPlansQuery } from '@/hooks/apis/useAllPlansQuery';
+import { useScroll } from '@/hooks/useScroll';
 import { SortType } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { FadeLoader } from 'react-spinners';
 import Plans from './Plans/Plans';
@@ -17,7 +18,7 @@ type ExplorePlansProps = {
 };
 
 export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
-  const scrollParentRef = useRef(null);
+  const { handleScroll, scrollableRef } = useScroll();
   const [sort, setSort] = useState<SortType>('latest');
   const [current, setCurrent] = useState(true);
   const { loadedPlans, fetchNextPage, hasNextPage } = useAllPlansQuery({
@@ -34,7 +35,10 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
     setCurrent(isNewYear);
   };
   return (
-    <div ref={scrollParentRef} className={classNames('explore-plans')}>
+    <div
+      ref={scrollableRef}
+      className={classNames('explore-plans')}
+      onScroll={handleScroll}>
       <div className={classNames('explore-plans__wrapper')}>
         <Tab handleSort={handleSort} handleYear={handleYear} />
         <InfiniteScroll
@@ -51,7 +55,7 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
           }
           useWindow={false}
           getScrollParent={() => {
-            return scrollParentRef.current;
+            return scrollableRef.current;
           }}>
           <Plans flatLoadedPlans={flatLoadedPlans} isLogin={isLogin} />
         </InfiniteScroll>
