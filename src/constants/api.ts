@@ -8,7 +8,7 @@ export const DOMAIN = {
   POST_USERS_SEND_VERIFICATION: '/users/send-verification',
   POST_USERS_REFRESH: '/users/refresh',
   POST_USERS_LOGOUT: '/users/logout',
-  DELETE_USERS: '/mock/users',
+  DELETE_USERS: '/users',
   GET_USERS: '/users',
 
   POST_FEEDBACKS: (feedbackId: number) => `/feedbacks/${feedbackId}`,
@@ -16,7 +16,7 @@ export const DOMAIN = {
   GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
 
   POST_REISSUE: '/reissue',
-  POST_LOGIN: `/mock/login`,
+  POST_LOGIN: `/login`,
 
   GET_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,
   PUT_PLANS_REMINDS: (planId: number) => `/mock/plans/${planId}/reminds`,

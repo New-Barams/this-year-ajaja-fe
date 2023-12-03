@@ -2,6 +2,7 @@
 
 import { Button, Modal, WritableRemind } from '@/components';
 import ModalExit from '@/components/Modal/ModalExit';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import WritablePlan from '@/components/WritablePlan/WritablePlan';
 import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
 import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
@@ -10,11 +11,12 @@ import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import './index.scss';
 
 export default function CreatePage() {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -49,19 +51,18 @@ export default function CreatePage() {
     day: number,
     newMessage: string,
   ) => {
-    const newRemindList = remindMessageList.map((item) => {
-      if (item.date.month === month && item.date.day === day) {
-        return { ...item, message: newMessage };
-      }
-      return item;
+    setRemindMessageList((prevRemindMessageList) => {
+      return prevRemindMessageList.map((item) => {
+        if (item.date.month === month && item.date.day === day) {
+          return { ...item, message: newMessage };
+        }
+        return item;
+      });
     });
-
-    setRemindMessageList(newRemindList);
   };
 
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
 
-  // 리마인드 옵션 확정버튼 클릭 시 이에 따라 리마인드 날짜 생성 및 리마인드 아이템 렌더링해주는 함수
   const fixRemindOptions = () => {
     const fixedRemindDate = decideRemindDate(
       remindOptions.TotalPeriod,
@@ -70,6 +71,7 @@ export default function CreatePage() {
     );
 
     const newRemindMessageList: RemindItemType[] = [];
+
     fixedRemindDate?.forEach((newDate) => {
       newRemindMessageList.push({
         date: {
@@ -84,16 +86,14 @@ export default function CreatePage() {
   };
 
   const makeAllRemindMessageSame = useCallback(() => {
-    if (remindMessageList.length <= 1) {
-      return;
-    }
-    const firstRemindMessage = remindMessageList[0].message;
-    const updatedList = remindMessageList.map((item) => {
-      return { ...item, message: firstRemindMessage };
+    setRemindMessageList((prevList) => {
+      if (prevList.length > 1) {
+        const firstMessage = prevList[0].message;
+        return prevList.map((item) => ({ ...item, message: firstMessage }));
+      }
+      return prevList;
     });
-
-    setRemindMessageList(updatedList);
-  }, [remindMessageList]);
+  }, []);
 
   const isAllRemindMessageExists =
     remindMessageList.length > 0 &&
@@ -102,25 +102,31 @@ export default function CreatePage() {
   const isCreatePossible =
     isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
 
-  // 계획 생성 API 부분
   const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
-  const handleCreateNewPlan = () => {
-    const data: PostNewPlanRequestBody = {
-      iconNumber: decideRandomIconNumber(),
-      isPublic: isPublic,
-      title: title,
-      description: description,
-      tags: tags,
-      remindTotalPeriod: remindOptions.TotalPeriod,
-      remindTerm: remindOptions.Term,
-      remindDate: remindOptions.Date,
-      remindTime: changeRemindTimeToString(remindOptions.Time),
-      messages: remindMessageList.map((messageItem) => {
-        return messageItem.message;
-      }),
-    };
 
-    createNewPlanAPI(data);
+  const handleClickCreateButton = () => {
+    if (isCreatePossible) {
+      const data: PostNewPlanRequestBody = {
+        iconNumber: decideRandomIconNumber(),
+        isPublic: isPublic,
+        title: title,
+        description: description,
+        tags: tags,
+        remindTotalPeriod: remindOptions.TotalPeriod,
+        remindTerm: remindOptions.Term,
+        remindDate: remindOptions.Date,
+        remindTime: changeRemindTimeToString(remindOptions.Time),
+        messages: remindMessageList.map((messageItem) => {
+          return messageItem.message;
+        }),
+      };
+
+      createNewPlanAPI(data);
+
+      router.push('/home');
+    } else {
+      ajajaToast.error('모든 항목을 입력해주세요 !');
+    }
   };
 
   return (
@@ -147,19 +153,16 @@ export default function CreatePage() {
         classNameList={['create-page__remind']}
       />
       <div className={classNames('create-page__button__container')}>
-        <Link href="/home">
-          <Button
-            background={isCreatePossible ? 'primary' : 'gray-200'}
-            color="white-100"
-            size="lg"
-            border={false}
-            onClick={() => {
-              handleCreateNewPlan();
-            }}
-            disabled={!isCreatePossible}>
-            작성 완료
-          </Button>
-        </Link>
+        <Button
+          background={isCreatePossible ? 'primary' : 'gray-200'}
+          color="white-100"
+          size="lg"
+          border={false}
+          onClick={() => {
+            handleClickCreateButton();
+          }}>
+          작성 완료
+        </Button>
         <Button
           background="primary"
           color="white-100"

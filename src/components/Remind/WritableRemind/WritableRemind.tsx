@@ -74,6 +74,14 @@ export default function WritableRemind({
     );
   }, [remindOption.TotalPeriod]);
 
+  const handleFixButtonClick = () => {
+    if (remindMessageList && remindMessageList.length > 0) {
+      setIsFixOptionsModalOpen(true);
+    } else {
+      fixRemindOptions();
+    }
+  };
+
   useEffect(() => {
     if (remindOption.Term > remindOption.TotalPeriod) {
       setRemindOption('Term', 1);
@@ -106,42 +114,58 @@ export default function WritableRemind({
 
         <div className={classNames('writable-remind__options')}>
           <Dropdown
+            dropdownId="remindPeriodDropdown"
             options={TOTAL_PERIOD_OPTIONS}
             selectedValue={remindOption.TotalPeriod}
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('TotalPeriod', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             동안
           </span>
           <Dropdown
+            dropdownId="remindTermDropdown"
             options={filteredTermOptions}
             selectedValue={remindOption.Term}
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Term', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             마다 매달
           </span>
           <Dropdown
+            dropdownId="remindDateDropdown"
             options={DATE_OPTIONS}
             selectedValue={remindOption.Date}
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Date', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <Dropdown
+            dropdownId="remindTimeDropdown"
             options={TIME_OPTIONS}
             selectedValue={remindOption.Time}
             setSelectedValue={(newSelectedValue: number) => {
               setRemindOption('Time', newSelectedValue);
             }}
-            classNameList={['writable-remind__options__dropdown']}
+            classNameList={[
+              'writable-remind__options__dropdown',
+              'dropdown--remind',
+            ]}
           />
           <span className={classNames('writable-remind__options__text')}>
             에 리마인드를 받을래요 !
@@ -153,9 +177,9 @@ export default function WritableRemind({
             size="sm"
             border={false}
             onClick={() => {
-              setIsFixOptionsModalOpen(true);
+              handleFixButtonClick();
             }}>
-            확정
+            날짜 확정
           </Button>
         </div>
 
@@ -200,7 +224,7 @@ export default function WritableRemind({
           <ModalBasic
             onClickYes={handleModalClickYes}
             onClickNo={handleModalClickNo}>
-            리마인드 옵션 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
+            리마인드 날짜 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
             확정하시겠습니까 ?
           </ModalBasic>
         </Modal>

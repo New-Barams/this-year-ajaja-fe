@@ -1,22 +1,5 @@
 @import '../origin-theme';
 @import './mixin';
-
-$themes: (
-  origin: (
-    primary: var(--origin-primary),
-    white-100: var(--origin-white-100),
-    white-200: var(--origin-white-200),
-    white-300: var(--origin-white-300),
-    orange-200: var(--origin-orange-200),
-    orange-300: var(--origin-orange-300),
-    green-300: var(--origin-green-300),
-    blue-300: var(--origin-blue-300),
-    purple-300: var(--origin-purple-300),
-    gray-100: var(--origin-gray-100),
-    gray-200: var(--origin-gray-200),
-    gray-300: var(--origin-gray-300),
-    shadow: var(--origin-shadow),
-  ),
-);
+@import '../themes.scss';
 
 @include common('color', $themes);

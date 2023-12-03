@@ -6,7 +6,7 @@ interface User {
   nickname: string;
   defaultEmail: string;
   remindEmail: string;
-  isEmailVerified: boolean;
+  emailVerified: boolean;
   receiveType: ReceiveType;
 }
 

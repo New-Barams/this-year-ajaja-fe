@@ -1,13 +1,15 @@
 import { getRemindAfterSeason } from '@/apis/client/getRemindAfterSeason';
 import { getRemindSeason } from '@/apis/client/getRemindSeason';
-import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetRemindQuery = (planId: number, isSeason: boolean) => {
-  const { data } = useQuery({
-    queryKey: ['getRemind', planId], // TODO: plan 마다 캐시 관리 ?
+  const { data } = useSuspenseQuery({
+    queryKey: [{ planId: planId }, QUERY_KEY.REMIND, { isSeason: isSeason }],
     queryFn: () => {
       return isSeason ? getRemindSeason(planId) : getRemindAfterSeason(planId);
     },
+    staleTime: Infinity,
   });
 
   return { remindData: data!.data };

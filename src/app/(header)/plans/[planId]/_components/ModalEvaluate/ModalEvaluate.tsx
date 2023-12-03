@@ -43,7 +43,7 @@ export default function ModalEvaluate({
       <div className={classNames(`modal-evaluate-wrapper__content`)}>
         <div
           className={classNames(
-            `font-size-2xl`,
+            `font-size-3xl`,
             `color-origin-gray-300`,
             `modal-evaluate-wrapper__text`,
           )}>
@@ -55,14 +55,15 @@ export default function ModalEvaluate({
           color="white-100"
           size="lg"
           border={false}
+          classNameList={['modal-evaluate--button']}
           onClick={() => {
             onClickFinish(rate);
           }}>
           피드백 완료
         </Button>
         <div className={classNames('modal-evaluate-wrapper__warning')}>
-          <Icon name="WARNING" color="primary" size="3xl" />
-          <span className={classNames('font-size-2xl', 'color-origin-primary')}>
+          <Icon name="WARNING" color="primary" size="xl" />
+          <span className={classNames('font-size-lg', 'color-origin-primary')}>
             피드백이 완료되면 다시 평가할 수 없습니다.
           </span>
         </div>

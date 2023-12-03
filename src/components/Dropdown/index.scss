@@ -27,6 +27,7 @@
     padding: 0.5rem 0.75rem;
     border: var(--border-width) solid var(--origin-primary);
     border-radius: var(--border-radius);
+    cursor: pointer;
 
     &__text {
       text-align: center;
@@ -46,13 +47,15 @@
     position: absolute;
     width: 100%;
     left: 0;
-    border-radius: 0px 0px var(--border-radius) var(--border-radius); 
+    border-radius: 0px 0px var(--border-radius) var(--border-radius);
 
     &__list {
       border: var(--border-width) solid var(--origin-primary);
       border-top: none;
       list-style-type: none;
       text-align: center;
+      max-height: 12rem;
+      overflow-y: auto;
       border-radius: 0px 0px var(--border-radius) var(--border-radius);
     }
 
@@ -69,6 +72,10 @@
         background-color: var(--origin-primary);
       }
     }
+  }
+
+  &--remind{
+    width: 7rem;
   }
 }
 

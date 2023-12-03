@@ -8,7 +8,7 @@ import { axiosInstanceClient } from '../axiosInstanceClient';
 export const postLogin = async (code: string) => {
   const requestBody: PostLoginRequestBody = {
     authorizationCode: code,
-    redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}`,
+    redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URL}?way=login`,
   };
   const { data } = await axiosInstanceClient.post<PostLoginResponse>(
     DOMAIN.POST_LOGIN,

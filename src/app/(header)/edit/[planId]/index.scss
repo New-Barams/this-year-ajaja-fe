@@ -1,5 +1,9 @@
 .edit-page {
-  padding: 2.5rem;
+  padding: 1.75rem 2.5rem;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  // overflow: auto;
 
   &__remind {
     &:before {
@@ -8,7 +12,7 @@
       height: 0.3px;
       background-color: var(--origin-gray-100);
       border: 1px solid var(--origin-gray-100);
-      margin: 3rem 0 3rem 0;
+      margin: 2rem 0 2rem 0;
     }
   }
 

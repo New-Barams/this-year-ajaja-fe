@@ -1,10 +1,12 @@
 'use client';
 
-import { postAjaja } from '@/apis/client/postAaja';
 import { Icon } from '@/components';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { usePostAjajaMutation } from '@/hooks/apis/usePostAjajaMutation';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import './index.scss';
 
@@ -23,10 +25,11 @@ export default function AjajaButton({
   classNameList = [],
   ...props
 }: AjajaButtonProps) {
+  const queryClient = useQueryClient();
   const [count, setCount] = useState(ajajaCount);
   const [fill, setFill] = useState(isFilled);
   const [originalCopy, setOriginalCopy] = useState(isFilled);
-
+  const { mutate: postAjaja } = usePostAjajaMutation();
   const handleAjaja = () => {
     if (fill) setCount(count - 1);
     else setCount(count + 1);
@@ -34,14 +37,24 @@ export default function AjajaButton({
   };
 
   const compare = () => {
-    console.log(originalCopy, fill);
     if (originalCopy !== fill) {
-      planId && postAjaja(planId);
+      planId &&
+        postAjaja(planId, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: [{ planId: planId }, QUERY_KEY.PLAN],
+            });
+          },
+        });
       setOriginalCopy(fill);
     }
   };
 
   useDebounce(compare, 500, []);
+
+  useEffect(() => {
+    setCount(ajajaCount);
+  }, [ajajaCount]);
 
   return (
     <button

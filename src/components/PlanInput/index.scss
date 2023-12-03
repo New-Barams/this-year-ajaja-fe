@@ -14,15 +14,23 @@
 
   &--title {
     border: var(--border-width) solid var(--origin-orange-200);
-    height: 2.5rem;
+    height: 2.6rem;
+    overflow: hidden;
   }
 
   &--content {
+    padding: 1rem 1rem;
     border: var(--border-width) solid var(--origin-orange-200);
     height: 10rem;
   }
 
+  &--disabled{
+    border: none;
+    background-color: var(--origin-white-300);
+  }
+
   &--editable {
+    
     &::placeholder {
       opacity: 0;
     }

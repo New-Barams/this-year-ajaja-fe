@@ -3,7 +3,7 @@
 import ModalEvaluate from '@/app/(header)/plans/[planId]/_components/ModalEvaluate/ModalEvaluate';
 import { Icon, Modal, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
-import { usePostFeedbackMutation } from '@/hooks/apis/feedback/usePostFeedbackMutation';
+import { usePostFeedbackMutation } from '@/hooks/apis/usePostFeedbackMutation';
 import { ReadOnlyRemindItemData } from '@/types/components/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
@@ -12,16 +12,18 @@ import './index.scss';
 
 interface ReadOnlyRemindItemProps {
   data: ReadOnlyRemindItemData;
+  planId: number;
   classNameList?: string[];
 }
 
 export default function ReadOnlyRemindItem({
   data,
+  planId,
   classNameList = [],
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
 
-  const { mutate: postFeedbackAPI } = usePostFeedbackMutation();
+  const { mutate: postFeedbackAPI } = usePostFeedbackMutation(planId);
 
   const {
     remindMonth,
@@ -141,7 +143,7 @@ export default function ReadOnlyRemindItem({
           <ModalEvaluate
             onClickFinish={handleClickModalFinish}
             onClickExit={handleClickModalExit}>
-            {`${remindMonth}월 ${remindDate}까지 계획을 얼마나 잘 이행했나요 ? `}
+            {`${remindMonth}월 ${remindDate}일까지 계획을 얼마나 잘 이행했나요 ? `}
           </ModalEvaluate>
         </Modal>
       )}

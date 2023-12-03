@@ -1,5 +1,5 @@
 import { Color } from '@/types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   AjajaButton,
   Icon,
@@ -65,6 +65,9 @@ export default function WritablePlan({
     changeTags(newTagList);
     setInputValue('');
   };
+
+  const nextTextAreaRef = useRef<HTMLTextAreaElement>(null);
+
   return (
     <div className="plan__container">
       <div className="plan__header">
@@ -77,33 +80,34 @@ export default function WritablePlan({
           onIconName="PLAN_OPEN"
           offIconName="PLAN_CLOSE"
         />
-        <span className="plan__header--after color-origin-gray-200">
+        <span className="plan__header--after color-origin-gray-200 font-size-base">
           {isPublic ? '계획 공개' : '계획 비공개'}
         </span>
-        {isEditPage && (
-          <button
-            className="plan__header--after--guide-button"
-            onClick={handlePopUpGuide}>
-            <Icon name="HELP" />
-          </button>
-        )}
+
+        <button
+          className="plan__header--after--guide-button"
+          onClick={handlePopUpGuide}>
+          <Icon name="HELP" />
+        </button>
       </div>
       <div className="plan__content">
         <PlanInput
           editable={true}
           kind="title"
-          placeholder="어떤 계획을 가지고 계신가요?"
+          placeholder="어떤 계획을 가지고 계신가요? (최대 20자)"
           onChangeInput={onChangeTitle}
-          maxLength={40}
+          maxLength={20}
           textInput={title}
+          nextTextAreaRef={nextTextAreaRef}
         />
         <PlanInput
           editable={true}
           kind="content"
-          placeholder="계획에 대해서 자세히 설명해주세요!"
+          placeholder="계획에 대해서 자세히 설명해주세요! (최대 300자)"
           onChangeInput={onChangeDescription}
           maxLength={250}
           textInput={description}
+          nextTextAreaRef={nextTextAreaRef}
         />
         <div>
           <InputTag
@@ -136,7 +140,7 @@ export default function WritablePlan({
             isActive={canAjaja}
             onClick={onToggleCanAjaja ? onToggleCanAjaja : () => {}}
           />
-          <div className="plan__bottom--after color-origin-gray-200 font-size-xs">
+          <div className="plan__bottom--after color-origin-gray-200 font-size-base">
             {canAjaja ? (
               <>
                 <span>월요일 18:00 마다</span>

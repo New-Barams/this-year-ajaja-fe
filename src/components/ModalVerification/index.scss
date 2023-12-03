@@ -2,22 +2,13 @@
   &-verification-wrapper {
     border-radius: var(--border-radius);
     border-radius: var(--border-radius);
-    width: 900px;
-    height: 600px;
+    width: 500px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    & input {
-      border-radius: var(--border-radius);
-      outline: none;
-      border-style: solid;
-      border-color: var(--origin-orange-200);
-      &:focus {
-        border-color: var(--origin-orange-300);
-      }
-    }
 
     &__exit {
       position: absolute;
@@ -32,27 +23,54 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 80%;
     }
     &__text {
-      padding: 40px;
+      padding: 20px;
     }
     &__items {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 2rem;
 
       &--item {
         display: flex;
-        :first-child {
+        gap: 1rem;
+        align-items: center;
+        & button {
+          font-size: 1rem;
+        }
+
+        & > input {
+          border-radius: var(--border-radius);
+          outline: none;
+          border: 2px solid var(--origin-orange-200);
+          padding: 0.5rem 1rem;
+
+          &:focus {
+            border-color: var(--origin-orange-300);
+          }
+        }
+        & > input:first-child {
           flex-grow: 1;
         }
         &--message {
-          height: 0.75rem;
+          overflow: visible;
+          flex-basis: 0;
+          line-height: 1.5rem;
+          height: 0;
+          position: relative;
+          & > span {
+            position: absolute;
+            top: -1.5rem;
+          }
         }
       }
     }
   }
 }
+
 .visible-hidden {
   visibility: hidden;
 }

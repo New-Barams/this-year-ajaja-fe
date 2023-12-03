@@ -1,8 +1,17 @@
 import { toggleAjajaNotification } from '@/apis/client/toggleAjajaNotification';
-import { useMutation } from '@tanstack/react-query';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useToggleAjajaNotificationMutation = () => {
+export const useToggleAjajaNotificationMutation = (planId: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: toggleAjajaNotification,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [{ planId: planId }, QUERY_KEY.PLAN],
+      });
+    },
+    throwOnError: true,
   });
 };

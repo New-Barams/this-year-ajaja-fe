@@ -26,16 +26,19 @@ export default function LinkIconText({
   ...props
 }: LinkIconTextProps) {
   return (
-    <div
+    <Link
+      href={link}
       className={classNames(
-        'link-icon-text',
+        `link-icon-text__a`,
         `background-origin-${background}`,
         `color-origin-${color}`,
         `border-round`,
-        `font-size-base`,
-        { [`border-origin-${border}`]: border },
-      )}>
-      <Link href={link} className={classNames(`link-icon-text__a`)} {...props}>
+        {
+          [`border-origin-${border}`]: border,
+        },
+      )}
+      {...props}>
+      <div className={classNames('link-icon-text')}>
         <Icon name={iconName} color={color} isFilled={isFilled} />
         <p
           className={classNames(
@@ -44,7 +47,7 @@ export default function LinkIconText({
           )}>
           {children}
         </p>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

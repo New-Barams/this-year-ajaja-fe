@@ -17,7 +17,7 @@ export default function ModalVerification({
   setVerifiedEmail,
 }: ModalVerificationProps) {
   const {
-    mutateAsync: submitEmail,
+    mutate: submitEmail,
     isError,
     isPending,
     isSuccess,
@@ -30,23 +30,42 @@ export default function ModalVerification({
     error: verifyError,
     isSuccess: isVerifySuccess,
   } = usePostVerifyMutation();
-  useEffect(() => {
-    console.log(
-      `isPending: ${isVerifyPending}, isError:${isVerifyError},error: ${verifyError?.message} isSuccess:${isVerifySuccess} `,
-    );
-  }, [isVerifyPending, isVerifyError, verifyError, isVerifySuccess]);
 
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState<string>('');
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+  const [isValidCode, setIsValidCode] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (error && error.response) {
+      const status = error.response.status;
+      if (status <= 400 || status >= 500) {
+        throw error;
+      }
+    } else if (error) {
+      throw error;
+    }
+    if (verifyError && verifyError.response) {
+      const status = verifyError.response.status;
+      if (status <= 400 || status >= 500) {
+        throw verifyError;
+      }
+    } else if (verifyError) {
+      throw verifyError;
+    }
+  }, [error, verifyError]);
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleSubmitEmail = async () => {
+  const handleSubmitEmail = () => {
     const isValidate = checkEmailValidation(email);
     if (isValidate) {
+      setIsValidEmail(true);
       submitEmail(email);
+    } else {
+      setIsValidEmail(false);
     }
   };
   const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +74,11 @@ export default function ModalVerification({
   };
   const handleSubmitCode = async () => {
     if (code.length == 6) {
+      setIsValidCode(true);
       await submitCertification(code);
       setVerifiedEmail && setVerifiedEmail();
+    } else {
+      setIsValidCode(false);
     }
   };
   return (
@@ -85,32 +107,41 @@ export default function ModalVerification({
         <div className="modal-verification-wrapper__items">
           <div className="modal-verification-wrapper__items--item">
             <input
+              className="modal-verification-wrapper__items--input"
               type="email"
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
             <Button
-              size="sm"
+              size="md"
               border={false}
               color="white-100"
               background="primary"
               onClick={handleSubmitEmail}>
-              인증코드 보내기
+              인증코드 전송
             </Button>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {isPending && <div>코드 전송중</div>}
-            {isError && (
-              <div className="color-origin-primary">{error?.message}</div>
+            {!isValidEmail && (
+              <span className="color-origin-primary">
+                유효하지 않은 이메일입니다. 이메일을 확인해주세요
+              </span>
             )}
-            {isSuccess && (
-              <div className="color-origin-green-300">
+            {isValidEmail && isPending && <span>코드 전송중...</span>}
+            {isValidEmail && isError && (
+              <span className="color-origin-primary ">
+                {error?.response?.data.errorMessage}
+              </span>
+            )}
+            {isValidEmail && isSuccess && (
+              <span className="color-origin-green-300">
                 이메일에서 인증코드를 확인해주세요
-              </div>
+              </span>
             )}
           </div>
           <div className="modal-verification-wrapper__items--item">
             <input
+              className="modal-verification-wrapper__items--input"
               placeholder="인증 코드를 입력해주세요"
               value={code}
               onChange={handleChangeCode}
@@ -118,7 +149,7 @@ export default function ModalVerification({
             <div className={classNames(!isSuccess && 'visible-hidden')}>
               <Button
                 border={false}
-                size="sm"
+                size="md"
                 color="white-100"
                 background="primary"
                 onClick={handleSubmitCode}>
@@ -128,23 +159,31 @@ export default function ModalVerification({
           </div>
 
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
-            {isVerifyPending && <div>인증 코드 확인중...</div>}
-            {isVerifySuccess && (
-              <div className="color-origin-green-300">
-                인증에 성공하셨습니다.
-              </div>
+            {!isValidCode && (
+              <span className="color-origin-primary">
+                인증 코드가 유효하지 않습니다. 인증 코드를 확인해주세요
+              </span>
             )}
-            {isVerifyError && (
-              <div className="color-origin-primary">{verifyError?.message}</div>
+            {isValidCode && isVerifyPending && <span>인증 코드 확인중...</span>}
+            {isValidCode && isVerifySuccess && (
+              <span className="color-origin-green-300">
+                인증에 성공하셨습니다.
+              </span>
+            )}
+            {isValidCode && isVerifyError && (
+              <span className="color-origin-primary">
+                {verifyError?.response?.data.errorMessage}
+              </span>
             )}
           </div>
         </div>
 
         <Button
-          background="primary"
-          color="white-100"
+          disabled={!isVerifySuccess}
+          background={isVerifySuccess ? 'primary' : 'gray-200'}
+          color={'white-100'}
           size="md"
-          border={false}
+          border={true}
           onClick={handleCloseModal}>
           인증 완료
         </Button>

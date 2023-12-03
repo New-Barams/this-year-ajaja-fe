@@ -34,18 +34,16 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
     'blue-300',
     'purple-300',
   ];
-  const { mutate: toggleIsPublic } = useToggleIsPublicMutation();
+  const { mutate: toggleIsPublic } = useToggleIsPublicMutation(id);
   const { mutate: toggleAjajaNotification } =
-    useToggleAjajaNotificationMutation();
+    useToggleAjajaNotificationMutation(id);
 
   const handleToggleIsPublic = () => {
     toggleIsPublic(id);
-    console.log(`${id}를 통해서 공개여부 변경`);
   };
 
   const handleToggleIsCanAjaja = () => {
     toggleAjajaNotification(id);
-    console.log(`${id}를 통해서 응원메세지 알림여부 변경`);
   };
 
   return (
@@ -96,7 +94,7 @@ export default function ReadOnlyPlan({ isMine, planData }: ReadOnlyPlanProps) {
       </div>
 
       <div className="plan__bottom">
-        <AjajaButton isFilled={isPressAjaja} ajajaCount={ajajas} />
+        <AjajaButton planId={id} isFilled={isPressAjaja} ajajaCount={ajajas} />
         {isMine && (
           <>
             <DebounceSwitchButton
