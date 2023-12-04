@@ -14,12 +14,17 @@ export default function useOauthPage() {
       const code = new URL(window.location.href).searchParams.get('code');
       (async () => {
         if (code) {
-          await postLogin(code).then((response) => {
-            const { data } = response;
-            setCookie('auth', data);
-            router.push('/home');
-            ajajaToast.success('로그인에 성공했습니다.');
-          });
+          await postLogin(code)
+            .then((response) => {
+              const { data } = response;
+              setCookie('auth', data);
+              router.replace('/home');
+              ajajaToast.success('로그인에 성공했습니다.');
+            })
+            .catch(() => {
+              ajajaToast.error('로그인에 실패했습니다. 다시 시도해주세요');
+              router.replace('/login');
+            });
         }
       })();
     } else if (way === 'logout') {

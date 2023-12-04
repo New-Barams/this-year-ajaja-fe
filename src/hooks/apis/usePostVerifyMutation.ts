@@ -14,5 +14,6 @@ export const usePostVerifyMutation = () => {
 };
 
 interface ErrorResponseData {
+  errorName: string;
   errorMessage: string;
 }
