@@ -1,13 +1,16 @@
 export type IconName =
-  | 'CREATE_NEW_PLAN'
+  | 'PLUS' // 내 계획 페이지 + 버튼
+  | 'CREATE_NEW_PLAN' // 계획 작성
+  | 'FEEDBACK' // 피드백
+  | 'OTHER_PLAN' // 다른 계획 둘러보기
+  | 'HOME' // 홈
+  | 'PROFILE' // 마이 페이지
   | 'NOTIFICATION_ON'
   | 'NOTIFICATION_OFF'
   | 'PLAN_OPEN'
   | 'PLAN_CLOSE'
   | 'ITEM_OPEN'
   | 'ITEM_CLOSE'
-  | 'OTHER_PLAN'
-  | 'PROFILE'
   | 'WARNING'
   | 'ERROR'
   | 'AJAJA'
@@ -28,4 +31,5 @@ export type IconName =
   | 'TROPHY'
   | 'STAR'
   | 'FAVORITE'
-  | 'ARROW_UP';
+  | 'ARROW_UP'
+  | 'COPY';
