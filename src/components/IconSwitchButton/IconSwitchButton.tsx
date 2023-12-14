@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon, SwitchButton } from '@/components';
+import { useState } from 'react';
 import './index.scss';
 
 type OnIconName = 'NOTIFICATION_ON' | 'PLAN_OPEN';
@@ -17,14 +18,27 @@ export default function IconSwitchButton({
   onClick,
   isActive = false,
 }: IconSwitchButtonProps) {
+  const [isOn, setIsOn] = useState<boolean>(isActive);
+  const handleClick = () => {
+    setIsOn(!isOn);
+    onClick();
+  };
   return (
-    <SwitchButton onClick={onClick} isOn={isActive}>
+    <SwitchButton onClick={handleClick} isOn={isOn}>
       <div className="icon__wrapper">
         <div>
-          <Icon name={offIconName} color="gray-300" />
+          <Icon
+            name={offIconName}
+            color={isOn ? 'white-100' : 'primary'}
+            size="sm"
+          />
         </div>
         <div>
-          <Icon name={onIconName} color="gray-300" />
+          <Icon
+            name={onIconName}
+            color={isOn ? 'primary' : 'white-100'}
+            size="sm"
+          />
         </div>
       </div>
     </SwitchButton>
