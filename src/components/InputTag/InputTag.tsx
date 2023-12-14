@@ -13,7 +13,8 @@ export default function InputTag({ onSubmit, ...props }: InputTagProps) {
     if (input && input.current) {
       const inputValue = input.current.value;
       if (inputValue.trim()) {
-        onSubmit(input.current.value);
+        onSubmit(inputValue);
+        input.current.value = '';
       }
     }
   };
