@@ -54,9 +54,15 @@
       border-top: none;
       list-style-type: none;
       text-align: center;
-      max-height: 12rem;
-      overflow-y: auto;
+      max-height: 9rem;
       border-radius: 0px 0px var(--border-radius) var(--border-radius);
+
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     &__item {
@@ -73,9 +79,5 @@
         background-color: var(--origin-primary);
       }
     }
-  }
-
-  &--remind {
-    width: 7rem;
   }
 }
