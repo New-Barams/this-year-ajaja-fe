@@ -1,0 +1,48 @@
+$media-majinot-width: 1230px;
+$media-middle-width: 1500px;
+
+.global {
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    gap: 10%;
+  }
+  &-landing {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10%;
+    width: 520px;
+    margin: auto;
+    @media screen and (max-width: $media-majinot-width) {
+      display: none;
+    }
+    @media screen and (min-width: $media-middle-width) {
+      left: 15%;
+    }
+  }
+  &-frame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 450px;
+    margin: auto;
+    @media screen and (min-width: $media-majinot-width) {
+      right: 10%;
+      height: 90%;
+      border: 1rem solid var(--origin-secondary);
+      overflow: hidden;
+      border-radius: calc(var(--border-radius) * 2);
+    }
+    @media screen and (max-width: $media-majinot-width) {
+      left: 0;
+      right: 0;
+    }
+    @media screen and (min-width: $media-middle-width) {
+      right: 15%;
+    }
+  }
+}
