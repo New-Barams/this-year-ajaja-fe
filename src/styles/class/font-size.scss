@@ -12,7 +12,7 @@
 
 @mixin icon-common($font) {
   @each $key, $value in $font {
-    .material-symbols-outlined.font-size {
+    .material-symbols-rounded.font-size {
       &-#{$key} {
         font-size: $value;
       }

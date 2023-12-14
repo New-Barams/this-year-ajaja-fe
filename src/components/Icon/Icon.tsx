@@ -54,7 +54,7 @@ export default function Icon({
     <span
       className={classNames(
         'icon',
-        'material-symbols-outlined',
+        'material-symbols-rounded',
         `font-size-${size}`,
         `color-origin-${color}`,
         { 'icon--isFilled': isFilled },
