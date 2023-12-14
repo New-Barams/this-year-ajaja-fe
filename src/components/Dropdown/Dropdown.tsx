@@ -60,7 +60,7 @@ export default function Dropdown({
       (option) => option.value === selectedValue,
     );
 
-    return selectedOption ? selectedOption.name : undefined;
+    return selectedOption?.name;
   };
 
   return (
