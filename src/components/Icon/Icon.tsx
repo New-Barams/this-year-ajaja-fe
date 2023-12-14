@@ -36,6 +36,7 @@ const ICON_NAME_MAP = {
   STAR: 'star',
   FAVORITE: 'favorite',
   ARROW_UP: 'arrow_upward',
+  COPY: 'content_copy',
 };
 
 interface IconProps {
