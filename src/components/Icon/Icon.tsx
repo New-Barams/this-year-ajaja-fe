@@ -3,15 +3,18 @@ import classNames from 'classnames';
 import './index.scss';
 
 const ICON_NAME_MAP = {
-  CREATE_NEW_PLAN: 'add',
+  PLUS: 'add',
+  CREATE_NEW_PLAN: 'stylus',
+  FEEDBACK: 'edit_note',
+  OTHER_PLAN: 'explore',
+  HOME: 'home',
+  PROFILE: 'account_circle',
   NOTIFICATION_ON: 'notifications',
   NOTIFICATION_OFF: 'notifications_off',
   PLAN_OPEN: 'lock_open',
   PLAN_CLOSE: 'lock',
   ITEM_OPEN: 'expand_more',
   ITEM_CLOSE: 'expand_less',
-  OTHER_PLAN: 'calendar_today',
-  PROFILE: 'person',
   ERROR: 'error',
   WARNING: 'warning',
   AJAJA: 'local_fire_department',
