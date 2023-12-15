@@ -15,8 +15,9 @@ export default function useOauthPage() {
       (async () => {
         if (code) {
           await postLogin(code).then((response) => {
+            //TODO: 로그인 실패 처리 필요, maxAge 상수화
             const { data } = response;
-            setCookie('auth', data);
+            setCookie('auth', data, { maxAge: 2592000 });
             router.push('/home');
             ajajaToast.success('로그인에 성공했습니다.');
           });
