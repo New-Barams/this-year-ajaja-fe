@@ -3,6 +3,7 @@ $sizes: ('lg', 'md', 'sm');
 .button {
   width: 100%;
   padding: 0.5rem 0;
+  box-shadow: var(--origin-shadow);
   @each $size in $sizes {
     &--#{$size} {
       &:hover {
