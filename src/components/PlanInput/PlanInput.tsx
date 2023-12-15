@@ -31,7 +31,7 @@ export default function PlanInput({
     }
   };
 
-  // Enter 키를 눌렀을 때 호출되는 함수
+  // 계획 제목 input에서 enter 클릭 시 계획 내용 input으로 이동시켜주는 함수
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (nextTextAreaRef && kind === 'title' && event.key === 'Enter') {
       event.preventDefault();
@@ -66,7 +66,7 @@ export default function PlanInput({
             `planInput--editable__label--${kind}`,
           )}
           htmlFor="planInput">
-          {placeholder}
+          {`${placeholder} (${textInput.length}/${maxLength}글자)`}
         </label>
       )}
     </div>
