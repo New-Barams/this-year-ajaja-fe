@@ -1,14 +1,15 @@
 import Provider from '@/provider/Provider';
 import classNames from 'classnames';
 import type { Metadata } from 'next';
-import { Noto_Sans_KR } from 'next/font/google';
+import { Poor_Story } from 'next/font/google';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
+import './index.scss';
 
-const noto_sans = Noto_Sans_KR({
+const poor_story = Poor_Story({
   subsets: ['latin'],
-  weight: ['100', '400', '700', '900'],
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {
@@ -32,12 +33,20 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
         />
       </head>
-      <body
-        className={classNames(
-          noto_sans.className,
-          'background-origin-white-200',
-        )}>
-        <Provider>{children}</Provider>
+      <body className={classNames(poor_story.className, 'background-origin')}>
+        <Provider>
+          <div
+            className={classNames('border-origin-text-100', 'global-landing')}>
+            랜딩 설명입니다.
+          </div>
+          <div
+            className={classNames(
+              'background-origin-background',
+              'global-frame',
+            )}>
+            {children}
+          </div>
+        </Provider>
       </body>
     </html>
   );
