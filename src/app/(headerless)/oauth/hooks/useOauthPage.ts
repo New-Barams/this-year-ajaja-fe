@@ -15,7 +15,7 @@ export default function useOauthPage() {
       (async () => {
         if (code) {
           await postLogin(code).then((response) => {
-            //TODO: 로그인 실패 처리 필요, maxAge 상수화
+            //TODO: 로그인 실패 처리 필요, maxAge 상수화, await 와 then을같이 쓰는게 맞나?
             const { data } = response;
             setCookie('auth', data, { maxAge: 604800 });
             router.push('/home');
