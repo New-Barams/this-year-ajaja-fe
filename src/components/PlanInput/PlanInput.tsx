@@ -55,8 +55,7 @@ export default function PlanInput({
         className={classNames(
           'planInput',
           `planInput--${kind === 'content' ? 'content' : 'title'}`,
-          { 'planInput--editable': editable },
-          { 'planInput--disabled': !editable },
+          `planInput--${editable ? 'editable' : 'disabled'}`,
         )}
       />
       {editable && (

@@ -15,18 +15,24 @@
   &--title {
     border: var(--border-width) solid var(--origin-primary);
     height: 2.5rem;
+    line-height: 1.2rem;
   }
 
   &--content {
     border: var(--border-width) solid var(--origin-primary);
     height: 10rem;
-    padding: 0.5rem 1rem;
     line-height: 1.5rem;
   }
 
-  &--disabled {
+  &--disabled { 
     border: none;
-    background-color: var(--origin-white-300);
+    padding: 8px 0px;
+    height: 12rem;
+    border-radius: 0;
+    line-height: 2rem;
+    background-attachment: local;
+    background-image:
+      repeating-linear-gradient(white, white 1.9rem, #ccc 1.9rem, #ccc 2rem, white 2rem); 
   }
 
   &--editable {
@@ -37,7 +43,7 @@
     &__label {
       position: absolute;
       left: 1rem;
-      width: calc(100% - 2rem);
+      max-width: calc(100% - 2rem);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
