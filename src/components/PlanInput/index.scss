@@ -7,30 +7,35 @@
   width: 100%;
   color: var(--origin-gray-300);
   background-color: var(--origin-white-100);
-  font-size: 1.25rem;
+  font-size: 1rem;
   border-radius: var(--border-radius);
   outline: none;
   resize: none;
 
   &--title {
-    border: var(--border-width) solid var(--origin-orange-200);
-    height: 2.6rem;
-    overflow: hidden;
+    border: var(--border-width) solid var(--origin-primary);
+    height: 2.5rem;
+    line-height: 1.2rem;
   }
 
   &--content {
-    padding: 1rem 1rem;
-    border: var(--border-width) solid var(--origin-orange-200);
+    border: var(--border-width) solid var(--origin-primary);
     height: 10rem;
+    line-height: 1.5rem;
   }
 
-  &--disabled{
+  &--disabled { 
     border: none;
-    background-color: var(--origin-white-300);
+    padding: 8px 0px;
+    height: 12rem;
+    border-radius: 0;
+    line-height: 2rem;
+    background-attachment: local;
+    background-image:
+      repeating-linear-gradient(white, white 1.9rem, #ccc 1.9rem, #ccc 2rem, white 2rem); 
   }
 
   &--editable {
-    
     &::placeholder {
       opacity: 0;
     }
@@ -38,6 +43,10 @@
     &__label {
       position: absolute;
       left: 1rem;
+      max-width: calc(100% - 2rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       transform: translateY(-50%);
       font-size: 1rem;
       color: var(--origin-gray-100);
@@ -58,7 +67,7 @@
     :focus + &__label,
     :not(:placeholder-shown) + &__label {
       top: 0;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--origin-primary);
       background: var(--origin-white-200);
       padding: 0px 7px;
