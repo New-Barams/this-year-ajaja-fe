@@ -44,5 +44,9 @@ $media-middle-width: 1500px;
     @media screen and (min-width: $media-middle-width) {
       right: 15%;
     }
+    &-inside {
+      margin: 0 1.5rem;
+      height: 100%;
+    }
   }
 }
