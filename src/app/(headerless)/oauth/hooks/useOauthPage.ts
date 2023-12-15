@@ -25,7 +25,6 @@ export default function useOauthPage() {
     } else if (way === 'logout') {
       deleteCookie('auth');
       router.push('/login');
-      ajajaToast.success('로그아웃에 성공했습니다. ');
     }
   }, [router]);
 }
