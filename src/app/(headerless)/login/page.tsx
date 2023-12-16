@@ -4,6 +4,7 @@ import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import './index.scss';
+import kakoLogin from '/public/kakao_login_large_wide.png';
 
 export default function LoginPage() {
   return (
@@ -30,9 +31,8 @@ export default function LoginPage() {
             href={KAKAO_LOGIN_URL}
             replace>
             <Image
-              src="/kakao_login_large_narrow.png"
-              width={230}
-              height={60}
+              className="login__buttons--image"
+              src={kakoLogin}
               alt="kakaoLogin"
             />
           </Link>
