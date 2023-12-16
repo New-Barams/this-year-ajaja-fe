@@ -3,28 +3,15 @@
 import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
+import IntroduceSwiper from './_components/IntroduceSwiper/IntroduceSwiper';
 import './index.scss';
-import kakoLogin from '/public/kakao_login_large_wide.png';
+import kakoLogin from '/public/loginPage/kakao_login_large_wide.png';
 
 export default function LoginPage() {
   return (
     <div className="wrapper">
       <div className="login">
-        <Image
-          className="login__logo"
-          src="/this-year-ajaja-logo.svg"
-          width={260}
-          height={190}
-          alt="thisYearAjajaLogo"
-        />
-        <div className="login__sentence color-origin-gray-300 font-size-2xl">
-          <span className="login__sentence--text">
-            올해의 신년 계획을 생성하고,
-          </span>
-          <span className="login__sentence--text">
-            주기적으로 리마인드 받아보세요!!
-          </span>
-        </div>
+        <IntroduceSwiper />
         <div className="login__buttons">
           <Link
             className="login__buttons--kakaoLogin"
