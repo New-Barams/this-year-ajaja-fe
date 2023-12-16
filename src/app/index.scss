@@ -36,6 +36,7 @@ $media-middle-width: 1500px;
       border: 1rem solid var(--origin-secondary);
       overflow: hidden;
       border-radius: calc(var(--border-radius) * 2);
+      box-shadow: var(--origin-shadow);
     }
     @media screen and (max-width: $media-majinot-width) {
       left: 0;
@@ -43,6 +44,10 @@ $media-middle-width: 1500px;
     }
     @media screen and (min-width: $media-middle-width) {
       right: 15%;
+    }
+    &-inside {
+      margin: 0 1.5rem;
+      height: 100%;
     }
   }
 }

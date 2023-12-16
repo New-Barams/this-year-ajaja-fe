@@ -5,6 +5,19 @@
     .font-size {
       &-#{$key} {
         font-size: $value;
+        @if $value == 0.75rem {
+          line-height: 1rem;
+        } @else if $value == 0.875rem {
+          line-height: 1.25rem;
+        } @else if $value == 1rem {
+          line-height: 1.5rem;
+        } @else if $value == 1.5rem {
+          line-height: 2rem;
+        } @else if $value == 2rem {
+          line-height: 2.25rem;
+        } @else {
+          line-height: 1;
+        }
       }
     }
   }
