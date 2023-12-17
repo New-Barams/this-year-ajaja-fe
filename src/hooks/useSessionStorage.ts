@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 interface SessionStorageProps<T> {
   key: string;
-  setSessionValueAtFirst?: boolean;
   initialValue: T;
+  setSessionValueAtFirst?: boolean;
 }
 
 export const useSessionStorage = <T>({
   key,
-  setSessionValueAtFirst = false,
   initialValue,
+  setSessionValueAtFirst = false,
 }: SessionStorageProps<T>) => {
   const [getItem, setStoredItem] = useState<T>(() => {
     const item = sessionStorage.getItem(key);
