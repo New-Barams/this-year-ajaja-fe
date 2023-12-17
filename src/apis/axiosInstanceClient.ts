@@ -42,11 +42,14 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
+    console.log('error발생,');
+    console.log(error);
     if (
       error.response &&
       error.response.data &&
       error.response.data.errorName === 'INVALID_SIGNATURE'
     ) {
+      //TODO: 일치하지 않을떄도 재로그인
       alertAndLogin();
     }
 
@@ -75,7 +78,7 @@ axiosInstanceClient.interceptors.response.use(
           setCookie('auth', tokens, { maxAge: 604800 });
           if (error.config) {
             error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
-            //TODO 그래도 retry에 실패 한다면 ?
+            //TODO 그래도 retry에 실패 한다면 ?response를 반환해줘야하는데 요청을 그대로 반환해도되나?
             return axiosInstanceClient.request(error.config);
           }
         }

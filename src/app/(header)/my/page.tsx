@@ -7,7 +7,6 @@ import {
   Modal,
   ModalBasic,
   ModalVerification,
-  Tag,
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { KAKAO_LOGOUT_URL } from '@/constants/login';
@@ -16,7 +15,7 @@ import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQu
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import './index.scss';
@@ -24,12 +23,14 @@ import './index.scss';
 export default function MyPage() {
   const queryClient = useQueryClient();
   const { userInformation } = useGetUserInformationQuery();
-  const { refreshNickname, isPending } = usePostUsersRefreshMutation();
-  const { emailVerified, nickname, remindEmail } = userInformation;
+  const { refreshNickname } = usePostUsersRefreshMutation();
+  const { nickname, remindEmail, defaultEmail, receiveType } = userInformation;
 
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
+    useState<boolean>(false);
+  const [isOpenRemindWayModal, setIsOpenRemindWayModal] =
     useState<boolean>(false);
 
   const router = useRouter();
@@ -44,6 +45,9 @@ export default function MyPage() {
   };
   const handleGoEmailVerification = () => {
     setIsOpenEmailModal(true);
+  };
+  const handleGORemindWay = () => {
+    setIsOpenRemindWayModal(true);
   };
   const handleCloseEmailVerificationModal = () => {
     setIsOpenEmailModal(false);
@@ -82,88 +86,81 @@ export default function MyPage() {
   };
   return (
     <>
-      <div className="my-page">
-        <div className="my-page__wrapper">
-          <Image
-            src="/this-year-ajaja-logo.svg"
-            width={240}
-            height={160}
-            alt="올해도 아좌좌"
-          />
-          <div className="my-page__main">
-            <div className="my-page__main--nickname">
-              <div className="my-page__name font-size-3xl">
-                <h1 className="color-origin-orange-300">
-                  나의 이름은&nbsp;
-                  <span className="color-origin-gray-300">{nickname}</span>
-                </h1>
-
-                {isPending ? (
-                  <div className="circle-rotate">
-                    <Icon name="REFRESH" />
-                  </div>
-                ) : (
-                  <button onClick={handleChangeNickName}>
-                    <Icon name="REFRESH" />
-                  </button>
-                )}
-              </div>
-              <div className="font-size-xs color-origin-gray-200">
-                새로 고침 버튼 클릭 시 닉네임이 랜덤으로 변경됩니다.
-              </div>
+      <div className="my-page__wrapper">
+        <h1 className="my-page__header font-size-xl">마이페이지</h1>
+        <h1 className="my-page__welcome-text font-size-xl">
+          안녕하세요, <span className="color-origin-primary">{nickname}</span>
+          님!
+        </h1>
+        <div className="my-page__nick-name">
+          <h2 className="my-page__nick-name--label font-size-lg">닉네임</h2>
+          <div className="my-page__nick-name--content">
+            <div>
+              {nickname}
+              <span onClick={handleChangeNickName}>
+                <Icon
+                  name="REFRESH"
+                  color="text-100"
+                  size="base"
+                  isFilled={true}
+                />
+              </span>
             </div>
-
-            <div className="my-page__remind-way">
-              {emailVerified ? (
-                <h1>
-                  현재 <Tag color="green-300">이메일</Tag>을 통해서 리마인드를
-                  받고 있어요
-                </h1>
-              ) : (
-                <h1 className="my-page__remind-way--no-verified">
-                  <Icon name="WARNING" />
-                  현재 인증된 이메일이 없습니다. 인증을 진행하고 리마인드를
-                  받으세요!
-                </h1>
-              )}
-              <h1 className="font-size-2xl">
-                이메일:
-                {emailVerified ? remindEmail : '  ---'}
-              </h1>
+            <div className="my-page__nick-name--content--alert font-size-xs">
+              새로고침 버튼 클릭시 닉네임이 랜덤으로 변경됩니다.
             </div>
           </div>
-
-          <div className="my-page__email">
-            <Button
-              size="md"
-              background="primary"
-              color="white-100"
-              border={true}
-              onClick={handleGoEmailVerification}>
-              {emailVerified ? '이메일 변경하기' : '이메일 인증하기'}
-            </Button>
+        </div>
+        <div className="my-page__account">
+          <h2 className="my-page__account--label font-size-lg">
+            연결된 계정 및 이메일
+          </h2>
+          <div className="my-page__account--content">
+            <div className="my-page__account--content--kakao">
+              <h3>카카오톡</h3>
+              {defaultEmail}
+            </div>
+            <div className="my-page__account--content--email">
+              <h3>이메일</h3>
+              {remindEmail}
+            </div>
           </div>
-
-          <div className="my-page__bottom">
-            <Button
-              background="white-100"
-              border={true}
-              size="md"
-              color="primary"
-              onClick={handleLogOut}>
-              로그아웃
-            </Button>
-            <Button
-              background="white-100"
-              color="primary"
-              size="md"
-              border={true}
-              onClick={handleWithdrawal}>
-              회원 탈퇴
-            </Button>
+          <Button
+            border={false}
+            background="primary"
+            color="white-100"
+            onClick={handleGoEmailVerification}>
+            이메일 변경
+          </Button>
+        </div>
+        <div className="my-page__remindway">
+          <h2 className="my-page__remindway--label font-size-lg">
+            리마인드 방식
+          </h2>
+          <div>
+            <span className="color-origin-primary">{receiveType}</span>을 통해서
+            리마인드 받고 있어요
+          </div>
+          <Button
+            border={false}
+            background="primary"
+            color="white-100"
+            onClick={handleGORemindWay}>
+            리마인드 방식 변경
+          </Button>
+        </div>
+        <div className="my-page__etc">
+          <div className="my-page__etc--logout" onClick={handleLogOut}>
+            로그 아웃
+          </div>
+          <div
+            className="my-page__etc--withdrawal color-origin-text-300"
+            onClick={handleWithdrawal}>
+            회원 탈퇴
           </div>
         </div>
       </div>
+      {isOpenRemindWayModal && <div></div>}
       {isOpenEmailModal && (
         <Modal>
           <ModalVerification
