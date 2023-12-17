@@ -27,20 +27,20 @@ export default function RemindInput({
 
   return editable ? (
     <textarea
-      id="remindInput"
+      id="writableRemindInput"
       readOnly={false}
       value={textInput}
       onChange={handleChangeInput}
       placeholder={placeholder}
-      className={classNames('remindInput')}
+      className={classNames('remindInput', 'remindInput--write')}
     />
   ) : (
     <textarea
-      id="remindInput"
+      id="readOnlyRemindInput"
       readOnly={true}
       disabled
       value={textInput}
-      className={classNames('remindInput')}
+      className={classNames('remindInput', 'remindInput--read')}
     />
   );
 }

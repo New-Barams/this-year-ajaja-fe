@@ -44,7 +44,7 @@ export default function RootLayout({
               'background-origin-background',
               'global-frame',
             )}>
-            {children}
+            <div className={classNames('global-frame-inside')}>{children}</div>
           </div>
         </Provider>
       </body>
