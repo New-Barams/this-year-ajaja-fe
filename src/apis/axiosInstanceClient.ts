@@ -45,7 +45,8 @@ axiosInstanceClient.interceptors.response.use(
     if (
       error.response &&
       error.response.data &&
-      error.response.data.errorName === 'INVALID_SIGNATURE'
+      (error.response.data.errorName === 'INVALID_SIGNATURE' ||
+        error.response.data.errorName === 'TOKEN_NOT_MATCH')
     ) {
       alertAndLogin();
     }
