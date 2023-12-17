@@ -2,10 +2,12 @@ import Provider from '@/provider/Provider';
 import classNames from 'classnames';
 import type { Metadata } from 'next';
 import { Poor_Story } from 'next/font/google';
+import { cookies } from 'next/headers';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
-import './index.scss';
+import Navigation from './_components/Navigation/Navigation';
+import './_components/index.scss';
 
 const poor_story = Poor_Story({
   subsets: ['latin'],
@@ -25,6 +27,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const hasAuth = cookies().has('auth');
   return (
     <html lang="en">
       <head>
@@ -44,7 +47,14 @@ export default function RootLayout({
               'background-origin-background',
               'global-frame',
             )}>
-            <div className={classNames('global-frame-inside')}>{children}</div>
+            <div className={classNames('global-frame-inside')}>
+              <div className={classNames('global-frame-children')}>
+                {children}
+              </div>
+              <div className={classNames('global-frame-navigation')}>
+                <Navigation hasAuth={hasAuth} />
+              </div>
+            </div>
           </div>
         </Provider>
       </body>
