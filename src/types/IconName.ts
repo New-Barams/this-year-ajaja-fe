@@ -5,6 +5,7 @@ export type IconName =
   | 'OTHER_PLAN' // 다른 계획 둘러보기
   | 'HOME' // 홈
   | 'PROFILE' // 마이 페이지
+  | 'LOGIN' //로그인
   | 'NOTIFICATION_ON'
   | 'NOTIFICATION_OFF'
   | 'PLAN_OPEN'

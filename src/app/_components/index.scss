@@ -1,6 +1,6 @@
 $media-majinot-width: 1230px;
 $media-middle-width: 1500px;
-
+$navigation-hight: 4rem;
 .global {
   &-wrapper {
     display: flex;
@@ -46,8 +46,18 @@ $media-middle-width: 1500px;
       right: 15%;
     }
     &-inside {
-      margin: 0 1.5rem;
       height: 100%;
+    }
+    &-children {
+      margin: 0 1.5rem;
+      height: calc(100% - $navigation-hight);
+    }
+    &-navigation {
+      display: flex;
+      align-items: center;
+      height: $navigation-hight;
+      border-top: var(--border-width) solid var(--origin-secondary);
+      box-shadow: var(--origin-shadow);
     }
   }
 }

@@ -9,6 +9,7 @@ const ICON_NAME_MAP = {
   OTHER_PLAN: 'explore',
   HOME: 'home',
   PROFILE: 'account_circle',
+  LOGIN: 'login',
   NOTIFICATION_ON: 'notifications',
   NOTIFICATION_OFF: 'notifications_off',
   PLAN_OPEN: 'lock_open',
