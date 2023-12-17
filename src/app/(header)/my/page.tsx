@@ -53,6 +53,7 @@ export default function MyPage() {
   };
 
   const handleRealLogOut = async () => {
+    deleteCookie('auth');
     router.push(KAKAO_LOGOUT_URL);
   };
   const handleCloseLogOutModal = () => {
