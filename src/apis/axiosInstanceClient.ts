@@ -67,23 +67,25 @@ axiosInstanceClient.interceptors.response.use(
         const isExpiredRefreshToken = !checkTokenExp(refreshToken);
 
         if (isExpiredAccessToken || isExpiredRefreshToken) {
-          //TODO: 토큰 재발행에 실패한다면 ?
-          const {
-            data: { data: tokens },
-          } = await postReissue({
-            accessToken,
-            refreshToken,
-          });
-
-          setCookie('auth', tokens, { maxAge: 604800 });
-          if (error.config) {
-            error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
-            //TODO 그래도 retry에 실패 한다면 ?
-            const response = await axiosInstanceClient.request(error.config);
-            return response;
+          try {
+            const {
+              data: { data: tokens },
+            } = await postReissue({
+              accessToken,
+              refreshToken,
+            });
+            setCookie('auth', tokens, { maxAge: 604800 });
+            if (error.config) {
+              error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
+              const response = await axiosInstanceClient.request(error.config);
+              return response;
+            }
+          } catch {
+            alertAndLogin();
           }
+        } else {
+          alertAndLogin();
         }
-        alertAndLogin();
       }
     }
 
