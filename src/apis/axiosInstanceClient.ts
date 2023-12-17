@@ -41,6 +41,7 @@ axiosInstanceClient.interceptors.response.use(
     return response;
   },
   async (error: AxiosError<ErrorResponseData>) => {
+    //TODO:에러네임, 쿠키 키 상수화
     if (
       error.response &&
       error.response.data &&
@@ -70,7 +71,7 @@ axiosInstanceClient.interceptors.response.use(
             accessToken,
             refreshToken,
           });
-          console.log(tokens, '토큰 교체');
+
           setCookie('auth', tokens, { maxAge: 604800 });
           if (error.config) {
             error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
