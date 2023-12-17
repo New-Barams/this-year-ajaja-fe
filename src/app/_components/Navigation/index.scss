@@ -1,0 +1,14 @@
+$navigation-width: 3.5rem;
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  &-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: $navigation-width;
+    text-decoration-line: none;
+  }
+}
