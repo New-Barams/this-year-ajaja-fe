@@ -223,7 +223,8 @@ export default function WritableRemind({
         <Modal>
           <ModalBasic
             onClickYes={handleModalClickYes}
-            onClickNo={handleModalClickNo}>
+            onClickNo={handleModalClickNo}
+            confirmSentense="확정 하기">
             리마인드 날짜 변경 시 작성한 리마인드 메세지가 모두 삭제됩니다. 정말
             확정하시겠습니까 ?
           </ModalBasic>

@@ -176,7 +176,8 @@ export default function MyPage() {
         <Modal>
           <ModalBasic
             onClickNo={handleCloseLogOutModal}
-            onClickYes={handleRealLogOut}>
+            onClickYes={handleRealLogOut}
+            confirmSentense="로그아웃 하기">
             로그아웃 하시겠습니까?
           </ModalBasic>
         </Modal>
@@ -185,7 +186,8 @@ export default function MyPage() {
         <Modal>
           <ModalBasic
             onClickYes={handleRealWithdrawal}
-            onClickNo={handleCloseWithdrawalModal}>
+            onClickNo={handleCloseWithdrawalModal}
+            confirmSentense="회원탈퇴 하기">
             정말 회원 탈퇴를 진행 하시겠습니까? 탈퇴시 모든 정보가 삭제됩니다.
           </ModalBasic>
         </Modal>
