@@ -42,6 +42,8 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
+    console.log('axios 에러 ');
+    console.log(error);
     if (
       error.response &&
       error.response.data &&
@@ -77,7 +79,8 @@ axiosInstanceClient.interceptors.response.use(
           if (error.config) {
             error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
             //TODO 그래도 retry에 실패 한다면 ?
-            return axiosInstanceClient.request(error.config);
+            const response = await axiosInstanceClient.request(error.config);
+            return response;
           }
         }
         alertAndLogin();
