@@ -21,6 +21,7 @@ export default function CreatePlanRemindDate() {
         Date: 1,
         Time: 9,
       },
+      setSessionValueAtFirst: true,
     },
   );
 
