@@ -2,9 +2,11 @@
 
 import { Dropdown } from '@/components';
 import { planIcons } from '@/constants/planIcons';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import NewPlan from './NewPlan/NewPlan';
 import Plan from './Plan/Plan';
 import ProgressBar from './ProgressBar/ProgressBar';
@@ -14,18 +16,25 @@ type MyPlanProps = {
 };
 
 export default function MyPlan({ myPlans }: MyPlanProps) {
-  const maxLength = 2;
+  const maxLength = 4;
   const { data: myPlansData } = myPlans;
   const yearList = myPlansData.map((x) => x.year);
   const [period, setPeriod] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
+  const [yearDataLength, setYearDataLength] = useState(
+    myPlansData[0].getPlanList.length,
+  );
+  const [, setCanMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
   });
 
   useEffect(() => {
-    setYearData(myPlansData.find((x) => x.year === period)!);
-  }, [period, myPlansData]);
+    const chosenYearData = myPlansData.find((x) => x.year === period)!;
+    setYearData(chosenYearData);
+    setYearDataLength(chosenYearData.getPlanList.length);
+    setCanMakeNewPlan(!!(maxLength - chosenYearData.getPlanList.length));
+  }, [period, myPlansData, setCanMakeNewPlan, setYearDataLength]);
   return (
     <>
       <div className={classNames('home__header')}>
@@ -67,10 +76,10 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
             />
           );
         })}
-        <NewPlan
-          maxLength={maxLength}
-          currentLength={yearData.getPlanList.length}
-        />
+        <NewPlan />
+        <p className={classNames('home__number', 'color-origin-text-300')}>
+          ({yearDataLength}/{maxLength})
+        </p>
       </div>
     </>
   );

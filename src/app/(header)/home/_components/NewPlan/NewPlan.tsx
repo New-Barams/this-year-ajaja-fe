@@ -1,16 +1,13 @@
 import { Icon } from '@/components';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import './index.scss';
 
-type NewPlanProps = {
-  maxLength: number;
-  currentLength: number;
-};
-
-export default function NewPlan({ maxLength, currentLength }: NewPlanProps) {
-  const canMakeNewPlan = !!(maxLength - currentLength);
+export default function NewPlan() {
+  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
 
   return (
     <>
@@ -49,9 +46,6 @@ export default function NewPlan({ maxLength, currentLength }: NewPlanProps) {
           </div>
         )}
       </Link>
-      <p className={classNames('new-plan__number', 'color-origin-text-300')}>
-        ({currentLength}/{maxLength})
-      </p>
     </>
   );
 }

@@ -30,16 +30,10 @@ $header-height: 11.875rem;
     height: calc(100% - $header-height);
     overflow-y: auto;
   }
-  // &-email {
-  //   &-isVerified {
-  //     display: flex;
-  //     align-items: center;
-  //     gap: 0.2rem;
-  //     height: 1.5rem;
-  //     margin: 0.5rem 0;
-  //   }
-  //   &--tag {
-  //     padding: 0.4rem 0.6rem;
-  //   }
-  // }
+  &__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 2rem 0;
+  }
 }
