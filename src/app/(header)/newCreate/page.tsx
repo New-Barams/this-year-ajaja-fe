@@ -66,9 +66,9 @@ export default function NewCreatePage() {
             );
           default:
             return (
-              <CreatePlanContent
-                setIsSecondStepDataAllExist={(isExist: boolean) => {
-                  setIsSecondStepDataAllExist(isExist);
+              <CreatePlanIcon
+                setIsFirstStepDataAllExist={(isExist: boolean) => {
+                  setIsFirstStepDataAllExist(isExist);
                 }}
               />
             );
