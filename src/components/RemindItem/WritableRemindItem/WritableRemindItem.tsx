@@ -150,7 +150,8 @@ export default function WritableRemindItem({
         <Modal>
           <ModalBasic
             onClickYes={handleModalClickYes}
-            onClickNo={handleModalClickNo}>
+            onClickNo={handleModalClickNo}
+            confirmSentense="적용 하기">
             다른 모든 리마인드 메세지가 해당 메세지와 동일한 내용으로
             변경됩니다. 정말 적용하시겠습니까?
           </ModalBasic>
