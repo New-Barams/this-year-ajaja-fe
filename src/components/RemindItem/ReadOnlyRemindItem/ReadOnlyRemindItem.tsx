@@ -4,7 +4,7 @@ import ModalEvaluate from '@/app/(header)/plans/[planId]/_components/ModalEvalua
 import { Icon, Modal, RemindInput } from '@/components';
 import CircleProgressBar from '@/components/CircleProgressBar/CircleProgressBar';
 import { usePostFeedbackMutation } from '@/hooks/apis/usePostFeedbackMutation';
-import { ReadOnlyRemindItemData } from '@/types/components/Remind';
+import { ReadOnlyRemindItemData } from '@/types/Remind';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
