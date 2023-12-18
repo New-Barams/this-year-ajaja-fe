@@ -9,6 +9,7 @@ interface StepButtonGroupProps {
   nowStep: number;
   goToPreviousStep: () => void;
   goToNextStep: () => void;
+  goToLastStep: () => void;
   isFirstStepDataAllExist: boolean;
   isSecondStepDataAllExist: boolean;
   isEveryStepDataAllExist: boolean;
@@ -18,13 +19,13 @@ export default function StepButtonGroup({
   nowStep,
   goToPreviousStep,
   goToNextStep,
+  goToLastStep,
   isFirstStepDataAllExist,
   isSecondStepDataAllExist,
   isEveryStepDataAllExist,
 }: StepButtonGroupProps) {
   const router = useRouter();
 
-  // 나가기 버튼 클릭 시
   const exitCreatePlanPage = () => {
     router.back();
   };
@@ -110,7 +111,7 @@ export default function StepButtonGroup({
                   border={true}
                   color="white-100"
                   onClick={() => {
-                    // TODO: 모달 띄워주기
+                    goToLastStep();
                   }}>
                   다음 단계
                 </Button>
@@ -144,6 +145,3 @@ export default function StepButtonGroup({
     </div>
   );
 }
-
-// 클래스 이름 추가
-// data 검사 로직 추가
