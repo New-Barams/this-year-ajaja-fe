@@ -11,6 +11,7 @@ type ModalRemindWayProps = {
   onClickNo: () => void;
   confirmSentence: string;
   children: React.ReactNode;
+  isPending?: boolean;
 };
 
 export default function ModalRemindWay({
@@ -19,6 +20,7 @@ export default function ModalRemindWay({
   confirmSentence,
   receiveType,
   children,
+  isPending = false,
 }: ModalRemindWayProps) {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
   useModalClose(backgroundRef, onClickNo);
@@ -48,6 +50,7 @@ export default function ModalRemindWay({
           <div className="modal-remindway__content--radio--items">
             <label className="modal-remindway__content--radio--item">
               <input
+                disabled={isPending}
                 type="radio"
                 name="receiveType"
                 value="email"
@@ -57,6 +60,7 @@ export default function ModalRemindWay({
             </label>
             <label className="modal-remindway__content--radio--item">
               <input
+                disabled={isPending}
                 type="radio"
                 name="receiveType"
                 value="kakao"
@@ -66,6 +70,7 @@ export default function ModalRemindWay({
             </label>
             <label className="modal-remindway__content--radio--item">
               <input
+                disabled={isPending}
                 type="radio"
                 name="receiveType"
                 value="both"

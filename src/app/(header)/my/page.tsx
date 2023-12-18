@@ -28,7 +28,8 @@ export default function MyPage() {
   const { refreshNickname } = usePostUsersRefreshMutation();
   const { nickname, remindEmail, defaultEmail, receiveType, emailVerified } =
     userInformation;
-  const { changeReceiveType } = usePutUserReceiveMutation();
+  const { changeReceiveType, isChangeReceiveTypePending } =
+    usePutUserReceiveMutation();
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
@@ -179,6 +180,7 @@ export default function MyPage() {
         <Modal>
           <ModalRemindWay
             confirmSentence="변경하기"
+            isPending={isChangeReceiveTypePending}
             receiveType={receiveType}
             onClickYes={(checked: ReceiveType) => {
               if (checked === receiveType) return;
@@ -187,6 +189,12 @@ export default function MyPage() {
                   queryClient.invalidateQueries({
                     queryKey: [QUERY_KEY.USER_INFORMATION],
                   });
+                  ajajaToast.success('리마인드방식이 변경되었습니다.');
+                },
+                onError: () => {
+                  ajajaToast.error(
+                    '리마인드 방식 변경에 실패했습니다. 다시 시도해주세요',
+                  );
                 },
               });
             }}
