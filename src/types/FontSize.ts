@@ -2,6 +2,7 @@ export type FontSize =
   | 'xs'
   | 'sm'
   | 'base'
+  | 'md'
   | 'lg'
   | 'xl'
   | '2xl'
