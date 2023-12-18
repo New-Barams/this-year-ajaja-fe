@@ -11,10 +11,12 @@ import './index.scss';
 interface ModalVerificationProps {
   handleCloseModal: () => void;
   setVerifiedEmail?: () => void;
+  children?: React.ReactNode;
 }
 export default function ModalVerification({
   handleCloseModal,
   setVerifiedEmail,
+  children = '이메일 인증',
 }: ModalVerificationProps) {
   const {
     mutate: submitEmail,
@@ -100,7 +102,7 @@ export default function ModalVerification({
             `color-origin-gray-300`,
             `modal-verification-wrapper__text`,
           )}>
-          이메일 인증
+          {children}
         </h1>
 
         <div className="modal-verification-wrapper__items">

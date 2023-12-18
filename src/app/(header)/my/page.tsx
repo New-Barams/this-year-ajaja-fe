@@ -84,6 +84,19 @@ export default function MyPage() {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] }),
     ]);
   };
+
+  const remindWay = () => {
+    if (receiveType === 'both') {
+      return `${(<span className="color-origin-primary">이메일</span>)}과${(
+        <span className="color-origin-primary">카카오톡</span>
+      )}`;
+    }
+    return (
+      <span className="color-origin-primary">
+        {receiveType === 'email' ? '이메일' : '카카오'}
+      </span>
+    );
+  };
   return (
     <>
       <div className="my-page__wrapper">
@@ -115,8 +128,8 @@ export default function MyPage() {
           <h2 className="my-page__account--label font-size-lg">
             연결된 계정 및 이메일
           </h2>
-          <div className="my-page__account--content">
-            <div className="my-page__account--content--kakao">
+          <div className="my-page__account--content font-size-base">
+            <div className="my-page__account--content--kakao ">
               <h3>카카오톡</h3>
               {defaultEmail}
             </div>
@@ -137,9 +150,8 @@ export default function MyPage() {
           <h2 className="my-page__remindway--label font-size-lg">
             리마인드 방식
           </h2>
-          <div>
-            <span className="color-origin-primary">{receiveType}</span>을 통해서
-            리마인드 받고 있어요
+          <div className="my-page__remindway--content font-size-base">
+            {remindWay()}을 통해서 리마인드 받고 있어요
           </div>
           <Button
             border={false}
@@ -149,7 +161,7 @@ export default function MyPage() {
             리마인드 방식 변경
           </Button>
         </div>
-        <div className="my-page__etc">
+        <div className="my-page__etc font-size-base">
           <div className="my-page__etc--logout" onClick={handleLogOut}>
             로그 아웃
           </div>
