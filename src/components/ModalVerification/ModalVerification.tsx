@@ -85,7 +85,6 @@ export default function ModalVerification({
     <div
       className={classNames(
         `modal-verification-wrapper`,
-        'border-origin-primary',
         'background-origin-white-100',
       )}>
       <div
@@ -97,7 +96,7 @@ export default function ModalVerification({
       <div className={classNames(`modal-verification-wrapper__content`)}>
         <h1
           className={classNames(
-            `font-size-2xl`,
+            `font-size-lg`,
             `color-origin-gray-300`,
             `modal-verification-wrapper__text`,
           )}>
@@ -112,14 +111,16 @@ export default function ModalVerification({
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
-            <Button
-              size="md"
-              border={false}
-              color="white-100"
-              background="primary"
-              onClick={handleSubmitEmail}>
-              인증코드 전송
-            </Button>
+            <div>
+              <Button
+                size="md"
+                border={false}
+                color="white-100"
+                background="primary"
+                onClick={handleSubmitEmail}>
+                인증코드 전송
+              </Button>
+            </div>
           </div>
           <div className="font-size-xs modal-verification-wrapper__items--item--message">
             {!isValidEmail && (
@@ -141,17 +142,18 @@ export default function ModalVerification({
           </div>
           <div className="modal-verification-wrapper__items--item">
             <input
-              className="modal-verification-wrapper__items--input"
+              className="modal-verification-wrapper__items--input "
               placeholder="인증 코드를 입력해주세요"
               value={code}
               onChange={handleChangeCode}
             />
-            <div className={classNames(!isSuccess && 'visible-hidden')}>
+            <div>
               <Button
+                disabled={!isSuccess}
                 border={false}
                 size="md"
                 color="white-100"
-                background="primary"
+                background={isSuccess ? 'primary' : 'secondary'}
                 onClick={handleSubmitCode}>
                 인증코드 확인
               </Button>
@@ -180,10 +182,9 @@ export default function ModalVerification({
 
         <Button
           disabled={!isVerifySuccess}
-          background={isVerifySuccess ? 'primary' : 'gray-200'}
+          background={isVerifySuccess ? 'primary' : 'secondary'}
           color={'white-100'}
-          size="md"
-          border={true}
+          border={false}
           onClick={handleCloseModal}>
           인증 완료
         </Button>
