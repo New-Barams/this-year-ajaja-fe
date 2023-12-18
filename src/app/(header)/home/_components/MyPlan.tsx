@@ -4,7 +4,9 @@ import { Dropdown } from '@/components';
 import { planIcons } from '@/constants/planIcons';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
+import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import NewPlan from './NewPlan/NewPlan';
@@ -65,17 +67,27 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
         </div>
       </div>
       <div className={classNames('home__plans')}>
-        {yearData.getPlanList.map((plan, index) => {
-          return (
-            <Plan
-              key={index}
-              title={plan.title}
-              planId={plan.planId}
-              achieveRate={plan.achieveRate}
-              photoUrl={`/animal/${planIcons[plan.icon]}.png`}
-            />
-          );
-        })}
+        {checkThisYear() === year && !yearData.getPlanList.length ? (
+          <div className={classNames('home__plans--empty')}>
+            <Image src={'/animal/cat.png'} alt="cat" width={100} height={100} />
+            <p>작성된 계획이 없습니다.</p>
+            <p>아래 버튼을 눌러 새로운 신년 계획을 만들어보세요!</p>
+          </div>
+        ) : (
+          <>
+            {yearData.getPlanList.map((plan, index) => {
+              return (
+                <Plan
+                  key={index}
+                  title={plan.title}
+                  planId={plan.planId}
+                  achieveRate={plan.achieveRate}
+                  photoUrl={`/animal/${planIcons[plan.icon]}.png`}
+                />
+              );
+            })}
+          </>
+        )}
         <NewPlan />
         <p className={classNames('home__number', 'color-origin-text-300')}>
           ({yearDataLength}/{maxLength})

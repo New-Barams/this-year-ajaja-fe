@@ -29,6 +29,13 @@ $header-height: 11.875rem;
     width: 100%;
     height: calc(100% - $header-height);
     overflow-y: auto;
+    &--empty {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
   }
   &__number {
     display: flex;
