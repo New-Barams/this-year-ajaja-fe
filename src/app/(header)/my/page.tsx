@@ -95,7 +95,7 @@ export default function MyPage() {
         <div className="my-page__nick-name">
           <h2 className="my-page__nick-name--label font-size-lg">닉네임</h2>
           <div className="my-page__nick-name--content">
-            <div>
+            <div className="my-page__nick-name--content--main">
               {nickname}
               <span onClick={handleChangeNickName}>
                 <Icon

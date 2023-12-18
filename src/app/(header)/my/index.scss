@@ -1,4 +1,30 @@
 .my-page {
   &__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: 2rem;
+    text-align: start;
+    & .button {
+      margin-top: 1rem;
+    }
+  }
+  &__header {
+    text-align: center;
+  }
+  &__nick-name {
+    &--content {
+      &--main {
+        display: flex;
+        align-items: center;
+        & .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
   }
 }
