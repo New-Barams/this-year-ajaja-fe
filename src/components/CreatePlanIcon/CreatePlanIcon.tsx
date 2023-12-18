@@ -1,5 +1,6 @@
 'use client';
 
+import { SESSION_STORAGE_KEY } from '@/constants';
 import { useEffect } from 'react';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 
@@ -11,7 +12,7 @@ export default function CreatePlanIcon({
   setIsFirstStepDataAllExist,
 }: CreatePlanIconProps) {
   const [iconNumber, setIconNumber] = useSessionStorage<number | null>({
-    key: 'createPlan-icon',
+    key: SESSION_STORAGE_KEY.STEP_1,
     initialValue: null,
   });
 

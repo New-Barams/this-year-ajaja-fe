@@ -1,6 +1,7 @@
 'use client';
 
 import { Dropdown } from '@/components';
+import { SESSION_STORAGE_KEY } from '@/constants';
 import {
   DATE_OPTIONS,
   TERM_OPTIONS,
@@ -14,7 +15,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 export default function CreatePlanRemindDate() {
   const [remindOptions, setRemindOptions] = useSessionStorage<RemindOptionType>(
     {
-      key: 'createPlan-remindDate',
+      key: SESSION_STORAGE_KEY.STEP_3,
       initialValue: {
         TotalPeriod: 12,
         Term: 3,

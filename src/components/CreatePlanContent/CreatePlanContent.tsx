@@ -1,5 +1,6 @@
 'use client';
 
+import { SESSION_STORAGE_KEY } from '@/constants';
 import { PlanContentType } from '@/types/Plan';
 import { useEffect, useRef } from 'react';
 import { IconSwitchButton, InputTag, PlanInput, Tag } from '..';
@@ -13,7 +14,7 @@ export default function CreatePlanContent({
   setIsSecondStepDataAllExist,
 }: CreatePlanContentProps) {
   const [planContent, setPlanContent] = useSessionStorage<PlanContentType>({
-    key: 'createPlan-content',
+    key: SESSION_STORAGE_KEY.STEP_2,
     initialValue: {
       title: '',
       description: '',

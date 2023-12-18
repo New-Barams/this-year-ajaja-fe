@@ -1,5 +1,6 @@
 'use client';
 
+import { SESSION_STORAGE_KEY } from '@/constants';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindItemType } from '@/types/Remind';
 import React, { useCallback, useEffect } from 'react';
@@ -14,7 +15,7 @@ export default function CreatePlanRemindMessage({
   const [remindMessageList, setRemindMessageList] = useSessionStorage<
     RemindItemType[]
   >({
-    key: 'remind',
+    key: SESSION_STORAGE_KEY.STEP_4,
     initialValue: [],
     // TODO: 이 초기값은 사실 쓰여질 일이 없음 => 3번에서 4번으로 넘어올 때 이미 날짜 확정 모달 클릭 후 각 날짜에 해당하는 기본값을 ""로 설정해주고 넘어왔을 것이므로
     // TODO: 그래서 모달 단계에서 이 작업을 해줘야 함
@@ -26,6 +27,8 @@ export default function CreatePlanRemindMessage({
         remindMessageList.every((remindItem) => remindItem.message.length > 0)
       ) {
         setIsEveryStepDataAllExist(true);
+      } else {
+        setIsEveryStepDataAllExist(false);
       }
       // TODO: 1,2,3단계에 대한 is~StepDataAllExist가 true일 때도 검사해줘야할까
     }
