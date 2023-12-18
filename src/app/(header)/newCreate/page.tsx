@@ -1,12 +1,12 @@
 'use client';
 
-import { CreatePlanContent } from '@/components';
-// import CreatePlanIcon from '@/components/CreatePlanIcon/CreatePlanIcon';
+import CreatePlanRemindDate from '@/components/CreatePlanRemindDate/CreatePlanRemindDate';
 import classNames from 'classnames';
 import { useState } from 'react';
 
 export default function NewCreatePage() {
   const [nowStep, setNowStep] = useState(1);
+
   const goToNextStep = () => {
     if (nowStep < 4) {
       setNowStep(nowStep + 1);
@@ -25,7 +25,7 @@ export default function NewCreatePage() {
         스테퍼 - 현재 단계 : {nowStep}
       </div>
 
-      <CreatePlanContent />
+      <CreatePlanRemindDate />
 
       <div className="button-group">
         <button onClick={goToPreviousStep}>이전 단계</button>
