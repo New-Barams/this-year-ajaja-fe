@@ -1,17 +1,17 @@
 'use client';
 
+import { PlanContentType } from '@/types/Plan';
+import { useEffect } from 'react';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 
-interface planContentType {
-  title: string;
-  description: string;
-  tags: string[] | [];
-  isPublic: boolean;
-  canAjaja: boolean;
+interface CreatePlanContentProps {
+  setIsSecondStepDataAllExist: (isExist: boolean) => void;
 }
 
-export default function CreatePlanContent() {
-  const [planContent, setPlanContent] = useSessionStorage<planContentType>({
+export default function CreatePlanContent({
+  setIsSecondStepDataAllExist,
+}: CreatePlanContentProps) {
+  const [planContent, setPlanContent] = useSessionStorage<PlanContentType>({
     key: 'createPlan-content',
     initialValue: {
       title: '',
@@ -22,6 +22,17 @@ export default function CreatePlanContent() {
     },
   });
 
+  useEffect(() => {
+    if (
+      planContent.title.length > 0 &&
+      planContent.description.length > 0 &&
+      planContent.tags.length > 0
+    ) {
+      setIsSecondStepDataAllExist(true);
+    }
+  }, [planContent, setIsSecondStepDataAllExist]);
+
+  // TODO: WritablePlan 만들고 적용하기
   // const handleChangeTitle = (newTitle: string) => {
   //   setPlanContent({ ...planContent, title: newTitle });
   // };

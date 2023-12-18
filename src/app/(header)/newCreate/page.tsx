@@ -1,8 +1,14 @@
 'use client';
 
+import {
+  CreatePlanContent,
+  CreatePlanIcon,
+  CreatePlanRemindMessage,
+} from '@/components';
 import CreatePlanRemindDate from '@/components/CreatePlanRemindDate/CreatePlanRemindDate';
 import classNames from 'classnames';
 import { useState } from 'react';
+import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 
 export default function NewCreatePage() {
   const [nowStep, setNowStep] = useState(1);
@@ -19,18 +25,64 @@ export default function NewCreatePage() {
     }
   };
 
+  const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
+  const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
+    useState(false);
+  const [isEveryStepDataAllExist, setIsEveryStepDataAllExist] = useState(false);
+
   return (
     <div className={classNames('new-create-page')}>
       <div className="stepper" style={{ height: '2rem' }}>
         스테퍼 - 현재 단계 : {nowStep}
       </div>
 
-      <CreatePlanRemindDate />
+      {(() => {
+        switch (nowStep) {
+          case 1:
+            return (
+              <CreatePlanIcon
+                setIsFirstStepDataAllExist={(isExist: boolean) => {
+                  setIsFirstStepDataAllExist(isExist);
+                }}
+              />
+            );
+          case 2:
+            return (
+              <CreatePlanContent
+                setIsSecondStepDataAllExist={(isExist: boolean) => {
+                  setIsSecondStepDataAllExist(isExist);
+                }}
+              />
+            );
+          case 3:
+            return <CreatePlanRemindDate />;
+          case 4:
+            return (
+              <CreatePlanRemindMessage
+                setIsEveryStepDataAllExist={(isExist: boolean) => {
+                  setIsEveryStepDataAllExist(isExist);
+                }}
+              />
+            );
+          default:
+            return (
+              <CreatePlanContent
+                setIsSecondStepDataAllExist={(isExist: boolean) => {
+                  setIsSecondStepDataAllExist(isExist);
+                }}
+              />
+            );
+        }
+      })()}
 
-      <div className="button-group">
-        <button onClick={goToPreviousStep}>이전 단계</button>
-        <button onClick={goToNextStep}>다음 단계</button>
-      </div>
+      <StepButtonGroup
+        nowStep={nowStep}
+        goToPreviousStep={goToPreviousStep}
+        goToNextStep={goToNextStep}
+        isFirstStepDataAllExist={isFirstStepDataAllExist}
+        isSecondStepDataAllExist={isSecondStepDataAllExist}
+        isEveryStepDataAllExist={isEveryStepDataAllExist}
+      />
     </div>
   );
 }

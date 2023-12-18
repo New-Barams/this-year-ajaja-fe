@@ -1,12 +1,25 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 
-export default function CreatePlanIcon() {
-  const [iconNumber, setIconNumber] = useSessionStorage({
+interface CreatePlanIconProps {
+  setIsFirstStepDataAllExist: (isExist: boolean) => void;
+}
+
+export default function CreatePlanIcon({
+  setIsFirstStepDataAllExist,
+}: CreatePlanIconProps) {
+  const [iconNumber, setIconNumber] = useSessionStorage<number | null>({
     key: 'createPlan-icon',
-    initialValue: 0,
+    initialValue: null,
   });
+
+  useEffect(() => {
+    if (iconNumber) {
+      setIsFirstStepDataAllExist(true);
+    }
+  }, [iconNumber, setIsFirstStepDataAllExist]);
 
   return (
     <div>

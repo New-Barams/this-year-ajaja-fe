@@ -6,9 +6,9 @@ import {
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from '@/constants/components/remindOptions';
+} from '@/constants/remindOptions';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
-import { RemindOptionType } from '@/types/components/Remind';
+import { RemindOptionType } from '@/types/Remind';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 export default function CreatePlanRemindDate() {
