@@ -110,11 +110,7 @@ export default function WritablePlan({
           nextTextAreaRef={nextTextAreaRef}
         />
         <div>
-          <InputTag
-            inputValue={inputTagValue}
-            onChange={setInputValue}
-            onSubmit={handleAddTag}
-          />
+          <InputTag onSubmit={handleAddTag} />
           {tags.map((tag, index) => (
             <Tag
               key={index}
