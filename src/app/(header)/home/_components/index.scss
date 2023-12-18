@@ -1,40 +1,45 @@
+$header-height: 11.875rem;
+
 .home {
   &__wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem;
+    height: $header-height;
 
     &-dropdown {
-      height: 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      margin-top: 2rem;
     }
 
     &--year {
       margin: 0.5rem;
+      font-weight: bold;
     }
     &--total {
-      margin-bottom: 0.25rem;
+      margin-top: 0.75rem;
+      margin-bottom: 1.5rem;
     }
   }
   &__plans {
-    display: grid;
-    grid-template-rows: repeat(2, 17.5rem);
-    grid-template-columns: repeat(2, 20rem);
+    width: 100%;
+    height: calc(100% - $header-height);
+    overflow-y: auto;
   }
-  &-email {
-    &-isVerified {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      height: 1.5rem;
-      margin: 0.5rem 0;
-    }
-    &--tag {
-      padding: 0.4rem 0.6rem;
-    }
-  }
+  // &-email {
+  //   &-isVerified {
+  //     display: flex;
+  //     align-items: center;
+  //     gap: 0.2rem;
+  //     height: 1.5rem;
+  //     margin: 0.5rem 0;
+  //   }
+  //   &--tag {
+  //     padding: 0.4rem 0.6rem;
+  //   }
+  // }
 }
