@@ -16,7 +16,6 @@ export default function Plan({
   achieveRate,
   photoUrl,
 }: PlanProps) {
-  console.log(photoUrl);
   return (
     <Link
       href={`/plans/${planId}`}
