@@ -44,6 +44,10 @@ export default function MyPage() {
         queryClient.invalidateQueries({
           queryKey: [QUERY_KEY.USER_INFORMATION],
         });
+        ajajaToast.success('닉네임이 변경되었습니다.');
+      },
+      onError: () => {
+        ajajaToast.error('닉네임 변경에 실패했습니다. 다시 시도해주세요.');
       },
     });
   };
@@ -87,6 +91,23 @@ export default function MyPage() {
       }),
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_PLANS] }),
     ]);
+  };
+
+  const handleChangeReceiveType = (checked: ReceiveType) => {
+    if (checked === receiveType) return;
+    changeReceiveType(checked, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEY.USER_INFORMATION],
+        });
+        ajajaToast.success('리마인드방식이 변경되었습니다.');
+      },
+      onError: () => {
+        ajajaToast.error(
+          '리마인드 방식 변경에 실패했습니다. 다시 시도해주세요',
+        );
+      },
+    });
   };
 
   const remindWay = () => {
@@ -182,22 +203,7 @@ export default function MyPage() {
             confirmSentence="변경하기"
             isPending={isChangeReceiveTypePending}
             receiveType={receiveType}
-            onClickYes={(checked: ReceiveType) => {
-              if (checked === receiveType) return;
-              changeReceiveType(checked, {
-                onSuccess: () => {
-                  queryClient.invalidateQueries({
-                    queryKey: [QUERY_KEY.USER_INFORMATION],
-                  });
-                  ajajaToast.success('리마인드방식이 변경되었습니다.');
-                },
-                onError: () => {
-                  ajajaToast.error(
-                    '리마인드 방식 변경에 실패했습니다. 다시 시도해주세요',
-                  );
-                },
-              });
-            }}
+            onClickYes={handleChangeReceiveType}
             onClickNo={() => {
               setIsOpenRemindWayModal(false);
             }}>
