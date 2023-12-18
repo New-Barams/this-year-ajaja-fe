@@ -12,11 +12,11 @@ import { ajajaToast } from '@/components/Toaster/customToast';
 import { KAKAO_LOGOUT_URL } from '@/constants/login';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
+import { usePutUserReceiveMutation } from '@/hooks/apis/usePutUserReceiveMutation';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
 import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
-// import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ModalRemindWay from './_components/ModalRemindWay/ModalRemindWay';
@@ -28,7 +28,7 @@ export default function MyPage() {
   const { refreshNickname } = usePostUsersRefreshMutation();
   const { nickname, remindEmail, defaultEmail, receiveType, emailVerified } =
     userInformation;
-
+  const { changeReceiveType } = usePutUserReceiveMutation();
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
   const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
@@ -181,7 +181,14 @@ export default function MyPage() {
             confirmSentence="변경하기"
             receiveType={receiveType}
             onClickYes={(checked: ReceiveType) => {
-              console.log(checked);
+              if (checked === receiveType) return;
+              changeReceiveType(checked, {
+                onSuccess: () => {
+                  queryClient.invalidateQueries({
+                    queryKey: [QUERY_KEY.USER_INFORMATION],
+                  });
+                },
+              });
             }}
             onClickNo={() => {
               setIsOpenRemindWayModal(false);
