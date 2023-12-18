@@ -76,7 +76,8 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
         <Modal>
           <ModalBasic
             onClickYes={handleModalClickYes}
-            onClickNo={handleModalClickNo}>
+            onClickNo={handleModalClickNo}
+            confirmSentense="삭제 하기">
             정말 해당 계획을 삭제하시겠습니까 ?
           </ModalBasic>
         </Modal>

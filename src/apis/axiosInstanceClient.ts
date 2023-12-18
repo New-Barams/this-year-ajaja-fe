@@ -42,12 +42,13 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
-    console.log('error발생,');
+    console.log('axios 에러 ');
     console.log(error);
     if (
       error.response &&
       error.response.data &&
-      error.response.data.errorName === 'INVALID_SIGNATURE'
+      (error.response.data.errorName === 'INVALID_SIGNATURE' ||
+        error.response.data.errorName === 'TOKEN_NOT_MATCH')
     ) {
       //TODO: 일치하지 않을떄도 재로그인
       alertAndLogin();
@@ -67,22 +68,25 @@ axiosInstanceClient.interceptors.response.use(
         const isExpiredRefreshToken = !checkTokenExp(refreshToken);
 
         if (isExpiredAccessToken || isExpiredRefreshToken) {
-          //TODO: 토큰 재발행에 실패한다면 ?
-          const {
-            data: { data: tokens },
-          } = await postReissue({
-            accessToken,
-            refreshToken,
-          });
-
-          setCookie('auth', tokens, { maxAge: 604800 });
-          if (error.config) {
-            error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
-            //TODO 그래도 retry에 실패 한다면 ?response를 반환해줘야하는데 요청을 그대로 반환해도되나?
-            return axiosInstanceClient.request(error.config);
+          try {
+            const {
+              data: { data: tokens },
+            } = await postReissue({
+              accessToken,
+              refreshToken,
+            });
+            setCookie('auth', tokens, { maxAge: 604800 });
+            if (error.config) {
+              error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
+              const response = await axiosInstanceClient.request(error.config);
+              return response;
+            }
+          } catch {
+            alertAndLogin();
           }
+        } else {
+          alertAndLogin();
         }
-        alertAndLogin();
       }
     }
 
