@@ -1,25 +1,8 @@
-$sizes: ('lg', 'md', 'sm');
-
 .button {
   width: 100%;
   padding: 0.5rem 0;
   box-shadow: var(--origin-shadow);
-  @each $size in $sizes {
-    &--#{$size} {
-      &:hover {
-        cursor: pointer;
-      }
-      font-weight: bold;
-      @if $size== 'lg' {
-        height: 40px;
-        padding: 5px 40px;
-      } @else if $size== 'md' {
-        height: 40px;
-        padding: 5px 15px;
-      } @else if $size== 'sm' {
-        height: 25px;
-        padding: 3px 10px;
-      }
-    }
+  &:hover {
+    cursor: pointer;
   }
 }
