@@ -7,7 +7,7 @@ interface ButtonProps
   extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   background: Color;
   color: Color;
-  size: 'lg' | 'md' | 'sm';
+  size?: 'lg' | 'md' | 'sm';
   border: boolean;
   classNameList?: string[];
   onClick?: () => void;
@@ -17,33 +17,20 @@ interface ButtonProps
 export default function Button({
   background,
   color,
-  size,
   border,
   classNameList = [],
   children,
   onClick,
   ...props
 }: ButtonProps) {
-  let fontSize;
-  switch (size) {
-    case 'sm':
-      fontSize = 'sm';
-      break;
-    case 'md':
-      fontSize = 'xl';
-      break;
-    case 'lg':
-      fontSize = 'xl';
-      break;
-  }
   return (
     <button
       className={classNames(
-        `button--${size}`,
+        `button`,
         border ? `border-origin-${color}` : 'border-none',
         `background-origin-${background}`,
         `color-origin-${color}`,
-        `font-size-${fontSize}`,
+        `font-size-base`,
         `border-round`,
         classNameList,
       )}

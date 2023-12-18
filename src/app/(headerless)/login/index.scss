@@ -1,61 +1,36 @@
-@import '@styles/variables.scss';
-
 .wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 0 2rem 0;
 
   .login {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    justify-content: center;
+    gap: 2rem;
     align-items: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    padding: 2rem;
-    .login {
+    &__welcome-text {
+      white-space: nowrap;
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      justify-content: center;
-      align-items: center;
-
-      &__sentence {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
+      font-size: 2rem;
+      line-height: 40px;
+      &--logo {
+        vertical-align: text-bottom;
       }
-
-      &__buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        justify-content: center;
-        text-align: center;
-
-        &--unAuth {
-          text-decoration: none;
-        }
-      }
-    }
-
-    &__sentence {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
     }
 
     &__buttons {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 1rem;
       justify-content: center;
       text-align: center;
+      &--image {
+        width: 100%;
+        object-fit: contain;
+      }
 
       &--unAuth {
         text-decoration: none;

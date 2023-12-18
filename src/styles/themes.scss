@@ -1,6 +1,11 @@
 $themes: (
   origin: (
     primary: var(--origin-primary),
+    secondary: var(--origin-secondary),
+    background: var(--origin-background),
+    text-100: var(--origin-text-100),
+    text-300: var(--origin-text-300),
+    text-600: var(--origin-text-600),
     white-100: var(--origin-white-100),
     white-200: var(--origin-white-200),
     white-300: var(--origin-white-300),

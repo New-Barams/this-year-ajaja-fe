@@ -5,11 +5,15 @@
     background-color: transparent;
     gap: 5px;
     border: none;
+    font-weight: bold;
     &:hover {
       cursor: pointer;
     }
   }
   &-name {
     margin-top: -5px;
+  }
+  &-p {
+    margin-top: 0.3rem;
   }
 }

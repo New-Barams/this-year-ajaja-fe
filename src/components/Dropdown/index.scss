@@ -1,6 +1,6 @@
 .dropdown {
   &__container {
-    width: 10rem;
+    display: inline-block;
     position: relative;
     z-index: 10;
     background-color: transparent;
@@ -24,8 +24,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 0.5rem 0.75rem;
-    border: var(--border-width) solid var(--origin-primary);
+    padding: 0.5rem 2rem;
+    border: 1px solid var(--origin-primary);
     border-radius: var(--border-radius);
     cursor: pointer;
 
@@ -37,7 +37,7 @@
 
     &__icon {
       position: absolute;
-      right: 0.2rem;
+      right: 0rem;
     }
   }
 
@@ -50,22 +50,29 @@
     border-radius: 0px 0px var(--border-radius) var(--border-radius);
 
     &__list {
-      border: var(--border-width) solid var(--origin-primary);
+      border: 1px solid var(--origin-primary);
       border-top: none;
       list-style-type: none;
       text-align: center;
-      max-height: 12rem;
-      overflow-y: auto;
+      max-height: 9rem;
       border-radius: 0px 0px var(--border-radius) var(--border-radius);
+
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     &__item {
       padding: 0.5rem;
-
+      border-bottom: 1px solid var(--origin-primary);
       cursor: pointer;
 
       &:last-child {
         border-radius: 0px 0px 9px 9px;
+        border-bottom: none;
       }
 
       &:hover {
@@ -73,12 +80,4 @@
       }
     }
   }
-
-  &--remind{
-    width: 7rem;
-  }
-}
-
-#dropdown:checked + label + div {
-  display: block;
 }

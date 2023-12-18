@@ -16,6 +16,8 @@
 .slider {
   position: absolute;
   cursor: pointer;
+  width: 50px;
+  height: 1.5rem;
   top: 0;
   left: 0;
   right: 0;
@@ -28,24 +30,24 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: 1.5rem;
-  width: 1.5rem;
-  left: 0.25rem;
-  bottom: calc(50% - 0.75rem);
+  height: 1.25rem;
+  width: 1.25rem;
+  left: 2.5px;
+  bottom: calc(50% - 1.25rem / 2);
+
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  box-shadow: var(--origin-shadow);
 }
 
 input:checked + .slider {
-  background-color: var(--origin-orange-200);
+  background-color: var(--origin-primary);
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1.75rem);
-  -ms-transform: translateX(1.75rem);
-  transform: translateX(1.75rem);
+  -webkit-transform: translateX(25px);
+  -ms-transform: translateX(25px);
+  transform: translateX(25px);
 }
 
 /* Rounded sliders */

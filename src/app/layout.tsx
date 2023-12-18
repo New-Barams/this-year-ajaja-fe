@@ -1,14 +1,18 @@
 import Provider from '@/provider/Provider';
 import classNames from 'classnames';
 import type { Metadata } from 'next';
-import { Noto_Sans_KR } from 'next/font/google';
+import { Poor_Story } from 'next/font/google';
+import { cookies } from 'next/headers';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
+import LandingPage from './_components/LandingPage/LandingPage';
+import Navigation from './_components/Navigation/Navigation';
+import './_components/index.scss';
 
-const noto_sans = Noto_Sans_KR({
+const poor_story = Poor_Story({
   subsets: ['latin'],
-  weight: ['100', '400', '700', '900'],
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {
@@ -24,20 +28,35 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const hasAuth = cookies().has('auth');
   return (
     <html lang="en">
       <head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
         />
       </head>
-      <body
-        className={classNames(
-          noto_sans.className,
-          'background-origin-white-200',
-        )}>
-        <Provider>{children}</Provider>
+      <body className={classNames(poor_story.className, 'background-origin')}>
+        <Provider>
+          <div className={classNames('global-landing')}>
+            <LandingPage />
+          </div>
+          <div
+            className={classNames(
+              'background-origin-background',
+              'global-frame',
+            )}>
+            <div className={classNames('global-frame-inside')}>
+              <div className={classNames('global-frame-children')}>
+                {children}
+              </div>
+              <div className={classNames('global-frame-navigation')}>
+                <Navigation hasAuth={hasAuth} />
+              </div>
+            </div>
+          </div>
+        </Provider>
       </body>
     </html>
   );

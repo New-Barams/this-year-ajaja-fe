@@ -14,18 +14,23 @@ export default function useOauthPage() {
       const code = new URL(window.location.href).searchParams.get('code');
       (async () => {
         if (code) {
-          await postLogin(code).then((response) => {
-            const { data } = response;
-            setCookie('auth', data);
-            router.push('/home');
-            ajajaToast.success('로그인에 성공했습니다.');
-          });
+          await postLogin(code)
+            .then((response) => {
+              //TODO: 로그인 실패 처리 필요, maxAge 상수화, await 와 then을같이 쓰는게 맞나?
+              const { data } = response;
+              setCookie('auth', data, { maxAge: 604800 });
+              router.replace('/home');
+              ajajaToast.success('로그인에 성공했습니다.');
+            })
+            .catch(() => {
+              alert('로그인에 실패했습니다. 잠시 후 시도해주세요');
+              router.replace('/login');
+            });
         }
       })();
     } else if (way === 'logout') {
       deleteCookie('auth');
-      router.push('/login');
-      ajajaToast.success('로그아웃에 성공했습니다. ');
+      router.replace('/login');
     }
   }, [router]);
 }

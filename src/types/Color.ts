@@ -1,5 +1,10 @@
 export type Color =
   | 'primary'
+  | 'secondary'
+  | 'background'
+  | 'text-100'
+  | 'text-300'
+  | 'text-600'
   | 'white-100'
   | 'white-200'
   | 'white-300'

@@ -66,20 +66,13 @@ export default function AjajaButton({
       )}
       onClick={handleAjaja}
       {...props}>
-      <div>
-        <Icon
-          name="AJAJA"
-          size="2xl"
-          color={fill ? 'primary' : 'gray-100'}
-          isFilled={fill}
-        />
-        <p
-          className={classNames('ajaja-name', `color-origin-gray-300`)}
-          style={{ fontSize: '0.375rem' }}>
-          아좌좌
-        </p>
-      </div>
-      {count}
+      <Icon
+        name="AJAJA"
+        size="3xl"
+        color={fill ? 'primary' : 'gray-100'}
+        isFilled={fill}
+      />
+      <p className={classNames('ajaja-p')}>아좌좌 {count}</p>
     </button>
   );
 }
