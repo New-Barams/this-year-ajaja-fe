@@ -19,7 +19,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const maxLength = 4;
   const { data: myPlansData } = myPlans;
   const yearList = myPlansData.map((x) => x.year);
-  const [period, setPeriod] = useState(yearList[0]);
+  const [year, setYear] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
   const [yearDataLength, setYearDataLength] = useState(
     myPlansData[0].getPlanList.length,
@@ -30,11 +30,11 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   });
 
   useEffect(() => {
-    const chosenYearData = myPlansData.find((x) => x.year === period)!;
+    const chosenYearData = myPlansData.find((x) => x.year === year)!;
     setYearData(chosenYearData);
     setYearDataLength(chosenYearData.getPlanList.length);
     setCanMakeNewPlan(!!(maxLength - chosenYearData.getPlanList.length));
-  }, [period, myPlansData, setCanMakeNewPlan, setYearDataLength]);
+  }, [year, myPlansData, setCanMakeNewPlan, setYearDataLength]);
   return (
     <>
       <div className={classNames('home__header')}>
@@ -42,8 +42,8 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
           <Dropdown
             dropdownId="homePageDropdown"
             options={PERIOD_OPTIONS}
-            selectedValue={period}
-            setSelectedValue={setPeriod}
+            selectedValue={year}
+            setSelectedValue={setYear}
           />
         </div>
         <div
@@ -52,7 +52,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
             `font-size-lg`,
             `color-origin-text-100`,
           )}>
-          {period}년 나의 계획은?
+          {year}년 나의 계획은?
         </div>
         <ProgressBar percent={yearData.totalAchieveRate} />
         <div
