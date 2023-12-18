@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
+import LandingPage from './_components/LandingPage/LandingPage';
 import Navigation from './_components/Navigation/Navigation';
 import './_components/index.scss';
 
@@ -38,9 +39,8 @@ export default function RootLayout({
       </head>
       <body className={classNames(poor_story.className, 'background-origin')}>
         <Provider>
-          <div
-            className={classNames('border-origin-text-100', 'global-landing')}>
-            랜딩 설명입니다.
+          <div className={classNames('global-landing')}>
+            <LandingPage />
           </div>
           <div
             className={classNames(

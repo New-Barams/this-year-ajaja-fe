@@ -92,7 +92,7 @@ axiosInstanceClient.interceptors.response.use(
       }
     }
 
-    return error;
+    return Promise.reject(error);
   },
 );
 
