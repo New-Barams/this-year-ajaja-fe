@@ -1,0 +1,40 @@
+.modal-remindway {
+  &__wrapper {
+    width: 100%;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: var(--border-width) solid var(--origin-gray-200);
+  }
+  &__content {
+    &--header {
+      margin-bottom: 2rem;
+    }
+    &--radio {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      &--items {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      &--item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .alert-text {
+        display: flex;
+        align-items: center;
+      }
+    }
+    &--button {
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
+}

@@ -13,18 +13,21 @@ import { KAKAO_LOGOUT_URL } from '@/constants/login';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
+import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
 // import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import ModalRemindWay from './_components/ModalRemindWay/ModalRemindWay';
 import './index.scss';
 
 export default function MyPage() {
   const queryClient = useQueryClient();
   const { userInformation } = useGetUserInformationQuery();
   const { refreshNickname } = usePostUsersRefreshMutation();
-  const { nickname, remindEmail, defaultEmail, receiveType } = userInformation;
+  const { nickname, remindEmail, defaultEmail, receiveType, emailVerified } =
+    userInformation;
 
   const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
   const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
@@ -143,7 +146,7 @@ export default function MyPage() {
             background="primary"
             color="white-100"
             onClick={handleGoEmailVerification}>
-            이메일 변경
+            이메일 {emailVerified ? '변경' : '인증'}
           </Button>
         </div>
         <div className="my-page__remindway">
@@ -172,13 +175,28 @@ export default function MyPage() {
           </div>
         </div>
       </div>
-      {isOpenRemindWayModal && <div></div>}
+      {isOpenRemindWayModal && (
+        <Modal>
+          <ModalRemindWay
+            confirmSentence="변경하기"
+            receiveType={receiveType}
+            onClickYes={(checked: ReceiveType) => {
+              console.log(checked);
+            }}
+            onClickNo={() => {
+              setIsOpenRemindWayModal(false);
+            }}>
+            리마인드 방식 변경
+          </ModalRemindWay>
+        </Modal>
+      )}
       {isOpenEmailModal && (
         <Modal>
           <ModalVerification
             handleCloseModal={handleCloseEmailVerificationModal}
-            setVerifiedEmail={handleSetVerifiedEmail}
-          />
+            setVerifiedEmail={handleSetVerifiedEmail}>
+            이메일 {emailVerified ? '변경' : '인증'}
+          </ModalVerification>
         </Modal>
       )}
       {isOpenLogOutModal && (

@@ -10,4 +10,4 @@ interface User {
   receiveType: ReceiveType;
 }
 
-type ReceiveType = 'both' | 'email' | 'kakao';
+export type ReceiveType = 'both' | 'email' | 'kakao';
