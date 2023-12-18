@@ -1,5 +1,6 @@
 $media-majinot-width: 1230px;
 $media-middle-width: 1500px;
+$media-mobile-width: 450px;
 $navigation-hight: 4rem;
 .global {
   &-wrapper {
@@ -28,7 +29,7 @@ $navigation-hight: 4rem;
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 450px;
+    width: $media-mobile-width;
     margin: auto;
     @media screen and (min-width: $media-majinot-width) {
       right: 10%;
@@ -44,6 +45,9 @@ $navigation-hight: 4rem;
     }
     @media screen and (min-width: $media-middle-width) {
       right: 15%;
+    }
+    @media screen and (max-width: $media-mobile-width) {
+      width: 100%;
     }
     &-inside {
       height: 100%;

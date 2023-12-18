@@ -9,12 +9,14 @@ import './index.scss';
 type ModalProps = {
   onClickYes: () => void;
   onClickNo: () => void;
+  confirmSentense: string;
   children: React.ReactNode;
 };
 
 export default function ModalBasic({
   onClickYes,
   onClickNo,
+  confirmSentense,
   children,
 }: ModalProps) {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
@@ -23,35 +25,21 @@ export default function ModalBasic({
     <div
       className={classNames(
         `modal-basic-wrapper`,
-        'border-origin-primary',
         'background-origin-white-100',
       )}
       ref={backgroundRef}>
       <div className={classNames(`modal-basic-wrapper__content`)}>
         <div
-          className={classNames(
-            `font-size-xl`,
-            `color-origin-gray-300`,
-            `modal-basic-wrapper__text`,
-          )}>
+          className={classNames(`font-size-lg`, `modal-basic-wrapper__text`)}>
           {children}
         </div>
         <div className={classNames(`modal-basic-wrapper__button`)}>
           <Button
             background="primary"
             color="white-100"
-            size="md"
             border={false}
             onClick={onClickYes}>
-            네
-          </Button>
-          <Button
-            background="white-100"
-            color="primary"
-            size="md"
-            border={true}
-            onClick={onClickNo}>
-            아니오
+            {confirmSentense}
           </Button>
         </div>
       </div>
