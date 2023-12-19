@@ -8,7 +8,7 @@ import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import NewPlan from './NewPlan/NewPlan';
 import Plan from './Plan/Plan';
 import ProgressBar from './ProgressBar/ProgressBar';
@@ -26,7 +26,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
   const [yearDataLength, setYearDataLength] = useState(
     myPlansData[0].getPlanList.length,
   );
-  const [, setCanMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
+  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
   });
