@@ -66,7 +66,7 @@ export default function CreatePlanRemindDate() {
             setSelectedValue={(newSelectedValue: number) => {
               handleChangeRemindOption('TotalPeriod', newSelectedValue);
             }}
-            classNameList={[]}
+            classNameList={['dropdown__remind-option__first']}
           />
           <span>동안 받을래요!</span>
         </div>
@@ -82,7 +82,7 @@ export default function CreatePlanRemindDate() {
             setSelectedValue={(newSelectedValue: number) => {
               handleChangeRemindOption('Term', newSelectedValue);
             }}
-            classNameList={[]}
+            classNameList={['dropdown__remind-option__second']}
           />
           <span>마다 받을래요!</span>
         </div>
@@ -98,7 +98,7 @@ export default function CreatePlanRemindDate() {
             setSelectedValue={(newSelectedValue: number) => {
               handleChangeRemindOption('Date', newSelectedValue);
             }}
-            classNameList={[]}
+            classNameList={['dropdown__remind-option__third']}
           />
           <span>에 받을래요!</span>
         </div>
