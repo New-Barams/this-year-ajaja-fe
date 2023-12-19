@@ -11,8 +11,16 @@ import { SESSION_STORAGE_KEY } from '@/constants';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
+
+const StepperComponent = dynamic(
+  () => import('./_components/CreatePlanStepper/CreatePlanStepper'),
+  {
+    ssr: false,
+  },
+);
 
 export default function NewCreatePage() {
   const [nowStep, setNowStep] = useState(1);
@@ -110,9 +118,7 @@ export default function NewCreatePage() {
 
   return (
     <div className={classNames('new-create-page')}>
-      <div className="stepper" style={{ height: '2rem' }}>
-        스테퍼 - 현재 단계 : {nowStep}
-      </div>
+      <StepperComponent nowStep={nowStep - 1} />
 
       {(() => {
         switch (nowStep) {
