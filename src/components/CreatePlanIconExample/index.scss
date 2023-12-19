@@ -1,0 +1,33 @@
+$image-width: 9rem;
+
+.example-icon-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  box-shadow: var(--origin-shadow);
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__image {
+    margin: 0.5rem 1.5rem;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: calc(100% - $image-width);
+  }
+
+  &__text__title{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  &__text__rate{
+    width: 100%;
+  }
+}
