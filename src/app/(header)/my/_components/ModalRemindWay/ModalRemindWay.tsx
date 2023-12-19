@@ -11,6 +11,7 @@ type ModalRemindWayProps = {
   onClickNo: () => void;
   confirmSentence: string;
   children: React.ReactNode;
+  isVerified: boolean;
   isPending?: boolean;
 };
 
@@ -20,6 +21,7 @@ export default function ModalRemindWay({
   confirmSentence,
   receiveType,
   children,
+  isVerified,
   isPending = false,
 }: ModalRemindWayProps) {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
@@ -53,16 +55,6 @@ export default function ModalRemindWay({
                 disabled={isPending}
                 type="radio"
                 name="receiveType"
-                value="email"
-                defaultChecked={receiveType === 'email'}
-              />
-              이메일
-            </label>
-            <label className="modal-remindway__content--radio--item">
-              <input
-                disabled={isPending}
-                type="radio"
-                name="receiveType"
                 value="kakao"
                 defaultChecked={receiveType === 'kakao'}
               />
@@ -70,7 +62,18 @@ export default function ModalRemindWay({
             </label>
             <label className="modal-remindway__content--radio--item">
               <input
-                disabled={isPending}
+                disabled={!isVerified || isPending}
+                type="radio"
+                name="receiveType"
+                value="email"
+                defaultChecked={receiveType === 'email'}
+              />
+              이메일
+            </label>
+
+            <label className="modal-remindway__content--radio--item">
+              <input
+                disabled={!isVerified || isPending}
                 type="radio"
                 name="receiveType"
                 value="both"
@@ -82,7 +85,7 @@ export default function ModalRemindWay({
 
           <div className="alert-text">
             <Icon name="WARNING" size="lg" />
-            <span className="color-origin-primary">
+            <span className="color-origin-primary font-size-xs">
               이메일로 리마인드를 받기 위해서는 이메일 인증이 필요합니다.
             </span>
           </div>

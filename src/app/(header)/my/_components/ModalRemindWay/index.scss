@@ -26,6 +26,9 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        &:has(input:disabled) {
+          color: rgba(black, 0.25);
+        }
       }
       .alert-text {
         display: flex;
