@@ -10,7 +10,9 @@ import {
 } from '@/constants/remindOptions';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindOptionType } from '@/types/Remind';
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo } from 'react';
+import './index.scss';
 
 export default function CreatePlanRemindDate() {
   const [remindOptions, setRemindOptions] = useSessionStorage<RemindOptionType>(
@@ -49,63 +51,73 @@ export default function CreatePlanRemindDate() {
   }, [remindOptions.TotalPeriod, remindOptions.Term, handleChangeRemindOption]);
 
   return (
-    <div>
-      <div>1년 중, 리마인드를 받고 싶은 날짜를 정해보세요 !</div>
+    <div className={classNames(['create-remind-date'])}>
+      <p className={classNames(['create-remind-date__title'])}>
+        1년 중, 리마인드를 받고 싶은 날짜를 정해보세요!
+      </p>
 
-      <div>몇 개월 동안 리마인드를 받고 싶으세요?</div>
-      <div>
-        <Dropdown
-          dropdownId="remindPeriodDropdown"
-          options={TOTAL_PERIOD_OPTIONS}
-          selectedValue={remindOptions.TotalPeriod}
-          setSelectedValue={(newSelectedValue: number) => {
-            handleChangeRemindOption('TotalPeriod', newSelectedValue);
-          }}
-          classNameList={[]}
-        />
-        <span>동안 리마인드를 받을래요 !</span>
+      <div className={classNames(['create-remind-date__option'])}>
+        <p>몇 개월 동안 리마인드를 받고 싶으세요?</p>
+        <div className={classNames(['create-remind-date__option__answer'])}>
+          <Dropdown
+            dropdownId="remindPeriodDropdown"
+            options={TOTAL_PERIOD_OPTIONS}
+            selectedValue={remindOptions.TotalPeriod}
+            setSelectedValue={(newSelectedValue: number) => {
+              handleChangeRemindOption('TotalPeriod', newSelectedValue);
+            }}
+            classNameList={[]}
+          />
+          <span>동안 받을래요!</span>
+        </div>
       </div>
 
-      <div>몇 개월 주기로 리마인드를 받고 싶으세요?</div>
-      <div>
-        <Dropdown
-          dropdownId="remindTermDropdown"
-          options={filteredTermOptions}
-          selectedValue={remindOptions.Term}
-          setSelectedValue={(newSelectedValue: number) => {
-            handleChangeRemindOption('Term', newSelectedValue);
-          }}
-          classNameList={[]}
-        />
-        <span>마다 리마인드를 받을래요 !</span>
+      <div className={classNames(['create-remind-date__option'])}>
+        <p>몇 개월 주기로 리마인드를 받고 싶으세요?</p>
+        <div className={classNames(['create-remind-date__option__answer'])}>
+          <Dropdown
+            dropdownId="remindTermDropdown"
+            options={filteredTermOptions}
+            selectedValue={remindOptions.Term}
+            setSelectedValue={(newSelectedValue: number) => {
+              handleChangeRemindOption('Term', newSelectedValue);
+            }}
+            classNameList={[]}
+          />
+          <span>마다 받을래요!</span>
+        </div>
       </div>
 
-      <div>매달 몇 일에 리마인드를 받고 싶으세요?</div>
-      <div>
-        <Dropdown
-          dropdownId="remindDateDropdown"
-          options={DATE_OPTIONS}
-          selectedValue={remindOptions.Date}
-          setSelectedValue={(newSelectedValue: number) => {
-            handleChangeRemindOption('Date', newSelectedValue);
-          }}
-          classNameList={[]}
-        />
-        <span>에 리마인드를 받을래요 !</span>
+      <div className={classNames(['create-remind-date__option'])}>
+        <p>매달 몇 일에 리마인드를 받고 싶으세요?</p>
+        <div className={classNames(['create-remind-date__option__answer'])}>
+          <Dropdown
+            dropdownId="remindDateDropdown"
+            options={DATE_OPTIONS}
+            selectedValue={remindOptions.Date}
+            setSelectedValue={(newSelectedValue: number) => {
+              handleChangeRemindOption('Date', newSelectedValue);
+            }}
+            classNameList={[]}
+          />
+          <span>에 받을래요!</span>
+        </div>
       </div>
 
-      <div>어느 시간에 리마인드를 받고 싶으세요?</div>
-      <div>
-        <Dropdown
-          dropdownId="remindTimeDropdown"
-          options={TIME_OPTIONS}
-          selectedValue={remindOptions.Time}
-          setSelectedValue={(newSelectedValue: number) => {
-            handleChangeRemindOption('Time', newSelectedValue);
-          }}
-          classNameList={[]}
-        />
-        <span>에 리마인드를 받을래요 !</span>
+      <div className={classNames(['create-remind-date__option'])}>
+        <p>어느 시간에 리마인드를 받고 싶으세요?</p>
+        <div className={classNames(['create-remind-date__option__answer'])}>
+          <Dropdown
+            dropdownId="remindTimeDropdown"
+            options={TIME_OPTIONS}
+            selectedValue={remindOptions.Time}
+            setSelectedValue={(newSelectedValue: number) => {
+              handleChangeRemindOption('Time', newSelectedValue);
+            }}
+            classNameList={[]}
+          />
+          <span>에 받을래요!</span>
+        </div>
       </div>
     </div>
   );
