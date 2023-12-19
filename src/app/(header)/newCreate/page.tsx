@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
+import './index.scss';
 
 const StepperComponent = dynamic(
   () => import('./_components/CreatePlanStepper/CreatePlanStepper'),
@@ -21,6 +22,13 @@ const StepperComponent = dynamic(
     ssr: false,
   },
 );
+
+const STEP_NAME = [
+  '1. 계획 아이콘 정하기',
+  '2. 계획 만들기',
+  '3. 리마인드 날짜 정하기',
+  '4. 리마인드 메세지 작성하기',
+] as const;
 
 export default function NewCreatePage() {
   const [nowStep, setNowStep] = useState(1);
@@ -119,6 +127,10 @@ export default function NewCreatePage() {
   return (
     <div className={classNames('new-create-page')}>
       <StepperComponent nowStep={nowStep - 1} />
+
+      <div className={classNames('new-create-page__title', 'font-size-xl')}>
+        {STEP_NAME[nowStep - 1]}
+      </div>
 
       {(() => {
         switch (nowStep) {

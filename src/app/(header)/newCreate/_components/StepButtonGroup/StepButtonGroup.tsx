@@ -2,8 +2,10 @@
 
 import { Button } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
+import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import './index.scss';
 
 interface StepButtonGroupProps {
   nowStep: number;
@@ -51,7 +53,7 @@ export default function StepButtonGroup({
   };
 
   return (
-    <div>
+    <div className={classNames('step-button-group')}>
       {(() => {
         switch (nowStep) {
           case 1:
@@ -61,12 +63,13 @@ export default function StepButtonGroup({
                   background="white-100"
                   border={true}
                   color="primary"
-                  onClick={exitCreatePlanPage}>
+                  onClick={exitCreatePlanPage}
+                  size="sm">
                   나가기
                 </Button>
                 <Button
                   background="primary"
-                  border={true}
+                  border={false}
                   color="white-100"
                   onClick={() => {
                     handleClickGoToNextStep(isFirstStepDataAllExist);
@@ -87,7 +90,7 @@ export default function StepButtonGroup({
                 </Button>
                 <Button
                   background="primary"
-                  border={true}
+                  border={false}
                   color="white-100"
                   onClick={() => {
                     handleClickGoToNextStep(isSecondStepDataAllExist);
@@ -108,7 +111,7 @@ export default function StepButtonGroup({
                 </Button>
                 <Button
                   background="primary"
-                  border={true}
+                  border={false}
                   color="white-100"
                   onClick={() => {
                     goToLastStep();
@@ -129,7 +132,7 @@ export default function StepButtonGroup({
                 </Button>
                 <Button
                   background="primary"
-                  border={true}
+                  border={false}
                   color="white-100"
                   onClick={() => {
                     handleClickCreatePlan(isEveryStepDataAllExist);
