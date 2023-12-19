@@ -13,6 +13,8 @@ export { default as InputTag } from '@components/InputTag/InputTag';
 export { default as Modal } from '@components/Modal/Modal';
 export { default as ModalBasic } from '@components/Modal/ModalBasic';
 export { default as ModalExit } from '@components/Modal/ModalExit';
+export { default as ModalFixRemindDate } from '@components/ModalFixRemindDate/ModalFixRemindDate';
+export { default as ModalSelectIcon } from '@components/ModalSelectIcon/ModalSelectIcon';
 export { default as ModalVerification } from '@components/ModalVerification/ModalVerification';
 export { default as PlanInput } from '@components/PlanInput/PlanInput';
 export { default as ReadOnlyRemind } from '@components/Remind/ReadOnlyRemind/ReadOnlyRemind';

@@ -1,8 +1,12 @@
 'use client';
 
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { planIcons } from '@/constants/planIcons';
 import classNames from 'classnames';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { Modal, ModalSelectIcon } from '..';
+import CreatePlanIconExample from '../CreatePlanIconExample/CreatePlanIconExample';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
 
@@ -32,10 +36,26 @@ export default function CreatePlanIcon({
         className={classNames('create-plan-icon__question', 'font-size-base')}>
         계획을 대표할 아이콘을 정해볼까요?
       </div>
+
       {iconNumber ? (
         <>
-          <div>선택된 아이콘 이미지</div>
-          <div>클릭하면 다른 아이콘으로 변경할 수 있어요</div>
+          <Image
+            src={`/animal/${planIcons[iconNumber]}.png`}
+            width={90}
+            height={90}
+            alt="Plan Icon"
+            className={classNames('create-plan-icon__icon-image')}
+            onClick={() => {
+              setIsSelectIconModalOpen(true);
+            }}
+          />
+          <div
+            className={classNames(
+              'create-plan-icon__icon-text',
+              'font-size-xs',
+            )}>
+            클릭하면 다른 아이콘으로 변경할 수 있어요
+          </div>
         </>
       ) : (
         <div
@@ -47,7 +67,7 @@ export default function CreatePlanIcon({
         </div>
       )}
 
-      <div>
+      <div className={classNames('create-plan-icon__example')}>
         <div
           className={classNames(
             'create-plan-icon__example__text',
@@ -55,15 +75,18 @@ export default function CreatePlanIcon({
           )}>
           선택된 아이콘은 계획이 생성되었을 때 다음과 같이 보여요 !
         </div>
+        <CreatePlanIconExample />
       </div>
 
       {isSelectIconModalOpen && (
-        <div
-          onClick={() => {
-            setIconNumber(1);
-          }}>
-          임시
-        </div>
+        <Modal>
+          <ModalSelectIcon
+            setIconNumber={setIconNumber}
+            closeModal={() => {
+              setIsSelectIconModalOpen(false);
+            }}
+          />
+        </Modal>
       )}
     </div>
   );

@@ -4,14 +4,10 @@ $image-width: 9rem;
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem;
   box-shadow: var(--origin-shadow);
-  &:hover {
-    cursor: pointer;
-  }
 
   &__image {
-    margin: 0.5rem 1.5rem;
+    margin: 0.75rem 1.5rem;
   }
 
   &__text {
@@ -19,15 +15,8 @@ $image-width: 9rem;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin-left: 1rem;
+    gap: 1rem;
     width: calc(100% - $image-width);
-  }
-
-  &__text__title{
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  &__text__rate{
-    width: 100%;
   }
 }

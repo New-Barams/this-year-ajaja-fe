@@ -22,7 +22,7 @@ export default function ModalFixRemindDate({
           onClickYes();
         }}
         onClickNo={() => {
-          onClickNo;
+          onClickNo();
         }}
         confirmSentense="진행하기">
         <div>

@@ -14,7 +14,7 @@ export default function CreatePlanIconExample() {
         'border-round',
       )}>
       <Image
-        src={`/animal/${planIcons[1]}.png`}
+        src={`/animal/${planIcons[2]}.png`}
         width={90}
         height={90}
         alt="example plan icon"

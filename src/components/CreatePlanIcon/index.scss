@@ -8,6 +8,14 @@
     margin-top: 1rem;
   }
 
+  &__icon-image {
+    margin-top: 1.25rem;
+  }
+
+  &__icon-text {
+    margin-top: 1.25rem;
+  }
+
   &__select-box {
     margin-top: 1.5rem;
     width: 9rem;
@@ -21,8 +29,15 @@
     cursor: pointer;
   }
 
-
-  &__example__text{
+  &__example {
     margin-top: 4rem;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+
+    &__text {
+      margin-bottom: 0.5rem;
+    }
   }
 }
