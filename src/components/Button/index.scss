@@ -1,6 +1,9 @@
 .button {
   width: 100%;
-  padding: 0.5rem 0;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: var(--origin-shadow);
   &:hover {
     cursor: pointer;
