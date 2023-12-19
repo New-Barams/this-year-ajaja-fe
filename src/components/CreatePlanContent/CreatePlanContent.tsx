@@ -2,9 +2,11 @@
 
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { PlanContentType } from '@/types/Plan';
+import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
 import { IconSwitchButton, InputTag, PlanInput, Tag } from '..';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
+import './index.scss';
 
 interface CreatePlanContentProps {
   setIsSecondStepDataAllExist: (isExist: boolean) => void;
@@ -73,7 +75,7 @@ export default function CreatePlanContent({
   };
 
   return (
-    <div>
+    <div className={classNames('create-plan-content')}>
       <PlanInput
         editable={true}
         kind="title"
@@ -82,6 +84,7 @@ export default function CreatePlanContent({
         maxLength={20}
         textInput={planContent.title}
         nextTextAreaRef={nextTextAreaRef}
+        classNameList={['create-plan-content__plan-input__first']}
       />
 
       <PlanInput
@@ -92,9 +95,10 @@ export default function CreatePlanContent({
         maxLength={250}
         textInput={planContent.description}
         nextTextAreaRef={nextTextAreaRef}
+        classNameList={['create-plan-content__plan-input__second']}
       />
 
-      <div>
+      <div className={classNames('create-plan-content__tags')}>
         <InputTag onSubmit={handleAddTag} />
         {planContent.tags.map((tag, index) => (
           <Tag
@@ -107,31 +111,62 @@ export default function CreatePlanContent({
         ))}
       </div>
 
-      <div>다른 사람들이 내 계획을 볼 수 있도록 할까요?</div>
-      <IconSwitchButton
-        onIconName="PLAN_OPEN"
-        offIconName="PLAN_CLOSE"
-        isActive={planContent.isPublic}
-        onClick={() => {
-          handleChangeIsPublic(!planContent.isPublic);
-        }}
-      />
-      <span> {planContent.isPublic ? '계획 공개' : '계획 비공개'}</span>
-
-      <div>
-        매주 몇 명의 사람이 내 계획을 응원하는 지 알림을 받고 싶으신가요?
+      <div className={classNames('create-plan-content__public')}>
+        <div
+          className={classNames(
+            'create-plan-content__public__title',
+            'font-size-sm',
+          )}>
+          다른 사람들이 내 계획을 볼 수 있도록 할까요?
+        </div>
+        <div className={classNames('create-plan-content__public__button')}>
+          <IconSwitchButton
+            onIconName="PLAN_OPEN"
+            offIconName="PLAN_CLOSE"
+            isActive={planContent.isPublic}
+            onClick={() => {
+              handleChangeIsPublic(!planContent.isPublic);
+            }}
+          />
+          <span
+            className={classNames(
+              'create-plan-content__public__button-text',
+              'font-size-xs',
+            )}>
+            {planContent.isPublic ? '계획 공개' : '계획 비공개'}
+          </span>
+        </div>
       </div>
-      <IconSwitchButton
-        onIconName="NOTIFICATION_ON"
-        offIconName="NOTIFICATION_OFF"
-        isActive={planContent.canAjaja}
-        onClick={() => {
-          handleChangeCanAjaja(!planContent.canAjaja);
-        }}
-      />
-      <span>
-        {planContent.canAjaja ? '응원 메세지 활성화' : '응원 메세지 비활성화'}
-      </span>
+
+      <div className={classNames('create-plan-content__ajaja')}>
+        <div
+          className={classNames(
+            'create-plan-content__ajaja__title',
+            'font-size-sm',
+          )}>
+          매주 몇 명의 사람이 내 계획을 응원하는 지 알림을 받고 싶으신가요?
+        </div>
+
+        <div className={classNames('create-plan-content__ajaja__button')}>
+          <IconSwitchButton
+            onIconName="NOTIFICATION_ON"
+            offIconName="NOTIFICATION_OFF"
+            isActive={planContent.canAjaja}
+            onClick={() => {
+              handleChangeCanAjaja(!planContent.canAjaja);
+            }}
+          />
+          <span
+            className={classNames(
+              'create-plan-content__ajaja__button-text',
+              'font-size-xs',
+            )}>
+            {planContent.canAjaja
+              ? '매주 월요일 18:00시 마다 응원 메세지 알림 활성화'
+              : '응원 메세지 알림 비활성화'}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

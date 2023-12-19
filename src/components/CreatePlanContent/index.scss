@@ -1,0 +1,46 @@
+.create-plan-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100% - 12.25rem);
+  overflow-y: auto;
+
+  &__plan-input {
+    &__first {
+      margin-top: 1rem;
+    }
+
+    &__second {
+      margin-top: 0.75rem;
+    }
+  }
+
+  &__tags {
+    margin-top: 0.75rem;
+  }
+
+  &__public {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &__button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  &__ajaja {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &__button {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
