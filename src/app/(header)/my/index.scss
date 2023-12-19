@@ -1,84 +1,55 @@
 .my-page {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   &__wrapper {
-    justify-content: center;
-    margin: auto;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  &__main {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    gap: 2rem;
-
-    &--nickname {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-  }
-
-  &__name {
-    display: flex;
-
-    position: relative;
+    padding: 1rem 0;
     gap: 1rem;
-    & .circle-rotate {
-      padding: 0;
-      animation: rotate_image 1s linear infinite;
-      transform-origin: center;
-    }
 
-    & > button {
-      cursor: pointer;
-      background-color: transparent;
-      outline: none;
-      border: none;
-      padding: 0;
-      & > span {
-        vertical-align: bottom;
+    text-align: start;
+  }
+  &__header {
+    text-align: center;
+  }
+  &__welcome-text {
+    margin-top: 1rem;
+  }
+  &__nick-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    &--content {
+      &--main {
+        display: flex;
+        align-items: center;
+        & .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      &--alert {
+        color: rgba($color: #000000, $alpha: 0.25);
       }
     }
   }
-  &__remind-way {
+  &__account {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: 0.5rem;
-    &--no-verified {
+    gap: 1rem;
+    &--content {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.5rem;
     }
   }
-
-  &__email {
-    margin-top: 2rem;
+  &__remindway {
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
-
-  &__bottom {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 2rem;
-  }
-}
-@keyframes rotate_image {
-  100% {
-    transform: rotate(360deg);
+    gap: 0.5rem;
+    & .button {
+      margin-top: 0.5rem;
+    }
   }
 }

@@ -1,14 +1,14 @@
 .modal {
   &-verification-wrapper {
     border-radius: var(--border-radius);
-    border-radius: var(--border-radius);
-    width: 500px;
-    height: 400px;
+    border-top: 1px solid var(--origin-secondary);
+    width: 100%;
+    max-height: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     position: relative;
+    padding: 2rem 1.5rem;
 
     &__exit {
       position: absolute;
@@ -23,11 +23,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 80%;
+      width: 100%;
     }
-    &__text {
-      padding: 20px;
-    }
+
     &__items {
       width: 100%;
       display: flex;
@@ -36,17 +34,18 @@
 
       &--item {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
         & button {
-          font-size: 1rem;
+          padding: 0.5rem 1rem;
         }
 
         & > input {
           border-radius: var(--border-radius);
           outline: none;
-          border: 2px solid var(--origin-orange-200);
+          border: 2px solid var(--origin-secondary);
           padding: 0.5rem 1rem;
+          box-shadow: var(--origin-shadow);
 
           &:focus {
             border-color: var(--origin-orange-300);
