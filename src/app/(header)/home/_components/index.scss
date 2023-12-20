@@ -28,7 +28,8 @@ $header-height: 11.875rem;
   &__plans {
     width: 100%;
     height: calc(100% - $header-height);
-    overflow-y: auto;
+    overflow-y: scroll;
+    margin-left: var(--scroll-margin-left);
     &--empty {
       display: flex;
       flex-direction: column;
