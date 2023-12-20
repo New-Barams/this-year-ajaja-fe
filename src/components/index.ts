@@ -1,8 +1,9 @@
 export { default as AjajaButton } from '@components/AjajaButton/AjajaButton';
 export { default as BasicError } from '@components/BasicError/BasicError';
 export { default as Button } from '@components/Button/Button';
-export { default as CreatePlanIcon } from '@components/CreatePlanIcon/CreatePlanIcon';
 export { default as CreatePlanContent } from '@components/CreatePlanContent/CreatePlanContent';
+export { default as CreatePlanIcon } from '@components/CreatePlanIcon/CreatePlanIcon';
+export { default as CreatePlanIconExample } from '@components/CreatePlanIconExample/CreatePlanIconExample';
 export { default as CreatePlanRemindDate } from '@components/CreatePlanRemindDate/CreatePlanRemindDate';
 export { default as CreatePlanRemindMessage } from '@components/CreatePlanRemindMessage/CreatePlanRemindMessage';
 export { default as DebounceSwitchButton } from '@/components/DebounceSwitchButton/DebounceSwitchButton';

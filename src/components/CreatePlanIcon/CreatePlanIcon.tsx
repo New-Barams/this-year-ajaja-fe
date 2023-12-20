@@ -5,8 +5,7 @@ import { planIcons } from '@/constants/planIcons';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Modal, ModalSelectIcon } from '..';
-import CreatePlanIconExample from '../CreatePlanIconExample/CreatePlanIconExample';
+import { CreatePlanIconExample, Modal, ModalSelectIcon } from '..';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
 

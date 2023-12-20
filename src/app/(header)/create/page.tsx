@@ -3,10 +3,10 @@
 import {
   CreatePlanContent,
   CreatePlanIcon,
+  CreatePlanRemindDate,
   CreatePlanRemindMessage,
+  ModalFixRemindDate,
 } from '@/components';
-import CreatePlanRemindDate from '@/components/CreatePlanRemindDate/CreatePlanRemindDate';
-import ModalFixRemindDate from '@/components/ModalFixRemindDate/ModalFixRemindDate';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { STEP_NAME } from '@/constants/createPlanStepTitle';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
@@ -14,7 +14,7 @@ import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import StepButtonGroup from './_components/CreatePlanStepper/StepButtonGroup/StepButtonGroup';
+import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
 
 const StepperComponent = dynamic(
@@ -24,7 +24,7 @@ const StepperComponent = dynamic(
   },
 );
 
-export default function NewCreatePage() {
+export default function CreatePage() {
   const [nowStep, setNowStep] = useState(1);
 
   const goToNextStep = () => {
