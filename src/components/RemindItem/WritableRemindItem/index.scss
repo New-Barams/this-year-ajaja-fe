@@ -55,15 +55,28 @@
 
       &__title {
         margin-left: 0.25rem;
-        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
 
       &__content {
         display: flex;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         cursor: pointer;
       }
+
+      &__modal-content {
+        display: flex;
+        justify-content: center;
+        width: 250px; 
+      }
     }
+  }
+
+  &__check__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

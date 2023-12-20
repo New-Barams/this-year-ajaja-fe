@@ -65,12 +65,7 @@ export default function WritableRemindItem({
     if (isFirstRemindItem && isSameMessageChecked) {
       makeAllRemindMessageSame!();
     }
-  }, [
-    isFirstRemindItem,
-    isSameMessageChecked,
-    makeAllRemindMessageSame,
-    remindMessage,
-  ]);
+  }, [isFirstRemindItem, isSameMessageChecked, remindMessage]);
 
   return (
     <>
@@ -150,8 +145,15 @@ export default function WritableRemindItem({
             onClickYes={handleModalClickYes}
             onClickNo={handleModalClickNo}
             confirmSentense="적용 하기">
-            다른 모든 리마인드 메세지가 해당 메세지와 동일한 내용으로
-            변경됩니다. 정말 적용하시겠습니까?
+            <div
+              className={classNames(
+                'remind-item__check__modal-content',
+                'font-size-base',
+              )}>
+              <p>지금부터 모든 리마인드 메세지가</p>
+              <p>첫 번째 메세지의 내용으로 동기화됩니다.</p>
+              <p>정말 적용하시겠습니까?</p>
+            </div>
           </ModalBasic>
         </Modal>
       )}
