@@ -6,6 +6,7 @@ import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import './index.scss';
@@ -37,6 +38,19 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
 
   return (
     <div className={classNames(['remind-page'])}>
+      <div
+        className={classNames([
+          'remind-page__breadcrumb',
+          'font-size-base',
+          'color-origin-text-100',
+        ])}>
+        {<Link href="/home">홈</Link>}
+        &gt;
+        {<Link href={`/plans/${planId}`}>계획</Link>}
+        &gt;
+        <span>리마인드</span>
+      </div>
+
       <div className={classNames(['remind-page__title', 'font-size-xl'])}>
         리마인드
       </div>

@@ -5,26 +5,37 @@
   flex-direction: column;
   align-items: center;
 
-  &__title {
+  &__breadcrumb {
     margin-top: 2rem;
-    margin-bottom: 1rem;
+    align-self: flex-start;
+    display: flex;
+    gap: 0.5rem;
+    a {
+      text-decoration: none;
+      color: var(--origin-text-100);
+    }
   }
 
-  &__edit{
+  &__title {
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+  }
+
+  &__edit {
     margin-right: 1rem;
     align-self: flex-end;
   }
 
-  &__content{
+  &__content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-height: calc(100% - 12rem);
+    max-height: calc(100% - 14rem);
     overflow-y: auto;
     padding-bottom: 1rem;
 
-    &__message-list{
+    &__message-list {
       margin-top: 0.75rem;
       display: flex;
       flex-direction: column;
@@ -32,13 +43,13 @@
       gap: 1rem;
     }
 
-    &__time{
+    &__time {
       margin-top: 1rem;
       margin-bottom: 0.75rem;
     }
   }
-  
-  &__button{
+
+  &__button {
     position: absolute;
     bottom: 6rem;
     max-width: calc(100% - 3rem);
