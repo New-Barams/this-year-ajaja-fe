@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: '올해도 아좌좌',
   description: 'new year plan reminder',
   icons: {
-    icon: '/this-year-ajaja-logo.svg',
+    icon: '/favicon.svg',
   },
 };
 
