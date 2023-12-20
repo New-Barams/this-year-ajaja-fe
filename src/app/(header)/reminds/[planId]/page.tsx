@@ -32,7 +32,7 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
   };
 
   const onClickGoToEditRemind = () => {
-    router.push(`/reminds/edits/${planId}`);
+    router.push(`/reminds/edit/${planId}`);
   };
 
   return (
