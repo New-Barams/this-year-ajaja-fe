@@ -18,7 +18,7 @@ export default function ReadOnlyRemindItem({
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
 
-  const { remindMonth, remindDate, remindMessage, isReminded } = data;
+  const { remindMonth, remindDay, remindMessage, isReminded } = data;
 
   const canCheckRemindMessage = useMemo(() => {
     return isSeason || (!isSeason && isReminded);
@@ -34,44 +34,49 @@ export default function ReadOnlyRemindItem({
 
   return (
     <>
-      <li className={classNames('readonly-item', classNameList)}>
+      <li
+        className={classNames(
+          'readonly-item',
+          {
+            'readonly-item--disabled': !canCheckRemindMessage,
+          },
+          classNameList,
+        )}>
         <div
-          className={classNames('readonly-item__content', {
-            'readonly-item__content--isReminded': isReminded,
-          })}
+          className={classNames('readonly-item__header')}
           onClick={toggleIsItemOpened}>
           <p
-            className={classNames('readonly-item__content__title', {
-              'readonly-item__content__title--isReminded': isReminded,
+            className={classNames('readonly-item__header__title', {
+              'readonly-item__header__title--lock': !canCheckRemindMessage,
             })}>
-            {remindMonth}월 {remindDate}일 메세지
+            {remindMonth}월 {remindDay}일 메세지
           </p>
 
           {canCheckRemindMessage ? (
             <Icon
               name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
-              size="xl"
+              size="md"
               color="gray-300"
-              classNameList={['readonly-item__content__icon']}
+              classNameList={['readonly-item__header__icon']}
             />
           ) : (
             <Icon
               name={'PLAN_CLOSE'}
-              size="xl"
-              color="gray-300"
-              classNameList={['readonly-item__content__icon']}
+              size="md"
+              color="background"
+              classNameList={['readonly-item__header__icon']}
             />
           )}
-
-          {isItemOpened && (
-            <div
-              className={classNames('readonly-item__message', {
-                'remind-item__message--open': isItemOpened,
-              })}>
-              <RemindInput textInput={remindMessage} editable={false} />
-            </div>
-          )}
         </div>
+
+        {isItemOpened && (
+          <div
+            className={classNames('readonly-item__message', {
+              'remind-item__message--open': isItemOpened,
+            })}>
+            <RemindInput textInput={remindMessage} editable={false} />
+          </div>
+        )}
       </li>
     </>
   );

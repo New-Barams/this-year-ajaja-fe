@@ -1,9 +1,11 @@
 .debounce-switch {
   display: flex;
   align-items: center;
+
   &__text {
     margin-left: 0.5rem;
     color: var(--origin-gray-200);
+    font-size: 1rem;
     white-space: pre-wrap;
     text-align: center;
   }

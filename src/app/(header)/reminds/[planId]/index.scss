@@ -7,22 +7,40 @@
 
   &__title {
     margin-top: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   &__edit{
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    align-self: flex-end;
   }
 
   &__content{
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
+    max-height: calc(100% - 13rem);
+    overflow-y: auto;
+
+    &__time{
+      margin-bottom: 0.75rem;
+    }
+
+    &__message-list{
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+    }
   }
-  
 
   
-
-
+  &__button{
+    position: absolute;
+    bottom: 6rem;
+    max-width: calc(100% - 3rem);
+  }
 }
