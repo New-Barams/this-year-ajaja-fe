@@ -58,13 +58,13 @@ export default function RootLayout({
             </div>
           </div>
         </Provider>
-        <Script
-          src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-          integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
-          type="module"
-          defer
-        />
       </body>
+      <Script
+        src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+        integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+        type="module"
+        strategy="lazyOnload"
+      />
     </html>
   );
 }
