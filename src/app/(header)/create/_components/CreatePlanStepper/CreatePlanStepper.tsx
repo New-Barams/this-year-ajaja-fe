@@ -9,7 +9,7 @@ interface CreatePlanStepperProps {
 export default function CreatePlanStepper({ nowStep }: CreatePlanStepperProps) {
   return (
     <Stepper
-      steps={[{}, {}, {}, {}]}
+      steps={[{ label: '' }, { label: '' }, { label: '' }, { label: '' }]}
       activeStep={nowStep}
       connectorStateColors={true}
       connectorStyleConfig={{
