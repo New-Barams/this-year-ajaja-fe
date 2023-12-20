@@ -5,9 +5,6 @@ import { axiosInstanceClient } from '../axiosInstanceClient';
 export const getRemindSeason = async (
   planId: number,
 ): Promise<GetRemindResponse> => {
-  const { data } = await axiosInstanceClient.get(
-    DOMAIN.GET_REMINDS_MODIFY(planId),
-  );
-
+  const { data } = await axiosInstanceClient.get(DOMAIN.GET_REMINDS(planId));
   return data;
 };

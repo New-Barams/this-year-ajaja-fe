@@ -19,24 +19,14 @@ export interface RemindItemType {
 }
 
 export interface ReadOnlyRemindItemData {
-  feedbackId: number;
   remindMessage: string;
   remindMonth: number;
-  remindDate: number;
-  rate: number;
-  isFeedback: boolean;
-  isExpired: boolean;
+  remindDay: number;
   isReminded: boolean;
-  endMonth: number;
-  endDate: number;
 }
 
 export interface RemindData {
-  isRemindable: boolean;
   remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
-  remindDate: number;
-  remindTerm: number;
-  remindTotalPeriod: number;
-  sentRemindResponses: ReadOnlyRemindItemData[] | [];
-  futureRemindResponses: ReadOnlyRemindItemData[] | [];
+  isRemindable: boolean;
+  messagesResponses: ReadOnlyRemindItemData[];
 }
