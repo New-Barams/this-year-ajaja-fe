@@ -15,7 +15,7 @@ import {
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from '../../../constants/components/remindOptions';
+} from '../../../constants/remindOptions';
 import './index.scss';
 
 interface remindOptionType {

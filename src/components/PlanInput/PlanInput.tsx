@@ -14,6 +14,7 @@ interface PlanInputProps {
   maxLength: number;
   editable?: boolean;
   nextTextAreaRef?: RefObject<HTMLTextAreaElement>;
+  classNameList?: string[];
 }
 
 export default function PlanInput({
@@ -24,6 +25,7 @@ export default function PlanInput({
   maxLength,
   editable = false,
   nextTextAreaRef,
+  classNameList = [],
 }: PlanInputProps) {
   const handleChangeInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxLength) {
@@ -42,7 +44,7 @@ export default function PlanInput({
   };
 
   return (
-    <div className="planInput--container">
+    <div className={classNames('planInput--container', classNameList)}>
       <textarea
         id="planInput"
         ref={kind === 'content' ? nextTextAreaRef : null}

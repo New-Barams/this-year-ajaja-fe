@@ -1,4 +1,4 @@
-import { RemindOptionObjectType } from '@/types/components/Remind';
+import { RemindOptionObjectType } from '@/types/Remind';
 
 export const TOTAL_PERIOD_OPTIONS: RemindOptionObjectType[] = [
   { value: 12, name: '1년' },
@@ -22,7 +22,7 @@ export const DATE_OPTIONS: RemindOptionObjectType[] = Array.from(
 );
 
 export const TIME_OPTIONS: RemindOptionObjectType[] = [
-  { value: 9, name: '9:00시' },
-  { value: 13, name: '13:00시' },
-  { value: 20, name: '20:00시' },
+  { value: 9, name: '아침(09시)' },
+  { value: 13, name: '점심(13시)' },
+  { value: 20, name: '저녁(20시)' },
 ];
