@@ -37,6 +37,10 @@ export function middleware(request: NextRequest) {
     if (!cookies.has('auth')) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
+  } else if (request.nextUrl.pathname.startsWith('/reminds')) {
+    if (!cookies.has('auth')) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
   }
 
   return NextResponse.next();
