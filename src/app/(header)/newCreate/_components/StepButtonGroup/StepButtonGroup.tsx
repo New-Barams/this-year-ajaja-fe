@@ -2,6 +2,12 @@
 
 import { Button } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
+import { SESSION_STORAGE_KEY } from '@/constants';
+import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
+import { PlanContentType } from '@/types/Plan';
+import { RemindItemType, RemindOptionType } from '@/types/Remind';
+import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
+import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -45,9 +51,46 @@ export default function StepButtonGroup({
     }
   };
 
+  const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
+
   const handleClickCreatePlan = (isEveryStepDataAllExist: boolean) => {
-    if (isEveryStepDataAllExist) {
-      ajajaToast.success('계획 작성 API 실행 후 홈으로 이동');
+    const planIconItem = sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1);
+    const planContentItem = sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_2);
+    const remindDateItem = sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_3);
+    const remindMessageItem = sessionStorage.getItem(
+      SESSION_STORAGE_KEY.STEP_4,
+    );
+
+    if (
+      isEveryStepDataAllExist &&
+      planIconItem &&
+      planContentItem &&
+      remindDateItem &&
+      remindMessageItem
+    ) {
+      const planIcon = JSON.parse(planIconItem) as number;
+      const planContent = JSON.parse(planContentItem) as PlanContentType;
+      const remindDate = JSON.parse(remindDateItem) as RemindOptionType;
+      const remindMessage = JSON.parse(remindMessageItem) as RemindItemType[];
+
+      const data: PostNewPlanRequestBody = {
+        iconNumber: planIcon,
+        isPublic: planContent.isPublic,
+        title: planContent.title,
+        description: planContent.description,
+        tags: planContent.tags,
+
+        remindTotalPeriod: remindDate.TotalPeriod,
+        remindTerm: remindDate.Term,
+        remindDate: remindDate.Date,
+        remindTime: changeRemindTimeToString(remindDate.Time),
+        messages: remindMessage.map((messageItem) => {
+          return messageItem.message;
+        }),
+      };
+
+      createNewPlanAPI(data);
+      ajajaToast.success('계획 작성 API 실행');
       router.push('/home');
     } else {
       ajajaToast.error('모든 항목을 입력해주세요!');
