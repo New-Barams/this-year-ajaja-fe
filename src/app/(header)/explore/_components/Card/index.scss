@@ -2,7 +2,7 @@
 
 $card_width: 19rem;
 $card_height: 12rem;
-$card_margin: 1rem;
+$card_margin: 0.5rem;
 
 @mixin ellipsis($line) {
   text-overflow: ellipsis;
