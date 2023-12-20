@@ -47,6 +47,18 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
       </p>
 
       <div className={classNames(['remind-page__content'])}>
+        <ul className={classNames(['remind-page__content__message-list'])}>
+          {remindData.messagesResponses.map((item, index) => {
+            return (
+              <ReadOnlyRemindItem
+                key={index}
+                data={item}
+                classNameList={['remind-page__content__message-item']}
+              />
+            );
+          })}
+        </ul>
+
         <p className={classNames(['remind-page__content__time'])}>
           현재{' '}
           <span className={classNames(['color-origin-primary'])}>
@@ -60,18 +72,6 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />
-
-        <ul className={classNames(['remind-page__content__message-list'])}>
-          {remindData.messagesResponses.map((item, index) => {
-            return (
-              <ReadOnlyRemindItem
-                key={index}
-                data={item}
-                classNameList={['remind-page__content__message-item']}
-              />
-            );
-          })}
-        </ul>
       </div>
 
       <Button

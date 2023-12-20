@@ -11,7 +11,6 @@
   }
 
   &__edit{
-    margin-bottom: 1rem;
     margin-right: 1rem;
     align-self: flex-end;
   }
@@ -21,12 +20,9 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-height: calc(100% - 13rem);
+    max-height: calc(100% - 12rem);
     overflow-y: auto;
-
-    &__time{
-      margin-bottom: 0.75rem;
-    }
+    padding-bottom: 1rem;
 
     &__message-list{
       margin-top: 0.75rem;
@@ -35,8 +31,12 @@
       width: 100%;
       gap: 1rem;
     }
-  }
 
+    &__time{
+      margin-top: 1rem;
+      margin-bottom: 0.75rem;
+    }
+  }
   
   &__button{
     position: absolute;
