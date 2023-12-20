@@ -14,7 +14,7 @@ interface StepButtonGroupProps {
   goToLastStep: () => void;
   isFirstStepDataAllExist: boolean;
   isSecondStepDataAllExist: boolean;
-  isEveryStepDataAllExist: boolean;
+  isLastStepDataAllExist: boolean;
 }
 
 export default function StepButtonGroup({
@@ -24,9 +24,14 @@ export default function StepButtonGroup({
   goToLastStep,
   isFirstStepDataAllExist,
   isSecondStepDataAllExist,
-  isEveryStepDataAllExist,
+  isLastStepDataAllExist,
 }: StepButtonGroupProps) {
   const router = useRouter();
+
+  const isEveryStepDataAllExist =
+    isFirstStepDataAllExist &&
+    isSecondStepDataAllExist &&
+    isLastStepDataAllExist;
 
   const exitCreatePlanPage = () => {
     router.back();
@@ -36,19 +41,16 @@ export default function StepButtonGroup({
     if (isEachStepDataAllExist) {
       goToNextStep();
     } else {
-      ajajaToast.error(
-        '모든 항목을 입력해야만 다음 단계로 넘어갈 수 있습니다 !',
-      );
+      ajajaToast.error('모든 항목을 입력해주세요!');
     }
   };
 
   const handleClickCreatePlan = (isEveryStepDataAllExist: boolean) => {
-    // 1,2,3,4 단계 data 모두 검사
     if (isEveryStepDataAllExist) {
       ajajaToast.success('계획 작성 API 실행 후 홈으로 이동');
       router.push('/home');
     } else {
-      ajajaToast.error('모든 항목을 입력해야만 계획을 작성할 수 있습니다 !');
+      ajajaToast.error('모든 항목을 입력해주세요!');
     }
   };
 

@@ -42,7 +42,7 @@ export default function NewCreatePage() {
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
     useState(false);
-  const [isEveryStepDataAllExist, setIsEveryStepDataAllExist] = useState(false);
+  const [isLastStepDataAllExist, setIsLastStepDataAllExist] = useState(false);
 
   const [fixedMonthList, setFixedMonthList] = useState<number[]>([]);
   const [fixedDate, setFixedDate] = useState<number>(1);
@@ -149,8 +149,8 @@ export default function NewCreatePage() {
           case 4:
             return (
               <CreatePlanRemindMessage
-                setIsEveryStepDataAllExist={(isExist: boolean) => {
-                  setIsEveryStepDataAllExist(isExist);
+                setIsLastStepDataAllExist={(isExist: boolean) => {
+                  setIsLastStepDataAllExist(isExist);
                 }}
               />
             );
@@ -172,7 +172,7 @@ export default function NewCreatePage() {
         goToLastStep={goToLastStep}
         isFirstStepDataAllExist={isFirstStepDataAllExist}
         isSecondStepDataAllExist={isSecondStepDataAllExist}
-        isEveryStepDataAllExist={isEveryStepDataAllExist}
+        isLastStepDataAllExist={isLastStepDataAllExist}
       />
 
       {isFixRemindDateModalOpen && (

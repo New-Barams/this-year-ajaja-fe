@@ -9,10 +9,10 @@ import { WritableRemindItem } from '..';
 import './index.scss';
 
 interface CreatePlanRemindMessageProps {
-  setIsEveryStepDataAllExist: (isExist: boolean) => void;
+  setIsLastStepDataAllExist: (isExist: boolean) => void;
 }
 export default function CreatePlanRemindMessage({
-  setIsEveryStepDataAllExist,
+  setIsLastStepDataAllExist,
 }: CreatePlanRemindMessageProps) {
   const [remindMessageList, setRemindMessageList] = useSessionStorage<
     RemindItemType[]
@@ -27,13 +27,13 @@ export default function CreatePlanRemindMessage({
       if (
         remindMessageList.every((remindItem) => remindItem.message.length > 0)
       ) {
-        setIsEveryStepDataAllExist(true);
+        setIsLastStepDataAllExist(true);
       } else {
-        setIsEveryStepDataAllExist(false);
+        setIsLastStepDataAllExist(false);
       }
       // TODO: 1,2,3단계에 대한 is~StepDataAllExist가 true일 때도 검사해줘야할까
     }
-  }, [remindMessageList, setIsEveryStepDataAllExist]);
+  }, [remindMessageList, setIsLastStepDataAllExist]);
 
   const handleChangeRemindMessage = (
     month: number,
@@ -50,6 +50,7 @@ export default function CreatePlanRemindMessage({
     );
   };
 
+  // 이게 첫 번째 리마인드 메세지가 변할 때에만 이뤄줘야 함
   const makeAllRemindMessageSame = useCallback(() => {
     if (remindMessageList.length > 1) {
       const firstMessage = remindMessageList[0].message;
