@@ -1,27 +1,53 @@
-$tab_width: 100%;
-$tab_underline_height: 0.125rem;
+$tab-width: 100%;
+$tab-underline-height: 0.125rem;
+$sort-gap: 0.5rem;
+$year-gap: 2rem;
 .tab {
   &__wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
+    margin: 2rem 0 1rem 0;
     &-year {
-      width: $tab_width;
+      width: $tab-width;
+      padding-left: calc($year-gap / 2);
     }
     &-sort {
       display: flex;
-      width: $tab_width;
+      width: $tab-width;
       justify-content: flex-end;
-      gap: 0.5rem;
-      margin: 1rem 0 1rem 0;
+      gap: $sort-gap;
     }
   }
   &__year-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
-    margin: 2rem 0 1rem 0.875rem;
+    gap: $year-gap;
+    &--align {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    &--focused {
+      color: var(--origin-primary);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--normal {
+      color: var(--origin-secondary);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--underline {
+      margin-top: 0.5rem;
+      height: $tab-underline-height;
+      width: calc(100% + $year-gap);
+    }
+  }
+  &__sort-menu {
     &--align {
       display: flex;
       justify-content: center;
@@ -34,36 +60,7 @@ $tab_underline_height: 0.125rem;
       }
     }
     &--normal {
-      color: var(--origin-gray-200);
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    &--underline {
-      position: absolute;
-      top: 2rem;
-      height: $tab_underline_height;
-      width: 200%;
-    }
-  }
-  &__line {
-    width: $tab_width;
-    height: $tab_underline_height;
-  }
-  &__sort-menu {
-    &--align {
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-    &--focused {
-      color: var(--origin-orange-300);
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    &--normal {
-      color: var(--origin-gray-200);
+      color: var(--origin-secondary);
       &:hover {
         cursor: pointer;
       }

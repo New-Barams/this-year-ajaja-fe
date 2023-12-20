@@ -34,7 +34,7 @@ export default function Tab({ handleSort, handleYear }: TabProps) {
   return (
     <div className={classNames('tab__wrapper')}>
       <div className={classNames('tab__wrapper-year')}>
-        <div className={classNames('tab__year-menu')}>
+        <div className={classNames('tab__year-menu', 'font-size-md')}>
           {yearMenu.map((el, index) => {
             return (
               <li
@@ -48,27 +48,21 @@ export default function Tab({ handleSort, handleYear }: TabProps) {
                 onClick={() => selectYearMenuHandler(index)}>
                 {el.name}
                 <div
-                  className={classNames(
-                    'tab__year-menu--underline',
-                    index === currentYearTab
-                      ? 'background-origin-primary'
-                      : 'background-origin-orange-200',
-                  )}
+                  className={classNames('tab__year-menu--underline', {
+                    'background-origin-primary': index === currentYearTab,
+                  })}
                 />
               </li>
             );
           })}
         </div>
       </div>
-      <div
-        className={classNames('tab__line', 'background-origin-orange-200')}
-      />
-      <div className={classNames('tab__wrapper-sort', 'font-size-sm')}>
+      <div className={classNames('tab__wrapper-sort', 'font-size-base')}>
         {sortMenu.map((el, index) => {
           return (
             <React.Fragment key={index}>
               {!!index && (
-                <p className={classNames('color-origin-gray-200')}>|</p>
+                <p className={classNames('color-origin-secondary')}>|</p>
               )}
               <li
                 key={index}

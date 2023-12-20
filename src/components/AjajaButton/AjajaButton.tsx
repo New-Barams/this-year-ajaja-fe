@@ -60,7 +60,7 @@ export default function AjajaButton({
     <button
       className={classNames(
         `ajaja-button`,
-        `color-origin-gray-300`,
+        `color-origin-text-100`,
         `font-size-sm`,
         classNameList,
       )}
@@ -68,11 +68,11 @@ export default function AjajaButton({
       {...props}>
       <Icon
         name="AJAJA"
-        size="3xl"
-        color={fill ? 'primary' : 'gray-100'}
+        size="lg"
+        color={fill ? 'primary' : 'secondary'}
         isFilled={fill}
       />
-      <p className={classNames('ajaja-p')}>아좌좌 {count}</p>
+      <p className={classNames('ajaja-p')}>아좌좌 {count}개</p>
     </button>
   );
 }

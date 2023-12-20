@@ -26,8 +26,6 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
     current,
   });
   const flatLoadedPlans = useMemo(() => loadedPlans.flat(), [loadedPlans]);
-  // console.log('loadedPlans:', loadedPlans);
-  // console.log('flatLoadedPlans:', flatLoadedPlans);
   const handleSort = (condition: SortType) => {
     setSort(condition);
   };
