@@ -9,34 +9,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
-    a {
-      text-decoration: none;
-      color: var(--origin-text-100);
-    }
+
     &--after {
       display: flex;
       width: 100%;
       justify-content: space-between;
       &--at {
         flex-grow: 1;
-      }
-    }
-    &--buttons {
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      span {
-        cursor: pointer;
-      }
-
-      &::after {
-        position: absolute;
-        content: '';
-        display: block;
-        height: 100%;
-        width: 1px;
-        background-color: black;
-        left: 50%;
       }
     }
   }
