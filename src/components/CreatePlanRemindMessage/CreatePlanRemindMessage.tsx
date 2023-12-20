@@ -3,8 +3,10 @@
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindItemType } from '@/types/Remind';
+import classNames from 'classnames';
 import React, { useCallback, useEffect } from 'react';
 import { WritableRemindItem } from '..';
+import './index.scss';
 
 interface CreatePlanRemindMessageProps {
   setIsEveryStepDataAllExist: (isExist: boolean) => void;
@@ -17,8 +19,7 @@ export default function CreatePlanRemindMessage({
   >({
     key: SESSION_STORAGE_KEY.STEP_4,
     initialValue: [],
-    // TODO: 이 초기값은 사실 쓰여질 일이 없음 => 3번에서 4번으로 넘어올 때 이미 날짜 확정 모달 클릭 후 각 날짜에 해당하는 기본값을 ""로 설정해주고 넘어왔을 것이므로
-    // TODO: 그래서 모달 단계에서 이 작업을 해줘야 함
+    // 이 초기값은 사실 쓰여질 일이 없음 => 3번에서 4번으로 넘어올 때 이미 날짜 확정 모달 클릭 후 각 날짜에 해당하는 기본값을 ""로 설정해주고 넘어왔을 것이므로
   });
 
   useEffect(() => {
@@ -59,9 +60,12 @@ export default function CreatePlanRemindMessage({
   }, [remindMessageList, setRemindMessageList]);
 
   return (
-    <div>
-      <div>선택받은 날짜에 받을 리마인드 메세지를 작성해주세요 !</div>
-      <ul>
+    <div className={classNames(['create-remind-message'])}>
+      <div className={classNames(['create-remind-message__title'])}>
+        선택받은 날짜에 받을 리마인드 메세지를 작성해주세요 !
+      </div>
+
+      <ul className={classNames(['create-remind-message__list'])}>
         {remindMessageList.map((item, index) => {
           return index === 0 ? (
             <WritableRemindItem
@@ -73,7 +77,6 @@ export default function CreatePlanRemindMessage({
                 handleChangeRemindMessage(item.date.month, item.date.day, text);
               }}
               makeAllRemindMessageSame={makeAllRemindMessageSame}
-              classNameList={['writable-remind__message__item']}
             />
           ) : (
             <WritableRemindItem
@@ -84,7 +87,6 @@ export default function CreatePlanRemindMessage({
               handleChangeRemindMessage={(text: string) => {
                 handleChangeRemindMessage(item.date.month, item.date.day, text);
               }}
-              classNameList={['writable-remind__message__item']}
             />
           );
         })}

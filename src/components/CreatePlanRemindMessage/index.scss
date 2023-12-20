@@ -1,0 +1,20 @@
+.create-remind-message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100% - 12.25rem);
+  overflow-y: auto;
+
+  &__title{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  &__list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

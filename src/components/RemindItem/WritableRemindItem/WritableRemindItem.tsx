@@ -79,43 +79,31 @@ export default function WritableRemindItem({
           className="remind-item__header"
           onClick={handleClickToggleIsItemOpened}>
           <p className="remind-item__header__title">
-            {remindMonth}월 {remindDay}일에 받을 리마인드 메세지
+            {remindMonth}월 {remindDay}일 메세지
           </p>
 
           <div className="remind-item__header__meta">
-            {isRemindMessageEmpty && (
-              <div
-                className={classNames(
-                  'remind-item__header__warning',
-                  'background-origin-primary',
-                )}>
-                <Icon name="WARNING" size="base" color="white-100" />
-                <span
-                  className={classNames(
-                    'remind-item__header__warning__text',
-                    'color-origin-white-100',
-                  )}>
-                  리마인드 메세지가 아직 작성되지 않았습니다
-                </span>
-              </div>
-            )}
+            <div
+              className={classNames(
+                'remind-item__header__word-length',
+                `color-origin-${isRemindMessageEmpty ? 'primary' : 'text-100'}`,
+              )}>
+              {`${remindMessage.length}/${MAX_REMIND_MESSAGE_LENGTH}`}
+            </div>
             <Icon
               name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
-              size="xl"
+              size="lg"
               color="gray-300"
               classNameList={['remind-item__header__icon']}
             />
           </div>
         </div>
+
         {isItemOpened && (
           <div
-            className={classNames(
-              'remind-item__message',
-              'background-origin-white-300',
-              {
-                'remind-item__message--open': isItemOpened,
-              },
-            )}>
+            className={classNames('remind-item__message', {
+              'remind-item__message--open': isItemOpened,
+            })}>
             <RemindInput
               textInput={remindMessage}
               onChangeInput={handleChangeRemindMessage}
@@ -123,29 +111,39 @@ export default function WritableRemindItem({
               maxLength={MAX_REMIND_MESSAGE_LENGTH}
               editable={true}
             />
-
-            {isFirstRemindItem && (
-              <span
-                className="remind-item__message__check"
-                onClick={handleClickSameMessageCheck}>
-                <Icon
-                  name={isSameMessageChecked ? 'CHECKED' : 'UN_CHECKED'}
-                  size="2xl"
-                  color="primary"
-                  isFilled={isSameMessageChecked ? true : false}
-                />
-                <p
-                  className={classNames(
-                    'remind-item__message__check__text',
-                    'color-origin-primary',
-                  )}>
-                  항상 같은 리마인드 메세지 받기
-                </p>
-              </span>
-            )}
           </div>
         )}
       </li>
+
+      {isFirstRemindItem && (
+        <div className="remind-item__message__check">
+          <p
+            className={classNames(
+              'remind-item__message__check__title',
+              'font-size-sm',
+            )}>
+            입력해야 할 메세지가 너무 많으신가요?
+          </p>
+          <div
+            className="remind-item__message__check__content"
+            onClick={handleClickSameMessageCheck}>
+            <Icon
+              name={isSameMessageChecked ? 'CHECKED' : 'UN_CHECKED'}
+              size="md"
+              color="primary"
+              isFilled={isSameMessageChecked ? true : false}
+            />
+            <p
+              className={classNames(
+                'remind-item__message__check__text',
+                'font-size-sm',
+              )}>
+              모든 메세지를 첫 번째 메세지와 동일하게 작성하기
+            </p>
+          </div>
+        </div>
+      )}
+
       {isSameMessageModalOpen && !isSameMessageChecked && (
         <Modal>
           <ModalBasic
