@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useEffect } from 'react';
 
@@ -41,12 +43,14 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
   };
 
   return (
-    <button className="kakao-share-button" onClick={handleShareWithKakao}>
-      <Image
-        src="/kakaoShare.png"
-        alt="카카오톡 공유하기 버튼"
-        width={20}
-        height={20}></Image>
-    </button>
+    <>
+      <button className="kakao-share-button" onClick={handleShareWithKakao}>
+        <Image
+          src="/kakaoShare.png"
+          alt="카카오톡 공유하기 버튼"
+          width={20}
+          height={20}></Image>
+      </button>
+    </>
   );
 }

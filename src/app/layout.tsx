@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import type { Metadata } from 'next';
 import { Poor_Story } from 'next/font/google';
 import { cookies } from 'next/headers';
+import Script from 'next/script';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
@@ -36,11 +37,6 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
         />
-        <script
-          src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-          integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
-          crossOrigin="anonymous"
-          defer></script>
       </head>
       <body className={classNames(poor_story.className, 'background-origin')}>
         <Provider>
@@ -62,6 +58,12 @@ export default function RootLayout({
             </div>
           </div>
         </Provider>
+        <Script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+          integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+          type="module"
+          defer
+        />
       </body>
     </html>
   );
