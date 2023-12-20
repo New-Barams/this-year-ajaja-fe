@@ -15,7 +15,7 @@ const toggleText = {
     off: '계획 비공개',
   },
   ajaja: {
-    on: '월요일 18:00 마다\n응원 메세지 알림 활성화',
+    on: '월요일 18:00 마다 응원 메세지 알림 활성화',
     off: '응원 메세지 알림 비활성화',
   },
   remind: {
@@ -61,7 +61,7 @@ export default function DebounceSwitchButton({
         onClick={toggleIsOn}
         isActive={isOn}
       />
-      <span className={classNames('debounce-switch__text')}>
+      <span className={classNames('debounce-switch__text font-size-xs')}>
         {isOn ? toggleText[toggleName].on : toggleText[toggleName].off}
       </span>
     </div>

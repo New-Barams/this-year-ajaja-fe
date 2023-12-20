@@ -2,6 +2,7 @@
 const path = require('path');
 
 const nextConfig = {
+  crossOrigin: 'anonymous',
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

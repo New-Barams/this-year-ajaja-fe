@@ -26,20 +26,17 @@ export default function IconSwitchButton({
   return (
     <SwitchButton onClick={handleClick} isOn={isOn}>
       <div className="icon__wrapper">
-        <div>
-          <Icon
-            name={offIconName}
-            color={isOn ? 'white-100' : 'primary'}
-            size="sm"
-          />
-        </div>
-        <div>
-          <Icon
-            name={onIconName}
-            color={isOn ? 'primary' : 'white-100'}
-            size="sm"
-          />
-        </div>
+        <Icon
+          name={offIconName}
+          color={isOn ? 'white-100' : 'gray-100'}
+          size="sm"
+        />
+
+        <Icon
+          name={onIconName}
+          color={isOn ? 'primary' : 'white-100'}
+          size="sm"
+        />
       </div>
     </SwitchButton>
   );
