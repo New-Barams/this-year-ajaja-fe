@@ -11,10 +11,10 @@ export default function LandingPage() {
         <div className={classNames('landing__logo')}>
           <p>아직이라면,</p>
           <Image
-            src="/this-year-ajaja-logo-flat.svg"
+            src="/this-year-ajaja-logo.svg"
             alt="ajaja logo"
-            width={303}
-            height={44}
+            width={300}
+            height={50}
           />
         </div>
       </div>
