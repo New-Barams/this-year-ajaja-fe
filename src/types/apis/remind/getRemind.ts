@@ -1,4 +1,4 @@
-import { RemindData } from '@/types/components/Remind';
+import { RemindData } from '@/types/Remind';
 
 export interface GetRemindResponse {
   success: boolean;

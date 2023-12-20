@@ -1,14 +1,7 @@
 .plans {
   &__wrapper {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    margin: 1rem -1rem;
-    grid-template-rows: repeat(auto-fill, minmax(12rem, 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-row-gap: 3rem;
-    grid-auto-flow: dense;
+    &--link {
+      text-decoration: none;
+    }
   }
 }

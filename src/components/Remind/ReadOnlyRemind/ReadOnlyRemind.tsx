@@ -2,19 +2,19 @@
 
 import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
-import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
-import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
-import { RemindOptionObjectType } from '@/types/components/Remind';
-import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
-import { checkIsSeason } from '@/utils/checkIsSeason';
-import classNames from 'classnames';
-import React from 'react';
 import {
   DATE_OPTIONS,
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from '@constants/components/remindOptions';
+} from '@/constants/remindOptions';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
+import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
+import { RemindOptionObjectType } from '@/types/Remind';
+import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
+import { checkIsSeason } from '@/utils/checkIsSeason';
+import classNames from 'classnames';
+import React from 'react';
 import './index.scss';
 
 interface ReadOnlyRemindProps {
