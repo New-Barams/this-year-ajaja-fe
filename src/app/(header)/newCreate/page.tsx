@@ -8,6 +8,7 @@ import {
 import CreatePlanRemindDate from '@/components/CreatePlanRemindDate/CreatePlanRemindDate';
 import ModalFixRemindDate from '@/components/ModalFixRemindDate/ModalFixRemindDate';
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { STEP_NAME } from '@/constants/createPlanStepTitle';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
@@ -22,13 +23,6 @@ const StepperComponent = dynamic(
     ssr: false,
   },
 );
-
-const STEP_NAME = [
-  '1. 계획 아이콘 정하기',
-  '2. 계획 만들기',
-  '3. 리마인드 날짜 정하기',
-  '4. 리마인드 메세지 작성하기',
-] as const;
 
 export default function NewCreatePage() {
   const [nowStep, setNowStep] = useState(1);
@@ -129,7 +123,7 @@ export default function NewCreatePage() {
       <StepperComponent nowStep={nowStep - 1} />
 
       <div className={classNames('new-create-page__title', 'font-size-xl')}>
-        {STEP_NAME[nowStep - 1]}
+        {STEP_NAME[nowStep]}
       </div>
 
       {(() => {
