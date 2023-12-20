@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect } from 'react';
+import './index.scss';
 
 interface KakaoShareButtonProps {
   linkURL: string;
@@ -46,6 +47,7 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
     <>
       <button className="kakao-share-button" onClick={handleShareWithKakao}>
         <Image
+          className="kakao__image"
           src="/kakaoShare.png"
           alt="카카오톡 공유하기 버튼"
           width={20}
