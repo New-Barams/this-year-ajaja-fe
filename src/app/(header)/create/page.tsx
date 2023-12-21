@@ -153,45 +153,52 @@ export default function CreatePage() {
         {STEP_NAME[nowStep]}
       </div>
 
-      {(() => {
-        switch (nowStep) {
-          case 1:
-            return (
-              <CreatePlanIcon
-                setIsFirstStepDataAllExist={(isExist: boolean) => {
-                  setIsFirstStepDataAllExist(isExist);
-                }}
-              />
-            );
-          case 2:
-            return (
-              <CreatePlanContent
-                setIsSecondStepDataAllExist={(isExist: boolean) => {
-                  setIsSecondStepDataAllExist(isExist);
-                }}
-              />
-            );
-          case 3:
-            return <CreatePlanRemindDate isCreateOrEditPage="create" />;
-          case 4:
-            return (
-              <CreatePlanRemindMessage
-                setIsLastStepDataAllExist={(isExist: boolean) => {
-                  setIsLastStepDataAllExist(isExist);
-                }}
-                isCreateOrEditPage="create"
-              />
-            );
-          default:
-            return (
-              <CreatePlanIcon
-                setIsFirstStepDataAllExist={(isExist: boolean) => {
-                  setIsFirstStepDataAllExist(isExist);
-                }}
-              />
-            );
-        }
-      })()}
+      {isContinueCreatePlanModalOpen ? (
+        <ModalContinueCreate
+          onClickContinueCreateModalYes={onClickContinueCreateModalYes}
+          onClickContinueCreateModalNo={onClickContinueCreateModalNo}
+        />
+      ) : (
+        (() => {
+          switch (nowStep) {
+            case 1:
+              return (
+                <CreatePlanIcon
+                  setIsFirstStepDataAllExist={(isExist: boolean) => {
+                    setIsFirstStepDataAllExist(isExist);
+                  }}
+                />
+              );
+            case 2:
+              return (
+                <CreatePlanContent
+                  setIsSecondStepDataAllExist={(isExist: boolean) => {
+                    setIsSecondStepDataAllExist(isExist);
+                  }}
+                />
+              );
+            case 3:
+              return <CreatePlanRemindDate isCreateOrEditPage="create" />;
+            case 4:
+              return (
+                <CreatePlanRemindMessage
+                  setIsLastStepDataAllExist={(isExist: boolean) => {
+                    setIsLastStepDataAllExist(isExist);
+                  }}
+                  isCreateOrEditPage="create"
+                />
+              );
+            default:
+              return (
+                <CreatePlanIcon
+                  setIsFirstStepDataAllExist={(isExist: boolean) => {
+                    setIsFirstStepDataAllExist(isExist);
+                  }}
+                />
+              );
+          }
+        })()
+      )}
 
       <StepButtonGroup
         nowStep={nowStep}
@@ -211,13 +218,6 @@ export default function CreatePage() {
           onClickNo={() => {
             setIsFixRemindDateModalOpen(false);
           }}
-        />
-      )}
-
-      {isContinueCreatePlanModalOpen && (
-        <ModalContinueCreate
-          onClickContinueCreateModalYes={onClickContinueCreateModalYes}
-          onClickContinueCreateModalNo={onClickContinueCreateModalNo}
         />
       )}
     </div>

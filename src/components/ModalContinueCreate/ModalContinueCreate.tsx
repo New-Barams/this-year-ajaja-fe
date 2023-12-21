@@ -16,7 +16,7 @@ export default function ModalContinueCreate({
   onClickContinueCreateModalNo,
 }: ModalContinueCreateProps) {
   const backgroundRef = useRef<HTMLDivElement | null>(null);
-  useModalClose(backgroundRef, onClickContinueCreateModalNo);
+  useModalClose(backgroundRef, onClickContinueCreateModalYes);
 
   return (
     <Modal>
