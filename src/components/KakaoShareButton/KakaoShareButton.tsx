@@ -8,7 +8,8 @@ interface KakaoShareButtonProps {
   linkURL: string;
 }
 export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
-  const kakao = window.Kakao;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const kakao = (window as any).Kakao;
 
   useEffect(() => {
     kakao.cleanup();
