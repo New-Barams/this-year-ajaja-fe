@@ -6,7 +6,6 @@ import Link from 'next/link';
 import IntroduceSwiper from './_components/IntroduceSwiper/IntroduceSwiper';
 import './index.scss';
 import kakoLogin from '/public/loginPage/kakao_login_large_wide.png';
-import textLogo from '/public/loginPage/this-year-ajaja-logo-text.svg';
 
 export default function LoginPage() {
   return (
@@ -18,7 +17,7 @@ export default function LoginPage() {
             아직이라면,{' '}
             <Image
               className="login__welcome-text--logo"
-              src={textLogo}
+              src="/this-year-ajaja-logo.svg"
               width={175}
               height={32}
               alt="올해도 아자자"
