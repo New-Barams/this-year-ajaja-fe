@@ -74,18 +74,22 @@ export default function StepButtonGroup({
       const remindMessage = JSON.parse(remindMessageItem) as RemindItemType[];
 
       const data: PostNewPlanRequestBody = {
-        iconNumber: planIcon,
-        isPublic: planContent.isPublic,
         title: planContent.title,
         description: planContent.description,
-        tags: planContent.tags,
-
         remindTotalPeriod: remindDate.TotalPeriod,
         remindTerm: remindDate.Term,
         remindDate: remindDate.Date,
         remindTime: changeRemindTimeToString(remindDate.Time),
+        isPublic: planContent.isPublic,
+        iconNumber: planIcon,
+        tags: planContent.tags,
+
         messages: remindMessage.map((messageItem) => {
-          return messageItem.message;
+          return {
+            content: messageItem.message,
+            remindMonth: messageItem.date.month,
+            remindDay: messageItem.date.day,
+          };
         }),
       };
 

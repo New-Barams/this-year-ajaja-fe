@@ -8,9 +8,9 @@ import {
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
-// import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
-import { RemindData, RemindItemType, RemindOptionType } from '@/types/Remind';
-// import { checkIsSeason } from '@/utils/checkIsSeason';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
+import { RemindItemType, RemindOptionType } from '@/types/Remind';
+import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -26,26 +26,10 @@ export default function EditRemindPage({
   const { planId } = params;
   const router = useRouter();
 
-  // const { remindData } = useGetRemindQuery(
-  //   parseInt(planId, 10),
-  //   checkIsSeason(),
-  // );
-
-  const remindData: RemindData = {
-    remindTotalPeriod: 12,
-    remindTerm: 1,
-    remindDate: 1,
-    remindTime: 'MORNING',
-    isRemindable: true,
-    messagesResponses: [
-      {
-        remindMessage: '제발 되라',
-        remindMonth: 12,
-        remindDay: 1,
-        isReminded: false,
-      },
-    ],
-  };
+  const { remindData } = useGetRemindQuery(
+    parseInt(planId, 10),
+    checkIsSeason(),
+  );
 
   const [originTerm, setOriginTerm] = useState(1);
   const [originPeriod, setOriginPeriod] = useState(1);
