@@ -1,12 +1,13 @@
 .plans-page {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  height: 100%;
+  justify-content: space-between;
   overflow-y: scroll;
   margin-left: var(--scroll-margin-left);
   padding: 2rem 0;
+  gap: 2rem;
   &__breadcrumb {
     display: flex;
     gap: 0.5rem;
@@ -15,27 +16,33 @@
       color: var(--origin-text-100);
     }
   }
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &--share {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    &--buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    & label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
 
   &__bottom {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    &--share {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      &--buttons {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: nowrap;
-      }
-      & label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-    }
 
     &--buttons {
       a {

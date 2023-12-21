@@ -42,64 +42,71 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   };
 
   return (
-    <div
-      className={classNames('plans-page')}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
-      <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
-        {isMyPlan ? (
-          <Link href="/home">홈</Link>
-        ) : (
-          <Link href="/explore">둘러보기</Link>
-        )}
-        &gt;
-        <span>계획</span>
-      </div>
-      <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
-        {isMyPlan && isSeason && (
-          <div className="plan__header--buttons">
-            <Link href={`/plans/edit/${planId}`}>수정</Link>
-            <span onClick={handleOpenDeleteModal}>삭제</span>
+    <>
+      <div
+        className={classNames('plans-page')}
+        ref={scrollableRef}
+        onScroll={handleScroll}>
+        <div className="plans-page__main">
+          <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
+            {isMyPlan ? (
+              <Link href="/home">홈</Link>
+            ) : (
+              <Link href="/explore">둘러보기</Link>
+            )}
+            &gt;
+            <span>계획</span>
           </div>
-        )}
-      </ReadOnlyPlan>
-      {isMyPlan && (
-        <div className="plans-page__bottom">
-          <div className="plans-page__bottom--share">
-            <h2>공유하기</h2>
-            <div className="plans-page__bottom--share--buttons">
-              <label className="font-size-xs" onClick={handleCopyLink}>
-                <Icon name="COPY" color="text-100" size="md" />
-                링크 복사
-              </label>
-              <label className="font-size-xs">
-                <KakaoShareButton linkURL={current} />
-                카카오톡
-              </label>
+          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
+            {isMyPlan && isSeason && (
+              <div className="plan__header--buttons">
+                <Link href={`/plans/edit/${planId}`}>수정</Link>
+                <span onClick={handleOpenDeleteModal}>삭제</span>
+              </div>
+            )}
+          </ReadOnlyPlan>
+          {isMyPlan && (
+            <div className="plans-page--share">
+              <h2>공유하기</h2>
+              <div className="plans-page--share--buttons">
+                <label className="font-size-xs" onClick={handleCopyLink}>
+                  <Icon name="COPY" color="text-100" size="md" />
+                  링크 복사
+                </label>
+                <label className="font-size-xs">
+                  <KakaoShareButton linkURL={current} />
+                  카카오톡
+                </label>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {isMyPlan && (
+          <div className="plans-page__bottom">
+            <div className={classNames('plans-page__bottom--buttons')}>
+              <Link href={`/reminds/${planId}`}>
+                <Button
+                  background="primary"
+                  color="white-100"
+                  size="lg"
+                  border={false}>
+                  리마인드 보기
+                </Button>
+              </Link>
+              <Link href={`/feedback/${planId}`}>
+                <Button
+                  background="primary"
+                  color="white-100"
+                  size="lg"
+                  border={false}>
+                  피드백 보기
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className={classNames('plans-page__bottom--buttons')}>
-            <Link href={`/reminds/${planId}`}>
-              <Button
-                background="primary"
-                color="white-100"
-                size="lg"
-                border={false}>
-                리마인드 보기
-              </Button>
-            </Link>
-            <Link href={`/feedback/${planId}`}>
-              <Button
-                background="primary"
-                color="white-100"
-                size="lg"
-                border={false}>
-                피드백 보기
-              </Button>
-            </Link>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
       {isDeletePlanModalOpen && (
         <Modal>
           <ModalBasic
@@ -110,6 +117,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
           </ModalBasic>
         </Modal>
       )}
-    </div>
+    </>
   );
 }
