@@ -1,4 +1,4 @@
-import { Button } from '@/components';
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -16,10 +16,13 @@ export default function NotFound() {
       />
       <p className="NotFound__title">존재하지 않는 페이지입니다😭</p>
 
-      <Link href="/home" className="NotFound__description">
-        <Button background="primary" border={false} color="white-100">
-          홈 페이지로 이동하기
-        </Button>
+      <Link
+        href="/home"
+        className={classNames(
+          'NotFound__description',
+          'color-origin-secondary',
+        )}>
+        홈 페이지로 이동하기
       </Link>
     </div>
   );
