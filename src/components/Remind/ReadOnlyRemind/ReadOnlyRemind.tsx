@@ -1,6 +1,5 @@
 'use client';
 
-import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
 import {
   DATE_OPTIONS,
@@ -90,31 +89,6 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
           에 리마인드를 받고 있어요 !
         </span>
       </div>
-
-      <ul className={classNames('readonly-remind__message__list')}>
-        {remindData.sentRemindResponses &&
-          remindData.sentRemindResponses.map((item, index) => {
-            return (
-              <ReadOnlyRemindItem
-                key={index}
-                data={item}
-                planId={parseInt(planId, 10)}
-                classNameList={['readonly-remind__message__item']}
-              />
-            );
-          })}
-        {remindData.futureRemindResponses &&
-          remindData.futureRemindResponses.map((item, index) => {
-            return (
-              <ReadOnlyRemindItem
-                key={index}
-                data={item}
-                planId={parseInt(planId, 10)}
-                classNameList={['readonly-remind__message__item']}
-              />
-            );
-          })}
-      </ul>
     </div>
   );
 }
