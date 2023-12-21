@@ -8,12 +8,15 @@ import {
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
+import { EditRemindData } from '@/types/apis/plan/EditRemind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { changeRemindTimeToString } from './../../../../../utils/changeRemindTimeToString';
 import './index.scss';
 
 export default function EditRemindPage({
@@ -65,11 +68,50 @@ export default function EditRemindPage({
     router.push(`/reminds/${planId}`);
   };
 
+  const { mutate: editRemindAPI } = useEditRemindMutation(parseInt(planId, 10));
+
   const handleClickEditRemind = (isEveryRemindDataExist: boolean) => {
     if (isEveryRemindDataExist) {
       // TODO: session Storage에서 data 가지고 api 실행
 
-      ajajaToast.success('리마인드 수정 API 실행');
+      const editRemindOptionsItem = sessionStorage.getItem(
+        SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
+      );
+
+      const editRemindOptions = editRemindOptionsItem
+        ? (JSON.parse(editRemindOptionsItem) as RemindOptionType)
+        : null;
+
+      const editRemindMessageItem = sessionStorage.getItem(
+        SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
+      );
+
+      // 기존 4번에 대한 리마인드 메세지 리스트에 접근
+      const editRemindMessage = editRemindMessageItem
+        ? (JSON.parse(editRemindMessageItem) as RemindItemType[])
+        : null;
+
+      if (editRemindOptions && editRemindMessage) {
+        const editRemindData: EditRemindData = {
+          remindTotalPeriod: editRemindOptions.TotalPeriod,
+          remindTerm: editRemindOptions.Term,
+          remindDate: editRemindOptions.Date,
+          remindTime: changeRemindTimeToString(editRemindOptions.Time),
+          messages: editRemindMessage.map((item) => {
+            return {
+              content: item.message,
+              remindMonth: item.date.month,
+              remindDay: item.date.day,
+            };
+          }),
+        };
+
+        editRemindAPI({
+          planId: parseInt(planId, 10),
+          remindData: editRemindData,
+        });
+        ajajaToast.success('리마인드 수정 API 실행'); // TODO: 다 되면 지우기
+      }
       router.push('/home');
     } else {
       ajajaToast.error('모든 항목을 입력해주세요!');
@@ -87,6 +129,7 @@ export default function EditRemindPage({
       : null;
 
     if (
+      // 1. 주기, 범위가 바뀌지 않았다면
       editRemindOptions?.Term === originTerm &&
       editRemindOptions?.TotalPeriod === originPeriod
     ) {
@@ -129,6 +172,7 @@ export default function EditRemindPage({
       // step + 1
       goToNextStep();
     } else {
+      // 2. 주기, 범위가 바뀌었다면
       if (editRemindOptions) {
         const fixedRemindDateList = decideRemindDate(
           editRemindOptions.TotalPeriod,

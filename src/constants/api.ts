@@ -38,7 +38,7 @@ export const DOMAIN = {
   POST_AJAJA: (planId: number) => `/plans/${planId}/ajaja`,
 
   GET_REMINDS: (planId: number) => `/reminds/${planId}`,
-  GET_REMINDS_MODIFY: (planId: number) => `/reminds/modify/${planId}`,
+  PUT_REMINDS: (planId: number) => `/plans/${planId}/reminds`,
 };
 
 // 실제 API -> swagger 순서입니다.
