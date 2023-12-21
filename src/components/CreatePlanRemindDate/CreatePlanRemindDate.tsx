@@ -29,7 +29,7 @@ export default function CreatePlanRemindDate({
           : SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
       initialValue: {
         TotalPeriod: 12,
-        Term: 3,
+        Term: 1,
         Date: 1,
         Time: 9,
       },

@@ -8,9 +8,7 @@ import {
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
-import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
-import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -26,23 +24,23 @@ export default function EditRemindPage({
   const { planId } = params;
   const router = useRouter();
 
-  const { remindData } = useGetRemindQuery(
-    parseInt(planId, 10),
-    checkIsSeason(),
-  );
-
   const [originTerm, setOriginTerm] = useState(1);
   const [originPeriod, setOriginPeriod] = useState(1);
 
   useEffect(() => {
-    setOriginTerm(remindData.remindTerm);
-    console.log(`remindTerm: ${remindData.remindTerm}로 변경`);
-  }, [remindData.remindTerm]);
+    const editRemindOptionsOriginItem = sessionStorage.getItem(
+      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
+    );
 
-  useEffect(() => {
-    setOriginPeriod(remindData.remindTotalPeriod);
-    console.log(`remindPeriod: ${remindData.remindTotalPeriod}로 변경`);
-  }, [remindData.remindTotalPeriod]);
+    const editRemindOptionsOrigin = editRemindOptionsOriginItem
+      ? (JSON.parse(editRemindOptionsOriginItem) as RemindOptionType)
+      : null;
+
+    if (editRemindOptionsOrigin) {
+      setOriginPeriod(editRemindOptionsOrigin.TotalPeriod);
+      setOriginTerm(editRemindOptionsOrigin.Term);
+    }
+  }, []);
 
   const [nowStep, setNowStep] = useState(1);
   const [isEveryRemindDateExist, setIsEveryRemindDateExist] = useState(false);
@@ -50,36 +48,6 @@ export default function EditRemindPage({
   const [fixedDate, setFixedDate] = useState<number>(1);
   const [isFixRemindDateModalOpen, setIsFixRemindDateModalOpen] =
     useState(false);
-
-  useEffect(() => {
-    // 맨 처음 렌더링 시에만 실행 => 이 로직이 위 remindData 받아온 이후에 실행되어야 함
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_OPTION);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-      JSON.stringify({
-        TotalPeriod: remindData.remindTotalPeriod,
-        Term: remindData.remindTerm,
-        Date: remindData.remindDate,
-        Time: remindData.remindTime,
-      }),
-    );
-
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
-      JSON.stringify(
-        remindData.messagesResponses.map((message) => {
-          return {
-            date: {
-              month: message.remindMonth,
-              day: message.remindDay,
-            },
-            message: message.remindMessage,
-          };
-        }),
-      ),
-    );
-  }, []);
 
   const goToPreviousStep = () => {
     if (nowStep > 1) {
@@ -122,9 +90,9 @@ export default function EditRemindPage({
       editRemindOptions?.Term === originTerm &&
       editRemindOptions?.TotalPeriod === originPeriod
     ) {
-      // 1. 4번 세션에 대한 session Data를 업데이트 해줘야 함 => 주기, 범위 외에 시간이랑 날짜 바뀌었을 수도 있으므로
+      // 4번 세션에 대한 session Data를 업데이트 해줘야 함 => 주기, 범위 외에 시간이랑 날짜 바뀌었을 수도 있으므로
       const remindMessageItem = sessionStorage.getItem(
-        SESSION_STORAGE_KEY.STEP_4,
+        SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
       );
 
       // 기존 4번에 대한 리마인드 메세지 리스트에 접근
@@ -212,9 +180,6 @@ export default function EditRemindPage({
         JSON.stringify(emptyRemindMessageList),
       );
 
-      // origin에 대한 값을 최신의 period, term으로 교체 => 다시 뒤로가기 할 수도 있으므로
-      console.log(`모달 close => period: ${remindOptions.TotalPeriod}로 변경`);
-      console.log(`모달 close => term: ${remindOptions.Term}로 변경`);
       setOriginPeriod(remindOptions.TotalPeriod);
       setOriginTerm(remindOptions.Term);
 
@@ -311,6 +276,7 @@ export default function EditRemindPage({
           onClickNo={() => {
             setIsFixRemindDateModalOpen(false);
           }}
+          isPeriodOrTermChanged={true}
         />
       )}
     </div>

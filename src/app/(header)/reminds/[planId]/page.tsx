@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
+import { SESSION_STORAGE_KEY } from '@/constants';
 import { REMIND_TIME_TEXT } from '@/constants/remindTimeText';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
@@ -9,6 +10,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { changeRemindTimeToNumber } from './../../../../utils/changeRemindTimeToNumber';
 import './index.scss';
 
 export default function RemindPage({ params }: { params: { planId: string } }) {
@@ -33,6 +35,33 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
   };
 
   const onClickGoToEditRemind = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_OPTION);
+    sessionStorage.setItem(
+      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
+      JSON.stringify({
+        TotalPeriod: 12, //TODO: 바꾸기 ! remindData.remindTotalPeriod로
+        Term: 3,
+        Date: 1,
+        Time: changeRemindTimeToNumber(remindData.remindTime),
+      }),
+    );
+
+    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE);
+    sessionStorage.setItem(
+      SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
+      JSON.stringify(
+        remindData.messagesResponses.map((message) => {
+          return {
+            date: {
+              month: message.remindMonth,
+              day: message.remindDay,
+            },
+            message: message.remindMessage,
+          };
+        }),
+      ),
+    );
+
     router.push(`/reminds/edit/${planId}`);
   };
 
