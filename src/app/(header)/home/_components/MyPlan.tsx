@@ -2,6 +2,7 @@
 
 import { Dropdown } from '@/components';
 import { planIcons } from '@/constants/planIcons';
+import { useScroll } from '@/hooks/useScroll';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import { checkThisYear } from '@/utils/checkThisYear';
@@ -19,6 +20,7 @@ type MyPlanProps = {
 
 export default function MyPlan({ myPlans }: MyPlanProps) {
   const maxLength = 4;
+  const { handleScroll, scrollableRef } = useScroll();
   const { data: myPlansData } = myPlans;
   const yearList = myPlansData.map((x) => x.year);
   const [year, setYear] = useState(yearList[0]);
@@ -66,7 +68,10 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
           전체 달성률 : {yearData.totalAchieveRate}%
         </div>
       </div>
-      <div className={classNames('home__plans')}>
+      <div
+        className={classNames('home__plans')}
+        ref={scrollableRef}
+        onScroll={handleScroll}>
         {checkThisYear() === year && !yearData.getPlanList.length ? (
           <div className={classNames('home__plans--empty')}>
             <Image src={'/animal/cat.png'} alt="cat" width={100} height={100} />

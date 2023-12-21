@@ -33,30 +33,32 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
     setCurrent(isNewYear);
   };
   return (
-    <div
-      ref={scrollableRef}
-      className={classNames('explore-plans')}
-      onScroll={handleScroll}>
+    <div className={classNames('explore-plans')}>
       <div className={classNames('explore-plans__wrapper')}>
         <Tab handleSort={handleSort} handleYear={handleYear} />
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={() => fetchNextPage()}
-          hasMore={hasNextPage}
-          loader={
-            <FadeLoader
-              key="loader"
-              color={COLOR.PRIMARY}
-              speedMultiplier={1}
-              className={classNames('explore-plans__loader')}
-            />
-          }
-          useWindow={false}
-          getScrollParent={() => {
-            return scrollableRef.current;
-          }}>
-          <Plans flatLoadedPlans={flatLoadedPlans} isLogin={isLogin} />
-        </InfiniteScroll>
+        <div
+          ref={scrollableRef}
+          onScroll={handleScroll}
+          className={classNames('explore-plans__plans')}>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => fetchNextPage()}
+            hasMore={hasNextPage}
+            loader={
+              <FadeLoader
+                key="loader"
+                color={COLOR.PRIMARY}
+                speedMultiplier={1}
+                className={classNames('explore-plans__loader')}
+              />
+            }
+            useWindow={false}
+            getScrollParent={() => {
+              return scrollableRef.current;
+            }}>
+            <Plans flatLoadedPlans={flatLoadedPlans} isLogin={isLogin} />
+          </InfiniteScroll>
+        </div>
       </div>
       <ToTopFloatingButton />
     </div>
