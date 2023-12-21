@@ -14,6 +14,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePutUserReceiveMutation } from '@/hooks/apis/usePutUserReceiveMutation';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
+import { useScroll } from '@/hooks/useScroll';
 import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
@@ -36,7 +37,7 @@ export default function MyPage() {
     useState<boolean>(false);
   const [isOpenRemindWayModal, setIsOpenRemindWayModal] =
     useState<boolean>(false);
-
+  const { handleScroll, scrollableRef } = useScroll();
   const router = useRouter();
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
@@ -125,7 +126,10 @@ export default function MyPage() {
   };
   return (
     <>
-      <div className="my-page__wrapper">
+      <div
+        className="my-page__wrapper"
+        ref={scrollableRef}
+        onScroll={handleScroll}>
         <h1 className="my-page__header font-size-xl">마이페이지</h1>
         <h1 className="my-page__welcome-text font-size-xl">
           <span>안녕하세요, </span>
