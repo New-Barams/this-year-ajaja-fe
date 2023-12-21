@@ -1,18 +1,21 @@
-.NotFound{
-  &__wrapper{
+.NotFound {
+  &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
   }
 
-  &__title{
+  &__title {
     margin-top: 2rem;
     font-size: 1.5rem;
   }
 
-  &__description{
+  &__description {
+    font-size: 0.5rem;
+    width: 12rem;
+    text-decoration: none;
     margin-top: 1.3rem;
   }
 }
