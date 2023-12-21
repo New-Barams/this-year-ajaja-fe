@@ -14,13 +14,22 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import './index.scss';
 
-export default function CreatePlanRemindDate() {
+interface CreatePlanRemindDateProps {
+  isCreateOrEditPage: 'create' | 'edit';
+}
+
+export default function CreatePlanRemindDate({
+  isCreateOrEditPage,
+}: CreatePlanRemindDateProps) {
   const [remindOptions, setRemindOptions] = useSessionStorage<RemindOptionType>(
     {
-      key: SESSION_STORAGE_KEY.STEP_3,
+      key:
+        isCreateOrEditPage === 'create'
+          ? SESSION_STORAGE_KEY.STEP_3
+          : SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
       initialValue: {
         TotalPeriod: 12,
-        Term: 3,
+        Term: 1,
         Date: 1,
         Time: 9,
       },

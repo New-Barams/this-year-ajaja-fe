@@ -10,14 +10,19 @@ import './index.scss';
 
 interface CreatePlanRemindMessageProps {
   setIsLastStepDataAllExist: (isExist: boolean) => void;
+  isCreateOrEditPage: 'create' | 'edit';
 }
 export default function CreatePlanRemindMessage({
   setIsLastStepDataAllExist,
+  isCreateOrEditPage,
 }: CreatePlanRemindMessageProps) {
   const [remindMessageList, setRemindMessageList] = useSessionStorage<
     RemindItemType[]
   >({
-    key: SESSION_STORAGE_KEY.STEP_4,
+    key:
+      isCreateOrEditPage === 'create'
+        ? SESSION_STORAGE_KEY.STEP_4
+        : SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
     initialValue: [],
     // 이 초기값은 사실 쓰여질 일이 없음 => 3번에서 4번으로 넘어올 때 이미 날짜 확정 모달 클릭 후 각 날짜에 해당하는 기본값을 ""로 설정해주고 넘어왔을 것이므로
   });

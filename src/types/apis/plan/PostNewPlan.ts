@@ -6,7 +6,13 @@ export interface PostNewPlanRequestBody {
   remindDate: number;
   remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
   isPublic: boolean;
-  tags: string[];
-  messages: string[];
   iconNumber: number;
+  tags: string[];
+  messages: RemindItem[];
+}
+
+export interface RemindItem {
+  content: string;
+  remindMonth: number;
+  remindDay: number;
 }

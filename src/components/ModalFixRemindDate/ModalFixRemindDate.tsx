@@ -8,6 +8,7 @@ interface ModalFixRemindDateProps {
   fixedDate: number;
   onClickYes: () => void;
   onClickNo: () => void;
+  isPeriodOrTermChanged?: boolean;
 }
 
 export default function ModalFixRemindDate({
@@ -15,6 +16,7 @@ export default function ModalFixRemindDate({
   fixedDate,
   onClickYes,
   onClickNo,
+  isPeriodOrTermChanged = false,
 }: ModalFixRemindDateProps) {
   return (
     <Modal>
@@ -23,6 +25,17 @@ export default function ModalFixRemindDate({
         onClickNo={onClickNo}
         confirmSentense="진행하기">
         <div className={classNames(['fix-remind-modal'])}>
+          {isPeriodOrTermChanged && (
+            <div
+              className={classNames([
+                'fix-remind-modal__isChanged',
+                'font-size-md',
+                'color-origin-primary',
+              ])}>
+              <p>리마인드 기간/주기가 변경되어 </p>
+              <p>작성했던 리마인드 메세지가 삭제됩니다.</p>
+            </div>
+          )}
           <div
             className={classNames([
               'fix-remind-modal__title',

@@ -26,6 +26,9 @@ export interface ReadOnlyRemindItemData {
 }
 
 export interface RemindData {
+  remindTotalPeriod: number;
+  remindTerm: number;
+  remindDate: number;
   remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
   isRemindable: boolean;
   messagesResponses: ReadOnlyRemindItemData[];

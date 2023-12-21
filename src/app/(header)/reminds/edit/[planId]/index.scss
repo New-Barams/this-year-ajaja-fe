@@ -1,0 +1,34 @@
+.remind-edit-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__breadcrumb {
+    margin-top: 2rem;
+    align-self: flex-start;
+    display: flex;
+    gap: 0.5rem;
+    a {
+      text-decoration: none;
+      color: var(--origin-text-100);
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+  }
+
+  &__button {
+    display: flex;
+    position: absolute;
+    bottom: 6rem;
+    width: calc(100% - 3rem);
+    background-color: transparent;
+    justify-content: end;
+    gap: 24px;
+  }
+}
