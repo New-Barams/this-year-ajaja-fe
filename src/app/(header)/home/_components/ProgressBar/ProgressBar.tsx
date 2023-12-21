@@ -21,12 +21,7 @@ export default function ProgressBar({ percent: Maxpercent }: ProgressBarProps) {
     return () => clearInterval(interval);
   }, [Maxpercent]);
   return (
-    <div
-      className={classNames(
-        'progress__wrapper',
-        'background-origin-orange-200',
-        'border-round',
-      )}>
+    <div className={classNames('progress__wrapper', 'border-round')}>
       <progress
         className={classNames('progress')}
         value={percent}

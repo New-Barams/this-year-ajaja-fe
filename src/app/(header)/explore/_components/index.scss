@@ -2,9 +2,8 @@
   &-plans {
     width: 100%;
     height: 100%;
-    overflow-y: auto;
     &__wrapper {
-      width: 90%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       margin: auto;
@@ -12,6 +11,11 @@
     &__loader {
       display: block;
       margin: 0 auto;
+    }
+    &__plans {
+      position: relative;
+      overflow-y: scroll;
+      margin-left: var(--scroll-margin-left);
     }
   }
 }

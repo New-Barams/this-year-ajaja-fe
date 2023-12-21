@@ -50,6 +50,7 @@ axiosInstanceClient.interceptors.response.use(
       (error.response.data.errorName === 'INVALID_SIGNATURE' ||
         error.response.data.errorName === 'TOKEN_NOT_MATCH')
     ) {
+      //TODO: 일치하지 않을떄도 재로그인
       alertAndLogin();
     }
 
@@ -74,6 +75,8 @@ axiosInstanceClient.interceptors.response.use(
               accessToken,
               refreshToken,
             });
+            console.log('토큰 재발행, 교체 ');
+            console.log(tokens);
             setCookie('auth', tokens, { maxAge: 604800 });
             if (error.config) {
               error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;

@@ -1,20 +1,19 @@
 'use client';
 
-import { ReadOnlyRemindItem } from '@/components';
 import DebounceSwitchButton from '@/components/DebounceSwitchButton/DebounceSwitchButton';
-import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
-import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
-import { RemindOptionObjectType } from '@/types/components/Remind';
-import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
-import { checkIsSeason } from '@/utils/checkIsSeason';
-import classNames from 'classnames';
-import React from 'react';
 import {
   DATE_OPTIONS,
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from '@constants/components/remindOptions';
+} from '@/constants/remindOptions';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
+import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
+import { RemindOptionObjectType } from '@/types/Remind';
+import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
+import { checkIsSeason } from '@/utils/checkIsSeason';
+import classNames from 'classnames';
+import React from 'react';
 import './index.scss';
 
 interface ReadOnlyRemindProps {
@@ -90,31 +89,6 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
           에 리마인드를 받고 있어요 !
         </span>
       </div>
-
-      <ul className={classNames('readonly-remind__message__list')}>
-        {remindData.sentRemindResponses &&
-          remindData.sentRemindResponses.map((item, index) => {
-            return (
-              <ReadOnlyRemindItem
-                key={index}
-                data={item}
-                planId={parseInt(planId, 10)}
-                classNameList={['readonly-remind__message__item']}
-              />
-            );
-          })}
-        {remindData.futureRemindResponses &&
-          remindData.futureRemindResponses.map((item, index) => {
-            return (
-              <ReadOnlyRemindItem
-                key={index}
-                data={item}
-                planId={parseInt(planId, 10)}
-                classNameList={['readonly-remind__message__item']}
-              />
-            );
-          })}
-      </ul>
     </div>
   );
 }

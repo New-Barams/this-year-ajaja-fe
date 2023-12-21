@@ -1,23 +1,33 @@
 'use client';
 
 import { Icon } from '@/components';
+import { ajajaToast } from '@/components/Toaster/customToast';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import { hasCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import './index.scss';
 
 export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const pathName = usePathname();
   const [isLogin, setIsLogin] = useState(hasAuth);
+  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
 
   if (!hasCookie('auth')) {
     setTimeout(() => {
       setIsLogin(hasCookie('auth'));
     }, 1000);
   }
+
+  const handleCreate = () => {
+    if (!canMakeNewPlan) {
+      ajajaToast.error('생성할 수 있는 계획의 수가 최대입니다.');
+    }
+  };
 
   return (
     <div className={classNames('navigation')}>
@@ -36,7 +46,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
         <p className={classNames('font-size-xs')}>홈</p>
       </Link>
       <Link
-        href="/create"
+        href={canMakeNewPlan ? '/create' : ''}
+        onClick={handleCreate}
         className={classNames('navigation-icon', {
           'color-origin-primary': pathName === '/create',
           'color-origin-text-300': pathName !== '/create',

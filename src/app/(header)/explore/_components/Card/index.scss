@@ -2,7 +2,7 @@
 
 $card_width: 19rem;
 $card_height: 12rem;
-$card_gap: 0.5rem;
+$card_margin: 0.5rem;
 
 @mixin ellipsis($line) {
   text-overflow: ellipsis;
@@ -14,46 +14,37 @@ $card_gap: 0.5rem;
 
 .card {
   &__wrapper {
-    width: $card_width;
-    height: $card_height;
-    position: relative;
-  }
-  &__background {
-    width: calc($card_width - $card_gap);
-    height: calc($card_height - $card_gap);
-    margin-left: $card_gap;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-shadow: var(--origin-shadow);
+    margin-bottom: 1rem;
+    &--image {
+      margin: 0 $card_margin 0 $card_margin;
+    }
   }
   &__contents {
-    width: calc($card_width - $card_gap);
-    height: calc($card_height - $card_gap);
-    border-width: 5px;
-    position: absolute;
-    top: $card_gap;
-    display: flex;
-    justify-content: center;
     &-wrapper {
       display: flex;
       flex-direction: column;
       align-items: start;
+      margin-right: $card_margin;
     }
     &--title {
-      width: calc($card_width - 3rem);
-      @include ellipsis(2);
-      margin-top: 2rem;
+      width: calc(100%);
+      @include ellipsis(1);
+      margin-top: 1rem;
+      font-weight: bold;
+      margin-bottom: $card_margin;
     }
+
     &--nickname {
       @include ellipsis(1);
-      position: absolute;
-      margin-top: 5rem;
+      font-weight: bold;
     }
     &--tags {
-      @include ellipsis(1);
-      position: absolute;
-      margin: 6.5rem 0 0 -0.4rem;
-    }
-    &--ajaja {
-      position: absolute;
-      margin: 8.25rem 0 0 calc($card_width - 6.5rem);
+      @include ellipsis(2);
+      height: 2.5rem;
     }
   }
 }

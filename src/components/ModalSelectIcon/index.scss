@@ -1,0 +1,44 @@
+.select-icon-modal {
+  &__wrapper {
+    border-radius: var(--border-radius);
+    border-top: 1px solid var(--origin-secondary);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 3rem);
+  }
+
+  &__icon-list {
+    display: grid;
+    max-width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 2rem 0rem 1rem 0rem;
+  }
+
+  &__icon-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--origin-text-300);
+
+    &:hover {
+      border: 1px solid var(--origin-primary);
+    }
+  }
+
+  &__text {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+}

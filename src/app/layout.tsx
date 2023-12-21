@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import type { Metadata } from 'next';
 import { Poor_Story } from 'next/font/google';
 import { cookies } from 'next/headers';
+import Script from 'next/script';
 import '@styles/reset.scss';
 import '@styles/variables.scss';
 import '@styles/webkit.scss';
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   title: '올해도 아좌좌',
   description: 'new year plan reminder',
   icons: {
-    icon: '/this-year-ajaja-logo.svg',
+    icon: '/favicon.svg',
   },
 };
 
@@ -58,6 +59,12 @@ export default function RootLayout({
           </div>
         </Provider>
       </body>
+      <Script
+        src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+        integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+        type="module"
+        strategy="lazyOnload"
+      />
     </html>
   );
 }

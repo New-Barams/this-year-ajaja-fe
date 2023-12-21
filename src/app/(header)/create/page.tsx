@@ -1,190 +1,190 @@
 'use client';
 
-import { Button, Modal, WritableRemind } from '@/components';
-import ModalExit from '@/components/Modal/ModalExit';
-import { ajajaToast } from '@/components/Toaster/customToast';
-import WritablePlan from '@/components/WritablePlan/WritablePlan';
-import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
-import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
-import { RemindItemType, RemindOptionType } from '@/types/components/Remind';
-import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
-import { decideRandomIconNumber } from '@/utils/decideRandomIconNumber';
+import {
+  CreatePlanContent,
+  CreatePlanIcon,
+  CreatePlanRemindDate,
+  CreatePlanRemindMessage,
+  ModalFixRemindDate,
+} from '@/components';
+import { SESSION_STORAGE_KEY } from '@/constants';
+import { STEP_NAME } from '@/constants/createPlanStepTitle';
+import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
-import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
 
+const StepperComponent = dynamic(
+  () => import('./_components/CreatePlanStepper/CreatePlanStepper'),
+  {
+    ssr: false,
+  },
+);
+
 export default function CreatePage() {
-  const router = useRouter();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
-  const [isPublic, setPublic] = useState(true);
-  const toggleIsPublic = () => {
-    setPublic(!isPublic);
-  };
+  const [nowStep, setNowStep] = useState(1);
 
-  const [remindOptions, setRemindOptions] = useState<RemindOptionType>({
-    TotalPeriod: 12,
-    Term: 1,
-    Date: 1,
-    Time: 9,
-  });
-
-  const handleChangeRemindOption = (
-    optionKey: string,
-    newOptionValue: number,
-  ) => {
-    setRemindOptions({
-      ...remindOptions,
-      [optionKey]: newOptionValue,
-    });
-  };
-
-  const [remindMessageList, setRemindMessageList] = useState<RemindItemType[]>(
-    [],
-  );
-
-  const handleChangeRemindMessage = (
-    month: number,
-    day: number,
-    newMessage: string,
-  ) => {
-    setRemindMessageList((prevRemindMessageList) => {
-      return prevRemindMessageList.map((item) => {
-        if (item.date.month === month && item.date.day === day) {
-          return { ...item, message: newMessage };
-        }
-        return item;
-      });
-    });
-  };
-
-  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
-
-  const fixRemindOptions = () => {
-    const fixedRemindDate = decideRemindDate(
-      remindOptions.TotalPeriod,
-      remindOptions.Term,
-      remindOptions.Date,
-    );
-
-    const newRemindMessageList: RemindItemType[] = [];
-
-    fixedRemindDate?.forEach((newDate) => {
-      newRemindMessageList.push({
-        date: {
-          month: newDate.month,
-          day: newDate.day,
-        },
-        message: '',
-      });
-    });
-
-    setRemindMessageList(newRemindMessageList);
-  };
-
-  const makeAllRemindMessageSame = useCallback(() => {
-    setRemindMessageList((prevList) => {
-      if (prevList.length > 1) {
-        const firstMessage = prevList[0].message;
-        return prevList.map((item) => ({ ...item, message: firstMessage }));
-      }
-      return prevList;
-    });
-  }, []);
-
-  const isAllRemindMessageExists =
-    remindMessageList.length > 0 &&
-    remindMessageList.every((remindItem) => remindItem.message.length > 0);
-
-  const isCreatePossible =
-    isAllRemindMessageExists && title.length !== 0 && description.length !== 0;
-
-  const { mutate: createNewPlanAPI } = usePostNewPlanMutation();
-
-  const handleClickCreateButton = () => {
-    if (isCreatePossible) {
-      const data: PostNewPlanRequestBody = {
-        iconNumber: decideRandomIconNumber(),
-        isPublic: isPublic,
-        title: title,
-        description: description,
-        tags: tags,
-        remindTotalPeriod: remindOptions.TotalPeriod,
-        remindTerm: remindOptions.Term,
-        remindDate: remindOptions.Date,
-        remindTime: changeRemindTimeToString(remindOptions.Time),
-        messages: remindMessageList.map((messageItem) => {
-          return messageItem.message;
-        }),
-      };
-
-      createNewPlanAPI(data);
-
-      router.push('/home');
-    } else {
-      ajajaToast.error('모든 항목을 입력해주세요 !');
+  const goToNextStep = () => {
+    if (nowStep < 4) {
+      setNowStep(nowStep + 1);
     }
   };
 
+  const goToPreviousStep = () => {
+    if (nowStep > 1) {
+      setNowStep(nowStep - 1);
+    }
+  };
+
+  const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
+  const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
+    useState(false);
+  const [isLastStepDataAllExist, setIsLastStepDataAllExist] = useState(false);
+
+  const [fixedMonthList, setFixedMonthList] = useState<number[]>([]);
+  const [fixedDate, setFixedDate] = useState<number>(1);
+
+  const [isFixRemindDateModalOpen, setIsFixRemindDateModalOpen] =
+    useState(false);
+
+  // nowStep=3에서, 다음 단계 버튼 누르면 실행되는 함수
+  const goToLastStep = () => {
+    // 모달에 연결되어있는 data들을 3번 단계에서 정한 주기, 범위, 날짜로 업데이트 시켜주고
+    // 그 이후에 모달 open 상태를 true로 만들어주기
+    const remindOptionsItem = sessionStorage.getItem(
+      SESSION_STORAGE_KEY.STEP_3,
+    );
+
+    const remindOptions = remindOptionsItem
+      ? (JSON.parse(remindOptionsItem) as RemindOptionType)
+      : null; // null일수도 있음 ! 사용자가 지웠을 수도 있으니까
+
+    if (remindOptions) {
+      const fixedRemindDateList = decideRemindDate(
+        remindOptions.TotalPeriod,
+        remindOptions.Term,
+        remindOptions.Date,
+      );
+
+      setFixedMonthList(
+        fixedRemindDateList!.map((item) => {
+          return item.month;
+        }),
+      );
+      setFixedDate(remindOptions.Date);
+      setIsFixRemindDateModalOpen(true);
+    }
+  };
+
+  const onClickRemindDateModalYes = () => {
+    // 모달에서 yes를 눌렀을 시, 3번 data를 바탕으로 정해진 날짜 - "" 를 4번 key에 대해 저장, 모달 닫기
+    const remindOptionsItem = sessionStorage.getItem(
+      SESSION_STORAGE_KEY.STEP_3,
+    );
+
+    const remindOptions = remindOptionsItem
+      ? (JSON.parse(remindOptionsItem) as RemindOptionType)
+      : null; // null일수도 있음 ! 사용자가 지웠을 수도 있으니까
+
+    if (remindOptions) {
+      const fixedRemindDateList = decideRemindDate(
+        remindOptions.TotalPeriod,
+        remindOptions.Term,
+        remindOptions.Date,
+      );
+
+      const emptyRemindMessageList: RemindItemType[] = fixedRemindDateList!.map(
+        (item) => {
+          return {
+            date: {
+              month: item.month,
+              day: item.day,
+            },
+            message: '',
+          };
+        },
+      );
+
+      sessionStorage.setItem(
+        SESSION_STORAGE_KEY.STEP_4,
+        JSON.stringify(emptyRemindMessageList),
+      );
+    }
+
+    setIsFixRemindDateModalOpen(false);
+    goToNextStep();
+  };
+
   return (
-    <div className={classNames('create-page')}>
-      <WritablePlan
-        isEditPage={false}
-        isPublic={isPublic}
-        onToggleIsPublic={toggleIsPublic}
-        title={title}
-        description={description}
-        onChangeTitle={setTitle}
-        onChangeDescription={setDescription}
-        tags={tags}
-        changeTags={setTags}
-      />
-      <WritableRemind
-        isEditPage={false}
-        remindOption={remindOptions}
-        setRemindOption={handleChangeRemindOption}
-        fixRemindOptions={fixRemindOptions}
-        remindMessageList={remindMessageList}
-        setRemindMessage={handleChangeRemindMessage}
-        makeAllRemindMessageSame={makeAllRemindMessageSame}
-        classNameList={['create-page__remind']}
-      />
-      <div className={classNames('create-page__button__container')}>
-        <Button
-          background={isCreatePossible ? 'primary' : 'gray-200'}
-          color="white-100"
-          size="lg"
-          border={false}
-          onClick={() => {
-            handleClickCreateButton();
-          }}>
-          작성 완료
-        </Button>
-        <Button
-          background="primary"
-          color="white-100"
-          size="lg"
-          border={false}
-          onClick={() => {
-            setIsExitModalOpen(true);
-          }}>
-          나가기
-        </Button>
+    <div className={classNames('new-create-page')}>
+      <StepperComponent nowStep={nowStep - 1} />
+
+      <div className={classNames('new-create-page__title', 'font-size-xl')}>
+        {STEP_NAME[nowStep]}
       </div>
 
-      {isExitModalOpen && (
-        <Modal>
-          <ModalExit
-            exitLink="/home"
-            closeModal={() => {
-              setIsExitModalOpen(false);
-            }}>
-            작성 중인 계획이 있습니다. 정말 페이지를 나가시겠습니까 ?
-          </ModalExit>
-        </Modal>
+      {(() => {
+        switch (nowStep) {
+          case 1:
+            return (
+              <CreatePlanIcon
+                setIsFirstStepDataAllExist={(isExist: boolean) => {
+                  setIsFirstStepDataAllExist(isExist);
+                }}
+              />
+            );
+          case 2:
+            return (
+              <CreatePlanContent
+                setIsSecondStepDataAllExist={(isExist: boolean) => {
+                  setIsSecondStepDataAllExist(isExist);
+                }}
+              />
+            );
+          case 3:
+            return <CreatePlanRemindDate isCreateOrEditPage="create" />;
+          case 4:
+            return (
+              <CreatePlanRemindMessage
+                setIsLastStepDataAllExist={(isExist: boolean) => {
+                  setIsLastStepDataAllExist(isExist);
+                }}
+                isCreateOrEditPage="create"
+              />
+            );
+          default:
+            return (
+              <CreatePlanIcon
+                setIsFirstStepDataAllExist={(isExist: boolean) => {
+                  setIsFirstStepDataAllExist(isExist);
+                }}
+              />
+            );
+        }
+      })()}
+
+      <StepButtonGroup
+        nowStep={nowStep}
+        goToPreviousStep={goToPreviousStep}
+        goToNextStep={goToNextStep}
+        goToLastStep={goToLastStep}
+        isFirstStepDataAllExist={isFirstStepDataAllExist}
+        isSecondStepDataAllExist={isSecondStepDataAllExist}
+        isLastStepDataAllExist={isLastStepDataAllExist}
+      />
+
+      {isFixRemindDateModalOpen && (
+        <ModalFixRemindDate
+          fixedMonthList={fixedMonthList}
+          fixedDate={fixedDate}
+          onClickYes={onClickRemindDateModalYes}
+          onClickNo={() => {
+            setIsFixRemindDateModalOpen(false);
+          }}
+        />
       )}
     </div>
   );

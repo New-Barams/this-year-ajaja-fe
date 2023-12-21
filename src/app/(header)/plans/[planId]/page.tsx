@@ -1,12 +1,8 @@
 'use client';
 
-import {
-  Button,
-  Modal,
-  ModalBasic,
-  ReadOnlyPlan,
-  ReadOnlyRemind,
-} from '@/components';
+import { Button, Icon, Modal, ModalBasic, ReadOnlyPlan } from '@/components';
+import KakaoShareButton from '@/components/KakaoShareButton/KakaoShareButton';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
@@ -23,7 +19,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const isSeason = checkIsSeason();
   const { plan } = useGetPlanQuery(Number(planId));
   const isMyPlan = checkIsMyPlan(plan.userId);
-
+  const current = window.location.href;
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
 
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
@@ -33,45 +29,73 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     deletePlanAPI(parseInt(planId, 10));
     router.push('/home');
   };
-
+  const handleCopyLink = async () => {
+    await navigator.clipboard.writeText(current);
+    ajajaToast.success('링크가 복사되었습니다.');
+  };
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
+  };
+  const handleOpenDeleteModal = () => {
+    setIsDeletePlanModalOpen(true);
   };
 
   return (
     <div className={classNames('plans-page')}>
-      <ReadOnlyPlan isMine={isMyPlan} planData={plan} />
-
+      <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
+        {isMyPlan ? (
+          <Link href="/home">홈</Link>
+        ) : (
+          <Link href="/explore">둘러보기</Link>
+        )}
+        &gt;
+        <span>계획</span>
+      </div>
+      <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
+        {isMyPlan && isSeason && (
+          <div className="plan__header--buttons">
+            <Link href={`/plans/edit/${planId}`}>수정</Link>
+            <span onClick={handleOpenDeleteModal}>삭제</span>
+          </div>
+        )}
+      </ReadOnlyPlan>
       {isMyPlan && (
-        <div className="plans-page__remind">
-          <ReadOnlyRemind planId={planId} />
+        <div className="plans-page__bottom">
+          <div className="plans-page__bottom--share">
+            <h2>공유하기</h2>
+            <div className="plans-page__bottom--share--buttons">
+              <label className="font-size-xs" onClick={handleCopyLink}>
+                <Icon name="COPY" color="text-100" size="md" />
+                링크 복사
+              </label>
+              <label className="font-size-xs">
+                <KakaoShareButton linkURL={current} />
+                카카오톡
+              </label>
+            </div>
+          </div>
+          <div className={classNames('plans-page__bottom--buttons')}>
+            <Link href={`/reminds/${planId}`}>
+              <Button
+                background="primary"
+                color="white-100"
+                size="lg"
+                border={false}>
+                리마인드 보기
+              </Button>
+            </Link>
+            <Link href={`/feedback/${planId}`}>
+              <Button
+                background="primary"
+                color="white-100"
+                size="lg"
+                border={false}>
+                피드백 보기
+              </Button>
+            </Link>
+          </div>
         </div>
       )}
-
-      {isMyPlan && isSeason && (
-        <div className={classNames('plans-page__button__container')}>
-          <Link href={`/edit/${planId}`}>
-            <Button
-              background="white-100"
-              color="primary"
-              size="lg"
-              border={true}>
-              수정
-            </Button>
-          </Link>
-          <Button
-            background="primary"
-            color="white-100"
-            size="lg"
-            border={false}
-            onClick={() => {
-              setIsDeletePlanModalOpen(true);
-            }}>
-            삭제
-          </Button>
-        </div>
-      )}
-
       {isDeletePlanModalOpen && (
         <Modal>
           <ModalBasic

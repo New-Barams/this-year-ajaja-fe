@@ -1,46 +1,51 @@
 import { Icon } from '@/components';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import './index.scss';
 
-type NewPlanProps = {
-  email_isVerified: boolean;
-  handleOpenEmailVerificationModal: () => void;
-};
+export default function NewPlan() {
+  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
 
-export default function NewPlan({
-  email_isVerified,
-  handleOpenEmailVerificationModal,
-}: NewPlanProps) {
   return (
-    <Link
-      href={checkIsSeason() && email_isVerified ? '/create' : {}}
-      className={classNames('new-plan__wrapper')}
-      style={{
-        cursor: checkIsSeason() ? 'pointer' : 'default',
-      }}
-      onClick={handleOpenEmailVerificationModal}>
-      <div className={classNames('new-plan__wrapper--icon')}>
-        <Icon
-          name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'AJAJA'}
-          size="9xl"
-          color="gray-200"
-        />
-      </div>
-      <div className={classNames('color-origin-gray-200', 'new-plan--p')}>
+    <>
+      <Link
+        href={checkIsSeason() && canMakeNewPlan ? '/create' : {}}
+        className={classNames('new-plan__wrapper')}
+        style={{
+          cursor: checkIsSeason() && canMakeNewPlan ? 'pointer' : 'default',
+        }}>
         {checkIsSeason() ? (
-          <>
-            <p>[작성 시즌]</p>
-            <p>새로운 신년 계획을 생성해보세요!</p>
-          </>
+          <div
+            className={classNames('new-plan__add', 'border-round', {
+              'background-origin-primary': canMakeNewPlan,
+              'background-origin-secondary': !canMakeNewPlan,
+              'color-origin-background': !canMakeNewPlan,
+            })}>
+            {canMakeNewPlan ? (
+              <Icon name="PLUS" color="background" size="xl" />
+            ) : (
+              <>
+                <p>생성할 수 있는 계획의 수가 최대입니다.</p>
+                <p>기존 계획을 삭제해야만 새로 생성이 가능합니다.</p>
+              </>
+            )}
+          </div>
         ) : (
-          <>
-            <p>[작성 시즌 종료] </p>
+          <div
+            className={classNames(
+              'new-plan__add',
+              'color-origin-background',
+              'border-round',
+              'background-origin-secondary',
+            )}>
+            <p>[작성 시즌 종료]</p>
             <p>내년에 만나요!</p>
-          </>
+          </div>
         )}
-      </div>
-    </Link>
+      </Link>
+    </>
   );
 }

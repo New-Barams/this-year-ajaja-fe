@@ -1,0 +1,22 @@
+$image-width: 9rem;
+
+.example-icon-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-shadow: var(--origin-shadow);
+
+  &__image {
+    margin: 0.75rem 1.5rem;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 1rem;
+    gap: 1rem;
+    width: calc(100% - $image-width);
+  }
+}

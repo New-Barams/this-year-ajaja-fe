@@ -1,30 +1,40 @@
+$image-width: 9rem;
+
 .plan {
   &__wrapper {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    width: 100%;
     text-decoration: none;
+    margin-bottom: 1rem;
+    box-shadow: var(--origin-shadow);
     &:hover {
       cursor: pointer;
     }
-    &--icon {
-      width: 13rem;
-      height: 13rem;
-      border-radius: 50%;
-      border: 0.5rem solid var(--origin-orange-200);
+    &--text {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      width: calc(100% - $image-width);
+      gap: 0.25rem;
+    }
+    &--image {
+      margin: 0.5rem 1.5rem;
     }
   }
   &__title {
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: bold;
   }
   &__tag {
     padding: 0.4rem 0.6rem;
+  }
+  &__feedback {
+    padding: 0.1rem 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
   }
 }

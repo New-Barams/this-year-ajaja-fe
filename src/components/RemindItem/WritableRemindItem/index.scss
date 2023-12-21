@@ -3,19 +3,18 @@
   flex-direction: column;
   width: 100%;
   border-radius: var(--border-radius);
-  border: var(--border-width) solid var(--origin-orange-200);
+  border: 2px solid var(--origin-secondary);
+  box-shadow: var(--origin-shadow);
 
   &__header {
     display: flex;
     position: relative;
-    padding: 1rem 2rem;
+    padding: 0.75rem 1rem;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 
     &__title {
-      font-size: 1.25rem;
-      line-height: 1.25rem;
       overflow: hidden;
       white-space: nowrap;
     }
@@ -27,26 +26,14 @@
       right: 0rem;
     }
 
-    &__warning {
-      transition: all 1s ease;
+    &__word-length {
       display: flex;
       margin-right: 0.75rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: var(--border-radius);
       align-items: center;
-
-      &__text {
-        margin-left: 0.25rem;
-        font-size: 0.8rem;
-        line-height: 0.8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
     }
 
     &__icon {
-      margin-right: 2rem;
+      margin-right: 1rem;
     }
   }
 
@@ -54,9 +41,8 @@
     display: none;
     flex-direction: column;
     align-items: center;
-    border-top: var(--border-width) solid var(--origin-orange-200);
     border-radius: 0 0 12px 12px;
-    padding: 1rem;
+    padding: 0rem 1.25rem 1rem 1rem;
 
     &--open {
       display: flex;
@@ -64,26 +50,33 @@
 
     &__check {
       display: flex;
-      margin-top: 1.2rem;
-      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
 
-      &__text {
+      &__title {
         margin-left: 0.25rem;
-        font-size: 1.25rem;
-        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-    }
-  }
-}
 
-@media (max-width: 1200px) {
-  .remind-item {
-    &__header {
-      &__warning {
-        display: none;
+      &__content {
+        display: flex;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      &__modal-content {
+        display: flex;
+        justify-content: center;
+        width: 250px; 
       }
     }
+  }
+
+  &__check__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

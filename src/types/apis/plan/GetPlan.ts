@@ -24,6 +24,7 @@ export interface GetPlanResponse {
 
 export interface PlanData {
   id: number;
+  iconNumber: number;
   userId: number;
   nickname: string;
   title: string;
