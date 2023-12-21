@@ -145,13 +145,14 @@ export default function CreatePage() {
               />
             );
           case 3:
-            return <CreatePlanRemindDate />;
+            return <CreatePlanRemindDate isCreateOrEditPage="create" />;
           case 4:
             return (
               <CreatePlanRemindMessage
                 setIsLastStepDataAllExist={(isExist: boolean) => {
                   setIsLastStepDataAllExist(isExist);
                 }}
+                isCreateOrEditPage="create"
               />
             );
           default:

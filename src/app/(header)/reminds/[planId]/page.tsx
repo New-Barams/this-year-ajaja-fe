@@ -86,16 +86,16 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />
-      </div>
 
-      <Button
-        background="primary"
-        color="white-100"
-        border={false}
-        onClick={onClickGoBackToPlan}
-        classNameList={['remind-page__button']}>
-        계획으로 돌아가기
-      </Button>
+        <Button
+          background="primary"
+          color="white-100"
+          border={false}
+          onClick={onClickGoBackToPlan}
+          classNameList={['remind-page__button']}>
+          계획으로 돌아가기
+        </Button>
+      </div>
     </div>
   );
 }
