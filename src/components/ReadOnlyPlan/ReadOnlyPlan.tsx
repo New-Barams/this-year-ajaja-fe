@@ -60,8 +60,9 @@ export default function ReadOnlyPlan({
         </div>
       </div>
 
-      <div className="plan__content font-size-base">
+      <div className="plan__content font-size-base color-origin-text-100">
         <PlanInput
+          classNameList={['color-origin-text-100']}
           kind="content"
           placeholder=""
           onChangeInput={() => {}}

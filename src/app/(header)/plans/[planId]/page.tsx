@@ -5,6 +5,7 @@ import KakaoShareButton from '@/components/KakaoShareButton/KakaoShareButton';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
+import { useScroll } from '@/hooks/useScroll';
 import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
@@ -21,7 +22,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const isMyPlan = checkIsMyPlan(plan.userId);
   const current = window.location.href;
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-
+  const { handleScroll, scrollableRef } = useScroll();
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
 
   const handleModalClickYes = () => {
@@ -41,7 +42,10 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   };
 
   return (
-    <div className={classNames('plans-page')}>
+    <div
+      className={classNames('plans-page')}
+      ref={scrollableRef}
+      onScroll={handleScroll}>
       <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
         {isMyPlan ? (
           <Link href="/home">홈</Link>
