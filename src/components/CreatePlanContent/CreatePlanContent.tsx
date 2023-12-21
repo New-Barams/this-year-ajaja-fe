@@ -104,17 +104,19 @@ export default function CreatePlanContent({
         classNameList={['create-plan-content__plan-input__second']}
       />
 
-      <div className={classNames('create-plan-content__tags')}>
+      <div className={classNames('create-plan-content__tag')}>
         <InputTag onSubmit={handleAddTag} />
-        {planContent.tags.map((tag, index) => (
-          <Tag
-            key={index}
-            onClick={() => {
-              handleRemoveTag(tag);
-            }}>
-            {tag}
-          </Tag>
-        ))}
+        <div className="create-plan-content__tag--tags">
+          {planContent.tags.map((tag, index) => (
+            <Tag
+              key={index}
+              onClick={() => {
+                handleRemoveTag(tag);
+              }}>
+              {tag}
+            </Tag>
+          ))}
+        </div>
       </div>
 
       <div className={classNames('create-plan-content__public')}>
