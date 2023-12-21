@@ -5,12 +5,12 @@ import { SESSION_STORAGE_KEY } from '@/constants';
 import { REMIND_TIME_TEXT } from '@/constants/remindTimeText';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
+import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { changeRemindTimeToNumber } from './../../../../utils/changeRemindTimeToNumber';
 import './index.scss';
 
 export default function RemindPage({ params }: { params: { planId: string } }) {

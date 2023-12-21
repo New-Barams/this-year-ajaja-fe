@@ -11,12 +11,12 @@ import { SESSION_STORAGE_KEY } from '@/constants';
 import { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { EditRemindData } from '@/types/apis/plan/EditRemind';
+import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { changeRemindTimeToString } from './../../../../../utils/changeRemindTimeToString';
 import './index.scss';
 
 export default function EditRemindPage({
@@ -72,8 +72,6 @@ export default function EditRemindPage({
 
   const handleClickEditRemind = (isEveryRemindDataExist: boolean) => {
     if (isEveryRemindDataExist) {
-      // TODO: session Storage에서 data 가지고 api 실행
-
       const editRemindOptionsItem = sessionStorage.getItem(
         SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
       );
