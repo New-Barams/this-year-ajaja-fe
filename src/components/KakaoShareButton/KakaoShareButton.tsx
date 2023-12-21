@@ -26,7 +26,8 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
         title: '올해도 아좌좌',
         description: '올해의 계획을 세우고 서로 응원해요 ',
         //TODO: 이미지 url변경 필요 ;
-        imageUrl: 'https://picsum.photos/200/300',
+        imageUrl:
+          'https://drive.google.com/uc?export=download&id=1qqLnNZVcqb6O3qS4iTE52--SCqTlVnG2',
         link: {
           mobileWebUrl: linkURL,
           webUrl: linkURL,
