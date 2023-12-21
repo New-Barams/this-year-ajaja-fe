@@ -7,6 +7,7 @@ import {
   CreatePlanRemindMessage,
   ModalFixRemindDate,
 } from '@/components';
+import ModalContinueCreate from '@/components/ModalContinueCreate/ModalContinueCreate';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { STEP_NAME } from '@/constants/createPlanStepTitle';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
@@ -23,6 +24,13 @@ const StepperComponent = dynamic(
     ssr: false,
   },
 );
+
+const restartCreatePlan = () => {
+  sessionStorage.removeItem(SESSION_STORAGE_KEY.STEP_1);
+  sessionStorage.removeItem(SESSION_STORAGE_KEY.STEP_2);
+  sessionStorage.removeItem(SESSION_STORAGE_KEY.STEP_3);
+  sessionStorage.removeItem(SESSION_STORAGE_KEY.STEP_4);
+};
 
 export default function CreatePage() {
   const [nowStep, setNowStep] = useState(1);
@@ -46,6 +54,25 @@ export default function CreatePage() {
 
   const [fixedMonthList, setFixedMonthList] = useState<number[]>([]);
   const [fixedDate, setFixedDate] = useState<number>(1);
+
+  const isPreviousDataExist = () => {
+    // 1단계의 data가 있으면
+    return sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1) ? true : false;
+  };
+
+  const [isContinueCreatePlanModalOpen, setIsContinueCreatePlanModalOpen] =
+    useState(isPreviousDataExist());
+
+  const onClickContinueCreateModalYes = () => {
+    // 그냥 모달만 닫아주면 자동으로 이어서 작성
+    setIsContinueCreatePlanModalOpen(false);
+  };
+
+  const onClickContinueCreateModalNo = () => {
+    // 세션 스토리지 값 삭제 후 모달 닫아주기
+    restartCreatePlan();
+    setIsContinueCreatePlanModalOpen(false);
+  };
 
   const [isFixRemindDateModalOpen, setIsFixRemindDateModalOpen] =
     useState(false);
@@ -184,6 +211,13 @@ export default function CreatePage() {
           onClickNo={() => {
             setIsFixRemindDateModalOpen(false);
           }}
+        />
+      )}
+
+      {isContinueCreatePlanModalOpen && (
+        <ModalContinueCreate
+          onClickContinueCreateModalYes={onClickContinueCreateModalYes}
+          onClickContinueCreateModalNo={onClickContinueCreateModalNo}
         />
       )}
     </div>
