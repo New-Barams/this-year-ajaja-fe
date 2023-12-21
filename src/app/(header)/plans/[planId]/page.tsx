@@ -54,7 +54,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
       <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
         {isMyPlan && isSeason && (
           <div className="plan__header--buttons">
-            <Link href={`/edit/${planId}`}>수정</Link>
+            <Link href={`/plans/edit/${planId}`}>수정</Link>
             <span onClick={handleOpenDeleteModal}>삭제</span>
           </div>
         )}
