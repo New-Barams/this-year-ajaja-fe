@@ -48,6 +48,7 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
     <>
       <button className="kakao-share-button" onClick={handleShareWithKakao}>
         <Image
+          priority
           className="kakao__image"
           src="/kakaoShare.png"
           alt="카카오톡 공유하기 버튼"
