@@ -3,7 +3,8 @@
   flex-direction: column;
   width: 100%;
   max-height: calc(100% - 12.25rem);
-  overflow-y: auto;
+  overflow-y: scroll;
+  margin-left: var(--scroll-margin-left);
 
 
   &__title{
