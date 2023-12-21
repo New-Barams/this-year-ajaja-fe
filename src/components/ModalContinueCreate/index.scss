@@ -1,0 +1,33 @@
+.continue-create-modal{
+  &__wrapper {
+    border-radius: var(--border-radius);
+    border-top: 1px solid var(--origin-secondary);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 3rem);
+
+    &__text{
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    &__button-group{
+      margin-top: 2rem;  
+      width: 100%;
+      display: flex;
+      justify-content: end;
+      margin-bottom: 2rem;
+      gap: 24px;
+    }
+  }
+}
