@@ -11,21 +11,23 @@ export default function BasicError({ reset }: { reset: () => void }) {
       <Image
         src="/error-boundary.svg"
         alt="This Year Ajaja 404"
-        width={350}
-        height={350}
+        width={160}
+        height={160}
         priority
       />
+
       <p className="Basic-Error__title">
-        현재 페이지에서 오류가 발생했습니다 😭
+        현재 페이지에서 오류가 발생했습니다😭
       </p>
 
       <div
         className={classNames(
           'Basic-Error__description',
-          'color-origin-gray-200',
+          'color-origin-secondary',
         )}
         onClick={() => reset()}>
-        <span>다시 시도하기</span> <Icon name="REFRESH" color="gray-200" />
+        <span>다시 시도하기</span>{' '}
+        <Icon size="lg" name="REFRESH" color="secondary" />
       </div>
     </div>
   );
