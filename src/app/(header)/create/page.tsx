@@ -142,10 +142,10 @@ export default function CreatePage() {
   };
 
   return (
-    <div className={classNames('new-create-page')}>
+    <div className={classNames('create-page')}>
       <StepperComponent nowStep={nowStep - 1} />
 
-      <div className={classNames('new-create-page__title', 'font-size-xl')}>
+      <div className={classNames('create-page__title', 'font-size-xl')}>
         {STEP_NAME[nowStep]}
       </div>
 
