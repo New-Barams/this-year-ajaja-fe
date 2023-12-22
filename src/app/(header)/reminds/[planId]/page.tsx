@@ -39,9 +39,9 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
     sessionStorage.setItem(
       SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
       JSON.stringify({
-        TotalPeriod: 12, //TODO: 바꾸기 ! remindData.remindTotalPeriod로
-        Term: 3,
-        Date: 1,
+        TotalPeriod: remindData.totalPeriod,
+        Term: remindData.remindTerm,
+        Date: remindData.remindDate,
         Time: changeRemindTimeToNumber(remindData.remindTime),
       }),
     );
