@@ -6,7 +6,7 @@
 .planInput {
   padding: 0.5rem 1rem;
   width: 100%;
-  color: var(--origin-gray-300);
+  color: var(--origin-text-100);
   background-color: var(--origin-white-100);
   font-size: 1rem;
   border-radius: var(--border-radius);
@@ -25,15 +25,20 @@
     line-height: 1.5rem;
   }
 
-  &--disabled { 
+  &--disabled {
     border: none;
     padding: 8px 0px;
     height: 12rem;
     border-radius: 0;
     line-height: 2rem;
     background-attachment: local;
-    background-image:
-      repeating-linear-gradient(white, white 1.9rem, #ccc 1.9rem, #ccc 2rem, white 2rem); 
+    background-image: repeating-linear-gradient(
+      white,
+      white 1.9rem,
+      #ccc 1.9rem,
+      #ccc 2rem,
+      white 2rem
+    );
   }
 
   &--editable {
