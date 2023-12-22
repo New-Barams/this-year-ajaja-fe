@@ -33,7 +33,8 @@
     align-items: flex-start;
     width: 100%;
     max-height: calc(100% - 14rem);
-    overflow-y: auto;
+    overflow-y: scroll;
+    margin-left: var(--scroll-margin-left);
     padding-bottom: 1rem;
 
     &__message-list {
