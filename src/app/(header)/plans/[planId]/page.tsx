@@ -60,7 +60,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
           <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
             {isMyPlan && isSeason && (
               <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>
+                <Link href={`/plans/edit/${planId}`}>수정</Link>|
                 <span onClick={handleOpenDeleteModal}>삭제</span>
               </div>
             )}
@@ -94,15 +94,14 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                   리마인드 보기
                 </Button>
               </Link>
-              <Link href={`/feedback/${planId}`}>
-                <Button
-                  background="primary"
-                  color="white-100"
-                  size="lg"
-                  border={false}>
-                  피드백 보기
-                </Button>
-              </Link>
+
+              <Button
+                background="primary"
+                color="white-100"
+                size="lg"
+                border={false}>
+                피드백 보기
+              </Button>
             </div>
           </div>
         )}
