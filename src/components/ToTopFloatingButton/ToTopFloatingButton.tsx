@@ -6,8 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Icon } from '..';
 import './index.scss';
 
-export default function ToTopFloatingButton() {
-  const floatingButton = useRef<HTMLButtonElement | null>(null);
+export default function ToTopFloatingButton({}) {
+  const floatingButton = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const throttle = useThrottle();
 
@@ -36,11 +36,12 @@ export default function ToTopFloatingButton() {
     }
   };
   return (
-    <button
-      ref={floatingButton}
-      className={classNames('to-top-button', isOpen && 'visible')}
-      onClick={handleGoToTop}>
-      <Icon name="ARROW_UP" color="white-100" />
-    </button>
+    <div ref={floatingButton} className="to-top-button__wrapper">
+      <button
+        className={classNames('to-top-button', isOpen && 'visible')}
+        onClick={handleGoToTop}>
+        <Icon name="ARROW_UP" color="white-100" />
+      </button>
+    </div>
   );
 }
