@@ -103,8 +103,6 @@ export default function EditRemindPage({
           planId: parseInt(planId, 10),
           remindData: editRemindData,
         });
-
-        ajajaToast.success('리마인드 수정 API 실행'); // TODO: 다 되면 지우기
       }
       router.push('/home');
     } else {

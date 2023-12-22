@@ -94,7 +94,6 @@ export default function StepButtonGroup({
       };
 
       createNewPlanAPI(data);
-      ajajaToast.success('계획 작성 API 실행');
       router.push('/home');
     } else {
       ajajaToast.error('모든 항목을 입력해주세요!');
