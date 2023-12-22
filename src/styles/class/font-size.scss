@@ -14,6 +14,9 @@
         } @else if $value == 1.5rem {
           line-height: 2rem;
         } @else if $value == 2rem {
+          @media screen and (max-width: 380px) {
+            font-size: 1.75rem;
+          }
           line-height: 2.25rem;
         } @else {
           line-height: 1;
