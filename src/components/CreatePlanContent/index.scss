@@ -3,7 +3,8 @@
   flex-direction: column;
   width: 100%;
   max-height: calc(100% - 12.25rem);
-  overflow-y: auto;
+  overflow-y: scroll;
+  margin-left: var(--scroll-margin-left);
 
   &__plan-input {
     &__first {
@@ -15,8 +16,17 @@
     }
   }
 
-  &__tags {
+  &__tag {
     margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--tags {
+      display: flex;
+      gap: 0rem 0.5rem;
+      flex-wrap: wrap;
+    }
   }
 
   &__public {
@@ -28,6 +38,7 @@
     &__button {
       display: flex;
       align-items: center;
+      gap: 0.5rem;
       width: 100%;
     }
   }
@@ -41,6 +52,8 @@
     &__button {
       display: flex;
       align-items: center;
+      gap: 0.5rem;
+      width: 100%;
     }
   }
 }

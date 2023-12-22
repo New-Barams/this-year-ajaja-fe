@@ -1,6 +1,7 @@
 'use client';
 
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
@@ -34,6 +35,8 @@ export default function CreatePlanContent({
       setIsSecondStepDataAllExist(false);
     }
   }, [planContent, setIsSecondStepDataAllExist]);
+
+  const { handleScroll, scrollableRef } = useScroll();
 
   const nextTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -75,7 +78,10 @@ export default function CreatePlanContent({
   };
 
   return (
-    <div className={classNames('create-plan-content')}>
+    <div
+      className={classNames('create-plan-content')}
+      ref={scrollableRef}
+      onScroll={handleScroll}>
       <PlanInput
         editable={true}
         kind="title"
@@ -98,17 +104,19 @@ export default function CreatePlanContent({
         classNameList={['create-plan-content__plan-input__second']}
       />
 
-      <div className={classNames('create-plan-content__tags')}>
+      <div className={classNames('create-plan-content__tag')}>
         <InputTag onSubmit={handleAddTag} />
-        {planContent.tags.map((tag, index) => (
-          <Tag
-            key={index}
-            onClick={() => {
-              handleRemoveTag(tag);
-            }}>
-            {tag}
-          </Tag>
-        ))}
+        <div className="create-plan-content__tag--tags">
+          {planContent.tags.map((tag, index) => (
+            <Tag
+              key={index}
+              onClick={() => {
+                handleRemoveTag(tag);
+              }}>
+              {tag}
+            </Tag>
+          ))}
+        </div>
       </div>
 
       <div className={classNames('create-plan-content__public')}>

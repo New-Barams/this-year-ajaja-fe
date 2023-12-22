@@ -13,6 +13,7 @@ import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { EditRemindData } from '@/types/apis/plan/EditRemind';
 import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
 import { decideRemindDate } from '@/utils/decideRemindDate';
+import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -46,7 +47,7 @@ export default function EditRemindPage({
   }, []);
 
   const [nowStep, setNowStep] = useState(1);
-  const [isEveryRemindDateExist, setIsEveryRemindDateExist] = useState(false);
+  const [isEveryRemindDataExist, setIsEveryRemindDataExist] = useState(false);
   const [fixedMonthList, setFixedMonthList] = useState<number[]>([]);
   const [fixedDate, setFixedDate] = useState<number>(1);
   const [isFixRemindDateModalOpen, setIsFixRemindDateModalOpen] =
@@ -70,25 +71,18 @@ export default function EditRemindPage({
 
   const { mutate: editRemindAPI } = useEditRemindMutation(parseInt(planId, 10));
 
+  // 수정 완료 버튼 클릭 시 실행되는 함수
   const handleClickEditRemind = (isEveryRemindDataExist: boolean) => {
     if (isEveryRemindDataExist) {
-      const editRemindOptionsItem = sessionStorage.getItem(
-        SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-      );
+      const editRemindOptions = getSessionStorageData(
+        'EDIT_REMIND_OPTION',
+      ) as RemindOptionType | null;
 
-      const editRemindOptions = editRemindOptionsItem
-        ? (JSON.parse(editRemindOptionsItem) as RemindOptionType)
-        : null;
+      const editRemindMessage = getSessionStorageData('EDIT_REMIND_MESSAGE') as
+        | RemindItemType[]
+        | null;
 
-      const editRemindMessageItem = sessionStorage.getItem(
-        SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
-      );
-
-      // 기존 4번에 대한 리마인드 메세지 리스트에 접근
-      const editRemindMessage = editRemindMessageItem
-        ? (JSON.parse(editRemindMessageItem) as RemindItemType[])
-        : null;
-
+      // 세션에 리마인드 옵션, 메시지에 대한 정보가 모두 존재할 때
       if (editRemindOptions && editRemindMessage) {
         const editRemindData: EditRemindData = {
           remindTotalPeriod: editRemindOptions.TotalPeriod,
@@ -108,6 +102,7 @@ export default function EditRemindPage({
           planId: parseInt(planId, 10),
           remindData: editRemindData,
         });
+
         ajajaToast.success('리마인드 수정 API 실행'); // TODO: 다 되면 지우기
       }
       router.push('/home');
@@ -118,32 +113,22 @@ export default function EditRemindPage({
 
   // 리마인드 날짜 수정 => 메세지 수정으로 넘어가기 위해 다음 단계 눌렀을 때 실행되는 함수
   const goToRemindMessageStep = () => {
-    const editRemindOptionsItem = sessionStorage.getItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-    );
-
-    const editRemindOptions = editRemindOptionsItem
-      ? (JSON.parse(editRemindOptionsItem) as RemindOptionType)
-      : null;
+    const editRemindOptions = getSessionStorageData(
+      'EDIT_REMIND_OPTION',
+    ) as RemindOptionType | null;
 
     if (
-      // 1. 주기, 범위가 바뀌지 않았다면
+      // 1. 주기, 범위가 바뀌지 않았다면 => 메세지 내용은 유지, 다른 정보는 바뀌었다면 업데이트 하기
       editRemindOptions?.Term === originTerm &&
       editRemindOptions?.TotalPeriod === originPeriod
     ) {
-      // 4번 세션에 대한 session Data를 업데이트 해줘야 함 => 주기, 범위 외에 시간이랑 날짜 바뀌었을 수도 있으므로
-      const remindMessageItem = sessionStorage.getItem(
-        SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
-      );
-
       // 기존 4번에 대한 리마인드 메세지 리스트에 접근
-      const remindMessage = remindMessageItem
-        ? (JSON.parse(remindMessageItem) as RemindItemType[])
-        : null;
+      const remindMessage = getSessionStorageData('EDIT_REMIND_MESSAGE') as
+        | RemindItemType[]
+        | null;
 
       if (remindMessage) {
         // 변경된 날짜에 대한 새로운 리마인드 메세지 리스트 만들기
-        // 일단 날짜 다시 만들고
         const fixedRemindDateList = decideRemindDate(
           editRemindOptions.TotalPeriod,
           editRemindOptions.Term,
@@ -167,10 +152,9 @@ export default function EditRemindPage({
         );
       }
 
-      // step + 1
       goToNextStep();
     } else {
-      // 2. 주기, 범위가 바뀌었다면
+      // 2. 주기, 범위가 바뀌었다면 => 메세지가 유지되지 않고 바뀐다는 모달 띄워주기
       if (editRemindOptions) {
         const fixedRemindDateList = decideRemindDate(
           editRemindOptions.TotalPeriod,
@@ -189,20 +173,18 @@ export default function EditRemindPage({
     }
   };
 
+  // 리마인드 날짜 확정 모달에서 yes 클릭 시 실행되는 함수
+  // => 새로 설정된 리마인드 날짜에 따라 메세지를 "" 로 연결
   const onClickRemindDateModalYes = () => {
-    const remindOptionsItem = sessionStorage.getItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-    );
+    const editRemindOptions = getSessionStorageData(
+      'EDIT_REMIND_OPTION',
+    ) as RemindOptionType | null;
 
-    const remindOptions = remindOptionsItem
-      ? (JSON.parse(remindOptionsItem) as RemindOptionType)
-      : null; // null일수도 있음 ! 사용자가 지웠을 수도 있으니까
-
-    if (remindOptions) {
+    if (editRemindOptions) {
       const fixedRemindDateList = decideRemindDate(
-        remindOptions.TotalPeriod,
-        remindOptions.Term,
-        remindOptions.Date,
+        editRemindOptions.TotalPeriod,
+        editRemindOptions.Term,
+        editRemindOptions.Date,
       );
 
       const emptyRemindMessageList: RemindItemType[] = fixedRemindDateList!.map(
@@ -222,8 +204,8 @@ export default function EditRemindPage({
         JSON.stringify(emptyRemindMessageList),
       );
 
-      setOriginPeriod(remindOptions.TotalPeriod);
-      setOriginTerm(remindOptions.Term);
+      setOriginPeriod(editRemindOptions.TotalPeriod);
+      setOriginTerm(editRemindOptions.Term);
 
       setIsFixRemindDateModalOpen(false);
       goToNextStep();
@@ -255,7 +237,7 @@ export default function EditRemindPage({
         <CreatePlanRemindDate isCreateOrEditPage="edit" />
       ) : (
         <CreatePlanRemindMessage
-          setIsLastStepDataAllExist={setIsEveryRemindDateExist}
+          setIsLastStepDataAllExist={setIsEveryRemindDataExist}
           isCreateOrEditPage="edit"
         />
       )}
@@ -267,10 +249,10 @@ export default function EditRemindPage({
               background="white-100"
               border={true}
               color="primary"
+              size="sm"
               onClick={() => {
                 exitEditRemindPage();
-              }}
-              size="sm">
+              }}>
               나가기
             </Button>
             <Button
@@ -300,7 +282,7 @@ export default function EditRemindPage({
               border={false}
               color="white-100"
               onClick={() => {
-                handleClickEditRemind(isEveryRemindDateExist);
+                handleClickEditRemind(isEveryRemindDataExist);
               }}>
               수정 완료
             </Button>
