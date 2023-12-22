@@ -60,12 +60,22 @@
 .plan__header--buttons {
   position: relative;
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   a {
     text-decoration: none;
     color: var(--origin-text-100);
   }
   span {
     cursor: pointer;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+    left: 50%;
   }
 }

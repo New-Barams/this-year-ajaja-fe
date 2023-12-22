@@ -64,7 +64,7 @@ export default function ReadOnlyPlan({
         <PlanInput
           classNameList={['color-origin-text-100']}
           kind="content"
-          placeholder="어떤 계획을 가지고 계신가요?"
+          placeholder=""
           onChangeInput={() => {}}
           textInput={description}
           maxLength={400}
