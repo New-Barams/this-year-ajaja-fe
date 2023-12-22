@@ -8,6 +8,7 @@ import {
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
 } from '@/constants/remindOptions';
+import { useScroll } from '@/hooks/useScroll';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindOptionType } from '@/types/Remind';
 import classNames from 'classnames';
@@ -37,6 +38,8 @@ export default function CreatePlanRemindDate({
     },
   );
 
+  const { handleScroll, scrollableRef } = useScroll();
+
   const handleChangeRemindOption = useCallback(
     (optionKey: string, newOptionValue: number) => {
       setRemindOptions({
@@ -60,7 +63,10 @@ export default function CreatePlanRemindDate({
   }, [remindOptions.TotalPeriod, remindOptions.Term, handleChangeRemindOption]);
 
   return (
-    <div className={classNames(['create-remind-date'])}>
+    <div
+      className={classNames(['create-remind-date'])}
+      ref={scrollableRef}
+      onScroll={handleScroll}>
       <p className={classNames(['create-remind-date__title'])}>
         1년 중, 리마인드를 받고 싶은 날짜를 정해보세요!
       </p>

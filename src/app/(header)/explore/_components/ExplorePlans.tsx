@@ -58,9 +58,9 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
             }}>
             <Plans flatLoadedPlans={flatLoadedPlans} isLogin={isLogin} />
           </InfiniteScroll>
+          <ToTopFloatingButton />
         </div>
       </div>
-      <ToTopFloatingButton />
     </div>
   );
 }

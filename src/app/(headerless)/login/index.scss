@@ -2,13 +2,12 @@
   width: 100%;
   height: 100%;
   padding: 4rem 0 2rem 0;
-
+  overflow: scroll;
   .login {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    height: 100%;
     align-items: center;
     &__welcome-text {
       white-space: nowrap;
@@ -20,6 +19,24 @@
         vertical-align: text-bottom;
       }
     }
+    &__poster {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      gap: 1rem;
+      &--image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &--text {
+        word-break: keep-all;
+      }
+    }
 
     &__buttons {
       display: flex;
@@ -28,6 +45,7 @@
       justify-content: center;
       text-align: center;
       &--image {
+        height: 100%;
         width: 100%;
         object-fit: contain;
       }

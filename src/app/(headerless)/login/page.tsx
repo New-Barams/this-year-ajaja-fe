@@ -3,10 +3,9 @@
 import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
-import IntroduceSwiper from './_components/IntroduceSwiper/IntroduceSwiper';
 import './index.scss';
+import characters from '/public/loginPage/characters.svg';
 import kakoLogin from '/public/loginPage/kakao_login_large_wide.png';
-import textLogo from '/public/loginPage/this-year-ajaja-logo-text.svg';
 
 export default function LoginPage() {
   return (
@@ -18,14 +17,25 @@ export default function LoginPage() {
             아직이라면,{' '}
             <Image
               className="login__welcome-text--logo"
-              src={textLogo}
+              src="/this-year-ajaja-logo.svg"
               width={175}
               height={32}
               alt="올해도 아자자"
             />
           </h1>
         </div>
-        <IntroduceSwiper />
+        <div className="login__poster">
+          <Image
+            className="login__poster--image"
+            src={characters}
+            alt="올해도 아좌좌 캐릭터들"
+          />
+          <p className="login__poster--text">
+            나만의 신년 계획을 만들어
+            <br />
+            리마인들를 받고, 피드백하고, 다른 사람을 응원해보세요!
+          </p>
+        </div>
         <div className="login__buttons">
           <Link
             className="login__buttons--kakaoLogin"

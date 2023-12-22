@@ -75,7 +75,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             classNameList={['create-plan-content__plan--title']}
             editable={true}
             kind="title"
-            placeholder=""
+            placeholder="어떤 계획을 가지고 계신가요?"
             onChangeInput={handleChangeTitle}
             maxLength={20}
             textInput={planContent.title}
@@ -86,7 +86,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             classNameList={['create-plan-content__plan--description']}
             editable={true}
             kind="content"
-            placeholder=""
+            placeholder="계획에 대해서 자세히 설명해주세요!"
             onChangeInput={handleChangeDescription}
             maxLength={250}
             textInput={planContent.description}
@@ -151,7 +151,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
           color="white-100"
           background="primary"
           onClick={handleEditPlan}
-          border>
+          border={false}>
           수정완료
         </Button>
         <Link href={`/plans/${planId}`}>

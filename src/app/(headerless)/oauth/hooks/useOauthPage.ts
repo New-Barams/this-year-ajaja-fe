@@ -1,5 +1,4 @@
 import { postLogin } from '@/apis/client/postLogin';
-import { ajajaToast } from '@/components/Toaster/customToast';
 import { deleteCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -20,7 +19,6 @@ export default function useOauthPage() {
               const { data } = response;
               setCookie('auth', data, { maxAge: 604800 });
               router.replace('/home');
-              ajajaToast.success('로그인에 성공했습니다.');
             })
             .catch(() => {
               alert('로그인에 실패했습니다. 잠시 후 시도해주세요');

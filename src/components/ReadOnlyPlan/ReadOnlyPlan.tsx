@@ -60,10 +60,11 @@ export default function ReadOnlyPlan({
         </div>
       </div>
 
-      <div className="plan__content font-size-base">
+      <div className="plan__content font-size-base color-origin-text-100">
         <PlanInput
+          classNameList={['color-origin-text-100']}
           kind="content"
-          placeholder=""
+          placeholder="어떤 계획을 가지고 계신가요?"
           onChangeInput={() => {}}
           textInput={description}
           maxLength={400}

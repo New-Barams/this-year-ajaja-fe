@@ -14,6 +14,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useGetUserInformationQuery } from '@/hooks/apis/useGetUserInformationQuery';
 import { usePutUserReceiveMutation } from '@/hooks/apis/usePutUserReceiveMutation';
 import { usePostUsersRefreshMutation } from '@/hooks/apis/useRefreshNicknameMutation';
+import { useScroll } from '@/hooks/useScroll';
 import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
@@ -36,7 +37,7 @@ export default function MyPage() {
     useState<boolean>(false);
   const [isOpenRemindWayModal, setIsOpenRemindWayModal] =
     useState<boolean>(false);
-
+  const { handleScroll, scrollableRef } = useScroll();
   const router = useRouter();
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
@@ -65,7 +66,6 @@ export default function MyPage() {
   };
 
   const handleRealLogOut = async () => {
-    deleteCookie('auth');
     router.push(KAKAO_LOGOUT_URL);
   };
   const handleCloseLogOutModal = () => {
@@ -125,25 +125,30 @@ export default function MyPage() {
   };
   return (
     <>
-      <div className="my-page__wrapper">
+      <div
+        className="my-page__wrapper"
+        ref={scrollableRef}
+        onScroll={handleScroll}>
         <h1 className="my-page__header font-size-xl">마이페이지</h1>
         <h1 className="my-page__welcome-text font-size-xl">
-          안녕하세요, <span className="color-origin-primary">{nickname}</span>
-          님!
+          <span>안녕하세요, </span>
+          <span>
+            <span className="color-origin-primary">{nickname}</span>님!
+          </span>
         </h1>
         <div className="my-page__nick-name">
           <h2 className="my-page__nick-name--label font-size-lg">닉네임</h2>
           <div className="my-page__nick-name--content">
             <div className="my-page__nick-name--content--main">
               {nickname}
-              <span onClick={handleChangeNickName}>
+              <button onClick={handleChangeNickName}>
                 <Icon
                   name="REFRESH"
                   color="text-100"
-                  size="base"
+                  size="xl"
                   isFilled={true}
                 />
-              </span>
+              </button>
             </div>
             <div className="my-page__nick-name--content--alert font-size-xs">
               새로고침 버튼 클릭시 닉네임이 랜덤으로 변경됩니다.
@@ -188,14 +193,14 @@ export default function MyPage() {
           </Button>
         </div>
         <div className="my-page__etc font-size-base">
-          <div className="my-page__etc--logout" onClick={handleLogOut}>
+          <button className="my-page__etc--logout" onClick={handleLogOut}>
             로그 아웃
-          </div>
-          <div
+          </button>
+          <button
             className="my-page__etc--withdrawal color-origin-text-300"
             onClick={handleWithdrawal}>
             회원 탈퇴
-          </div>
+          </button>
         </div>
       </div>
       {isOpenRemindWayModal && (

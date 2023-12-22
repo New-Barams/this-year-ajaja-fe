@@ -20,19 +20,19 @@ export default function LandingPage() {
       </div>
       <div className={classNames('font-size-lg', 'landing__icon-texts')}>
         <div className={classNames('landing__icon-text')}>
-          <Icon name="CREATE_NEW_PLAN" isFilled={true} />
+          <Icon name="CREATE_NEW_PLAN" isFilled={true} color="primary" />
           <p>나만의 신년 계획을 만들어요!</p>
         </div>
         <div className={classNames('landing__icon-text')}>
-          <Icon name="NOTIFICATION_ON" isFilled={true} />
+          <Icon name="NOTIFICATION_ON" isFilled={true} color="primary" />
           <p>주기적으로 계획과 메세지를 리마인드 받아요 ! </p>
         </div>
         <div className={classNames('landing__icon-text')}>
-          <Icon name="FEEDBACK" isFilled={true} />
+          <Icon name="FEEDBACK" isFilled={true} color="primary" />
           <p>계획을 잘 지키고 있는지 스스로 피드백해요 ! </p>
         </div>
         <div className={classNames('landing__icon-text')}>
-          <Icon name="OTHER_PLAN" isFilled={true} />
+          <Icon name="OTHER_PLAN" isFilled={true} color="primary" />
           <p>다른 사람의 계획을 둘러보고, 응원해요 ! </p>
         </div>
       </div>
