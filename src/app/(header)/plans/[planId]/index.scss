@@ -45,14 +45,16 @@
     gap: 2rem;
 
     &--buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
       a {
         width: 100%;
         text-decoration: none;
       }
-
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
+      & > .button:last-child {
+        cursor: default;
+      }
     }
   }
 }

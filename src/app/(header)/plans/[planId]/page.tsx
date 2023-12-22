@@ -96,7 +96,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
               </Link>
 
               <Button
-                background="primary"
+                background="secondary"
                 color="white-100"
                 size="lg"
                 border={false}>
