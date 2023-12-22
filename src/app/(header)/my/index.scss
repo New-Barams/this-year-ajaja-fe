@@ -14,9 +14,9 @@
     text-align: center;
   }
   &__welcome-text {
-    margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    margin-top: -1rem;
   }
   &__nick-name {
     display: flex;
@@ -69,4 +69,5 @@
 
 button {
   cursor: pointer;
+  background-color: transparent;
 }
