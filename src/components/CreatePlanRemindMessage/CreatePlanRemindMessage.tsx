@@ -71,7 +71,7 @@ export default function CreatePlanRemindMessage({
       ref={scrollableRef}
       onScroll={handleScroll}>
       <div className={classNames(['create-remind-message__title'])}>
-        선택받은 날짜에 받을 리마인드 메세지를 작성해주세요 !
+        선택받은 날짜에 받을 리마인드 메세지를 작성해주세요!
       </div>
 
       <ul className={classNames(['create-remind-message__list'])}>
