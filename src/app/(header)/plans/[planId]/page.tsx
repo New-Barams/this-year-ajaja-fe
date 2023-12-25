@@ -57,7 +57,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
+          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
             {isMyPlan && isSeason && (
               <div className="plan__header--buttons">
                 <Link href={`/plans/edit/${planId}`}>수정</Link>|

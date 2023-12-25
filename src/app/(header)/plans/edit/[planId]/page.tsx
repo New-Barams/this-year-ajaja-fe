@@ -44,7 +44,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     handleRemoveTag,
   } = useWritablePlan(planData);
   const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
-  const [iconNumber, setIconNumber] = useState<number>(1);
+  const [iconNumber, setIconNumber] = useState<number>(planData.iconNumber);
 
   const handleEditPlan = () => {
     //TODO: 백앤드 변경 필요, canRemind 삭제, 아이콘넘버 넣기, 성공시 계획으로?
