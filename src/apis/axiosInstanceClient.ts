@@ -64,8 +64,6 @@ axiosInstanceClient.interceptors.response.use(
               accessToken,
               refreshToken,
             });
-            console.log('토큰 재발행, 교체 ');
-            console.log(tokens);
             setCookie('auth', tokens, { maxAge: 604800 });
             if (error.config) {
               error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
@@ -80,8 +78,6 @@ axiosInstanceClient.interceptors.response.use(
             return;
           }
         } else {
-          console.log('유효기간 모두 만료');
-          console.log(error);
           alertAndLogin();
           return;
         }
