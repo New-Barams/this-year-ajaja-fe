@@ -42,17 +42,6 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
-    console.log('axios 에러 ');
-    console.log(error);
-    if (
-      error.response &&
-      error.response.data &&
-      (error.response.data.errorName === 'INVALID_SIGNATURE' ||
-        error.response.data.errorName === 'TOKEN_NOT_MATCH')
-    ) {
-      //TODO: 일치하지 않을떄도 재로그인
-      alertAndLogin();
-    }
 
     if (
       error.response &&
@@ -84,10 +73,17 @@ axiosInstanceClient.interceptors.response.use(
               return response;
             }
           } catch {
+            console.log('catched');
+            console.log(error);
+            console.log(error.response.data.errorName);
             alertAndLogin();
+            return;
           }
         } else {
+          console.log('유효기간 모두 만료');
+          console.log(error);
           alertAndLogin();
+          return;
         }
       }
     }
