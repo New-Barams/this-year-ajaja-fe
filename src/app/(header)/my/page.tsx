@@ -113,9 +113,12 @@ export default function MyPage() {
 
   const remindWay = () => {
     if (receiveType === 'both') {
-      return `${(<span className="color-origin-primary">이메일</span>)}과${(
-        <span className="color-origin-primary">카카오톡</span>
-      )}`;
+      return (
+        <>
+          <span className="color-origin-primary">이메일</span>과
+          <span className="color-origin-primary">카카오톡</span>
+        </>
+      );
     }
     return (
       <span className="color-origin-primary">
