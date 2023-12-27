@@ -14,10 +14,10 @@ export const useEditRemindMutation = (planId: number) => {
           queryKey: [{ planId: planId }],
         }),
       ]);
-      ajajaToast.success('계획 수정 완료');
+      ajajaToast.success('리마인드 수정 완료');
     },
     onError: () => {
-      ajajaToast.error('계획 수정 실패');
+      ajajaToast.error('리마인드 수정 실패');
     },
     throwOnError: true,
   });
