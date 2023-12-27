@@ -30,7 +30,7 @@ export default function ModalBasic({
       ref={backgroundRef}>
       <div className={classNames(`modal-basic-wrapper__content`)}>
         <div
-          className={classNames(`font-size-lg`, `modal-basic-wrapper__text`)}>
+          className={classNames(`font-size-base`, `modal-basic-wrapper__text`)}>
           {children}
         </div>
         <div className={classNames(`modal-basic-wrapper__button`)}>
