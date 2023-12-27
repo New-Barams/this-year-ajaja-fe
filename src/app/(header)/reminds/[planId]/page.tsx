@@ -1,12 +1,10 @@
 'use client';
 
 import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
-import { SESSION_STORAGE_KEY } from '@/constants';
 import { REMIND_TIME_TEXT } from '@/constants/remindTimeText';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { useScroll } from '@/hooks/useScroll';
-import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -36,37 +34,6 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
     router.push(`/plans/${planId}`);
   };
 
-  const onClickGoToEditRemindPage = () => {
-    console.log('리마인드 수정 페이지로 이동');
-
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_OPTION);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-      JSON.stringify({
-        TotalPeriod: remindData.totalPeriod,
-        Term: remindData.remindTerm,
-        Date: remindData.remindDate,
-        Time: changeRemindTimeToNumber(remindData.remindTime),
-      }),
-    );
-
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
-      JSON.stringify(
-        remindData.messagesResponses.map((message) => {
-          return {
-            date: {
-              month: message.remindMonth,
-              day: message.remindDay,
-            },
-            message: message.remindMessage,
-          };
-        }),
-      ),
-    );
-  };
-
   return (
     <div className={classNames(['remind-page'])}>
       <div
@@ -87,8 +54,7 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
       </div>
       <Link
         href={`/reminds/edit/${planId}`}
-        className={classNames(['remind-page__edit', 'font-size-sm'])}
-        onClick={onClickGoToEditRemindPage}>
+        className={classNames(['remind-page__edit', 'font-size-sm'])}>
         수정
       </Link>
 
