@@ -32,11 +32,13 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
     toggleIsRemindableAPI(parseInt(planId, 10));
   };
 
-  const onClickGoBackToPlan = () => {
+  const onClickGoBackToPlanPage = () => {
     router.push(`/plans/${planId}`);
   };
 
-  const onClickGoToEditRemind = () => {
+  const onClickGoToEditRemindPage = () => {
+    console.log('리마인드 수정 페이지로 이동');
+
     sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_OPTION);
     sessionStorage.setItem(
       SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
@@ -63,8 +65,6 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
         }),
       ),
     );
-
-    router.push(`/reminds/edit/${planId}`);
   };
 
   return (
@@ -85,11 +85,12 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
       <div className={classNames(['remind-page__title', 'font-size-xl'])}>
         리마인드
       </div>
-      <p
+      <Link
+        href={`/reminds/edit/${planId}`}
         className={classNames(['remind-page__edit', 'font-size-sm'])}
-        onClick={onClickGoToEditRemind}>
+        onClick={onClickGoToEditRemindPage}>
         수정
-      </p>
+      </Link>
 
       <div
         className={classNames(['remind-page__content'])}
@@ -121,14 +122,16 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
           toggleName="remind"
         />
 
-        <Button
-          background="primary"
-          color="white-100"
-          border={false}
-          onClick={onClickGoBackToPlan}
-          classNameList={['remind-page__button']}>
-          계획으로 돌아가기
-        </Button>
+        <Link href={`/plans/${planId}`}>
+          <Button
+            background="primary"
+            color="white-100"
+            border={false}
+            onClick={onClickGoBackToPlanPage}
+            classNameList={['remind-page__button']}>
+            계획으로 돌아가기
+          </Button>
+        </Link>
       </div>
     </div>
   );
