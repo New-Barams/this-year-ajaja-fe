@@ -11,7 +11,7 @@ import {
   Tag,
 } from '@/components';
 import { planIcons } from '@/constants/planIcons';
-// import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
+import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useWritablePlan } from '@/hooks/useWritablePlan';
 import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
@@ -26,8 +26,9 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const { plan: planData } = useGetPlanQuery(Number(planId));
-  // const { mutate: editPlan } = useEditPlanMutation(Number(planId));
+  const { mutate: editPlan } = useEditPlanMutation(Number(planId));
   const isMyPlan = checkIsMyPlan(planData.userId);
+  //TODO: 권한설정 여기서?
   useEffect(() => {
     if (!isMyPlan) {
       router.push('./home');
@@ -42,14 +43,13 @@ export default function EditPage({ params }: { params: { planId: string } }) {
     handleChangeIsPublic,
     handleChangeTitle,
     handleRemoveTag,
+    handleChangeIconNumber,
   } = useWritablePlan(planData);
   const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
-  const [iconNumber, setIconNumber] = useState<number>(planData.iconNumber);
 
   const handleEditPlan = () => {
-    //TODO: 백앤드 변경 필요, canRemind 삭제, 아이콘넘버 넣기, 성공시 계획으로?
-    // editPlan({ planId: Number(planId), planData: planContent });
-    console.log('요청 완료', planContent);
+    // TODO:
+    editPlan({ planId: Number(planId), planData: planContent });
   };
 
   return (
@@ -61,8 +61,8 @@ export default function EditPage({ params }: { params: { planId: string } }) {
               setIsSelectIconModalOpen(true);
             }}>
             <Image
-              src={`/animal/${planIcons[iconNumber]}.png`}
-              alt={`${planIcons[iconNumber]}`}
+              src={`/animal/${planIcons[planContent.iconNumber]}.png`}
+              alt={`${planIcons[planContent.iconNumber]}`}
               width={50}
               height={50}
               priority
@@ -164,7 +164,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
       {isSelectIconModalOpen && (
         <Modal>
           <ModalSelectIcon
-            setIconNumber={setIconNumber}
+            setIconNumber={handleChangeIconNumber}
             closeModal={() => {
               setIsSelectIconModalOpen(false);
             }}

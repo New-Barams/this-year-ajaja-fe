@@ -40,6 +40,9 @@ export const useWritablePlan = (PlanData: PlanContentType) => {
   const handleChangeCanAjaja = (newCanAjaja: boolean) => {
     setPlanContent({ ...planContent, canAjaja: newCanAjaja });
   };
+  const handleChangeIconNumber = (newIconNumber: number) => {
+    setPlanContent({ ...planContent, iconNumber: newIconNumber });
+  };
 
   return {
     nextTextAreaRef,
@@ -51,5 +54,6 @@ export const useWritablePlan = (PlanData: PlanContentType) => {
     handleChangeIsPublic,
     handleChangeTags,
     handleRemoveTag,
+    handleChangeIconNumber,
   };
 };
