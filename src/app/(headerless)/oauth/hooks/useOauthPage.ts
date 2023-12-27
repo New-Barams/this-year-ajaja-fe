@@ -17,7 +17,8 @@ export default function useOauthPage() {
             .then((response) => {
               //TODO: 로그인 실패 처리 필요, maxAge 상수화, await 와 then을같이 쓰는게 맞나?
               const { data } = response;
-              setCookie('auth', data, { maxAge: 604800 });
+              //TODO: 테스트를 위해 5분
+              setCookie('auth', data, { maxAge: 300 });
               window.location.replace('/home');
             })
             .catch(() => {
