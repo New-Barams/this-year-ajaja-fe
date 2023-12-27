@@ -1,6 +1,7 @@
 'use client';
 
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { INPUT_MAX_LENGTH } from '@/constants/userInputMaxLength';
 import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
@@ -87,7 +88,7 @@ export default function CreatePlanContent({
         kind="title"
         placeholder="어떤 계획을 가지고 계신가요?"
         onChangeInput={handleChangeTitle}
-        maxLength={20}
+        maxLength={INPUT_MAX_LENGTH.PLAN_TITLE}
         textInput={planContent.title}
         nextTextAreaRef={nextTextAreaRef}
         classNameList={['create-plan-content__plan-input__first']}
@@ -98,7 +99,7 @@ export default function CreatePlanContent({
         kind="content"
         placeholder="계획에 대해서 자세히 설명해주세요!"
         onChangeInput={handleChangeDescription}
-        maxLength={250}
+        maxLength={INPUT_MAX_LENGTH.PLAN_DESCRIPTION}
         textInput={planContent.description}
         nextTextAreaRef={nextTextAreaRef}
         classNameList={['create-plan-content__plan-input__second']}
