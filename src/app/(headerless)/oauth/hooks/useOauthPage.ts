@@ -18,7 +18,7 @@ export default function useOauthPage() {
               //TODO: 로그인 실패 처리 필요, maxAge 상수화, await 와 then을같이 쓰는게 맞나?
               const { data } = response;
               setCookie('auth', data, { maxAge: 604800 });
-              router.replace('/home');
+              window.location.replace('/home');
             })
             .catch(() => {
               alert('로그인에 실패했습니다. 잠시 후 시도해주세요');
@@ -28,7 +28,7 @@ export default function useOauthPage() {
       })();
     } else if (way === 'logout') {
       deleteCookie('auth');
-      router.replace('/login');
+      window.location.replace('/login');
     }
   }, [router]);
 }
