@@ -55,5 +55,6 @@ export const config = {
     '/my',
     '/login',
     '/plans/:path*',
+    '/reminds/:path*',
   ],
 };
