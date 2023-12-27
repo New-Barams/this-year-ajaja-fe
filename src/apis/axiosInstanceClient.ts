@@ -1,6 +1,7 @@
 'use client';
 
 import { NETWORK } from '@/constants/api';
+import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { ErrorResponseData } from '@/types/apis/ErrorResponseData';
 import { checkTokenExp } from '@/utils/checkTokenExp';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
@@ -64,7 +65,8 @@ axiosInstanceClient.interceptors.response.use(
               accessToken,
               refreshToken,
             });
-            setCookie('auth', tokens, { maxAge: 604800 });
+            //TODO:
+            setCookie('auth', tokens, { maxAge: COOKIE_MAX_AGE });
             if (error.config) {
               error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
               const response = await axiosInstanceClient.request(error.config);

@@ -1,3 +1,4 @@
+import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { AtomEffect, atom } from 'recoil';
 
@@ -20,7 +21,9 @@ const cookiesEffect: <T>(key: string) => AtomEffect<T> =
         return null;
       }
 
-      return setCookie(key, JSON.stringify(newValue));
+      return setCookie(key, JSON.stringify(newValue), {
+        maxAge: COOKIE_MAX_AGE,
+      });
     });
   };
 
