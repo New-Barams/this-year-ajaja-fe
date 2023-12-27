@@ -80,7 +80,7 @@ export default function CreatePlanIcon({
             'create-plan-icon__example__text',
             'font-size-xs',
           )}>
-          선택된 아이콘은 계획이 생성되었을 때 다음과 같이 보여요 !
+          선택된 아이콘은 계획이 생성되었을 때 다음과 같이 보여요!
         </div>
         <CreatePlanIconExample />
       </div>

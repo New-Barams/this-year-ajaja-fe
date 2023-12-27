@@ -64,7 +64,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
         <span className={classNames('readonly-remind__options__option')}>
           {makeRemindOptionToString(
             TOTAL_PERIOD_OPTIONS,
-            remindData.remindTotalPeriod,
+            remindData.totalPeriod,
           )}
         </span>
         <span className={classNames('readonly-remind__options__text')}>

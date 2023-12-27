@@ -8,6 +8,7 @@ import {
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
+import { EDIT_REMIND_STEP_TITLE } from '@/constants/editRemindStepTitle';
 import { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { EditRemindData } from '@/types/apis/plan/EditRemind';
@@ -102,8 +103,6 @@ export default function EditRemindPage({
           planId: parseInt(planId, 10),
           remindData: editRemindData,
         });
-
-        ajajaToast.success('리마인드 수정 API 실행'); // TODO: 다 되면 지우기
       }
       router.push('/home');
     } else {
@@ -230,7 +229,7 @@ export default function EditRemindPage({
       </div>
 
       <div className={classNames(['remind-edit-page__title'])}>
-        리마인드 날짜 수정
+        {EDIT_REMIND_STEP_TITLE[nowStep]}
       </div>
 
       {nowStep === 1 ? (
