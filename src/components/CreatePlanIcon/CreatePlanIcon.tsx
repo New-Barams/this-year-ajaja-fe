@@ -1,7 +1,6 @@
 'use client';
 
-import { SESSION_STORAGE_KEY } from '@/constants';
-import { planIcons } from '@/constants/planIcons';
+import { SESSION_STORAGE_KEY, planIcons } from '@/constants';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Image from 'next/image';

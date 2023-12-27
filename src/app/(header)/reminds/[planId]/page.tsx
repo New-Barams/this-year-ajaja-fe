@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
-import { REMIND_TIME_TEXT } from '@/constants/remindTimeText';
+import { REMIND_TIME_TEXT } from '@/constants';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { useScroll } from '@/hooks/useScroll';

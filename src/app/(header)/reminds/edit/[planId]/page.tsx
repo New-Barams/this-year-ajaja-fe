@@ -7,8 +7,7 @@ import {
   ModalFixRemindDate,
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
-import { SESSION_STORAGE_KEY } from '@/constants';
-import { EDIT_REMIND_STEP_TITLE } from '@/constants/editRemindStepTitle';
+import { EDIT_REMIND_STEP_TITLE, SESSION_STORAGE_KEY } from '@/constants';
 import { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';

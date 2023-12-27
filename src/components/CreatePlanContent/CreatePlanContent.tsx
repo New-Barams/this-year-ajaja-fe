@@ -1,7 +1,6 @@
 'use client';
 
-import { SESSION_STORAGE_KEY } from '@/constants';
-import { INPUT_MAX_LENGTH } from '@/constants/userInputMaxLength';
+import { INPUT_MAX_LENGTH, SESSION_STORAGE_KEY } from '@/constants';
 import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';

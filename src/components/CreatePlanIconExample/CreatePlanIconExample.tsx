@@ -1,4 +1,4 @@
-import { planIcons } from '@/constants/planIcons';
+import { planIcons } from '@/constants';
 import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
