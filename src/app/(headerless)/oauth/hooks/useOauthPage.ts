@@ -1,4 +1,5 @@
 import { postLogin } from '@/apis/client/postLogin';
+import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { deleteCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -15,10 +16,10 @@ export default function useOauthPage() {
         if (code) {
           await postLogin(code)
             .then((response) => {
-              //TODO: 로그인 실패 처리 필요, maxAge 상수화, await 와 then을같이 쓰는게 맞나?
+              //TODO: 로그인 실패 처리 필요, await 와 then을같이 쓰는게 맞나?
               const { data } = response;
               //TODO: 테스트를 위해 5분
-              setCookie('auth', data, { maxAge: 300 });
+              setCookie('auth', data, { maxAge: COOKIE_MAX_AGE });
               window.location.replace('/home');
             })
             .catch(() => {
