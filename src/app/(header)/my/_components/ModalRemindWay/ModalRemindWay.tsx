@@ -79,14 +79,14 @@ export default function ModalRemindWay({
                 value="both"
                 defaultChecked={receiveType === 'both'}
               />
-              카카오톡+이메일
+              카카오톡 + 이메일
             </label>
           </div>
 
           <div className="alert-text">
             <Icon name="WARNING" size="lg" />
             <span className="color-origin-primary font-size-xs">
-              이메일로 리마인드를 받기 위해서는 이메일 인증이 필요합니다.
+              이메일로 알림을 받기 위해서는 이메일 인증이 필요합니다.
             </span>
           </div>
 
