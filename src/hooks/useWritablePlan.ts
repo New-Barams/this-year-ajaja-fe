@@ -1,8 +1,16 @@
 import { PlanContentType } from '@/types/Plan';
+import { PlanData } from '@/types/apis/plan/GetPlan';
 import { useRef, useState } from 'react';
 
-export const useWritablePlan = (PlanData: PlanContentType) => {
-  const [planContent, setPlanContent] = useState<PlanContentType>(PlanData);
+export const useWritablePlan = (planData: PlanData) => {
+  const [planContent, setPlanContent] = useState<PlanContentType>({
+    iconNumber: planData.icon,
+    title: planData.title,
+    description: planData.description,
+    tags: planData.tags,
+    isPublic: planData.public,
+    canAjaja: planData.canAjaja,
+  });
   const nextTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const handleChangeTitle = (newTitle: string) => {
     setPlanContent({ ...planContent, title: newTitle });

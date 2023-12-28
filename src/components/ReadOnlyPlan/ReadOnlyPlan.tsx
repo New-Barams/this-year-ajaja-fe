@@ -24,7 +24,7 @@ export default function ReadOnlyPlan({
     icon,
     title,
     description,
-    Public,
+    public: isPublic,
     ajajas,
     createdAt,
     writer,
@@ -77,7 +77,7 @@ export default function ReadOnlyPlan({
         </div>
       </div>
       <AjajaButton
-        disabled={isLogin}
+        disabled={!isLogin}
         planId={id}
         isFilled={writer.ajajaPressed}
         ajajaCount={ajajas}
@@ -85,7 +85,7 @@ export default function ReadOnlyPlan({
       {isMine && (
         <div className="plan__bottom">
           <DebounceSwitchButton
-            defaultIsOn={Public}
+            defaultIsOn={isPublic}
             toggleName="public"
             submitToggleAPI={handleToggleIsPublic}
           />

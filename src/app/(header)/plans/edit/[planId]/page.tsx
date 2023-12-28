@@ -14,7 +14,6 @@ import { planIcons } from '@/constants/planIcons';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useWritablePlan } from '@/hooks/useWritablePlan';
-import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,9 +24,9 @@ import './index.scss';
 export default function EditPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
-  const { plan: planData } = useGetPlanQuery(Number(planId));
+  const { plan: planData } = useGetPlanQuery(Number(planId), true);
   const { mutate: editPlan } = useEditPlanMutation(Number(planId));
-  const isMyPlan = checkIsMyPlan(planData.userId);
+  const isMyPlan = planData.writer.owner;
   //TODO: 권한설정 여기서?
   useEffect(() => {
     if (!isMyPlan) {
@@ -109,7 +108,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
           </div>
           <AjajaButton
             ajajaCount={planData.ajajas}
-            isFilled={planData.isPressAjaja}
+            isFilled={planData.writer.ajajaPressed}
             disabled
           />
         </div>

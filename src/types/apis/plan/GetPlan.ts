@@ -38,7 +38,7 @@ export interface PlanData {
   canAjaja: boolean;
   ajajas: number;
   tags: string[];
-  Public: boolean;
+  public: boolean;
   createdAt: string;
 }
 
