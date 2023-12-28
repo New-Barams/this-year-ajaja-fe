@@ -71,7 +71,9 @@ export default function CreatePage() {
   const [fixedDate, setFixedDate] = useState<number>(1);
 
   const isPreviousCreatePlanExist = () => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1) ? true : false;
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1) ? true : false;
+    }
   };
 
   const [isContinueCreatePlanModalOpen, setIsContinueCreatePlanModalOpen] =
