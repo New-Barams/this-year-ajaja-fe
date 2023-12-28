@@ -57,11 +57,10 @@ export default function CreatePage() {
 
   useEffect(() => {
     if (!canMakeNewPlan) {
-      // 계획이 4개 이상이면
-      ajajaToast.error('더 이상 계획을 생성할 수 없습니다!');
+      ajajaToast.error('생성할 수 있는 계획의 개수가 최대입니다');
       router.replace('/home');
     }
-  }, [router, canMakeNewPlan]);
+  }, [canMakeNewPlan, router]);
 
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
