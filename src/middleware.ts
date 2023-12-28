@@ -4,42 +4,48 @@ import { checkIsSeason } from './utils/checkIsSeason';
 
 export function middleware(request: NextRequest) {
   const cookies = request.cookies;
+  const hasAuthCookies = cookies.has('auth');
 
   if (request.nextUrl.pathname === '/') {
-    if (cookies.has('auth')) {
+    if (hasAuthCookies) {
       return NextResponse.redirect(new URL('/home', request.url));
     }
     return NextResponse.redirect(new URL('/login', request.url));
   } else if (request.nextUrl.pathname === '/home') {
-    if (!cookies.has('auth')) {
+    if (!hasAuthCookies) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
-  } else if (
-    request.nextUrl.pathname === '/create' ||
-    request.nextUrl.pathname.startsWith('/edit')
-  ) {
-    if (!cookies.has('auth')) {
+  } else if (request.nextUrl.pathname === '/login') {
+    if (hasAuthCookies) {
+      return NextResponse.redirect(new URL('/home', request.url));
+    }
+  } else if (request.nextUrl.pathname === '/create') {
+    if (!hasAuthCookies) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
-
     if (!checkIsSeason()) {
       return NextResponse.redirect(new URL('/home', request.url));
     }
   } else if (request.nextUrl.pathname === '/my') {
-    if (!cookies.has('auth')) {
+    if (!hasAuthCookies) {
       return NextResponse.redirect(new URL('/login', request.url));
-    }
-  } else if (request.nextUrl.pathname === '/login') {
-    if (cookies.has('auth')) {
-      return NextResponse.redirect(new URL('/home', request.url));
     }
   } else if (request.nextUrl.pathname.startsWith('/plans')) {
-    if (!cookies.has('auth')) {
-      return NextResponse.redirect(new URL('/login', request.url));
+    if (
+      request.nextUrl.pathname.startsWith('/plans/edit') &&
+      (!hasAuthCookies || !checkIsSeason())
+    ) {
+      return NextResponse.redirect(new URL('/home', request.url));
     }
   } else if (request.nextUrl.pathname.startsWith('/reminds')) {
-    if (!cookies.has('auth')) {
+    if (!hasAuthCookies) {
       return NextResponse.redirect(new URL('/login', request.url));
+    }
+    if (
+      request.nextUrl.pathname.startsWith('/reminds/edit') &&
+      !checkIsSeason()
+    ) {
+      return NextResponse.redirect(new URL('/home', request.url));
     }
   }
 
@@ -55,5 +61,6 @@ export const config = {
     '/my',
     '/login',
     '/plans/:path*',
+    '/reminds/:path*',
   ],
 };

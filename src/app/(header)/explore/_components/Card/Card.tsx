@@ -1,4 +1,5 @@
 import { AjajaButton, Tag } from '@/components';
+import { planIcons } from '@/constants/planIcons';
 import { CardPlans } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
 import Image from 'next/image';
@@ -16,7 +17,7 @@ export default function Card({ plan }: CardProps) {
         'border-round',
       )}>
       <Image
-        src="/animal/alpaca.png"
+        src={`/animal/${planIcons[plan.iconNumber]}.png`}
         width={60}
         height={60}
         alt="animal icon"
