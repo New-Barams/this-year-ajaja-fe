@@ -15,6 +15,7 @@ import './index.scss';
 export default function RemindPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
+  const isSeason = checkIsSeason();
   const { handleScroll, scrollableRef } = useScroll();
 
   const { remindData } = useGetRemindQuery(
@@ -52,11 +53,13 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
       <div className={classNames(['remind-page__title', 'font-size-xl'])}>
         리마인드
       </div>
-      <Link
-        href={`/reminds/edit/${planId}`}
-        className={classNames(['remind-page__edit', 'font-size-sm'])}>
-        수정
-      </Link>
+      {isSeason && (
+        <Link
+          href={`/reminds/edit/${planId}`}
+          className={classNames(['remind-page__edit', 'font-size-sm'])}>
+          수정
+        </Link>
+      )}
 
       <div
         className={classNames(['remind-page__content'])}

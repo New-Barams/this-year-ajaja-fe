@@ -8,6 +8,7 @@ import {
   ModalFixRemindDate,
 } from '@/components';
 import ModalContinueCreate from '@/components/ModalContinueCreate/ModalContinueCreate';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { STEP_NAME } from '@/constants/createPlanStepTitle';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
@@ -15,7 +16,8 @@ import { decideRemindDate } from '@/utils/decideRemindDate';
 import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
 
@@ -34,6 +36,7 @@ const restartCreatePlan = () => {
 };
 
 export default function CreatePage() {
+  const router = useRouter();
   const [nowStep, setNowStep] = useState(1);
 
   const goToNextStep = () => {
@@ -47,6 +50,14 @@ export default function CreatePage() {
       setNowStep(nowStep - 1);
     }
   };
+
+  useEffect(() => {
+    if (true) {
+      // 계획이 4개 이상이면
+      ajajaToast.error('더 이상 계획을 생성할 수 없습니다!');
+      router.replace('/home');
+    }
+  }, []);
 
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
