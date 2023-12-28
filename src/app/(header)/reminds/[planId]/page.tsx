@@ -63,7 +63,7 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
         ref={scrollableRef}
         onScroll={handleScroll}>
         <ul className={classNames(['remind-page__content__message-list'])}>
-          {remindData.messagesResponses.map((item, index) => {
+          {remindData.messageResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}
@@ -83,7 +83,7 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
         </p>
 
         <DebounceSwitchButton
-          defaultIsOn={remindData.isRemindable}
+          defaultIsOn={remindData.remindable}
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />

@@ -24,7 +24,7 @@ export const useEditRemindPage = (remindData: RemindData) => {
     sessionStorage.setItem(
       SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
       JSON.stringify(
-        remindData.messagesResponses.map((message) => {
+        remindData.messageResponses.map((message) => {
           return {
             date: {
               month: message.remindMonth,
