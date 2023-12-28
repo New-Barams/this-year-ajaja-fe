@@ -18,7 +18,7 @@ import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
@@ -55,10 +55,10 @@ export default function CreatePage() {
 
   const canMakeNewPlan = useRecoilValue(canMakeNewPlanStore);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!canMakeNewPlan) {
-      ajajaToast.error('생성할 수 있는 계획의 개수가 최대입니다');
       router.replace('/home');
+      ajajaToast.error('생성할 수 있는 계획의 개수가 최대입니다.');
     }
   }, [canMakeNewPlan, router]);
 
