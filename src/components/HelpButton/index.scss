@@ -1,0 +1,45 @@
+.help-button {
+  &__button {
+    background-color: transparent;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.active::after {
+      color: var(--origin-text-600);
+      content: attr(data-help-text);
+      background-color: rgba(black, 0.5);
+      white-space: pre;
+      word-break: keep-all;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      user-select: none;
+      pointer-events: none;
+      position: absolute;
+    }
+    &.top-left::after,
+    &.top::after,
+    &.top-right::after {
+      bottom: 12px;
+    }
+
+    &.bottom-left::after,
+    &.bottom::after,
+    &.bottom-right::after {
+      top: 12px;
+    }
+    &.bottom-left::after,
+    &.top-left::after {
+      right: 0;
+    }
+    &.top-right::after,
+    &.bottom-right::after {
+      left: 0;
+    }
+  }
+}
