@@ -60,7 +60,7 @@ export default function CreatePage() {
       router.replace('/home');
       ajajaToast.error('생성할 수 있는 계획의 개수가 최대입니다.');
     }
-  }, [canMakeNewPlan, router]);
+  }, []);
 
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
@@ -154,6 +154,10 @@ export default function CreatePage() {
     setIsFixRemindDateModalOpen(false);
     goToNextStep();
   };
+
+  if (!canMakeNewPlan) {
+    return <></>;
+  }
 
   return (
     <div className={classNames('create-page')}>
