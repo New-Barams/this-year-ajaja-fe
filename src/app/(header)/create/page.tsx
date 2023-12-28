@@ -11,6 +11,7 @@ import ModalContinueCreate from '@/components/ModalContinueCreate/ModalContinueC
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { STEP_NAME } from '@/constants/createPlanStepTitle';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import { getSessionStorageData } from '@/utils/getSessionStorageData';
@@ -18,6 +19,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
 
@@ -51,13 +53,15 @@ export default function CreatePage() {
     }
   };
 
+  const canMakeNewPlan = useRecoilValue(canMakeNewPlanStore);
+
   useEffect(() => {
-    if (true) {
+    if (!canMakeNewPlan) {
       // 계획이 4개 이상이면
       ajajaToast.error('더 이상 계획을 생성할 수 없습니다!');
       router.replace('/home');
     }
-  }, []);
+  }, [router, canMakeNewPlan]);
 
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
