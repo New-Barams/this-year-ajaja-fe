@@ -5,35 +5,45 @@ export interface GetPlanResponse {
 // {
 //   "success": true,
 //   "data": {
-//     "id": 0,
-//     "userId": 0,
-//     "nickname": "string",
-//     "title": "string",
-//     "description": "string",
-//     "isPublic": true,
-//     "canRemind": true,
-//     "canAjaja": true,
-//     "ajajas": 0,
-//     "isPressAjaja": true,
-//     "tags": [
-//       "string"
-//     ],
-//     "createdAt": "2023-11-23T05:50:03.634Z"
+//       "writer": {
+//           "nickname": "게임하는 원숭이",
+//           "owner": true,
+//           "ajajaPressed": true
+//       },
+//       "id": 44,
+//       "title": "전국 여행 하기 ",
+//       "description": "2달에 한 번씩 견문을 넓히기 위해서 여행 ",
+//       "icon": 8,
+//       "canRemind": true,
+//       "canAjaja": true,
+//       "ajajas": 1,
+//       "tags": [
+//           "충청도",
+//           "전라도",
+//           "경상도",
+//           "강원도",
+//           "제주도"
+//       ],
+//       "createdAt": "2023-11-30T08:26:56.947438Z",
+//       "public": true
 //   }
 // }
-
 export interface PlanData {
+  writer: Writer;
   id: number;
-  iconNumber: number;
-  userId: number;
-  nickname: string;
   title: string;
   description: string;
-  isPublic: boolean;
+  icon: number;
   canRemind: boolean;
   canAjaja: boolean;
   ajajas: number;
-  isPressAjaja: boolean;
   tags: string[];
+  Public: boolean;
   createdAt: string;
+}
+
+interface Writer {
+  nickname: string;
+  owner: boolean;
+  ajajaPressed: boolean;
 }
