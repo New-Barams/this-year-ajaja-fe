@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import NotPublic from './_components/NotPublic/NotPublic';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
@@ -31,10 +32,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const isVisible = isMyPlan || plan.public;
 
   useEffect(() => {
-    if (!isVisible) {
-      alert('비공개 페이지 입니다. 홈으로 이동하겠습니다.');
-      router.replace('/home');
-    }
     const currentURL = window.location.href;
     setCurrent(currentURL);
     setIsMyPlanStore(isMyPlan);
@@ -76,7 +73,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          {isVisible && (
+          {isVisible ? (
             <ReadOnlyPlan
               isLogin={isLogin}
               isMine={isMyPlan}
@@ -88,6 +85,8 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                 </div>
               )}
             </ReadOnlyPlan>
+          ) : (
+            <NotPublic />
           )}
           {isMyPlan && (
             <div className="plans-page--share">
