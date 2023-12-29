@@ -56,8 +56,7 @@ axiosInstanceClient.interceptors.response.use(
 
         const isExpiredAccessToken = !checkTokenExp(accessToken);
         const isExpiredRefreshToken = !checkTokenExp(refreshToken);
-
-        if (isExpiredAccessToken || isExpiredRefreshToken) {
+        if (isExpiredAccessToken && !isExpiredRefreshToken) {
           try {
             const {
               data: { data: tokens },
