@@ -77,12 +77,15 @@ export default function ReadOnlyPlan({
           ))}
         </div>
       </div>
-      <AjajaButton
-        disabled={!isLogin}
-        planId={id}
-        isFilled={writer.ajajaPressed}
-        ajajaCount={ajajas}
-      />
+      <div>
+        <AjajaButton
+          disabled={!isLogin}
+          planId={id}
+          isFilled={writer.ajajaPressed}
+          ajajaCount={ajajas}
+        />
+      </div>
+
       {isMine && (
         <div className="plan__bottom">
           <div className="plan__bottom--public">
