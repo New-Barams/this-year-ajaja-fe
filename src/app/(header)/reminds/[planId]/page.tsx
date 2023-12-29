@@ -1,12 +1,10 @@
 'use client';
 
 import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
-import { SESSION_STORAGE_KEY } from '@/constants';
-import { REMIND_TIME_TEXT } from '@/constants/remindTimeText';
+import { REMIND_TIME_TEXT } from '@/constants';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
 import { useScroll } from '@/hooks/useScroll';
-import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -17,6 +15,7 @@ import './index.scss';
 export default function RemindPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
+  const isSeason = checkIsSeason();
   const { handleScroll, scrollableRef } = useScroll();
 
   const { remindData } = useGetRemindQuery(
@@ -32,39 +31,8 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
     toggleIsRemindableAPI(parseInt(planId, 10));
   };
 
-  const onClickGoBackToPlan = () => {
+  const onClickGoBackToPlanPage = () => {
     router.push(`/plans/${planId}`);
-  };
-
-  const onClickGoToEditRemind = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_OPTION);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-      JSON.stringify({
-        TotalPeriod: remindData.totalPeriod,
-        Term: remindData.remindTerm,
-        Date: remindData.remindDate,
-        Time: changeRemindTimeToNumber(remindData.remindTime),
-      }),
-    );
-
-    sessionStorage.removeItem(SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE);
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_MESSAGE,
-      JSON.stringify(
-        remindData.messagesResponses.map((message) => {
-          return {
-            date: {
-              month: message.remindMonth,
-              day: message.remindDay,
-            },
-            message: message.remindMessage,
-          };
-        }),
-      ),
-    );
-
-    router.push(`/reminds/edit/${planId}`);
   };
 
   return (
@@ -85,18 +53,20 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
       <div className={classNames(['remind-page__title', 'font-size-xl'])}>
         리마인드
       </div>
-      <p
-        className={classNames(['remind-page__edit', 'font-size-sm'])}
-        onClick={onClickGoToEditRemind}>
-        수정
-      </p>
+      {isSeason && (
+        <Link
+          href={`/reminds/edit/${planId}`}
+          className={classNames(['remind-page__edit', 'font-size-sm'])}>
+          수정
+        </Link>
+      )}
 
       <div
         className={classNames(['remind-page__content'])}
         ref={scrollableRef}
         onScroll={handleScroll}>
         <ul className={classNames(['remind-page__content__message-list'])}>
-          {remindData.messagesResponses.map((item, index) => {
+          {remindData.messageResponses.map((item, index) => {
             return (
               <ReadOnlyRemindItem
                 key={index}
@@ -116,19 +86,21 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
         </p>
 
         <DebounceSwitchButton
-          defaultIsOn={remindData.isRemindable}
+          defaultIsOn={remindData.remindable}
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />
 
-        <Button
-          background="primary"
-          color="white-100"
-          border={false}
-          onClick={onClickGoBackToPlan}
-          classNameList={['remind-page__button']}>
-          계획으로 돌아가기
-        </Button>
+        <Link href={`/plans/${planId}`}>
+          <Button
+            background="primary"
+            color="white-100"
+            border={false}
+            onClick={onClickGoBackToPlanPage}
+            classNameList={['remind-page__button']}>
+            계획으로 돌아가기
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -54,7 +54,7 @@ export default function ReadOnlyRemind({ planId }: ReadOnlyRemindProps) {
           리마인드
         </span>
         <DebounceSwitchButton
-          defaultIsOn={remindData.isRemindable}
+          defaultIsOn={remindData.remindable}
           submitToggleAPI={handleToggleIsRemindable}
           toggleName="remind"
         />

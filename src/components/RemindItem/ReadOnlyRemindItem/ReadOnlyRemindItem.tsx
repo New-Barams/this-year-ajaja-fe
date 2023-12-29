@@ -18,11 +18,11 @@ export default function ReadOnlyRemindItem({
 }: ReadOnlyRemindItemProps) {
   const isSeason = checkIsSeason();
 
-  const { remindMonth, remindDay, remindMessage, isReminded } = data;
+  const { remindMonth, remindDay, remindMessage, reminded } = data;
 
   const canCheckRemindMessage = useMemo(() => {
-    return isSeason || (!isSeason && isReminded);
-  }, [isSeason, isReminded]);
+    return isSeason || (!isSeason && reminded);
+  }, [isSeason, reminded]);
 
   const [isItemOpened, setIsItemOpened] = useState(false);
 

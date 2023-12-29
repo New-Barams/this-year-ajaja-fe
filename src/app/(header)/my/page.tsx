@@ -113,9 +113,12 @@ export default function MyPage() {
 
   const remindWay = () => {
     if (receiveType === 'both') {
-      return `${(<span className="color-origin-primary">이메일</span>)}과${(
-        <span className="color-origin-primary">카카오톡</span>
-      )}`;
+      return (
+        <>
+          <span className="color-origin-primary">이메일</span>과{' '}
+          <span className="color-origin-primary">카카오톡</span>
+        </>
+      );
     }
     return (
       <span className="color-origin-primary">
@@ -179,22 +182,22 @@ export default function MyPage() {
         </div>
         <div className="my-page__remindway">
           <h2 className="my-page__remindway--label font-size-lg">
-            리마인드 방식
+            리마인드 및 응원 메시지
           </h2>
           <div className="my-page__remindway--content font-size-base">
-            {remindWay()}을 통해서 리마인드 받고 있어요
+            {remindWay()}을 통해서 리마인드 및 응원 메시지를 받고 있어요
           </div>
           <Button
             border={false}
             background="primary"
             color="white-100"
             onClick={handleGORemindWay}>
-            리마인드 방식 변경
+            알림 방식 변경
           </Button>
         </div>
         <div className="my-page__etc font-size-base">
           <button className="my-page__etc--logout" onClick={handleLogOut}>
-            로그 아웃
+            로그아웃
           </button>
           <button
             className="my-page__etc--withdrawal color-origin-text-300"
@@ -214,7 +217,7 @@ export default function MyPage() {
             onClickNo={() => {
               setIsOpenRemindWayModal(false);
             }}>
-            리마인드 방식 변경
+            알림 방식 변경
           </ModalRemindWay>
         </Modal>
       )}
