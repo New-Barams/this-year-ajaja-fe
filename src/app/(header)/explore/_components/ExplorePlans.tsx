@@ -13,11 +13,7 @@ import Plans from './Plans/Plans';
 import Tab from './Tab/Tab';
 import './index.scss';
 
-type ExplorePlansProps = {
-  isLogin: boolean;
-};
-
-export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
+export default function ExplorePlans() {
   const { handleScroll, scrollableRef } = useScroll();
   const [sort, setSort] = useState<SortType>('latest');
   const [current, setCurrent] = useState(true);
@@ -56,7 +52,7 @@ export default function ExplorePlans({ isLogin }: ExplorePlansProps) {
             getScrollParent={() => {
               return scrollableRef.current;
             }}>
-            <Plans flatLoadedPlans={flatLoadedPlans} isLogin={isLogin} />
+            <Plans flatLoadedPlans={flatLoadedPlans} />
           </InfiniteScroll>
           <ToTopFloatingButton />
         </div>
