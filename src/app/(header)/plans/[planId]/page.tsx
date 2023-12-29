@@ -22,7 +22,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
-  const [current, setCurrent] = useState<string>('');
+  const [currentURL, setCurrentURL] = useState<string>('');
   const { plan } = useGetPlanQuery(Number(planId), isLogin);
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { handleScroll, scrollableRef } = useScroll();
@@ -32,13 +32,13 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const isVisible = isMyPlan || plan.public;
 
   useEffect(() => {
-    const currentURL = window.location.href;
-    setCurrent(currentURL);
+    const current = window.location.href;
+    setCurrentURL(current);
     setIsMyPlanStore(isMyPlan);
     return () => {
       setIsMyPlanStore(false);
     };
-  }, [setIsMyPlanStore, isMyPlan, isVisible, router]);
+  }, [setIsMyPlanStore, isMyPlan]);
 
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
@@ -46,10 +46,10 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     router.push('/home');
   };
   const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(current);
-
+    await navigator.clipboard.writeText(currentURL);
     ajajaToast.success('링크가 복사되었습니다.');
   };
+
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
   };
@@ -97,7 +97,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                   링크 복사
                 </label>
                 <label className="font-size-xs">
-                  <KakaoShareButton linkURL={current} />
+                  <KakaoShareButton linkURL={currentURL} />
                   카카오톡
                 </label>
               </div>
