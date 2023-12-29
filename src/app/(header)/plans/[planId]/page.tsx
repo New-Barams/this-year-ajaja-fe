@@ -21,19 +21,27 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
+  const [current, setCurrent] = useState<string>('');
   const { plan } = useGetPlanQuery(Number(planId), isLogin);
-  const isMyPlan = plan.writer.owner;
-  const current = window.location.href;
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { handleScroll, scrollableRef } = useScroll();
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
+  const isMyPlan = plan.writer.owner;
+  const isVisible = isMyPlan || plan.public;
+
   useEffect(() => {
+    if (!isVisible) {
+      alert('비공개 페이지 입니다. 홈으로 이동하겠습니다.');
+      router.replace('/home');
+    }
+    const currentURL = window.location.href;
+    setCurrent(currentURL);
     setIsMyPlanStore(isMyPlan);
     return () => {
       setIsMyPlanStore(false);
     };
-  }, [setIsMyPlanStore, isMyPlan]);
+  }, [setIsMyPlanStore, isMyPlan, isVisible, router]);
 
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
@@ -41,7 +49,9 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     router.push('/home');
   };
   const handleCopyLink = async () => {
+    console.log(current);
     await navigator.clipboard.writeText(current);
+
     ajajaToast.success('링크가 복사되었습니다.');
   };
   const handleModalClickNo = () => {
@@ -67,17 +77,19 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          <ReadOnlyPlan
-            isLogin={isLogin}
-            isMine={isMyPlan}
-            planData={{ ...plan }}>
-            {isMyPlan && isSeason && (
-              <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                <span onClick={handleOpenDeleteModal}>삭제</span>
-              </div>
-            )}
-          </ReadOnlyPlan>
+          {isVisible && (
+            <ReadOnlyPlan
+              isLogin={isLogin}
+              isMine={isMyPlan}
+              planData={{ ...plan }}>
+              {isMyPlan && isSeason && (
+                <div className="plan__header--buttons">
+                  <Link href={`/plans/edit/${planId}`}>수정</Link>|
+                  <span onClick={handleOpenDeleteModal}>삭제</span>
+                </div>
+              )}
+            </ReadOnlyPlan>
+          )}
           {isMyPlan && (
             <div className="plans-page--share">
               <h2>공유하기</h2>
