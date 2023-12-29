@@ -4,6 +4,7 @@ import { useToggleIsPublicMutation } from '@/hooks/apis/useToggleIsPublicMutatio
 import { PlanData } from '@/types/apis/plan/GetPlan';
 import Image from 'next/image';
 import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
+import HelpButton from '../HelpButton/HelpButton';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
@@ -84,17 +85,30 @@ export default function ReadOnlyPlan({
       />
       {isMine && (
         <div className="plan__bottom">
-          <DebounceSwitchButton
-            defaultIsOn={isPublic}
-            toggleName="public"
-            submitToggleAPI={handleToggleIsPublic}
-          />
-
-          <DebounceSwitchButton
-            toggleName="ajaja"
-            defaultIsOn={canAjaja}
-            submitToggleAPI={handleToggleIsCanAjaja}
-          />
+          <div className="plan__bottom--public">
+            <DebounceSwitchButton
+              defaultIsOn={isPublic}
+              toggleName="public"
+              submitToggleAPI={handleToggleIsPublic}
+            />
+            <HelpButton
+              helpText={`계획 공개를 하면 둘러보기에서\n모든 사람들이 볼 수 있어요.`}
+            />
+          </div>
+          <div className="plan__bottom--ajaja-notification">
+            <DebounceSwitchButton
+              toggleName="ajaja"
+              defaultIsOn={canAjaja}
+              submitToggleAPI={handleToggleIsCanAjaja}
+            />
+            <HelpButton
+              helpText={`매주 몇 명의 새로운 사람들이 내 계획에\n아좌좌를 눌러 응원했는지 알려드려요.`}
+              textPosition="top-left"
+            />
+          </div>
+          <span className="font-size-xs color-origin-primary">
+            현재 카카오톡 알림은 2월 부터 받으실 수 있습니다.
+          </span>
         </div>
       )}
     </div>

@@ -49,7 +49,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     router.push('/home');
   };
   const handleCopyLink = async () => {
-    console.log(current);
     await navigator.clipboard.writeText(current);
 
     ajajaToast.success('링크가 복사되었습니다.');
