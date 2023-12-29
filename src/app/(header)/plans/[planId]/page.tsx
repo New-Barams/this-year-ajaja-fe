@@ -7,11 +7,13 @@ import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
 import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { useScroll } from '@/hooks/useScroll';
+import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
@@ -25,6 +27,13 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { handleScroll, scrollableRef } = useScroll();
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
+  const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
+  useEffect(() => {
+    setIsMyPlanStore(isMyPlan);
+    return () => {
+      setIsMyPlanStore(false);
+    };
+  }, [setIsMyPlanStore, isMyPlan]);
 
   const handleModalClickYes = () => {
     setIsDeletePlanModalOpen(false);
