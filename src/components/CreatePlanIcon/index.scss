@@ -22,8 +22,8 @@
 
   &__select-box {
     margin-top: 1.5rem;
-    width: 9rem;
-    height: 9rem;
+    min-width: 8rem;
+    min-height: 8rem;
     display: flex;
     justify-content: center;
     align-items: center;
