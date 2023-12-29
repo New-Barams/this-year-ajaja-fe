@@ -5,8 +5,8 @@ import KakaoShareButton from '@/components/KakaoShareButton/KakaoShareButton';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
+import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { useScroll } from '@/hooks/useScroll';
-import { checkIsMyPlan } from '@/utils/checkIsMyPlan';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -15,11 +15,12 @@ import { useState } from 'react';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
+  const { isLogin } = useIsLogIn();
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
-  const { plan } = useGetPlanQuery(Number(planId));
-  const isMyPlan = checkIsMyPlan(plan.userId);
+  const { plan } = useGetPlanQuery(Number(planId), isLogin);
+  const isMyPlan = plan.writer.owner;
   const current = window.location.href;
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { handleScroll, scrollableRef } = useScroll();
@@ -57,7 +58,10 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan, iconNumber: 1 }}>
+          <ReadOnlyPlan
+            isLogin={isLogin}
+            isMine={isMyPlan}
+            planData={{ ...plan }}>
             {isMyPlan && isSeason && (
               <div className="plan__header--buttons">
                 <Link href={`/plans/edit/${planId}`}>수정</Link>|

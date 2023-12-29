@@ -1,6 +1,7 @@
 'use client';
 
 import { Icon, Modal, ModalBasic, RemindInput } from '@/components';
+import { INPUT_MAX_LENGTH } from '@/constants/userInputMaxLength';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import './index.scss';
@@ -13,8 +14,6 @@ interface WritableRemindItemProps {
   makeAllRemindMessageSame?: () => void;
   classNameList?: string[];
 }
-
-const MAX_REMIND_MESSAGE_LENGTH = 255;
 
 export default function WritableRemindItem({
   remindMonth,
@@ -83,7 +82,7 @@ export default function WritableRemindItem({
                 'remind-item__header__word-length',
                 `color-origin-${isRemindMessageEmpty ? 'primary' : 'text-100'}`,
               )}>
-              {`${remindMessage.length}/${MAX_REMIND_MESSAGE_LENGTH}`}
+              {`${remindMessage.length}/${INPUT_MAX_LENGTH.REMIND_MESSAGE}`}
             </div>
             <Icon
               name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
@@ -103,7 +102,7 @@ export default function WritableRemindItem({
               textInput={remindMessage}
               onChangeInput={handleChangeRemindMessage}
               placeholder="미래의 내가 받게 될 리마인드 메세지를 작성해보세요 !"
-              maxLength={MAX_REMIND_MESSAGE_LENGTH}
+              maxLength={INPUT_MAX_LENGTH.REMIND_MESSAGE}
               editable={true}
             />
           </div>

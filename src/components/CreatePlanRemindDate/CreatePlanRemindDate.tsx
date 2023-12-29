@@ -1,13 +1,13 @@
 'use client';
 
 import { Dropdown } from '@/components';
-import { SESSION_STORAGE_KEY } from '@/constants';
 import {
   DATE_OPTIONS,
+  SESSION_STORAGE_KEY,
   TERM_OPTIONS,
   TIME_OPTIONS,
   TOTAL_PERIOD_OPTIONS,
-} from '@/constants/remindOptions';
+} from '@/constants';
 import { useScroll } from '@/hooks/useScroll';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindOptionType } from '@/types/Remind';

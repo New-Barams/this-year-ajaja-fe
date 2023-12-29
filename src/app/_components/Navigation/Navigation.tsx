@@ -1,22 +1,25 @@
 'use client';
 
+import { getMyPlans } from '@/apis/client/getMyPlans';
 import { Icon } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
+import { maxPlan } from '@/constants/plan';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
+import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 import { hasCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import './index.scss';
 
 export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const pathName = usePathname();
   const [isLogin, setIsLogin] = useState(hasAuth);
   const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
-
+  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
   if (!hasCookie('auth')) {
     setTimeout(() => {
       setIsLogin(hasCookie('auth'));
@@ -28,6 +31,16 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
       ajajaToast.error('생성할 수 있는 계획의 수가 최대입니다.');
     }
   };
+
+  useEffect(() => {
+    async function isMaxPlan() {
+      const data = await getMyPlans();
+      if (data.data[0]?.year === checkThisYear()) {
+        setCanMakeNewPlan(!!(maxPlan - data.data[0].getPlanList.length));
+      }
+    }
+    isMaxPlan();
+  }, [setCanMakeNewPlan]);
 
   return (
     <div className={classNames('navigation')}>

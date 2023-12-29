@@ -1,13 +1,23 @@
 .wrapper {
   width: 100%;
   height: 100%;
-  padding: 4rem 0 2rem 0;
   overflow: scroll;
   .login {
+    &::after,
+    &::before {
+      content: '';
+      width: 100%;
+      display: block;
+      height: 2rem;
+      flex-shrink: 0;
+    }
+    &::after {
+      height: 1px;
+    }
+
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    height: 100%;
     align-items: center;
     &__welcome-text {
       white-space: nowrap;
@@ -29,7 +39,7 @@
       gap: 1rem;
       &--image {
         width: 100%;
-        height: 100%;
+        height: 257px;
         object-fit: contain;
       }
 

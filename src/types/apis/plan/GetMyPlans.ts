@@ -7,10 +7,9 @@ interface Plan {
   year: number;
   planId: number;
   title: string;
-  isRemindable: boolean;
+  remindable: boolean;
   achieveRate: number;
   icon: number;
-  isVerified: false;
 }
 
 interface YearPlan {

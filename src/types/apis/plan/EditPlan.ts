@@ -1,4 +1,5 @@
 export interface EditPlanData {
+  iconNumber: number;
   title: string;
   description: string;
   isPublic: boolean;
