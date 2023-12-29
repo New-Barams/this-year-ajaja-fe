@@ -33,4 +33,5 @@ export type IconName =
   | 'STAR'
   | 'FAVORITE'
   | 'ARROW_UP'
-  | 'COPY';
+  | 'COPY'
+  | 'HELP';
