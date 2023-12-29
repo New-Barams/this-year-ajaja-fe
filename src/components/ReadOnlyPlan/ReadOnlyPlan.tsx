@@ -7,31 +7,32 @@ import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
-  isMine: boolean; // 나/ 타인 구분
+  isLogin: boolean;
+  isMine: boolean;
   planData: PlanData;
   children?: React.ReactNode;
 }
 
 export default function ReadOnlyPlan({
+  isLogin,
   isMine,
   planData,
   children,
 }: ReadOnlyPlanProps) {
   const {
     id,
-    iconNumber,
+    icon,
     title,
     description,
-    isPublic,
+    public: isPublic,
     ajajas,
     createdAt,
-    isPressAjaja,
+    writer,
     tags,
     canAjaja,
   } = planData;
 
   const createdYear = new Date(createdAt).toLocaleDateString();
-
   const { mutate: toggleIsPublic } = useToggleIsPublicMutation(id);
   const { mutate: toggleAjajaNotification } =
     useToggleAjajaNotificationMutation(id);
@@ -48,8 +49,8 @@ export default function ReadOnlyPlan({
     <div className="plan__container">
       <div className="plan__header">
         <Image
-          src={`/animal/${planIcons[iconNumber]}.png`}
-          alt={`${planIcons[iconNumber]}`}
+          src={`/animal/${planIcons[icon]}.png`}
+          alt={`${planIcons[icon]}`}
           width={50}
           height={50}
         />
@@ -75,7 +76,12 @@ export default function ReadOnlyPlan({
           ))}
         </div>
       </div>
-      <AjajaButton planId={id} isFilled={isPressAjaja} ajajaCount={ajajas} />
+      <AjajaButton
+        disabled={!isLogin}
+        planId={id}
+        isFilled={writer.ajajaPressed}
+        ajajaCount={ajajas}
+      />
       {isMine && (
         <div className="plan__bottom">
           <DebounceSwitchButton
