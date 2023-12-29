@@ -13,14 +13,14 @@ import { hasCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import './index.scss';
 
 export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const pathName = usePathname();
   const [isLogin, setIsLogin] = useState(hasAuth);
-  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
-  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
+  const [canMakeNewPlan, setCanMakeNewPlan] =
+    useRecoilState(canMakeNewPlanStore);
   const [isMyPlan] = useRecoilState(isMyPlanStore);
   const isEdit = /^\/plans\/edit\/\d+/;
   const isPlan = /^\/plans\/\d+/;
