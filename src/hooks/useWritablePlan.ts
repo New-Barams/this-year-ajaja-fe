@@ -1,9 +1,9 @@
-import { PlanContentType } from '@/types/Plan';
+import { EditPlanData } from '@/types/apis/plan/EditPlan';
 import { PlanData } from '@/types/apis/plan/GetPlan';
 import { useRef, useState } from 'react';
 
 export const useWritablePlan = (planData: PlanData) => {
-  const [planContent, setPlanContent] = useState<PlanContentType>({
+  const [planContent, setPlanContent] = useState<EditPlanData>({
     iconNumber: planData.icon,
     title: planData.title,
     description: planData.description,
