@@ -5,6 +5,7 @@ import { Icon } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { maxPlan } from '@/constants/plan';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
+import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
@@ -20,6 +21,11 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const [isLogin, setIsLogin] = useState(hasAuth);
   const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
   const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
+  const [isMyPlan] = useRecoilState(isMyPlanStore);
+  const isEdit = /^\/plans\/edit\/\d+/;
+  const isPlan = /^\/plans\/\d+/;
+  const isRemind = /^\/reminds\/.*$/;
+
   if (!hasCookie('auth')) {
     setTimeout(() => {
       setIsLogin(hasCookie('auth'));
@@ -41,7 +47,6 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
     }
     isMaxPlan();
   }, [setCanMakeNewPlan]);
-
   return (
     <div className={classNames('navigation')}>
       <Link
@@ -54,7 +59,13 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           name="HOME"
           isFilled={true}
           size="xl"
-          color={pathName === '/home' ? 'primary' : 'text-300'}
+          color={
+            pathName === '/home' ||
+            isRemind.test(pathName) ||
+            (isMyPlan && isPlan.test(pathName))
+              ? 'primary'
+              : 'text-300'
+          }
         />
         <p className={classNames('font-size-xs')}>홈</p>
       </Link>
@@ -69,7 +80,11 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           name="CREATE_NEW_PLAN"
           isFilled={true}
           size="xl"
-          color={pathName === '/create' ? 'primary' : 'text-300'}
+          color={
+            pathName === '/create' || isEdit.test(pathName)
+              ? 'primary'
+              : 'text-300'
+          }
         />
         <p className={classNames('font-size-xs')}>
           {checkIsSeason() ? '계획 작성' : '피드백하기'}
@@ -85,7 +100,11 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           name="OTHER_PLAN"
           isFilled={true}
           size="xl"
-          color={pathName === '/explore' ? 'primary' : 'text-300'}
+          color={
+            pathName === '/explore' || (!isMyPlan && isPlan.test(pathName))
+              ? 'primary'
+              : 'text-300'
+          }
         />
         <p className={classNames('font-size-xs')}>둘러보기</p>
       </Link>
