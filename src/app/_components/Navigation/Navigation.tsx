@@ -24,7 +24,7 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const [isMyPlan] = useRecoilState(isMyPlanStore);
   const isEdit = /^\/plans\/edit\/\d+/;
   const isPlan = /^\/plans\/\d+/;
-  const isRemind = /^\/reminds\/\d+/;
+  const isRemind = /^\/reminds\/.*$/;
 
   if (!hasCookie('auth')) {
     setTimeout(() => {
