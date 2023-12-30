@@ -18,8 +18,8 @@ export default function Card({ plan }: CardProps) {
       )}>
       <Image
         src={`/animal/${planIcons[plan.iconNumber]}.png`}
-        width={60}
-        height={60}
+        width={64}
+        height={64}
         alt="animal icon"
         className={classNames('card__wrapper--image')}
       />
