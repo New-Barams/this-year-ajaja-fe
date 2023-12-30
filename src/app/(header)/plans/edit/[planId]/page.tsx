@@ -30,7 +30,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
   //TODO: 권한설정 여기서?
   useEffect(() => {
     if (!isMyPlan) {
-      router.push('./home');
+      router.replace('/home');
     }
   }, [isMyPlan, router]);
   const {
