@@ -41,23 +41,14 @@ export default function Card({ plan }: CardProps) {
           disabled
         />
         <div className={classNames('card__contents--tags')}>
-          {plan.tags.length ? (
-            <>
-              {plan.tags.map((tag, index) => {
-                return (
-                  <Tag key={index} style={{ padding: ' 0 0.25rem' }}>
-                    {tag}
-                  </Tag>
-                );
-              })}
-            </>
-          ) : (
-            <p className={classNames('font-size-sm', 'color-origin-secondary')}>
-              태그가 없습니다.
-            </p>
-          )}
+          {plan.tags.map((tag, index) => {
+            return (
+              <Tag key={index} style={{ padding: ' 0 0.25rem' }}>
+                {tag}
+              </Tag>
+            );
+          })}
         </div>
-        {/* </div> */}
       </div>
     </div>
   );
