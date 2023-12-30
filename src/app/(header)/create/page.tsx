@@ -8,14 +8,18 @@ import {
   ModalFixRemindDate,
 } from '@/components';
 import ModalContinueCreate from '@/components/ModalContinueCreate/ModalContinueCreate';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { STEP_NAME } from '@/constants/createPlanStepTitle';
+import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import StepButtonGroup from './_components/StepButtonGroup/StepButtonGroup';
 import './index.scss';
 
@@ -34,6 +38,7 @@ const restartCreatePlan = () => {
 };
 
 export default function CreatePage() {
+  const router = useRouter();
   const [nowStep, setNowStep] = useState(1);
 
   const goToNextStep = () => {
@@ -48,6 +53,15 @@ export default function CreatePage() {
     }
   };
 
+  const canMakeNewPlan = useRecoilValue(canMakeNewPlanStore);
+
+  useLayoutEffect(() => {
+    if (!canMakeNewPlan) {
+      router.replace('/home');
+      ajajaToast.error('생성할 수 있는 계획의 수가 최대입니다.');
+    }
+  }, [canMakeNewPlan, router]);
+
   const [isFirstStepDataAllExist, setIsFirstStepDataAllExist] = useState(false);
   const [isSecondStepDataAllExist, setIsSecondStepDataAllExist] =
     useState(false);
@@ -57,7 +71,9 @@ export default function CreatePage() {
   const [fixedDate, setFixedDate] = useState<number>(1);
 
   const isPreviousCreatePlanExist = () => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1) ? true : false;
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem(SESSION_STORAGE_KEY.STEP_1) ? true : false;
+    }
   };
 
   const [isContinueCreatePlanModalOpen, setIsContinueCreatePlanModalOpen] =
@@ -142,10 +158,10 @@ export default function CreatePage() {
   };
 
   return (
-    <div className={classNames('new-create-page')}>
+    <div className={classNames('create-page')}>
       <StepperComponent nowStep={nowStep - 1} />
 
-      <div className={classNames('new-create-page__title', 'font-size-xl')}>
+      <div className={classNames('create-page__title', 'font-size-xl')}>
         {STEP_NAME[nowStep]}
       </div>
 

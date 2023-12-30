@@ -22,14 +22,14 @@ export interface ReadOnlyRemindItemData {
   remindMessage: string;
   remindMonth: number;
   remindDay: number;
-  isReminded: boolean;
+  reminded: boolean;
 }
 
 export interface RemindData {
-  remindTotalPeriod: number;
+  totalPeriod: number;
   remindTerm: number;
   remindDate: number;
   remindTime: 'MORNING' | 'AFTERNOON' | 'EVENING';
-  isRemindable: boolean;
-  messagesResponses: ReadOnlyRemindItemData[];
+  remindable: boolean;
+  messageResponses: ReadOnlyRemindItemData[];
 }

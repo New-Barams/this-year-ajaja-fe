@@ -1,6 +1,7 @@
 'use client';
 
 import { NETWORK } from '@/constants/api';
+import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { ErrorResponseData } from '@/types/apis/ErrorResponseData';
 import { checkTokenExp } from '@/utils/checkTokenExp';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
@@ -42,17 +43,6 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
-    console.log('axios 에러 ');
-    console.log(error);
-    if (
-      error.response &&
-      error.response.data &&
-      (error.response.data.errorName === 'INVALID_SIGNATURE' ||
-        error.response.data.errorName === 'TOKEN_NOT_MATCH')
-    ) {
-      //TODO: 일치하지 않을떄도 재로그인
-      alertAndLogin();
-    }
 
     if (
       error.response &&
@@ -66,8 +56,7 @@ axiosInstanceClient.interceptors.response.use(
 
         const isExpiredAccessToken = !checkTokenExp(accessToken);
         const isExpiredRefreshToken = !checkTokenExp(refreshToken);
-
-        if (isExpiredAccessToken || isExpiredRefreshToken) {
+        if (isExpiredAccessToken && !isExpiredRefreshToken) {
           try {
             const {
               data: { data: tokens },
@@ -75,19 +64,23 @@ axiosInstanceClient.interceptors.response.use(
               accessToken,
               refreshToken,
             });
-            console.log('토큰 재발행, 교체 ');
-            console.log(tokens);
-            setCookie('auth', tokens, { maxAge: 604800 });
+            //TODO:
+            setCookie('auth', tokens, { maxAge: COOKIE_MAX_AGE });
             if (error.config) {
               error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
               const response = await axiosInstanceClient.request(error.config);
               return response;
             }
           } catch {
+            console.log('catched');
+            console.log(error);
+            console.log(error.response.data.errorName);
             alertAndLogin();
+            return;
           }
         } else {
           alertAndLogin();
+          return;
         }
       }
     }

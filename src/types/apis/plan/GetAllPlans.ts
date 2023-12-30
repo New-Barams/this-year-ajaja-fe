@@ -5,6 +5,7 @@ export interface GetAllPlansResponse {
 
 export interface CardPlans {
   id: number;
+  iconNumber: number;
   userId: number;
   nickname: string;
   title: string;

@@ -7,17 +7,20 @@ import {
   ModalFixRemindDate,
 } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
-import { SESSION_STORAGE_KEY } from '@/constants';
+import { EDIT_REMIND_STEP_TITLE, SESSION_STORAGE_KEY } from '@/constants';
 import { useEditRemindMutation } from '@/hooks/apis/useEditRemindMutation';
+import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { RemindItemType, RemindOptionType } from '@/types/Remind';
 import { EditRemindData } from '@/types/apis/plan/EditRemind';
 import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
+import { checkIsSeason } from '@/utils/checkIsSeason';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useEditRemindPage } from './_hooks/useEditRemindPage';
 import './index.scss';
 
 export default function EditRemindPage({
@@ -28,23 +31,13 @@ export default function EditRemindPage({
   const { planId } = params;
   const router = useRouter();
 
-  const [originTerm, setOriginTerm] = useState(1);
-  const [originPeriod, setOriginPeriod] = useState(1);
+  const { remindData } = useGetRemindQuery(
+    parseInt(planId, 10),
+    checkIsSeason(),
+  );
 
-  useEffect(() => {
-    const editRemindOptionsOriginItem = sessionStorage.getItem(
-      SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-    );
-
-    const editRemindOptionsOrigin = editRemindOptionsOriginItem
-      ? (JSON.parse(editRemindOptionsOriginItem) as RemindOptionType)
-      : null;
-
-    if (editRemindOptionsOrigin) {
-      setOriginPeriod(editRemindOptionsOrigin.TotalPeriod);
-      setOriginTerm(editRemindOptionsOrigin.Term);
-    }
-  }, []);
+  const { originTerm, setOriginTerm, originPeriod, setOriginPeriod } =
+    useEditRemindPage(remindData);
 
   const [nowStep, setNowStep] = useState(1);
   const [isEveryRemindDataExist, setIsEveryRemindDataExist] = useState(false);
@@ -63,10 +56,6 @@ export default function EditRemindPage({
     if (nowStep < 2) {
       setNowStep(nowStep + 1);
     }
-  };
-
-  const exitEditRemindPage = () => {
-    router.push(`/reminds/${planId}`);
   };
 
   const { mutate: editRemindAPI } = useEditRemindMutation(parseInt(planId, 10));
@@ -102,8 +91,6 @@ export default function EditRemindPage({
           planId: parseInt(planId, 10),
           remindData: editRemindData,
         });
-
-        ajajaToast.success('리마인드 수정 API 실행'); // TODO: 다 되면 지우기
       }
       router.push('/home');
     } else {
@@ -128,7 +115,7 @@ export default function EditRemindPage({
         | null;
 
       if (remindMessage) {
-        // 변경된 날짜에 대한 새로운 리마인드 메세지 리스트 만들기
+        // 변경되었을 수도 있는 날짜에 대한 새로운 리마인드 메세지 리스트 만들기
         const fixedRemindDateList = decideRemindDate(
           editRemindOptions.TotalPeriod,
           editRemindOptions.Term,
@@ -230,7 +217,7 @@ export default function EditRemindPage({
       </div>
 
       <div className={classNames(['remind-edit-page__title'])}>
-        리마인드 날짜 수정
+        {EDIT_REMIND_STEP_TITLE[nowStep]}
       </div>
 
       {nowStep === 1 ? (
@@ -245,16 +232,17 @@ export default function EditRemindPage({
       <div className={classNames(['remind-edit-page__button'])}>
         {nowStep === 1 ? (
           <>
-            <Button
-              background="white-100"
-              border={true}
-              color="primary"
-              size="sm"
-              onClick={() => {
-                exitEditRemindPage();
-              }}>
-              나가기
-            </Button>
+            <Link
+              href={`/reminds/${planId}`}
+              className={classNames(['remind-edit-page__button__out'])}>
+              <Button
+                background="white-100"
+                border={true}
+                color="primary"
+                size="sm">
+                나가기
+              </Button>
+            </Link>
             <Button
               background="primary"
               border={false}

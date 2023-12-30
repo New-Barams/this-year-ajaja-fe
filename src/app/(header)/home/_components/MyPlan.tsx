@@ -1,6 +1,7 @@
 'use client';
 
 import { Dropdown } from '@/components';
+import { maxPlan } from '@/constants/plan';
 import { planIcons } from '@/constants/planIcons';
 import { useScroll } from '@/hooks/useScroll';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
@@ -19,16 +20,16 @@ type MyPlanProps = {
 };
 
 export default function MyPlan({ myPlans }: MyPlanProps) {
-  const maxLength = 4;
   const { handleScroll, scrollableRef } = useScroll();
   const { data: myPlansData } = myPlans;
   const yearList = myPlansData.map((x) => x.year);
+  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
   const [year, setYear] = useState(yearList[0]);
   const [yearData, setYearData] = useState(myPlansData[0]);
   const [yearDataLength, setYearDataLength] = useState(
     myPlansData[0].getPlanList.length,
   );
-  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
+
   const PERIOD_OPTIONS = yearList.map((x) => {
     return { value: x, name: `${x}년 계획` };
   });
@@ -37,8 +38,8 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
     const chosenYearData = myPlansData.find((x) => x.year === year)!;
     setYearData(chosenYearData);
     setYearDataLength(chosenYearData.getPlanList.length);
-    setCanMakeNewPlan(!!(maxLength - chosenYearData.getPlanList.length));
-  }, [year, myPlansData, setCanMakeNewPlan, setYearDataLength]);
+    setCanMakeNewPlan(!!(maxPlan - chosenYearData.getPlanList.length));
+  }, [year, myPlansData, setYearDataLength, setCanMakeNewPlan]);
   return (
     <>
       <div className={classNames('home__header')}>
@@ -95,7 +96,7 @@ export default function MyPlan({ myPlans }: MyPlanProps) {
         )}
         <NewPlan />
         <p className={classNames('home__number', 'color-origin-text-300')}>
-          ({yearDataLength}/{maxLength})
+          ({yearDataLength}/{maxPlan})
         </p>
       </div>
     </>

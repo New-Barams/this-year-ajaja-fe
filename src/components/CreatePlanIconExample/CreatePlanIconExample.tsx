@@ -1,4 +1,4 @@
-import { planIcons } from '@/constants/planIcons';
+import { planIcons } from '@/constants';
 import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
@@ -14,7 +14,7 @@ export default function CreatePlanIconExample() {
         'border-round',
       )}>
       <Image
-        src={`/animal/${planIcons[2]}.png`}
+        src={`/animal/${planIcons[7]}.png`}
         width={90}
         height={90}
         alt="example plan icon"
