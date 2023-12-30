@@ -6,6 +6,14 @@
   height: 100%;
   gap: 1rem;
   overflow-y: scroll;
+  &__breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    a {
+      text-decoration: none;
+      color: var(--origin-text-100);
+    }
+  }
   &__main {
     display: flex;
     flex-direction: column;
