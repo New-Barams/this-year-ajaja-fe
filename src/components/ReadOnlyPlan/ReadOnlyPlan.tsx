@@ -8,14 +8,12 @@ import HelpButton from '../HelpButton/HelpButton';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
-  isLogin: boolean;
   isMine: boolean;
   planData: PlanData;
   children?: React.ReactNode;
 }
 
 export default function ReadOnlyPlan({
-  isLogin,
   isMine,
   planData,
   children,
@@ -79,7 +77,6 @@ export default function ReadOnlyPlan({
       </div>
       <div>
         <AjajaButton
-          disabled={!isLogin}
           planId={id}
           isFilled={writer.ajajaPressed}
           ajajaCount={ajajas}
