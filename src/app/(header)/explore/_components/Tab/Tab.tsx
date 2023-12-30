@@ -17,9 +17,9 @@ export default function Tab({ handleSort, handleYear }: TabProps) {
 
   const yearMenu = [
     { name: '새해' },
-    {
-      name: '지난해',
-    },
+    // {
+    //   name: '지난해',
+    // },
   ];
   const sortMenu = [{ name: '최신순' }, { name: '인기순' }];
 
