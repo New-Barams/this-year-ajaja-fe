@@ -13,14 +13,14 @@ import { hasCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import './index.scss';
 
 export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const pathName = usePathname();
   const [isLogin, setIsLogin] = useState(hasAuth);
-  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
-  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
+  const [canMakeNewPlan, setCanMakeNewPlan] =
+    useRecoilState(canMakeNewPlanStore);
   const [isMyPlan] = useRecoilState(isMyPlanStore);
   const isEdit = /^\/plans\/edit\/\d+/;
   const isPlan = /^\/plans\/\d+/;
@@ -62,7 +62,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           color={
             pathName === '/home' ||
             isRemind.test(pathName) ||
-            (isMyPlan && isPlan.test(pathName))
+            (isMyPlan && isPlan.test(pathName)) ||
+            isEdit.test(pathName)
               ? 'primary'
               : 'text-300'
           }
@@ -80,11 +81,7 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           name="CREATE_NEW_PLAN"
           isFilled={true}
           size="xl"
-          color={
-            pathName === '/create' || isEdit.test(pathName)
-              ? 'primary'
-              : 'text-300'
-          }
+          color={pathName === '/create' ? 'primary' : 'text-300'}
         />
         <p className={classNames('font-size-xs')}>
           {checkIsSeason() ? '계획 작성' : '피드백하기'}
