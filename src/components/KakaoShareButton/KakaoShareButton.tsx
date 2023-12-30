@@ -27,7 +27,9 @@ export default function KakaoShareButton({ linkURL }: KakaoShareButtonProps) {
         description: '올해의 계획을 세우고 서로 응원해요 ',
         //TODO: 이미지 url변경 필요 ;
         imageUrl:
-          'https://drive.google.com/uc?export=download&id=1qqLnNZVcqb6O3qS4iTE52--SCqTlVnG2',
+          'http://drive.google.com/uc?export=view&id=1xFVHZYN9kF9mIX8D2LdEN8tQcKUfx3uC',
+        imageWidth: 800,
+        imageHeight: 300,
         link: {
           mobileWebUrl: linkURL,
           webUrl: linkURL,
