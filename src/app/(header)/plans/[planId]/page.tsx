@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import NotPublic from './_components/NotPublic/NotPublic';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
@@ -21,14 +22,18 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
+  const [currentURL, setCurrentURL] = useState<string>('');
   const { plan } = useGetPlanQuery(Number(planId), isLogin);
-  const isMyPlan = plan.writer.owner;
-  const current = window.location.href;
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { handleScroll, scrollableRef } = useScroll();
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
+  const isMyPlan = plan.writer.owner;
+  const isVisible = isMyPlan || plan.public;
+
   useEffect(() => {
+    const current = window.location.href;
+    setCurrentURL(current);
     setIsMyPlanStore(isMyPlan);
     return () => {
       setIsMyPlanStore(false);
@@ -41,9 +46,10 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     router.push('/home');
   };
   const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(current);
+    await navigator.clipboard.writeText(currentURL);
     ajajaToast.success('링크가 복사되었습니다.');
   };
+
   const handleModalClickNo = () => {
     setIsDeletePlanModalOpen(false);
   };
@@ -67,17 +73,18 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          <ReadOnlyPlan
-            isLogin={isLogin}
-            isMine={isMyPlan}
-            planData={{ ...plan }}>
-            {isMyPlan && isSeason && (
-              <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                <span onClick={handleOpenDeleteModal}>삭제</span>
-              </div>
-            )}
-          </ReadOnlyPlan>
+          {isVisible ? (
+            <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
+              {isMyPlan && isSeason && (
+                <div className="plan__header--buttons">
+                  <Link href={`/plans/edit/${planId}`}>수정</Link>|
+                  <span onClick={handleOpenDeleteModal}>삭제</span>
+                </div>
+              )}
+            </ReadOnlyPlan>
+          ) : (
+            <NotPublic />
+          )}
           {isMyPlan && (
             <div className="plans-page--share">
               <h2>공유하기</h2>
@@ -87,7 +94,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                   링크 복사
                 </label>
                 <label className="font-size-xs">
-                  <KakaoShareButton linkURL={current} />
+                  <KakaoShareButton linkURL={currentURL} />
                   카카오톡
                 </label>
               </div>

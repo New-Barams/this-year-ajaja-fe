@@ -25,13 +25,13 @@
     &.top-left::after,
     &.top::after,
     &.top-right::after {
-      bottom: 12px;
+      bottom: 1rem;
     }
 
     &.bottom-left::after,
     &.bottom::after,
     &.bottom-right::after {
-      top: 12px;
+      top: 1rem;
     }
     &.bottom-left::after,
     &.top-left::after {

@@ -36,5 +36,10 @@
     align-items: flex-start;
     margin-top: 1rem;
     gap: 0.5rem;
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 }
