@@ -10,6 +10,7 @@ import {
   PlanInput,
   Tag,
 } from '@/components';
+import HelpButton from '@/components/HelpButton/HelpButton';
 import { planIcons } from '@/constants/planIcons';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
@@ -132,6 +133,9 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             <span className={classNames('font-size-xs')}>
               {planContent.isPublic ? '계획 공개' : '계획 비공개'}
             </span>
+            <HelpButton
+              helpText={`계획 공개를 하면 둘러보기에서\n모든 사람들이 볼 수 있어요.`}
+            />
           </div>
 
           <div className={classNames('edit-plan-content__switches--can-ajaja')}>
@@ -148,6 +152,10 @@ export default function EditPage({ params }: { params: { planId: string } }) {
                 ? '매주 월요일 18:00시 마다 응원 메세지 알림 활성화'
                 : '응원 메세지 알림 비활성화'}
             </span>
+            <HelpButton
+              helpText={`매주 몇 명의 새로운 사람들이 내 계획에\n아좌좌를 눌러 응원했는지 알려드려요.`}
+              textPosition={planContent.canAjaja ? 'top-left' : 'top'}
+            />
           </div>
         </div>
       </div>
