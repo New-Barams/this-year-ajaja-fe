@@ -103,6 +103,7 @@ export default function ReadOnlyPlan({
             />
             <HelpButton
               helpText={`매주 몇 명의 새로운 사람들이 내 계획에\n아좌좌를 눌러 응원했는지 알려드려요.`}
+              textPosition={canAjaja ? 'top-left' : 'top'}
             />
           </div>
           <span className="font-size-xs color-origin-primary">
