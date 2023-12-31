@@ -11,6 +11,15 @@ export default function NewPlan() {
 
   return (
     <>
+      <div className={classNames('new-plan__servey')}>
+        <p>서비스를 잘 이용하고 계신가요?</p>
+        <a
+          href="https://forms.gle/VW5xBbAErQWqmdxv6"
+          className={classNames('color-origin-primary', 'new-plan__servey-a')}>
+          서비스 만족도 조사 하러가기
+        </a>
+      </div>
+
       <Link
         href={checkIsSeason() && canMakeNewPlan ? '/create' : {}}
         className={classNames('new-plan__wrapper')}
