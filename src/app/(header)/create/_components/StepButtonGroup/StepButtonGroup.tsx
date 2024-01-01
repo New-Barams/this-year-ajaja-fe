@@ -81,6 +81,7 @@ export default function StepButtonGroup({
         remindDate: remindDate.Date,
         remindTime: changeRemindTimeToString(remindDate.Time),
         isPublic: planContent.isPublic,
+        canAjaja: planContent.canAjaja,
         iconNumber: planIcon,
         tags: planContent.tags,
 
