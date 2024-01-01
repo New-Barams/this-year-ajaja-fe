@@ -37,7 +37,7 @@ export default function ModalVerification({
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
-
+  //TODO: 에러 처리, onError에서 상태 변경하는 형식으로
   useEffect(() => {
     if (error && error.response) {
       const status = error.response.status;
