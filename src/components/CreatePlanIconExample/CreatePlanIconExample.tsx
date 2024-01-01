@@ -4,7 +4,13 @@ import Image from 'next/image';
 import React from 'react';
 import './index.scss';
 
-export default function CreatePlanIconExample() {
+interface CreatePlanIconExampleProps {
+  iconNumber: number;
+}
+
+export default function CreatePlanIconExample({
+  iconNumber,
+}: CreatePlanIconExampleProps) {
   return (
     <div
       className={classNames(
@@ -14,7 +20,7 @@ export default function CreatePlanIconExample() {
         'border-round',
       )}>
       <Image
-        src={`/animal/${planIcons[7]}.png`}
+        src={`/animal/${planIcons[iconNumber]}.png`}
         width={90}
         height={90}
         alt="example plan icon"
