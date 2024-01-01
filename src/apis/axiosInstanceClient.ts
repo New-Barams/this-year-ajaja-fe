@@ -3,7 +3,7 @@
 import { NETWORK } from '@/constants/api';
 import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { ErrorResponseData } from '@/types/apis/ErrorResponseData';
-import { checkTokenExp } from '@/utils/checkTokenExp';
+import { checkIsTokenExpired } from '@/utils/checkIsTokenExpired';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getCookie, setCookie } from 'cookies-next';
 import { postReissue } from '@apis/client/postReissue';
@@ -54,8 +54,8 @@ axiosInstanceClient.interceptors.response.use(
         const accessToken = JSON.parse(auth).accessToken;
         const refreshToken = JSON.parse(auth).refreshToken;
 
-        const isExpiredAccessToken = !checkTokenExp(accessToken);
-        const isExpiredRefreshToken = !checkTokenExp(refreshToken);
+        const isExpiredAccessToken = checkIsTokenExpired(accessToken);
+        const isExpiredRefreshToken = checkIsTokenExpired(refreshToken);
         if (isExpiredAccessToken && !isExpiredRefreshToken) {
           try {
             const {
