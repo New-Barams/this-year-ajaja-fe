@@ -122,7 +122,7 @@ export default function MyPage() {
     }
     return (
       <span className="color-origin-primary">
-        {receiveType === 'email' ? '이메일' : '카카오'}
+        {receiveType === 'email' ? '이메일' : '카카오톡'}
       </span>
     );
   };
