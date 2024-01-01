@@ -4,6 +4,6 @@ import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const deletePlan = (planId: number) => {
   return axiosInstanceClient.delete(DOMAIN.DELETE_PLANS(planId), {
-    headers: { Month: currentMonth() + 1 },
+    headers: { Month: currentMonth() },
   });
 };

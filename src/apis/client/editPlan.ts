@@ -8,7 +8,7 @@ export const editPlan = async ({ planId, planData }: editPlanProps) => {
     DOMAIN.PUT_PLANS(planId),
     { ...planData },
     {
-      headers: { Month: currentMonth() + 1 },
+      headers: { Month: currentMonth() },
     },
   );
   return data;
