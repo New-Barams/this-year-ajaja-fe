@@ -196,7 +196,9 @@ export default function MyPage() {
           </Button>
         </div>
         <div className="my-page__etc font-size-base">
-          <button className="my-page__etc--logout" onClick={handleLogOut}>
+          <button
+            className="my-page__etc--logout color-origin-text-100"
+            onClick={handleLogOut}>
             로그아웃
           </button>
           <button
