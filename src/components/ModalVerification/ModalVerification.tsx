@@ -113,7 +113,7 @@ export default function ModalVerification({
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
-            <div>
+            <div className="modal-verification-wrapper__items--button">
               <Button
                 size="md"
                 border={false}
@@ -149,7 +149,7 @@ export default function ModalVerification({
               value={code}
               onChange={handleChangeCode}
             />
-            <div>
+            <div className="modal-verification-wrapper__items--button">
               <Button
                 disabled={!isSuccess}
                 border={false}
