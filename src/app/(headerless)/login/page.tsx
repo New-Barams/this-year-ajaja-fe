@@ -33,7 +33,7 @@ export default function LoginPage() {
           <p className="login__poster--text">
             나만의 신년 계획을 만들어
             <br />
-            리마인들를 받고, 피드백하고, 다른 사람을 응원해보세요!
+            리마인드를 받고, 피드백하고, 다른 사람을 응원해 보세요!
           </p>
         </div>
         <div className="login__buttons">
