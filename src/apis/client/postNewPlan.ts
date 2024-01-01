@@ -1,5 +1,6 @@
 import { DOMAIN } from '@/constants/api';
 import { PostNewPlanRequestBody } from '@/types/apis/plan/PostNewPlan';
+import { currentMonth } from '@/utils/currentMonth';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const postNewPlan = async (body: PostNewPlanRequestBody) => {
@@ -9,7 +10,7 @@ export const postNewPlan = async (body: PostNewPlanRequestBody) => {
       ...body,
     },
     {
-      headers: { Month: 1 }, // TODO: Month: currentMonth()로 바꿔줘야 함
+      headers: { Month: currentMonth() + 1 },
     },
   );
   return data;

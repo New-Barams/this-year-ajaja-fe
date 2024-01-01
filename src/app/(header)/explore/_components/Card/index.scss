@@ -3,6 +3,7 @@
 $card_width: 19rem;
 $card_height: 12rem;
 $card_margin: 0.5rem;
+$card_image_margin: 1rem;
 
 @mixin ellipsis($line) {
   text-overflow: ellipsis;
@@ -20,7 +21,7 @@ $card_margin: 0.5rem;
     box-shadow: var(--origin-shadow);
     margin-bottom: 1rem;
     &--image {
-      margin: 0 $card_margin 0 $card_margin;
+      margin: 0 $card_image_margin 0 $card_image_margin;
     }
   }
   &__contents {

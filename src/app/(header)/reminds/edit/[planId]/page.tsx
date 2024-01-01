@@ -92,7 +92,7 @@ export default function EditRemindPage({
           remindData: editRemindData,
         });
       }
-      router.push('/home');
+      router.push(`/reminds/${planId}`);
     } else {
       ajajaToast.error('모든 항목을 입력해주세요!');
     }

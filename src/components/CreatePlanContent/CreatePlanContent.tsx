@@ -6,6 +6,7 @@ import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
 import { IconSwitchButton, InputTag, PlanInput, Tag } from '..';
+import HelpButton from '../HelpButton/HelpButton';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
 
@@ -173,6 +174,10 @@ export default function CreatePlanContent({
               ? '매주 월요일 18:00시 마다 응원 메세지 알림 활성화'
               : '응원 메세지 알림 비활성화'}
           </span>
+          <HelpButton
+            textPosition="top-left"
+            helpText={`매주 몇 명의 새로운 사람들이 내 계획에\n아좌좌를 눌러 응원했는지 알려드려요.`}
+          />
         </div>
       </div>
     </div>

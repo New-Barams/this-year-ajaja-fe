@@ -5,6 +5,7 @@ import { PlanData } from '@/types/apis/plan/GetPlan';
 import Image from 'next/image';
 import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
 import HelpButton from '../HelpButton/HelpButton';
+import { ajajaToast } from '../Toaster/customToast';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
@@ -37,11 +38,19 @@ export default function ReadOnlyPlan({
     useToggleAjajaNotificationMutation(id);
 
   const handleToggleIsPublic = () => {
-    toggleIsPublic(id);
+    toggleIsPublic(id, {
+      onError: () => {
+        ajajaToast.error('변경에 실패했습니다.');
+      },
+    });
   };
 
   const handleToggleIsCanAjaja = () => {
-    toggleAjajaNotification(id);
+    toggleAjajaNotification(id, {
+      onError: () => {
+        ajajaToast.error('변경에 실패했습니다.');
+      },
+    });
   };
 
   return (
@@ -103,6 +112,7 @@ export default function ReadOnlyPlan({
             />
             <HelpButton
               helpText={`매주 몇 명의 새로운 사람들이 내 계획에\n아좌좌를 눌러 응원했는지 알려드려요.`}
+              textPosition={canAjaja ? 'top-left' : 'top'}
             />
           </div>
           <span className="font-size-xs color-origin-primary">

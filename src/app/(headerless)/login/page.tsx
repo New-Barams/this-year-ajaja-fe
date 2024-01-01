@@ -4,7 +4,7 @@ import { KAKAO_LOGIN_URL, UN_AUTH_URL } from '@/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import './index.scss';
-import characters from '/public/loginPage/characters.svg';
+import characters from '/public/loginPage/characters.png';
 import kakoLogin from '/public/loginPage/kakao_login_large_wide.png';
 
 export default function LoginPage() {
