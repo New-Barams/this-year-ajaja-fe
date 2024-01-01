@@ -10,7 +10,7 @@ export const postNewPlan = async (body: PostNewPlanRequestBody) => {
       ...body,
     },
     {
-      headers: { Month: currentMonth() + 1 },
+      headers: { Month: currentMonth() },
     },
   );
   return data;
