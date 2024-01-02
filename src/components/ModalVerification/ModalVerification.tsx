@@ -37,7 +37,7 @@ export default function ModalVerification({
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
-
+  //TODO: 에러 처리, onError에서 상태 변경하는 형식으로
   useEffect(() => {
     if (error && error.response) {
       const status = error.response.status;
@@ -113,7 +113,7 @@ export default function ModalVerification({
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
-            <div>
+            <div className="modal-verification-wrapper__items--button">
               <Button
                 size="md"
                 border={false}
@@ -149,7 +149,7 @@ export default function ModalVerification({
               value={code}
               onChange={handleChangeCode}
             />
-            <div>
+            <div className="modal-verification-wrapper__items--button">
               <Button
                 disabled={!isSuccess}
                 border={false}
