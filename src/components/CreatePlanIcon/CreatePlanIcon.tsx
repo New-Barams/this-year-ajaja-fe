@@ -81,7 +81,7 @@ export default function CreatePlanIcon({
           )}>
           선택된 아이콘은 계획이 생성되었을 때 다음과 같이 보여요!
         </div>
-        <CreatePlanIconExample />
+        <CreatePlanIconExample iconNumber={iconNumber ? iconNumber : 7} />
       </div>
 
       {isSelectIconModalOpen && (
