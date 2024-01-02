@@ -11,6 +11,12 @@ interface ModalFixRemindDateProps {
   isPeriodOrTermChanged?: boolean;
 }
 
+const everyMonthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+const isSelectedMonth = (month: number, monthList: number[]) => {
+  return monthList.includes(month);
+};
+
 export default function ModalFixRemindDate({
   fixedMonthList,
   fixedDate,
@@ -53,16 +59,28 @@ export default function ModalFixRemindDate({
               <span className={classNames(['color-origin-primary'])}>
                 {fixedDate}
               </span>
-              일마다 리마인드를 받게 됩니다.
+              일에 리마인드를 받게 됩니다.
             </p>
           </div>
 
-          <ul className={classNames(['fix-remind-modal__month-list'])}>
-            {fixedMonthList.map((month) => {
+          <ul
+            className={classNames([
+              'fix-remind-modal__month-list',
+              'color-origin-secondary',
+            ])}>
+            {everyMonthList.map((month) => {
               return (
                 <li
                   key={month}
-                  className={classNames(['fix-remind-modal__month-item'])}>
+                  className={classNames([
+                    'fix-remind-modal__month-item',
+                    {
+                      'fix-remind-modal__month-item--active': isSelectedMonth(
+                        month,
+                        fixedMonthList,
+                      ),
+                    },
+                  ])}>
                   {month}월
                 </li>
               );
@@ -86,7 +104,7 @@ export default function ModalFixRemindDate({
               ,
               'font-size-md',
             ])}>
-            이대로 진행하시겠습니까 ?
+            이대로 진행하시겠습니까?
           </p>
         </div>
       </ModalBasic>
