@@ -3,6 +3,7 @@
 import { NETWORK } from '@/constants/api';
 import { COOKIE_MAX_AGE } from '@/constants/cookie';
 import { ErrorResponseData } from '@/types/apis/ErrorResponseData';
+import { alertAndLogin } from '@/utils/alertAndLogin';
 import { checkIsTokenExpired } from '@/utils/checkIsTokenExpired';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getCookie, setCookie } from 'cookies-next';
@@ -43,7 +44,6 @@ axiosInstanceClient.interceptors.response.use(
   },
   async (error: AxiosError<ErrorResponseData>) => {
     //TODO:에러네임, 쿠키 키 상수화
-
     if (
       error.response &&
       error.response.data &&
@@ -64,7 +64,6 @@ axiosInstanceClient.interceptors.response.use(
               accessToken,
               refreshToken,
             });
-            //TODO:
             setCookie('auth', tokens, { maxAge: COOKIE_MAX_AGE });
             if (error.config) {
               error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
@@ -72,14 +71,23 @@ axiosInstanceClient.interceptors.response.use(
               return response;
             }
           } catch {
-            console.log('catched');
+            console.log('재발행 에러, catched');
             console.log(error);
             console.log(error.response.data.errorName);
-            alertAndLogin();
+            console.log(error.response);
+            alertAndLogin(
+              '로그인 정보가 유효하지 않습니다. 다시 로그인 해주세요.',
+            );
             return;
           }
         } else {
-          alertAndLogin();
+          console.log('둘다 만료, catched');
+          console.log(error);
+          console.log(error.response.data.errorName);
+          console.log(error.response);
+          alertAndLogin(
+            '로그인 정보가 유효하지 않습니다. 다시 로그인 해주세요.',
+          );
           return;
         }
       }
@@ -88,8 +96,3 @@ axiosInstanceClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-const alertAndLogin = () => {
-  alert('로그인 정보가 유효하지 않습니다. 다시 로그인해주세요 ');
-  window.location.replace(`${process.env.NEXT_PUBLIC_REDIRECT_URL}?way=logout`);
-};
