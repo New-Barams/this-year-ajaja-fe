@@ -1,0 +1,55 @@
+.feedback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  margin-left: var(--scroll-margin-left);
+  padding: 2rem 0;
+  &__breadcrumb {
+    display: flex;
+    align-self: flex-start;
+    gap: 0.5rem;
+    a {
+      text-decoration: none;
+      color: var(--origin-text-100);
+    }
+  }
+  &__title {
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+  }
+  &__circular-progressbar {
+    width: 4rem;
+    height: 4rem;
+    .CircularProgressbar-text {
+      font-size: 2rem;
+      fill: var(--origin-text-100);
+    }
+    .CircularProgressbar-path {
+      stroke: var(--origin-primary);
+      stroke-linecap: round;
+    }
+    .CircularProgressbar-trail {
+      stroke: var(--origin-secondary);
+    }
+    .CircularProgressbar-path {
+      stroke: var(--origin-primary);
+    }
+  }
+  &__evaluate {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  &__back-to-plans {
+    width: 100%;
+    text-decoration: none;
+    position: absolute;
+    bottom: 6rem;
+    max-width: calc(100% - 3rem);
+  }
+}
