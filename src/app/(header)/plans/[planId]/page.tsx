@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import NotPublic from './_components/NotPublic/NotPublic';
+import SearchingPlan from './_components/SearchingPlan/SearchingPlan';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
@@ -25,11 +26,22 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const [currentURL, setCurrentURL] = useState<string>('');
   const { plan } = useGetPlanQuery(Number(planId), isLogin);
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
+  const [isClientSide, setIsClientSide] = useState<boolean>(false);
   const { handleScroll, scrollableRef } = useScroll();
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
   const isMyPlan = plan.writer.owner;
-  const isVisible = isMyPlan || plan.public;
+
+  // isVisible이라는 변수는 isMyPlan 과 plan.public값에 의해서 정해진다. 하지만 서버에서는 둘 다 undefined이다 그러면 값이 undefined으로 falsy하다.
+  //그래서 초기html을 받으면 falsy한 html을 받느다.  서버와 클라이언트는 typeof window를 통해서 할 수 있다.
+  // 또 문제가 이 부분으로 인해 notPublic한 계획도 초기 렌더링시 계획이 보이게된다. 그럼 한번 더싼다. typeof window를 확인해서
+  //undefined면 isLoading
+  useEffect(() => {
+    if (typeof window !== 'undefined') setIsClientSide(true);
+    return () => {
+      setIsClientSide(false);
+    };
+  }, []);
 
   useEffect(() => {
     const current = window.location.href;
@@ -56,6 +68,26 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const handleOpenDeleteModal = () => {
     setIsDeletePlanModalOpen(true);
   };
+  const createPageContent = () => {
+    if (isClientSide) {
+      if (isMyPlan || plan.public) {
+        return (
+          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
+            {isMyPlan && isSeason && (
+              <div className="plan__header--buttons">
+                <Link href={`/plans/edit/${planId}`}>수정</Link>|
+                <span onClick={handleOpenDeleteModal}>삭제</span>
+              </div>
+            )}
+          </ReadOnlyPlan>
+        );
+      } else {
+        return <NotPublic />;
+      }
+    } else {
+      return <SearchingPlan />;
+    }
+  };
 
   return (
     <>
@@ -73,18 +105,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          {isVisible ? (
-            <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
-              {isMyPlan && isSeason && (
-                <div className="plan__header--buttons">
-                  <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                  <span onClick={handleOpenDeleteModal}>삭제</span>
-                </div>
-              )}
-            </ReadOnlyPlan>
-          ) : (
-            <NotPublic />
-          )}
+          {createPageContent()}
           {isMyPlan && (
             <div className="plans-page--share">
               <h2>공유하기</h2>
