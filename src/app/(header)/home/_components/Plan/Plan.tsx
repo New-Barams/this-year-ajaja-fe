@@ -36,10 +36,7 @@ export default function Plan({
         <p className={classNames(`plan__title`, 'font-size-md')}>{title}</p>
         <p className={classNames('font-size-base')}>달성률: {achieveRate}%</p>
         <Link
-          href={{
-            pathname: '/feedback',
-            query: { title, planId, achieveRate },
-          }}
+          href={`/feedback/${planId}`}
           className={classNames(
             'plan__feedback',
             'font-size-sm',
