@@ -11,6 +11,7 @@ import {
   Tag,
 } from '@/components';
 import HelpButton from '@/components/HelpButton/HelpButton';
+import { ajajaToast } from '@/components/Toaster/customToast';
 import { planIcons } from '@/constants/planIcons';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
 import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
@@ -49,7 +50,17 @@ export default function EditPage({ params }: { params: { planId: string } }) {
 
   const handleEditPlan = () => {
     // TODO:
-    editPlan({ planId: Number(planId), planData: planContent });
+    editPlan(
+      { planId: Number(planId), planData: planContent },
+      {
+        onError: () => {
+          ajajaToast.error('수정에 실패했습니다.');
+        },
+        onSuccess: () => {
+          router.replace(`/plans/${planId}`);
+        },
+      },
+    );
   };
 
   return (

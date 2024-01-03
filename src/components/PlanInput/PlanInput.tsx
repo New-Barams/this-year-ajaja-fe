@@ -58,6 +58,7 @@ export default function PlanInput({
           'planInput',
           `planInput--${kind === 'content' ? 'content' : 'title'}`,
           `planInput--${editable ? 'editable' : 'disabled'}`,
+          'color-origin-text-100',
         )}
       />
       {editable && (

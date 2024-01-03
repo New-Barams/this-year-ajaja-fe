@@ -10,7 +10,7 @@ export default function NotPublic() {
         className="not-public__image"
         width={350}
         height={250}
-        src={'/notPublic.png'}
+        src={'/threeAnimals.png'}
         alt="not public page"
       />
 

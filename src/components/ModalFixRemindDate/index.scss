@@ -1,10 +1,10 @@
-.fix-remind-modal{
+.fix-remind-modal {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  &__isChanged{
+
+  &__isChanged {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,14 +14,14 @@
     width: 100%;
   }
 
-  &__title{
+  &__title {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
-  &__month-list{
+  &__month-list {
     margin-top: 1.25rem;
     display: flex;
     width: 20rem;
@@ -29,22 +29,28 @@
     font-size: 1rem;
   }
 
-  &__month-item{
+  &__month-item {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 5rem;
     height: 2rem;
+
+    &--active {
+      color: var(--origin-text-100);
+      font-weight: bold;
+    }
   }
 
-  &__warning{
+  &__warning {
     margin-top: 1.25rem;
+    text-align: center;
     display: flex;
     justify-content: center;
     width: 70%;
   }
 
-  &__proceed{
+  &__proceed {
     margin-top: 1.5rem;
   }
 }
