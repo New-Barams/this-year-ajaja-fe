@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, PlanInput } from '@/components';
+import { Button, Modal, ModalBasic, PlanInput } from '@/components';
 import WrongApproach from '@/components/WrongApproach/WrongApproach';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
@@ -21,8 +21,20 @@ export default function FeedbackPage() {
 
   const [evaluateOption, setEvaluateOption] = useState(100);
   const [evaluateMessage, setEvaluateMessage] = useState('');
+  const [isFeedbackSendModalOpen, setIsFeedbackSendModalOpen] = useState(false);
+
   const handleChangeMessage = (changedMessage: string) => {
     setEvaluateMessage(changedMessage);
+  };
+
+  const handleModalClickNo = () => {
+    setIsFeedbackSendModalOpen(false);
+  };
+  const handleModalClickYes = () => {
+    setIsFeedbackSendModalOpen(true);
+  };
+  const handleModalOpen = () => {
+    setIsFeedbackSendModalOpen(true);
   };
 
   return (
@@ -67,9 +79,21 @@ export default function FeedbackPage() {
             background="primary"
             color="white-100"
             border={false}
+            onClick={handleModalOpen}
             classNameList={['feedback__send']}>
             피드백 완료
           </Button>
+          {isFeedbackSendModalOpen && (
+            <Modal>
+              <ModalBasic
+                onClickYes={handleModalClickYes}
+                onClickNo={handleModalClickNo}
+                confirmSentense="피드백 완료 하기">
+                피드백을 완료하게 되면 수정할 수 없습니다.<br></br> 정말 해당
+                피드백을 완료하시겠습니까?
+              </ModalBasic>
+            </Modal>
+          )}
         </>
       ) : (
         <WrongApproach />
