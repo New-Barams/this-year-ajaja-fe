@@ -25,7 +25,6 @@ export default function FeedbackPage() {
     setEvaluateMessage(changedMessage);
   };
 
-  console.log(evaluateMessage);
   return (
     <div
       className={classNames('feedback')}
@@ -56,7 +55,6 @@ export default function FeedbackPage() {
               setEvaluateOption={setEvaluateOption}
             />
             <PlanInput
-              classNameList={['create-plan-content__plan--description']}
               editable={true}
               kind="content"
               placeholder="계획에 대한 한줄평을 남겨주세요!"
