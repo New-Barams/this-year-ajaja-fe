@@ -4,8 +4,9 @@ import { Button, Icon } from '@/components';
 import { usePostSendVerificationMutation } from '@/hooks/apis/usePostSendVerificationMutation';
 import { usePostVerifyMutation } from '@/hooks/apis/usePostVerifyMutation';
 import { checkEmailValidation } from '@/utils/checkEmailValidation';
+import { AxiosError } from 'axios';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.scss';
 
 interface ModalVerificationProps {
@@ -24,38 +25,42 @@ export default function ModalVerification({
     isPending,
     isSuccess,
     error,
-  } = usePostSendVerificationMutation();
+  } = usePostSendVerificationMutation({
+    throwOnError: (error) => {
+      const axiosError = error as AxiosError;
+      if (axiosError && axiosError.response) {
+        const status = axiosError.response.status;
+        if (status < 400 || status < 500) {
+          return false;
+        }
+      }
+      return true;
+    },
+  });
+
   const {
     mutateAsync: submitCertification,
     isPending: isVerifyPending,
     isError: isVerifyError,
     error: verifyError,
     isSuccess: isVerifySuccess,
-  } = usePostVerifyMutation();
+  } = usePostVerifyMutation({
+    throwOnError: (error) => {
+      const axiosError = error as AxiosError;
+      if (axiosError && axiosError.response) {
+        const status = axiosError.response.status;
+        if (status < 400 || status < 500) {
+          return false;
+        }
+      }
+      return true;
+    },
+  });
 
   const [email, setEmail] = useState<string>('');
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
-  //TODO: 에러 처리, onError에서 상태 변경하는 형식으로
-  useEffect(() => {
-    if (error && error.response) {
-      const status = error.response.status;
-      if (status <= 400 || status >= 500) {
-        throw error;
-      }
-    } else if (error) {
-      throw error;
-    }
-    if (verifyError && verifyError.response) {
-      const status = verifyError.response.status;
-      if (status <= 400 || status >= 500) {
-        throw verifyError;
-      }
-    } else if (verifyError) {
-      throw verifyError;
-    }
-  }, [error, verifyError]);
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
