@@ -30,7 +30,7 @@ export default function ModalVerification({
       const axiosError = error as AxiosError;
       if (axiosError && axiosError.response) {
         const status = axiosError.response.status;
-        if (status < 400 || status < 500) {
+        if (status > 400 && status < 500) {
           return false;
         }
       }
@@ -39,7 +39,7 @@ export default function ModalVerification({
   });
 
   const {
-    mutateAsync: submitCertification,
+    mutate: submitCertification,
     isPending: isVerifyPending,
     isError: isVerifyError,
     error: verifyError,
@@ -49,7 +49,7 @@ export default function ModalVerification({
       const axiosError = error as AxiosError;
       if (axiosError && axiosError.response) {
         const status = axiosError.response.status;
-        if (status < 400 || status < 500) {
+        if (status > 400 && status < 500) {
           return false;
         }
       }
@@ -79,11 +79,14 @@ export default function ModalVerification({
     const inputValue = event.target.value.replace(/[^0-9]/g, '');
     setCode(inputValue);
   };
-  const handleSubmitCode = async () => {
+  const handleSubmitCode = () => {
     if (code.length == 6) {
       setIsValidCode(true);
-      await submitCertification(code);
-      setVerifiedEmail && setVerifiedEmail();
+      submitCertification(code, {
+        onSuccess: () => {
+          setVerifiedEmail && setVerifiedEmail();
+        },
+      });
     } else {
       setIsValidCode(false);
     }

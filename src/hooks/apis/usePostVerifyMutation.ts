@@ -3,7 +3,7 @@ import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export const usePostVerifyMutation = ({ throwOnError }: UseMutationOptions) => {
-  const { isError, error, isPending, isSuccess, mutateAsync } = useMutation<
+  const { isError, error, isPending, isSuccess, mutate } = useMutation<
     AxiosResponse,
     AxiosError<ErrorResponseData>,
     string
@@ -11,7 +11,7 @@ export const usePostVerifyMutation = ({ throwOnError }: UseMutationOptions) => {
     mutationFn: postVerify,
     throwOnError,
   });
-  return { mutateAsync, isError, error, isPending, isSuccess };
+  return { mutate, isError, error, isPending, isSuccess };
 };
 
 interface ErrorResponseData {

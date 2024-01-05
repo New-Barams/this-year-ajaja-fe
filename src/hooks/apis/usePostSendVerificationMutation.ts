@@ -11,7 +11,6 @@ export const usePostSendVerificationMutation = ({
     string
   >({
     mutationFn: (email: string) => postSendVerification(email),
-
     throwOnError,
   });
   return {
