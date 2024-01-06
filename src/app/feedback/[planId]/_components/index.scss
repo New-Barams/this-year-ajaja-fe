@@ -44,6 +44,16 @@
     align-items: center;
     gap: 1rem;
     margin: 1rem 0;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-height: calc(100% - 14rem);
+      overflow-y: scroll;
+      margin-left: var(--scroll-margin-left);
+      padding-bottom: 1rem;
+    }
   }
   &__back-to-plans {
     width: 100%;

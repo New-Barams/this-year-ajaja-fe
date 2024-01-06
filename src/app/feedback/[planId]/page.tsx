@@ -1,21 +1,58 @@
 'use client';
 
 import { Button } from '@/components';
-import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
+import FeedbackItem from '@/components/FeedbackItem/FeedbackItem';
+// import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './_components/index.scss';
 
-export default function FeedbackPage() {
-  const pathname = usePathname();
-  const planId = parseInt(pathname.slice(10), 10);
-  const { feedback } = useGetFeedbacksQuery(planId);
-  console.log(feedback);
-  const { achieveRate, planName } = feedback;
+export default function FeedbackPage({
+  params,
+}: {
+  params: { planId: string };
+}) {
+  const { planId } = params;
+  // const { feedback } = useGetFeedbacksQuery(parseInt(planId, 10));
+  const feedback = {
+    achieveRate: 12,
+    title: '1일 1커밋',
+    remindTime: 9,
+    feedbacks: [
+      {
+        achieve: 50,
+        message: '화이팅',
+        remindMonth: 3,
+        remindDay: 12,
+        reminded: true,
+      },
+      {
+        achieve: 0,
+        message: '',
+        remindMonth: 6,
+        remindDay: 12,
+        reminded: true,
+      },
+      {
+        achieve: 0,
+        message: '',
+        remindMonth: 9,
+        remindDay: 12,
+        reminded: false,
+      },
+      {
+        achieve: 0,
+        message: '',
+        remindMonth: 12,
+        remindDay: 12,
+        reminded: false,
+      },
+    ],
+  };
+  const { achieveRate, title, feedbacks } = feedback;
   const { handleScroll, scrollableRef } = useScroll();
   let plan_evaluate_text = '';
 
@@ -28,10 +65,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div
-      className={classNames('feedback')}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
+    <div className={classNames('feedback')}>
       <div className="feedback__breadcrumb font-size-base color-origin-text-100">
         <Link href="/home">홈</Link>
         &gt;
@@ -54,13 +88,29 @@ export default function FeedbackPage() {
               'feedback__evaluate-title',
               'color-origin-primary',
             )}>
-            {planName}
+            {title}
           </p>
           <span>계획을 </span>
           <span className={classNames('color-origin-primary')}>
             {plan_evaluate_text}
           </span>
         </div>
+      </div>
+      <div
+        ref={scrollableRef}
+        onScroll={handleScroll}
+        className={classNames('feedback__evaluate-item')}>
+        {feedbacks.map((item) => {
+          return (
+            <FeedbackItem
+              data={item}
+              title={title}
+              planId={parseInt(planId, 10)}
+              remindTime={feedback.remindTime}
+              key={item.remindMonth}
+            />
+          );
+        })}
       </div>
       <Link
         href={`/plans/${planId}`}
