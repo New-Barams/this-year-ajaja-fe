@@ -5,18 +5,17 @@ import WrongApproach from '@/components/WrongApproach/WrongApproach';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import EvaluateRadio from './_components/EvaluateRadio';
 import './_components/index.scss';
 
 export default function FeedbackPage() {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const title = searchParams.get('title');
   const month = searchParams.get('month');
   const day = searchParams.get('day');
-  const planId = parseInt(pathname.slice(19), 10);
+  const planId = searchParams.get('planId');
   const { handleScroll, scrollableRef } = useScroll();
 
   const [evaluateOption, setEvaluateOption] = useState(100);
@@ -58,7 +57,7 @@ export default function FeedbackPage() {
             <span>에 대한</span>
             <p>피드백을 완료해주세요!</p>
           </div>
-          <div>
+          <div className={classNames('feedback__content')}>
             <p className={classNames('font-size-md')}>
               {month}월 {day}일까지 계획을 얼마나 잘 이행했나요?
             </p>
