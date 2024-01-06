@@ -23,10 +23,17 @@ export default function FeedbackItem({
   classNameList = [],
 }: FeedbackItemProps) {
   const { achieve, message, remindMonth, remindDay, reminded } = data;
-
+  const currentDate = new Date();
+  const targetDate =
+    remindMonth < 12
+      ? new Date(2024, remindMonth, remindDay, remindTime, 0, 0)
+      : new Date(2024, 11, 31, 23, 59, 59);
+  // 년도 수정 필요. 이 정보도 필요할 듯(현재는 2024년만 사용 가능)
+  const expired = currentDate >= targetDate;
+  console.log(currentDate, targetDate, expired);
   const canCheckRemindMessage = useMemo(() => {
-    return reminded && message.length;
-  }, [reminded, message.length]);
+    return reminded && (expired || message.length);
+  }, [reminded, expired, message.length]);
 
   const [isItemOpened, setIsItemOpened] = useState(false);
 
@@ -35,10 +42,9 @@ export default function FeedbackItem({
       setIsItemOpened(!isItemOpened);
     }
   };
-
   return (
     <>
-      {reminded && !message.length ? (
+      {reminded && !message.length && !expired ? (
         <>
           <Link
             href={{
@@ -65,10 +71,14 @@ export default function FeedbackItem({
               'feedback-item__time',
             )}>
             <Icon name="ARROW_RIGHT" size="md" color="primary" />
-            <p>
-              {remindMonth + 1}월 {remindDay}일 {remindTime - 1}시 59분까지
-              피드백 가능
-            </p>
+            {remindMonth < 12 ? (
+              <p>
+                {remindMonth + 1}월 {remindDay}일 {remindTime - 1}시 59분까지
+                피드백 가능
+              </p>
+            ) : (
+              <p>12월 31일 23시 59분까지 피드백 가능</p>
+            )}
           </div>
         </>
       ) : (
@@ -89,7 +99,7 @@ export default function FeedbackItem({
               })}>
               {remindMonth}월 {remindDay}일 피드백
             </p>
-            {!!achieve && (
+            {expired && (
               <p className="feedback-item__header__percent">{achieve}%</p>
             )}
             {canCheckRemindMessage ? (
