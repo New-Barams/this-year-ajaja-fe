@@ -1,3 +1,5 @@
+import { FeedbackItemData } from '@/types/Feedbacks';
+
 export interface GetFeedbacksResponse {
   success: boolean;
   data: FeedbacksData;
@@ -5,18 +7,7 @@ export interface GetFeedbacksResponse {
 
 interface FeedbacksData {
   achieveRate: number;
-  planName: string;
-  totalPeriod: number;
-  remindTerm: number;
-  remindDay: number;
-  feedbacks: [
-    {
-      feedbackId: number;
-      achieve: number;
-      message: string;
-      remindMonth: number;
-      remindDay: number;
-      feedbacked: boolean;
-    },
-  ];
+  title: string;
+  remindTime: number;
+  feedbacks: FeedbackItemData[];
 }
