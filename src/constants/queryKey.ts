@@ -4,4 +4,5 @@ export const QUERY_KEY = {
   PLAN: 'getPlan',
   REMIND: 'getRemind',
   USER_INFORMATION: 'getUserInformation',
+  FEEDBACKS: 'getFeedbacks',
 };
