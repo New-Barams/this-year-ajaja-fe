@@ -1,3 +1,4 @@
+import RouteChangeObserver from '@/components/RouteChangeObserver/RouteChangeObserver';
 import Provider from '@/provider/Provider';
 import classNames from 'classnames';
 import type { Metadata } from 'next';
@@ -58,6 +59,7 @@ export default function RootLayout({
             </div>
           </div>
         </Provider>
+        <RouteChangeObserver />
       </body>
       <Script
         src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
