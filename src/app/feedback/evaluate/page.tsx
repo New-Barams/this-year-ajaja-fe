@@ -50,7 +50,7 @@ export default function FeedbackPage() {
         &gt;
         <span>피드백 하기</span>
       </div>
-      {title && month && day ? (
+      {title && month && day && planId ? (
         <>
           <div className={classNames('font-size-xl', 'feedback__title')}>
             <span className={classNames('color-origin-primary')}>{title}</span>
