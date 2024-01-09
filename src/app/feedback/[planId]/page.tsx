@@ -2,7 +2,7 @@
 
 import { Button } from '@/components';
 import FeedbackItem from '@/components/FeedbackItem/FeedbackItem';
-// import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
+import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -16,42 +16,7 @@ export default function FeedbackPage({
   params: { planId: string };
 }) {
   const { planId } = params;
-  // const { feedback } = useGetFeedbacksQuery(parseInt(planId, 10));
-  const feedback = {
-    achieveRate: 12,
-    title: '1일 1커밋',
-    remindTime: 9,
-    feedbacks: [
-      {
-        achieve: 50,
-        message: '화이팅',
-        remindMonth: 3,
-        remindDay: 12,
-        reminded: true,
-      },
-      {
-        achieve: 0,
-        message: '',
-        remindMonth: 6,
-        remindDay: 12,
-        reminded: true,
-      },
-      {
-        achieve: 0,
-        message: '',
-        remindMonth: 9,
-        remindDay: 12,
-        reminded: false,
-      },
-      {
-        achieve: 0,
-        message: '',
-        remindMonth: 12,
-        remindDay: 12,
-        reminded: false,
-      },
-    ],
-  };
+  const { feedback } = useGetFeedbacksQuery(parseInt(planId, 10));
   const { achieveRate, title, feedbacks } = feedback;
   const { handleScroll, scrollableRef } = useScroll();
   let plan_evaluate_text = '';
@@ -107,6 +72,7 @@ export default function FeedbackPage({
               title={title}
               planId={parseInt(planId, 10)}
               remindTime={feedback.remindTime}
+              createdYear={feedback.createdYear}
               key={item.remindMonth}
             />
           );
