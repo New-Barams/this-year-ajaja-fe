@@ -2,6 +2,7 @@
 
 import { Button, Modal, ModalBasic, PlanInput } from '@/components';
 import WrongApproach from '@/components/WrongApproach/WrongApproach';
+import { usePostFeedbacksMutation } from '@/hooks/apis/usePostFeedbacksMutation';
 import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -21,6 +22,9 @@ export default function FeedbackPage() {
   const [evaluateOption, setEvaluateOption] = useState(100);
   const [evaluateMessage, setEvaluateMessage] = useState('');
   const [isFeedbackSendModalOpen, setIsFeedbackSendModalOpen] = useState(false);
+  const { mutate: postFeedbacks } = usePostFeedbacksMutation(
+    parseInt(planId as string, 10),
+  );
 
   const handleChangeMessage = (changedMessage: string) => {
     setEvaluateMessage(changedMessage);
@@ -30,7 +34,11 @@ export default function FeedbackPage() {
     setIsFeedbackSendModalOpen(false);
   };
   const handleModalClickYes = () => {
-    setIsFeedbackSendModalOpen(true);
+    console.log(planId, evaluateOption, evaluateMessage);
+    postFeedbacks({
+      planId: parseInt(planId as string, 10),
+      body: { rate: evaluateOption, message: evaluateMessage },
+    });
   };
   const handleModalOpen = () => {
     setIsFeedbackSendModalOpen(true);
@@ -75,11 +83,12 @@ export default function FeedbackPage() {
             />
           </div>
           <Button
-            background="primary"
+            background={evaluateMessage.length ? 'primary' : 'secondary'}
             color="white-100"
             border={false}
             onClick={handleModalOpen}
-            classNameList={['feedback__send']}>
+            classNameList={['feedback__send']}
+            disabled={!evaluateMessage.length}>
             피드백 완료
           </Button>
           {isFeedbackSendModalOpen && (
