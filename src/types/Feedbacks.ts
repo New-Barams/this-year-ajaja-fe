@@ -1,7 +1,9 @@
 export type FeedbackItemData = {
   achieve: number;
+  endDate: number;
+  endMonth: number;
   message: string;
   remindMonth: number;
-  remindDay: number;
+  remindDate: number;
   reminded: boolean;
 };

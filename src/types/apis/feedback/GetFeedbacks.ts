@@ -7,6 +7,7 @@ export interface GetFeedbacksResponse {
 
 interface FeedbacksData {
   achieveRate: number;
+  createdYear: number;
   title: string;
   remindTime: number;
   feedbacks: FeedbackItemData[];
