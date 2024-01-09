@@ -1,8 +1,9 @@
-interface PostFeedbackRequestBody {
+interface PostFeedbacksRequestBody {
   rate: number;
+  message: string;
 }
 
-export interface PostFeedbackRequest {
-  feedbackId: number;
-  body: PostFeedbackRequestBody;
+export interface PostFeedbacksRequest {
+  planId: number;
+  body: PostFeedbacksRequestBody;
 }
