@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import './index.scss';
 
-export default function WrongApproach() {
+export default function WrongApproach({ message }: { message?: string }) {
   return (
     <div className="wrong-approach">
       <div className="wrong-approach__wrapper">
@@ -15,8 +15,12 @@ export default function WrongApproach() {
           src={'/threeAnimals.png'}
           alt="wrong-approach"
         />
+        {message ? (
+          <h1 className="font-size-xl">{message}</h1>
+        ) : (
+          <h1 className="font-size-xl">잘못된 접근입니다!</h1>
+        )}
 
-        <h1 className="font-size-xl">잘못된 접근입니다!</h1>
         <Link
           href={`/home`}
           className={classNames('wrong-approach__back-to-home')}>
