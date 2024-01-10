@@ -4,6 +4,7 @@ import { Button, Modal, ModalBasic, PlanInput } from '@/components';
 import WrongApproach from '@/components/WrongApproach/WrongApproach';
 import { usePostFeedbacksMutation } from '@/hooks/apis/usePostFeedbacksMutation';
 import { useScroll } from '@/hooks/useScroll';
+import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -21,10 +22,28 @@ export default function FeedbackPage() {
 
   const [evaluateOption, setEvaluateOption] = useState(100);
   const [evaluateMessage, setEvaluateMessage] = useState('');
+  const [errorCode, setErrorCode] = useState<null | number>();
+  const [errorMessage, setErrorMessage] = useState('');
   const [isFeedbackSendModalOpen, setIsFeedbackSendModalOpen] = useState(false);
-  const { mutate: postFeedbacks } = usePostFeedbacksMutation(
+  const { mutate: postFeedbacks, error } = usePostFeedbacksMutation(
     parseInt(planId as string, 10),
   );
+
+  if (error) {
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    if (status && status !== errorCode) {
+      setErrorCode(status);
+      switch (status) {
+        case 400:
+          setErrorMessage('피드백 기간이 아닙니다!');
+          break;
+        case 409:
+          setErrorMessage('이미 평가된 피드백입니다!');
+          break;
+      }
+    }
+  }
 
   const handleChangeMessage = (changedMessage: string) => {
     setEvaluateMessage(changedMessage);
@@ -34,7 +53,6 @@ export default function FeedbackPage() {
     setIsFeedbackSendModalOpen(false);
   };
   const handleModalClickYes = () => {
-    console.log(planId, evaluateOption, evaluateMessage);
     postFeedbacks({
       planId: parseInt(planId as string, 10),
       body: { rate: evaluateOption, message: evaluateMessage },
@@ -58,7 +76,7 @@ export default function FeedbackPage() {
         &gt;
         <span>피드백 하기</span>
       </div>
-      {title && month && day && planId ? (
+      {title && month && day && planId && !errorCode ? (
         <>
           <div className={classNames('font-size-xl', 'feedback__title')}>
             <span className={classNames('color-origin-primary')}>{title}</span>
@@ -104,7 +122,13 @@ export default function FeedbackPage() {
           )}
         </>
       ) : (
-        <WrongApproach />
+        <>
+          {errorMessage.length ? (
+            <WrongApproach message={errorMessage} />
+          ) : (
+            <WrongApproach />
+          )}
+        </>
       )}
     </div>
   );
