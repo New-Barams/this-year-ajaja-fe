@@ -164,12 +164,13 @@ export default function MyPage() {
           </h2>
           <div className="my-page__account--content font-size-base">
             <div className="my-page__account--content--kakao ">
-              <h3>카카오톡</h3>
-              {defaultEmail}
+              <h3>카카오톡 : {defaultEmail} </h3>
             </div>
             <div className="my-page__account--content--email">
-              <h3>이메일</h3>
-              {emailVerified ? remindEmail : '----'}
+              <h3>
+                이메일 :{' '}
+                {emailVerified ? remindEmail : '이메일 인증이 필요합니다.'}{' '}
+              </h3>
             </div>
           </div>
           <Button
@@ -227,7 +228,8 @@ export default function MyPage() {
         <Modal>
           <ModalVerification
             handleCloseModal={handleCloseEmailVerificationModal}
-            setVerifiedEmail={handleSetVerifiedEmail}>
+            setVerifiedEmail={handleSetVerifiedEmail}
+            defaultValue={emailVerified ? '' : defaultEmail}>
             이메일 {emailVerified ? '변경' : '인증'}
           </ModalVerification>
         </Modal>
