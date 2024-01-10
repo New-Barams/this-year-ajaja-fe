@@ -1,0 +1,49 @@
+.remind-example {
+  &__title {
+    margin-top: 2rem;
+  }
+
+  &__description {
+    margin-top: 1rem;
+  }
+
+  &__content {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__kakao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__image {
+      margin-top: 0.5rem;
+      height: 220px;
+      object-fit: contain;
+    }
+  }
+
+  &__email {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__image {
+      margin-top: 0.5rem;
+      height: 220px;
+      object-fit: contain;
+    }
+  }
+
+  &__try {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}
