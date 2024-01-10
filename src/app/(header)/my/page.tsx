@@ -169,7 +169,7 @@ export default function MyPage() {
             </div>
             <div className="my-page__account--content--email">
               <h3>이메일</h3>
-              {remindEmail}
+              {emailVerified ? remindEmail : '----'}
             </div>
           </div>
           <Button
