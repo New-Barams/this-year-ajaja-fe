@@ -19,7 +19,7 @@ interface CreatePlanRemindDateProps {
   isCreateOrEditPage: 'create' | 'edit';
 }
 
-export default function CreatePlanRemindDate({
+export default React.memo(function CreatePlanRemindDate({
   isCreateOrEditPage,
 }: CreatePlanRemindDateProps) {
   const [remindOptions, setRemindOptions] = useSessionStorage<RemindOptionType>(
@@ -136,4 +136,4 @@ export default function CreatePlanRemindDate({
       </div>
     </div>
   );
-}
+});

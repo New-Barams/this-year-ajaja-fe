@@ -15,7 +15,7 @@ interface WritableRemindItemProps {
   classNameList?: string[];
 }
 
-export default function WritableRemindItem({
+export default React.memo(function WritableRemindItem({
   remindMonth,
   remindDay,
   remindMessage,
@@ -158,4 +158,4 @@ export default function WritableRemindItem({
       )}
     </>
   );
-}
+});
