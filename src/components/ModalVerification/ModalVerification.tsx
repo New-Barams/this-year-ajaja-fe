@@ -13,11 +13,13 @@ interface ModalVerificationProps {
   handleCloseModal: () => void;
   setVerifiedEmail?: () => void;
   children?: React.ReactNode;
+  defaultValue?: string;
 }
 export default function ModalVerification({
   handleCloseModal,
   setVerifiedEmail,
   children = '이메일 인증',
+  defaultValue = '',
 }: ModalVerificationProps) {
   const {
     mutate: submitEmail,
@@ -57,7 +59,7 @@ export default function ModalVerification({
     },
   });
 
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>(defaultValue);
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
@@ -118,6 +120,7 @@ export default function ModalVerification({
             <input
               className="modal-verification-wrapper__items--input"
               type="email"
+              value={email}
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
