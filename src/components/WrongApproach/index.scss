@@ -1,0 +1,23 @@
+.wrong-approach {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 4rem 0;
+  }
+  &__image {
+    width: 100%;
+    object-fit: contain;
+  }
+  &__back-to-home {
+    width: 100%;
+    text-decoration: none;
+  }
+}

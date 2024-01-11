@@ -32,7 +32,7 @@ export default function RootLayout({
 }) {
   const hasAuth = cookies().has('auth');
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <link
           rel="stylesheet"

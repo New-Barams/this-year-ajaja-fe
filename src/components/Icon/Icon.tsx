@@ -38,6 +38,7 @@ const ICON_NAME_MAP = {
   FAVORITE: 'favorite',
   ARROW_UP: 'arrow_upward',
   COPY: 'content_copy',
+  ARROW_RIGHT: 'subdirectory_arrow_right',
 };
 
 interface IconProps {
