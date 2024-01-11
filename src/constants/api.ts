@@ -12,8 +12,7 @@ export const DOMAIN = {
   GET_USERS: '/users',
 
   POST_FEEDBACKS: (feedbackId: number) => `/feedbacks/${feedbackId}`,
-  GET_FEEDBACKS: (userId: number) => `/feedbacks/${userId}`,
-  GET_FEEDBACKS_EACH: (planId: number) => `/mock/${planId}/feedbacks`,
+  GET_FEEDBACKS: (planId: number) => `/feedbacks/${planId}`,
 
   POST_REISSUE: '/reissue',
   POST_LOGIN: `/login`,
