@@ -59,7 +59,7 @@ export default function ModalVerification({
     },
   });
 
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>(defaultValue);
   const [code, setCode] = useState<string>('');
   const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
   const [isValidCode, setIsValidCode] = useState<boolean>(true);
@@ -120,7 +120,7 @@ export default function ModalVerification({
             <input
               className="modal-verification-wrapper__items--input"
               type="email"
-              defaultValue={defaultValue}
+              value={email}
               onChange={handleChangeEmail}
               placeholder="이메일을 입력해주세요"
             />
