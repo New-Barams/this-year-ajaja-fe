@@ -5,7 +5,7 @@ import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
-import { IconSwitchButton, InputTag, PlanInput, Tag } from '..';
+import { DeletableTag, IconSwitchButton, InputTag, PlanInput } from '..';
 import HelpButton from '../HelpButton/HelpButton';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
@@ -113,13 +113,13 @@ export default function CreatePlanContent({
         <InputTag onSubmit={handleAddTag} />
         <div className="create-plan-content__tag--tags">
           {planContent.tags.map((tag, index) => (
-            <Tag
+            <DeletableTag
               key={index}
               onClick={() => {
                 handleRemoveTag(tag);
               }}>
               {tag}
-            </Tag>
+            </DeletableTag>
           ))}
         </div>
       </div>
