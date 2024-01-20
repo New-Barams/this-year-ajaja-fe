@@ -3,12 +3,12 @@
 import {
   AjajaButton,
   Button,
+  DeletableTag,
   IconSwitchButton,
   InputTag,
   Modal,
   ModalSelectIcon,
   PlanInput,
-  Tag,
 } from '@/components';
 import HelpButton from '@/components/HelpButton/HelpButton';
 import { ajajaToast } from '@/components/Toaster/customToast';
@@ -116,13 +116,13 @@ export default function EditPage({ params }: { params: { planId: string } }) {
           <InputTag onSubmit={handleAddTag} />
           <div className="edit-plan-content__tag--tags">
             {planContent.tags.map((tag, index) => (
-              <Tag
+              <DeletableTag
                 key={index}
                 onClick={() => {
                   handleRemoveTag(tag);
                 }}>
                 {tag}
-              </Tag>
+              </DeletableTag>
             ))}
           </div>
           <AjajaButton
