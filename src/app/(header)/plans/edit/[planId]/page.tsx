@@ -5,12 +5,12 @@ import {
   Button,
   DeletableTag,
   IconSwitchButton,
-  InputTag,
   Modal,
   ModalSelectIcon,
   PlanInput,
 } from '@/components';
 import HelpButton from '@/components/HelpButton/HelpButton';
+import TagInput from '@/components/TagInput/TagInput';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { planIcons } from '@/constants/planIcons';
 import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
@@ -113,7 +113,20 @@ export default function EditPage({ params }: { params: { planId: string } }) {
         </div>
 
         <div className={classNames('edit-plan-content__tag')}>
-          <InputTag onSubmit={handleAddTag} />
+          <div className="edit-plan-content__tag--input">
+            <TagInput
+              disabled={planContent.tags.length === 5}
+              onSubmit={handleAddTag}
+              placeholder="태그를 입력해주세요"
+            />
+            <span
+              className={classNames(
+                'counter',
+                'font-size-xs',
+                planContent.tags.length === 5 && 'color-origin-primary',
+              )}>{`(${planContent.tags.length}/5)`}</span>
+          </div>
+
           <div className="edit-plan-content__tag--tags">
             {planContent.tags.map((tag, index) => (
               <DeletableTag
