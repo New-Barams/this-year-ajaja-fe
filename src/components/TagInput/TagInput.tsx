@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import { FormEvent, useState } from 'react';
 import './index.scss';
@@ -50,7 +52,7 @@ export default function TagInput({
               </span>
             ) : (
               placeholder
-            )}{' '}
+            )}
             <span className="tagInput__label--focus">{`(${inputValue.length}/10)`}</span>
           </>
         </label>

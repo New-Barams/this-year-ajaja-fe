@@ -5,7 +5,7 @@ import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
-import { DeletableTag, IconSwitchButton, InputTag, PlanInput } from '..';
+import { DeletableTag, IconSwitchButton, PlanInput, TagInput } from '..';
 import HelpButton from '../HelpButton/HelpButton';
 import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
@@ -110,7 +110,19 @@ export default function CreatePlanContent({
       />
 
       <div className={classNames('create-plan-content__tag')}>
-        <InputTag onSubmit={handleAddTag} />
+        <div className="create-plan-content__tag--input">
+          <TagInput
+            disabled={planContent.tags.length === 5}
+            onSubmit={handleAddTag}
+            placeholder="태그를 입력해주세요"
+          />
+          <span
+            className={classNames(
+              'counter',
+              'font-size-xs',
+              planContent.tags.length === 5 && 'color-origin-primary',
+            )}>{`(${planContent.tags.length}/5)`}</span>
+        </div>
         <div className="create-plan-content__tag--tags">
           {planContent.tags.map((tag, index) => (
             <DeletableTag

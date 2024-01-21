@@ -37,10 +37,6 @@
     flex-direction: column;
     gap: 0.5em;
     &--input {
-      .tagInput {
-        display: inline-block;
-        width: 50%;
-      }
       & .counter {
         margin-left: 0.5rem;
         vertical-align: bottom;

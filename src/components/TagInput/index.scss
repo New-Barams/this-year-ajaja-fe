@@ -1,6 +1,7 @@
 .tagInput {
   position: relative;
-
+  display: inline-block;
+  width: 50%;
   &__input:not(:placeholder-shown) + &__label {
     top: 0;
     font-size: 0.75rem;
@@ -51,7 +52,9 @@
     position: absolute;
     left: 1rem;
     white-space: nowrap;
-    overflow: visible;
+    overflow: hidden;
+    max-width: calc(100% - 1rem);
+    text-overflow: ellipsis;
     transform: translateY(-50%);
     font-size: 0.75rem;
     color: var(--origin-gray-100);
