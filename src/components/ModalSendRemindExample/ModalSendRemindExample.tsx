@@ -6,7 +6,7 @@ import React from 'react';
 import { Modal, ModalBasic } from '..';
 import './index.scss';
 import remind_example_email_temp from '/public/remind_example_email_temp.png';
-import remind_example_kakao_temp from '/public/remind_example_kakao_temp.png';
+import remind_example_kakao from '/public/remind_example_kakao.png';
 
 interface ModalSendRemindExampleProps {
   closeModal: () => void;
@@ -51,7 +51,7 @@ export default function ModalSendRemindExample({
             </p>
             <Image
               className="remind-example__kakao__image"
-              src={remind_example_kakao_temp}
+              src={remind_example_kakao}
               alt="리마인드 메세지 예시 - 카카오톡"
             />
           </div>

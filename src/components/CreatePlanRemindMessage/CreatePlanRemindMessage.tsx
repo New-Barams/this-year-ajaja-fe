@@ -14,6 +14,7 @@ interface CreatePlanRemindMessageProps {
   setIsLastStepDataAllExist: (isExist: boolean) => void;
   isCreateOrEditPage: 'create' | 'edit';
 }
+
 export default function CreatePlanRemindMessage({
   setIsLastStepDataAllExist,
   isCreateOrEditPage,
