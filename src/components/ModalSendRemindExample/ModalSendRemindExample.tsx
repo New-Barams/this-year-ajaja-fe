@@ -1,5 +1,6 @@
 'use client';
 
+import { usePostRemindTest } from '@/hooks/apis/usePostRemindTest';
 import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
@@ -15,13 +16,14 @@ interface ModalSendRemindExampleProps {
 export default function ModalSendRemindExample({
   closeModal,
 }: ModalSendRemindExampleProps) {
-  const sendRemindExample = () => {
-    console.log('예시 리마인드 전송 후 완료 시 toast 띄우기 ! ');
-  };
+  const { mutate: sendRemindTest } = usePostRemindTest();
+
+  // const sendRemindExample = () => {
+  //   console.log('예시 리마인드 전송 후 완료 시 toast 띄우기 ! ');
+  // };
 
   const onClickSendRemindExample = () => {
-    sendRemindExample();
-    closeModal();
+    sendRemindTest();
   };
 
   return (
