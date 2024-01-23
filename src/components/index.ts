@@ -27,3 +27,5 @@ export { default as WritableRemindItem } from '@components/RemindItem/WritableRe
 export { default as ReadOnlyPlan } from '@components/ReadOnlyPlan/ReadOnlyPlan';
 export { default as ErrorToast } from '@components/Svg/ErrorToast';
 export { default as SuccessToast } from '@components/Svg/SuccessToast';
+export { default as DeletableTag } from '@components/DeletableTag/DeletableTag';
+export { default as TagInput } from '@components/TagInput/TagInput';

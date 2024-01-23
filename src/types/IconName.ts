@@ -35,4 +35,5 @@ export type IconName =
   | 'ARROW_UP'
   | 'COPY'
   | 'HELP'
-  | 'ARROW_RIGHT';
+  | 'ARROW_RIGHT'
+  | 'CANCEL';
