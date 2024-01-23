@@ -1,6 +1,24 @@
 .notice-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  &__title{
+    align-self: center;
+    margin-top: 2.5rem;
+  }
+
+  &__notice-title{
+    margin-top: 2rem;
+  }
+
+  &__notice-date{
+    margin-top: 0.5rem;
+  }
+
+  &__notice-content{
+    margin-top: 1.5rem;
+  }
 }
