@@ -1,0 +1,51 @@
+.remind-example {
+  &__title {
+    text-align: center;
+  }
+
+  &__description {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  &__content {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__kakao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__image {
+      margin-top: 0.5rem;
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+    }
+  }
+
+  &__email {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__image {
+      width: 100%;
+      margin-top: 0.5rem;
+      height: 220px;
+      object-fit: contain;
+    }
+  }
+
+  &__try {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

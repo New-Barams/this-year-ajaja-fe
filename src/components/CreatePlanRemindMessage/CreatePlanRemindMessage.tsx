@@ -5,14 +5,16 @@ import { useScroll } from '@/hooks/useScroll';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindItemType } from '@/types/Remind';
 import classNames from 'classnames';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { WritableRemindItem } from '..';
+import ModalSendRemindExample from '../ModalSendRemindExample/ModalSendRemindExample';
 import './index.scss';
 
 interface CreatePlanRemindMessageProps {
   setIsLastStepDataAllExist: (isExist: boolean) => void;
   isCreateOrEditPage: 'create' | 'edit';
 }
+
 export default function CreatePlanRemindMessage({
   setIsLastStepDataAllExist,
   isCreateOrEditPage,
@@ -65,6 +67,8 @@ export default function CreatePlanRemindMessage({
     }
   }, [remindMessageList, setRemindMessageList]);
 
+  const [isSendRemindModalOpen, setIsSendRemindModalOpen] = useState(false);
+
   return (
     <div
       className={classNames(['create-remind-message'])}
@@ -72,6 +76,25 @@ export default function CreatePlanRemindMessage({
       onScroll={handleScroll}>
       <div className={classNames(['create-remind-message__title'])}>
         선택받은 날짜에 받을 리마인드 메세지를 작성해주세요!
+      </div>
+
+      <div className={classNames(['create-remind-message__remind-example'])}>
+        <span className={classNames(['font-size-sm', 'color-origin-primary'])}>
+          리마인드란 무엇인가요?
+        </span>
+        <button
+          className={classNames([
+            'create-remind-message__remind-example__button',
+            'font-size-xs',
+            'background-origin-primary',
+            'color-origin-white-100',
+            'border-round',
+          ])}
+          onClick={() => {
+            setIsSendRemindModalOpen(true);
+          }}>
+          알아보기
+        </button>
       </div>
 
       <ul className={classNames(['create-remind-message__list'])}>
@@ -100,6 +123,14 @@ export default function CreatePlanRemindMessage({
           );
         })}
       </ul>
+
+      {isSendRemindModalOpen && (
+        <ModalSendRemindExample
+          closeModal={() => {
+            setIsSendRemindModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }
