@@ -16,7 +16,7 @@ export default function NoticePage() {
 
       <p className="notice-page__notice-content">
         개인정보 처리방침 변경이 변경되어 전화번호를 무조건 수집해야합니다.
-        개인정보 처리방침 변경이 변경되어 전화번 호 를 무조건 수집해야합니다.
+        개인정보 처리방침 변경이 변경되어 전화번호를 무조건 수집해야합니다.
       </p>
     </div>
   );
