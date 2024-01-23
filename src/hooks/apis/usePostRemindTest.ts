@@ -7,8 +7,12 @@ export const usePostRemindTest = () => {
   return useMutation({
     mutationFn: postRemindTest,
     onSuccess: (data) => {
-      console.log(data);
-      ajajaToast.success('리마인드 테스트 성공');
+      const sendMethod = data.data;
+      if (sendMethod === 'EMAIL') {
+        ajajaToast.success('이메일로 발송되었습니다.');
+      } else {
+        ajajaToast.success('카카오톡으로 발송되었습니다.');
+      }
     },
     onError: (error) => {
       const axiosError = error as AxiosError;
