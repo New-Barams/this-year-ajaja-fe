@@ -115,9 +115,6 @@ export default function ReadOnlyPlan({
               textPosition={canAjaja ? 'top-left' : 'top'}
             />
           </div>
-          <span className="font-size-xs color-origin-primary">
-            현재 카카오톡 알림은 2월 부터 받으실 수 있습니다.
-          </span>
         </div>
       )}
     </div>
