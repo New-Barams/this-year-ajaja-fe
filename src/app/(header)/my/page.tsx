@@ -134,85 +134,88 @@ export default function MyPage() {
         ref={scrollableRef}
         onScroll={handleScroll}>
         <h1 className="my-page__header font-size-xl">마이페이지</h1>
-        <h1 className="my-page__welcome-text font-size-xl">
-          <span>안녕하세요, </span>
-          <span>
-            <span className="color-origin-primary">{nickname}</span>님!
-          </span>
-        </h1>
-        <div className="my-page__nick-name">
-          <h2 className="my-page__nick-name--label font-size-lg">닉네임</h2>
-          <div className="my-page__nick-name--content">
-            <div className="my-page__nick-name--content--main">
-              {nickname}
-              <button onClick={handleChangeNickName}>
-                <Icon
-                  name="REFRESH"
-                  color="text-100"
-                  size="xl"
-                  isFilled={true}
-                />
-              </button>
-            </div>
-            <div className="my-page__nick-name--content--alert font-size-xs">
-              새로고침 버튼 클릭시 닉네임이 랜덤으로 변경됩니다.
-            </div>
-          </div>
-        </div>
-        <div className="my-page__account">
-          <h2 className="my-page__account--label font-size-lg">
-            연결된 계정 및 이메일
-          </h2>
-          <div className="my-page__account--content font-size-base">
-            <div className="my-page__account--content--kakao ">
-              <h3>카카오톡 : {defaultEmail} </h3>
-            </div>
-            <div className="my-page__account--content--email">
-              <h3>
-                이메일 :{' '}
-                {emailVerified ? remindEmail : '이메일 인증이 필요합니다.'}{' '}
-              </h3>
+
+        <div className="my-page__content">
+          <h1 className="my-page__welcome-text font-size-xl">
+            <span>안녕하세요, </span>
+            <span>
+              <span className="color-origin-primary">{nickname}</span>님!
+            </span>
+          </h1>
+          <div className="my-page__nick-name">
+            <h2 className="my-page__nick-name--label font-size-lg">닉네임</h2>
+            <div className="my-page__nick-name--content">
+              <div className="my-page__nick-name--content--main">
+                {nickname}
+                <button onClick={handleChangeNickName}>
+                  <Icon
+                    name="REFRESH"
+                    color="text-100"
+                    size="xl"
+                    isFilled={true}
+                  />
+                </button>
+              </div>
+              <div className="my-page__nick-name--content--alert font-size-xs">
+                새로고침 버튼 클릭시 닉네임이 랜덤으로 변경됩니다.
+              </div>
             </div>
           </div>
-          <Button
-            border={false}
-            background="primary"
-            color="white-100"
-            onClick={handleGoEmailVerification}>
-            이메일 {emailVerified ? '변경' : '인증'}
-          </Button>
-        </div>
-        <div className="my-page__remindway">
-          <h2 className="my-page__remindway--label font-size-lg">
-            리마인드 및 응원 메시지
-          </h2>
-          <div className="my-page__remindway--content font-size-base">
-            {remindWay()}을 통해서 리마인드 및 응원 메시지를 받고 있어요
+          <div className="my-page__account">
+            <h2 className="my-page__account--label font-size-lg">
+              연결된 계정 및 이메일
+            </h2>
+            <div className="my-page__account--content font-size-base">
+              <div className="my-page__account--content--kakao ">
+                <h3>카카오톡 : {defaultEmail} </h3>
+              </div>
+              <div className="my-page__account--content--email">
+                <h3>
+                  이메일 :{' '}
+                  {emailVerified ? remindEmail : '이메일 인증이 필요합니다.'}{' '}
+                </h3>
+              </div>
+            </div>
+            <Button
+              border={false}
+              background="primary"
+              color="white-100"
+              onClick={handleGoEmailVerification}>
+              이메일 {emailVerified ? '변경' : '인증'}
+            </Button>
           </div>
-          <Button
-            border={false}
-            background="primary"
-            color="white-100"
-            onClick={handleGORemindWay}>
-            알림 방식 변경
-          </Button>
-        </div>
-        <div className="my-page__etc font-size-base">
-          <Link
-            className="my-page__etc--notice color-origin-text-100"
-            href={'/notice'}>
-            공지사항
-          </Link>
-          <button
-            className="my-page__etc--logout color-origin-text-100"
-            onClick={handleLogOut}>
-            로그아웃
-          </button>
-          <button
-            className="my-page__etc--withdrawal color-origin-text-300"
-            onClick={handleWithdrawal}>
-            회원 탈퇴
-          </button>
+          <div className="my-page__remindway">
+            <h2 className="my-page__remindway--label font-size-lg">
+              리마인드 및 응원 메시지
+            </h2>
+            <div className="my-page__remindway--content font-size-base">
+              {remindWay()}을 통해서 리마인드 및 응원 메시지를 받고 있어요
+            </div>
+            <Button
+              border={false}
+              background="primary"
+              color="white-100"
+              onClick={handleGORemindWay}>
+              알림 방식 변경
+            </Button>
+          </div>
+          <div className="my-page__etc font-size-base">
+            <Link
+              className="my-page__etc--notice color-origin-text-100"
+              href={'/notice'}>
+              공지사항
+            </Link>
+            <button
+              className="my-page__etc--logout color-origin-text-100"
+              onClick={handleLogOut}>
+              로그아웃
+            </button>
+            <button
+              className="my-page__etc--withdrawal color-origin-text-300"
+              onClick={handleWithdrawal}>
+              회원 탈퇴
+            </button>
+          </div>
         </div>
       </div>
       {isOpenRemindWayModal && (
