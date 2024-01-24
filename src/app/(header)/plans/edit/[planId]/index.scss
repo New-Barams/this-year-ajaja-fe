@@ -36,6 +36,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    &--input {
+      & .counter {
+        margin-left: 0.5rem;
+        vertical-align: bottom;
+      }
+    }
+
     &--tags {
       display: flex;
       gap: 0.5rem;

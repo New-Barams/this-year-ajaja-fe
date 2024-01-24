@@ -1,0 +1,71 @@
+.tagInput {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  &__input:not(:placeholder-shown) + &__label {
+    top: 0;
+    font-size: 0.75rem;
+    & .tagInput__label--focus {
+      display: inline;
+    }
+  }
+
+  &:focus-within {
+    & > label {
+      top: 0;
+      font-size: 0.75rem;
+      & .tagInput__label--focus {
+        display: inline;
+      }
+    }
+    &::after {
+      content: '엔터 입력시 태그를 등록 할 수 있습니다.';
+      position: absolute;
+      color: var(--origin-white-200);
+      white-space: pre;
+      background-color: var(--origin-gray-200);
+      line-height: 1.5rem;
+      left: 0;
+      bottom: 3rem;
+      display: block;
+      border-radius: var(--border-radius);
+      padding: 0.25rem 0.875rem;
+      z-index: 1;
+    }
+  }
+  &__input {
+    padding: 0.25rem 0.875rem;
+    vertical-align: middle;
+    margin: 0;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid var(--origin-primary);
+    border-radius: var(--border-radius);
+
+    &:focus {
+      outline: none;
+      overflow: visible;
+      border: 1px solid var(--origin-primary);
+    }
+  }
+  &__label {
+    position: absolute;
+    left: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: calc(100% - 1rem);
+    text-overflow: ellipsis;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: var(--origin-gray-100);
+    letter-spacing: 1px;
+    transition: 0.3s;
+    pointer-events: none;
+    top: 50%;
+    background-color: var(--origin-white-200);
+
+    &--focus {
+      display: none;
+    }
+  }
+}

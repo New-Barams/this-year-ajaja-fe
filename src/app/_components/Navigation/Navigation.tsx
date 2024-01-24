@@ -25,6 +25,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const isEdit = /^\/plans\/edit\/\d+/;
   const isPlan = /^\/plans\/\d+/;
   const isRemind = /^\/reminds\/.*$/;
+  const isFeedback = /^\/feedback\/\d+/;
+  const isFeedbackEvaluate = /^\/feedback\/evaluate/;
 
   if (!hasCookie('auth')) {
     setTimeout(() => {
@@ -49,12 +51,7 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   }, [setCanMakeNewPlan]);
   return (
     <div className={classNames('navigation')}>
-      <Link
-        href="/home"
-        className={classNames('navigation-icon', {
-          'color-origin-primary': pathName === '/home',
-          'color-origin-text-300': pathName !== '/home',
-        })}>
+      <Link href="/home" className={classNames('navigation-icon')}>
         <Icon
           name="HOME"
           isFilled={true}
@@ -63,22 +60,37 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
             pathName === '/home' ||
             isRemind.test(pathName) ||
             (isMyPlan && isPlan.test(pathName)) ||
-            isEdit.test(pathName)
+            isEdit.test(pathName) ||
+            isFeedback.test(pathName) ||
+            isFeedbackEvaluate.test(pathName)
               ? 'primary'
               : 'text-300'
           }
         />
-        <p className={classNames('font-size-xs')}>홈</p>
+        <p
+          className={classNames(
+            'font-size-xs',
+            pathName === '/home' ||
+              isRemind.test(pathName) ||
+              (isMyPlan && isPlan.test(pathName)) ||
+              isEdit.test(pathName) ||
+              isFeedback.test(pathName) ||
+              isFeedbackEvaluate.test(pathName)
+              ? 'color-origin-primary'
+              : 'color-origin-text-300',
+          )}>
+          홈
+        </p>
       </Link>
       <Link
-        href={canMakeNewPlan ? '/create' : ''}
+        href={canMakeNewPlan ? '/create' : '/fee'}
         onClick={handleCreate}
         className={classNames('navigation-icon', {
           'color-origin-primary': pathName === '/create',
           'color-origin-text-300': pathName !== '/create',
         })}>
         <Icon
-          name="CREATE_NEW_PLAN"
+          name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'FEEDBACK'}
           isFilled={true}
           size="xl"
           color={pathName === '/create' ? 'primary' : 'text-300'}
@@ -87,12 +99,7 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           {checkIsSeason() ? '계획 작성' : '피드백하기'}
         </p>
       </Link>
-      <Link
-        href="/explore"
-        className={classNames('navigation-icon', {
-          'color-origin-primary': pathName === '/explore',
-          'color-origin-text-300': pathName !== '/explore',
-        })}>
+      <Link href="/explore" className={classNames('navigation-icon')}>
         <Icon
           name="OTHER_PLAN"
           isFilled={true}
@@ -103,7 +110,15 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
               : 'text-300'
           }
         />
-        <p className={classNames('font-size-xs')}>둘러보기</p>
+        <p
+          className={classNames(
+            'font-size-xs',
+            pathName === '/explore' || (!isMyPlan && isPlan.test(pathName))
+              ? 'color-origin-primary'
+              : 'color-origin-text-300',
+          )}>
+          둘러보기
+        </p>
       </Link>
       <Link
         href={isLogin ? '/my' : '/login'}
