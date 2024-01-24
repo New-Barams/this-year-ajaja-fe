@@ -46,6 +46,10 @@ export default function LoginPage() {
               src={kakoLogin}
               alt="kakaoLogin"
             />
+            <div className="login__buttons--kakaoLogin--alt">
+              <span>카카오 로그인</span>
+              <span>버튼이 안보이시면 광고차단을 꺼주세요</span>
+            </div>
           </Link>
           <Link
             className="login__buttons--unAuth color-origin-gray-200"

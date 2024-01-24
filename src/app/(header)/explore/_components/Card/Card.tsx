@@ -1,6 +1,7 @@
 import { AjajaButton, Tag } from '@/components';
 import { planIcons } from '@/constants/planIcons';
 import { CardPlans } from '@/types/apis/plan/GetAllPlans';
+import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 import Image from 'next/image';
 import './index.scss';
@@ -32,7 +33,16 @@ export default function Card({ plan }: CardProps) {
           {plan.title}
         </p>
         <p className={classNames('card__contents--nickname', 'font-size-xs')}>
-          {plan.nickname}님의 계획 • {plan.createdAt.slice(0, 4)}년 작성
+          {parseInt(plan.createdAt.slice(0, 4)) === checkThisYear() ? (
+            <div>
+              {plan.nickname}님의 계획 • {plan.createdAt.slice(5, 7)}월{' '}
+              {plan.createdAt.slice(8, 10)}일 작성
+            </div>
+          ) : (
+            <div>
+              {plan.nickname}님의 계획 • {plan.createdAt.slice(0, 4)}년 작성
+            </div>
+          )}
         </p>
         <AjajaButton
           planId={plan.id}

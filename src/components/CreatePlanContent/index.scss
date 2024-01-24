@@ -21,6 +21,12 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    &--input {
+      & .counter {
+        margin-left: 0.5rem;
+        vertical-align: bottom;
+      }
+    }
 
     &--tags {
       display: flex;

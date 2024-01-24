@@ -34,7 +34,11 @@ export const useWritablePlan = (planData: PlanData) => {
 
   const handleAddTag = (text: string) => {
     const trimedTags = text.trim();
-    if (planContent.tags.includes(trimedTags) || planContent.tags.length >= 5) {
+    if (
+      planContent.tags.includes(trimedTags) ||
+      planContent.tags.length >= 5 ||
+      trimedTags.length === 0
+    ) {
       return;
     }
     const newTagList = [...planContent.tags, trimedTags];

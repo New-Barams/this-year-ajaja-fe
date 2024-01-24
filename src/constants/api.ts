@@ -38,6 +38,7 @@ export const DOMAIN = {
 
   GET_REMINDS: (planId: number) => `/reminds/${planId}`,
   PUT_REMINDS: (planId: number) => `/plans/${planId}/reminds`,
+  POST_REMINDS_TEST: `/reminds/test`,
 };
 
 // 실제 API -> swagger 순서입니다.
