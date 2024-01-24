@@ -105,22 +105,24 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             &gt;
             <span>계획</span>
           </div>
-          {createPageContent()}
-          {isMyPlan && (
-            <div className="plans-page--share">
-              <h2>공유하기</h2>
-              <div className="plans-page--share--buttons">
-                <label className="font-size-xs" onClick={handleCopyLink}>
-                  <Icon name="COPY" color="text-100" size="md" />
-                  링크 복사
-                </label>
-                <label className="font-size-xs">
-                  <KakaoShareButton linkURL={currentURL} />
-                  카카오톡
-                </label>
+          <div className="plans-page__content">
+            {createPageContent()}
+            {isMyPlan && (
+              <div className="plans-page--share">
+                <h2>공유하기</h2>
+                <div className="plans-page--share--buttons">
+                  <label className="font-size-xs" onClick={handleCopyLink}>
+                    <Icon name="COPY" color="text-100" size="md" />
+                    링크 복사
+                  </label>
+                  <label className="font-size-xs">
+                    <KakaoShareButton linkURL={currentURL} />
+                    카카오톡
+                  </label>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {isMyPlan && (
