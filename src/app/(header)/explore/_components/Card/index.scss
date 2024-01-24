@@ -45,7 +45,7 @@ $card_image_margin: 1rem;
     }
     &--tags {
       @include ellipsis(2);
-      height: 2.5rem;
+      height: 3rem;
     }
   }
 }
