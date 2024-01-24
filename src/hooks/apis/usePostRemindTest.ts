@@ -21,9 +21,10 @@ export const usePostRemindTest = () => {
         if (statusCode === 429) {
           // 3회 초과 시도 시
           ajajaToast.error('3번을 초과했습니다.');
+        } else {
+          ajajaToast.error('리마인드 테스트 실패');
         }
       }
-      ajajaToast.error('리마인드 테스트 실패');
     },
   });
 };
