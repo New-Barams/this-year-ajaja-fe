@@ -25,6 +25,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const isEdit = /^\/plans\/edit\/\d+/;
   const isPlan = /^\/plans\/\d+/;
   const isRemind = /^\/reminds\/.*$/;
+  const isFeedback = /^\/feedback\/\d+/;
+  const isFeedbackEvaluate = /^\/feedback\/evaluate/;
 
   if (!hasCookie('auth')) {
     setTimeout(() => {
@@ -58,7 +60,9 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
             pathName === '/home' ||
             isRemind.test(pathName) ||
             (isMyPlan && isPlan.test(pathName)) ||
-            isEdit.test(pathName)
+            isEdit.test(pathName) ||
+            isFeedback.test(pathName) ||
+            isFeedbackEvaluate.test(pathName)
               ? 'primary'
               : 'text-300'
           }
@@ -69,7 +73,9 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
             pathName === '/home' ||
               isRemind.test(pathName) ||
               (isMyPlan && isPlan.test(pathName)) ||
-              isEdit.test(pathName)
+              isEdit.test(pathName) ||
+              isFeedback.test(pathName) ||
+              isFeedbackEvaluate.test(pathName)
               ? 'color-origin-primary'
               : 'color-origin-text-300',
           )}>
@@ -77,14 +83,14 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
         </p>
       </Link>
       <Link
-        href={canMakeNewPlan ? '/create' : ''}
+        href={canMakeNewPlan ? '/create' : '/fee'}
         onClick={handleCreate}
         className={classNames('navigation-icon', {
           'color-origin-primary': pathName === '/create',
           'color-origin-text-300': pathName !== '/create',
         })}>
         <Icon
-          name="CREATE_NEW_PLAN"
+          name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'FEEDBACK'}
           isFilled={true}
           size="xl"
           color={pathName === '/create' ? 'primary' : 'text-300'}
