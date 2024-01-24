@@ -18,6 +18,7 @@ import { useScroll } from '@/hooks/useScroll';
 import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ModalRemindWay from './_components/ModalRemindWay/ModalRemindWay';
@@ -197,6 +198,11 @@ export default function MyPage() {
           </Button>
         </div>
         <div className="my-page__etc font-size-base">
+          <Link
+            className="my-page__etc--notice color-origin-text-100"
+            href={'/notice'}>
+            공지사항
+          </Link>
           <button
             className="my-page__etc--logout color-origin-text-100"
             onClick={handleLogOut}>
