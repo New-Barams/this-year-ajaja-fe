@@ -6,7 +6,7 @@ import Image from 'next/image';
 import React from 'react';
 import { Modal, ModalBasic } from '..';
 import './index.scss';
-import remind_example_email_temp from '/public/remind_example_email_temp.png';
+import remind_example_email from '/public/remind_example_email.png';
 import remind_example_kakao from '/public/remind_example_kakao.png';
 
 interface ModalSendRemindExampleProps {
@@ -17,10 +17,6 @@ export default function ModalSendRemindExample({
   closeModal,
 }: ModalSendRemindExampleProps) {
   const { mutate: sendRemindTest } = usePostRemindTest();
-
-  // const sendRemindExample = () => {
-  //   console.log('예시 리마인드 전송 후 완료 시 toast 띄우기 ! ');
-  // };
 
   const onClickSendRemindExample = () => {
     sendRemindTest();
@@ -68,7 +64,7 @@ export default function ModalSendRemindExample({
             </p>
             <Image
               className="remind-example__email__image"
-              src={remind_example_email_temp}
+              src={remind_example_email}
               alt="리마인드 메세지 예시 - 이메일"
             />
           </div>
