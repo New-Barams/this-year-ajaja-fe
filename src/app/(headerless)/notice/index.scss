@@ -1,0 +1,25 @@
+.notice-page {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  &__title{
+    align-self: center;
+    margin-top: 2.5rem;
+  }
+
+  &__notice-title{
+    margin-top: 2rem;
+  }
+
+  &__notice-date{
+    margin-top: 0.25rem;
+  }
+
+  &__notice-content{
+    margin-top: 1rem;
+    line-height: 1.5rem; 
+  }
+}
