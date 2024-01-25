@@ -117,7 +117,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             <TagInput
               disabled={planContent.tags.length === 5}
               onSubmit={handleAddTag}
-              placeholder="태그를 입력해주세요"
+              placeholder="태그를 입력해주세요!"
             />
             <span
               className={classNames(

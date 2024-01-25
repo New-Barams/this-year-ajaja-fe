@@ -37,9 +37,11 @@
     flex-direction: column;
     gap: 0.5em;
     &--input {
+      display: flex;
+
       & .counter {
         margin-left: 0.5rem;
-        vertical-align: bottom;
+        align-self: flex-end;
       }
     }
 

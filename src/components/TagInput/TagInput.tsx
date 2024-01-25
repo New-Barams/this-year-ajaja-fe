@@ -51,9 +51,8 @@ export default function TagInput({
                 태그는 최대 5개까지 입니다.
               </span>
             ) : (
-              placeholder
+              <span>{`${placeholder}(${inputValue.length}/10글자)`}</span>
             )}
-            <span className="tagInput__label--focus">{`(${inputValue.length}/10)`}</span>
           </>
         </label>
       )}
