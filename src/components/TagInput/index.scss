@@ -1,10 +1,13 @@
 .tagInput {
   position: relative;
   display: inline-block;
-  width: 50%;
+  width: 100%;
+  max-width: 250px;
   &__input:not(:placeholder-shown) + &__label {
     top: 0;
     font-size: 0.75rem;
+    padding: 0 0.5rem;
+    color: var(--origin-primary);
     & .tagInput__label--focus {
       display: inline;
     }
@@ -13,7 +16,9 @@
   &:focus-within {
     & > label {
       top: 0;
+      padding: 0 0.5rem;
       font-size: 0.75rem;
+      color: var(--origin-primary);
       & .tagInput__label--focus {
         display: inline;
       }
@@ -38,6 +43,7 @@
     vertical-align: middle;
     margin: 0;
     width: 100%;
+    height: 40px;
     display: inline-block;
     border: 1px solid var(--origin-primary);
     border-radius: var(--border-radius);
@@ -45,7 +51,7 @@
     &:focus {
       outline: none;
       overflow: visible;
-      border: 1px solid var(--origin-primary);
+      border: 2px solid var(--origin-primary);
     }
   }
   &__label {
@@ -56,16 +62,12 @@
     max-width: calc(100% - 1rem);
     text-overflow: ellipsis;
     transform: translateY(-50%);
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--origin-gray-100);
     letter-spacing: 1px;
     transition: 0.3s;
     pointer-events: none;
     top: 50%;
     background-color: var(--origin-white-200);
-
-    &--focus {
-      display: none;
-    }
   }
 }
