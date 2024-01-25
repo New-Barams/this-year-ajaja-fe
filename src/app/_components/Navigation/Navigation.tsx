@@ -83,14 +83,14 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
         </p>
       </Link>
       <Link
-        href={canMakeNewPlan ? '/create' : '/fee'}
+        href={canMakeNewPlan ? '/create' : ''}
         onClick={handleCreate}
         className={classNames('navigation-icon', {
           'color-origin-primary': pathName === '/create',
           'color-origin-text-300': pathName !== '/create',
         })}>
         <Icon
-          name={checkIsSeason() ? 'CREATE_NEW_PLAN' : 'FEEDBACK'}
+          name="CREATE_NEW_PLAN"
           isFilled={true}
           size="xl"
           color={pathName === '/create' ? 'primary' : 'text-300'}
