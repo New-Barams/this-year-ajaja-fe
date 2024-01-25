@@ -65,14 +65,14 @@ export default function EditPage({ params }: { params: { planId: string } }) {
 
   return (
     <div className={classNames('edit-plan-content')}>
+      <div className="edit-plan-content__breadcrumb font-size-base color-origin-text-100">
+        <Link href="/home">홈</Link>
+        &gt;
+        <Link href={`/plans/${planId}`}>계획</Link>
+        &gt;
+        <span>계획 수정</span>
+      </div>
       <div className="edit-plan-content__main">
-        <div className="edit-plan-content__breadcrumb font-size-base color-origin-text-100">
-          <Link href="/home">홈</Link>
-          &gt;
-          <Link href={`/plans/${planId}`}>계획</Link>
-          &gt;
-          <span>계획 수정</span>
-        </div>
         <div className="edit-plan-content__icon">
           <button
             onClick={() => {
@@ -117,7 +117,7 @@ export default function EditPage({ params }: { params: { planId: string } }) {
             <TagInput
               disabled={planContent.tags.length === 5}
               onSubmit={handleAddTag}
-              placeholder="태그를 입력해주세요"
+              placeholder="태그를 입력해주세요!"
             />
             <span
               className={classNames(
