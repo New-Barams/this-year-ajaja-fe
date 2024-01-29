@@ -37,6 +37,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
   const handleCreate = () => {
     if (!canMakeNewPlan) {
       ajajaToast.error('생성할 수 있는 계획의 수가 최대입니다.');
+    } else if (!checkIsSeason()) {
+      ajajaToast.error('계획을 작성할 수 있는 시즌이 아닙니다.');
     }
   };
 
@@ -83,7 +85,7 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
         </p>
       </Link>
       <Link
-        href={canMakeNewPlan ? '/create' : ''}
+        href={canMakeNewPlan && checkIsSeason() ? '/create' : ''}
         onClick={handleCreate}
         className={classNames('navigation-icon', {
           'color-origin-primary': pathName === '/create',
@@ -96,7 +98,8 @@ export default function Navigation({ hasAuth }: { hasAuth: boolean }) {
           color={pathName === '/create' ? 'primary' : 'text-300'}
         />
         <p className={classNames('font-size-xs')}>
-          {checkIsSeason() ? '계획 작성' : '피드백하기'}
+          {/* {checkIsSeason() ? '계획 작성' : '피드백하기'} */}
+          계획 작성
         </p>
       </Link>
       <Link href="/explore" className={classNames('navigation-icon')}>
