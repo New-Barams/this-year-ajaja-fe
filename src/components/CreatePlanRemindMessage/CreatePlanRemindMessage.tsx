@@ -1,7 +1,6 @@
 'use client';
 
 import { SESSION_STORAGE_KEY } from '@/constants';
-import { useScroll } from '@/hooks/useScroll';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
 import { RemindItemType } from '@/types/Remind';
 import classNames from 'classnames';
@@ -41,8 +40,6 @@ export default function CreatePlanRemindMessage({
     }
   }, [remindMessageList, setIsLastStepDataAllExist]);
 
-  const { handleScroll, scrollableRef } = useScroll();
-
   const handleChangeRemindMessage = (
     month: number,
     day: number,
@@ -70,10 +67,7 @@ export default function CreatePlanRemindMessage({
   const [isSendRemindModalOpen, setIsSendRemindModalOpen] = useState(false);
 
   return (
-    <div
-      className={classNames(['create-remind-message'])}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
+    <div className={classNames(['create-remind-message'])}>
       <div className={classNames(['create-remind-message__title'])}>
         선택받은 날짜에 받을 리마인드 메세지를 작성해주세요!
       </div>

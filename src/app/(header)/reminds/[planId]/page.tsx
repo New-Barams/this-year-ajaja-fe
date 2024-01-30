@@ -4,7 +4,6 @@ import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
 import { REMIND_TIME_TEXT } from '@/constants';
 import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
 import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
-import { useScroll } from '@/hooks/useScroll';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -16,7 +15,6 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
   const router = useRouter();
   const isSeason = checkIsSeason();
-  const { handleScroll, scrollableRef } = useScroll();
 
   const { remindData } = useGetRemindQuery(
     parseInt(planId, 10),
@@ -61,10 +59,7 @@ export default function RemindPage({ params }: { params: { planId: string } }) {
         </Link>
       )}
 
-      <div
-        className={classNames(['remind-page__content'])}
-        ref={scrollableRef}
-        onScroll={handleScroll}>
+      <div className={classNames(['remind-page__content'])}>
         <ul className={classNames(['remind-page__content__message-list'])}>
           {remindData.messageResponses.map((item, index) => {
             return (
