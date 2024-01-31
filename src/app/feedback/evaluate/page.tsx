@@ -3,7 +3,6 @@
 import { Button, Modal, ModalBasic, PlanInput } from '@/components';
 import WrongApproach from '@/components/WrongApproach/WrongApproach';
 import { usePostFeedbacksMutation } from '@/hooks/apis/usePostFeedbacksMutation';
-import { useScroll } from '@/hooks/useScroll';
 import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -18,7 +17,6 @@ export default function FeedbackPage() {
   const month = searchParams.get('month');
   const day = searchParams.get('day');
   const planId = searchParams.get('planId');
-  const { handleScroll, scrollableRef } = useScroll();
 
   const [evaluateOption, setEvaluateOption] = useState(100);
   const [evaluateMessage, setEvaluateMessage] = useState('');
@@ -63,10 +61,7 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div
-      className={classNames('feedback')}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
+    <div className={classNames('feedback')}>
       <div className="feedback__breadcrumb font-size-base color-origin-text-100">
         <Link href="/home">홈</Link>
         &gt;

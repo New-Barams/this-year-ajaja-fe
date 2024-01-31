@@ -3,7 +3,6 @@
 import { ToTopFloatingButton } from '@/components';
 import { COLOR } from '@/constants';
 import { useAllPlansQuery } from '@/hooks/apis/useAllPlansQuery';
-import { useScroll } from '@/hooks/useScroll';
 import { SortType } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
@@ -14,7 +13,6 @@ import Tab from './Tab/Tab';
 import './index.scss';
 
 export default function ExplorePlans() {
-  const { handleScroll, scrollableRef } = useScroll();
   const [sort, setSort] = useState<SortType>('latest');
   const [current, setCurrent] = useState(true);
   const { loadedPlans, fetchNextPage, hasNextPage } = useAllPlansQuery({
@@ -32,10 +30,7 @@ export default function ExplorePlans() {
     <div className={classNames('explore-plans')}>
       <div className={classNames('explore-plans__wrapper')}>
         <Tab handleSort={handleSort} handleYear={handleYear} />
-        <div
-          ref={scrollableRef}
-          onScroll={handleScroll}
-          className={classNames('explore-plans__plans')}>
+        <div className={classNames('explore-plans__plans')}>
           <InfiniteScroll
             pageStart={0}
             loadMore={() => fetchNextPage()}
@@ -48,10 +43,7 @@ export default function ExplorePlans() {
                 className={classNames('explore-plans__loader')}
               />
             }
-            useWindow={false}
-            getScrollParent={() => {
-              return scrollableRef.current;
-            }}>
+            useWindow={false}>
             <Plans flatLoadedPlans={flatLoadedPlans} />
           </InfiniteScroll>
           <ToTopFloatingButton />
