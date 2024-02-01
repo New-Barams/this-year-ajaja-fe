@@ -1,5 +1,5 @@
 import { DOMAIN } from '@/constants';
-import { PostFeedbacksRequest } from '@/types/apis/feedback/PostFeedbaks';
+import { PostFeedbacksRequest } from '@/types/apis/feedback/PostFeedbacks';
 import { axiosInstanceClient } from '../axiosInstanceClient';
 
 export const postFeedbacks = async ({ planId, body }: PostFeedbacksRequest) => {
