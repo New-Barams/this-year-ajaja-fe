@@ -1,7 +1,6 @@
 'use client';
 
 import { SESSION_STORAGE_KEY, planIcons } from '@/constants';
-import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -29,15 +28,10 @@ export default function CreatePlanIcon({
     }
   }, [iconNumber, setIsFirstStepDataAllExist]);
 
-  const { handleScroll, scrollableRef } = useScroll();
-
   const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
 
   return (
-    <div
-      className={classNames('create-plan-icon')}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
+    <div className={classNames('create-plan-icon')}>
       <div
         className={classNames('create-plan-icon__question', 'font-size-base')}>
         계획을 대표할 아이콘을 정해볼까요?

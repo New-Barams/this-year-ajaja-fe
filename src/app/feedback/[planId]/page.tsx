@@ -3,7 +3,6 @@
 import { Button } from '@/components';
 import FeedbackItem from '@/components/FeedbackItem/FeedbackItem';
 import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
-import { useScroll } from '@/hooks/useScroll';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -18,7 +17,6 @@ export default function FeedbackPage({
   const { planId } = params;
   const { feedback } = useGetFeedbacksQuery(parseInt(planId, 10));
   const { achieveRate, title, feedbacks } = feedback;
-  const { handleScroll, scrollableRef } = useScroll();
   let plan_evaluate_text = '';
 
   if (achieveRate >= 80) {
@@ -61,10 +59,7 @@ export default function FeedbackPage({
           </span>
         </div>
       </div>
-      <div
-        ref={scrollableRef}
-        onScroll={handleScroll}
-        className={classNames('feedback__evaluate-item')}>
+      <div className={classNames('feedback__evaluate-item')}>
         {feedbacks.map((item) => {
           return (
             <FeedbackItem

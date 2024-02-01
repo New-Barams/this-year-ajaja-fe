@@ -1,7 +1,6 @@
 'use client';
 
 import { INPUT_MAX_LENGTH, SESSION_STORAGE_KEY } from '@/constants';
-import { useScroll } from '@/hooks/useScroll';
 import { PlanContentType } from '@/types/Plan';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
@@ -36,8 +35,6 @@ export default function CreatePlanContent({
       setIsSecondStepDataAllExist(false);
     }
   }, [planContent, setIsSecondStepDataAllExist]);
-
-  const { handleScroll, scrollableRef } = useScroll();
 
   const nextTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -83,10 +80,7 @@ export default function CreatePlanContent({
   };
 
   return (
-    <div
-      className={classNames('create-plan-content')}
-      ref={scrollableRef}
-      onScroll={handleScroll}>
+    <div className={classNames('create-plan-content')}>
       <PlanInput
         editable={true}
         kind="title"

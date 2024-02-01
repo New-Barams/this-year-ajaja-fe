@@ -1,21 +1,15 @@
 'use client';
 
-import { useScroll } from '@/hooks/useScroll';
 import Link from 'next/link';
 import React from 'react';
 import './index.scss';
 
 export default function NoticePage() {
-  const { handleScroll, scrollableRef } = useScroll();
-
   return (
     <div className="notice-page__wrapper">
       <h1 className="notice-page__title font-size-xl">공지사항</h1>
 
-      <div
-        className="notice-page__content"
-        ref={scrollableRef}
-        onScroll={handleScroll}>
+      <div className="notice-page__content">
         <p className="notice-page__content__title font-size-lg">
           개인정보 처리방침 도입 안내
         </p>
