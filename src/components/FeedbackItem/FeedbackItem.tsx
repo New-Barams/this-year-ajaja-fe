@@ -99,16 +99,16 @@ export default function FeedbackItem({
               })}>
               {remindMonth}월 {remindDate}일 피드백
             </p>
-            {expired && (
-              <p className="feedback-item__header__percent">{achieve}%</p>
-            )}
             {canCheckRemindMessage ? (
-              <Icon
-                name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
-                size="md"
-                color="gray-300"
-                classNameList={['feedback-item__header__icon']}
-              />
+              <>
+                <p className="feedback-item__header__percent">{achieve}%</p>
+                <Icon
+                  name={isItemOpened ? 'ITEM_CLOSE' : 'ITEM_OPEN'}
+                  size="md"
+                  color="gray-300"
+                  classNameList={['feedback-item__header__icon']}
+                />
+              </>
             ) : (
               <Icon
                 name={'PLAN_CLOSE'}
@@ -118,7 +118,6 @@ export default function FeedbackItem({
               />
             )}
           </div>
-
           {isItemOpened && (
             <div
               className={classNames('feedback-item__message', {
