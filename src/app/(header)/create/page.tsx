@@ -5,14 +5,13 @@ import {
   CreatePlanIcon,
   CreatePlanRemindDate,
   CreatePlanRemindMessage,
+  ModalContinueCreate,
   ModalFixRemindDate,
 } from '@/components';
-import ModalContinueCreate from '@/components/ModalContinueCreate/ModalContinueCreate';
 import { ajajaToast } from '@/components/Toaster/customToast';
-import { SESSION_STORAGE_KEY } from '@/constants';
-import { STEP_NAME } from '@/constants/createPlanStepTitle';
+import { SESSION_STORAGE_KEY, STEP_NAME } from '@/constants';
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
-import { RemindItemType, RemindOptionType } from '@/types/Remind';
+import { RemindItemType, RemindOptionType } from '@/types';
 import { decideRemindDate } from '@/utils/decideRemindDate';
 import { getSessionStorageData } from '@/utils/getSessionStorageData';
 import classNames from 'classnames';
