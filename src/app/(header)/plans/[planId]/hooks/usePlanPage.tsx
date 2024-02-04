@@ -77,15 +77,17 @@ export default function usePlanPage(planId: string) {
       return <SearchingPlan />;
     }
   };
+
+  const pageContent = createPageContent();
   return {
     planId,
     isMyPlan,
     currentURL,
     isDeletePlanModalOpen,
+    pageContent,
     handleCopyLink,
     handleModalClickNo,
     handleModalClickYes,
     handleOpenDeleteModal,
-    createPageContent,
   };
 }

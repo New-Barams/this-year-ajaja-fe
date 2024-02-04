@@ -21,7 +21,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     handleCopyLink,
     handleModalClickNo,
     handleModalClickYes,
-    createPageContent,
+    pageContent,
   } = usePlanPage(params.planId);
 
   return (
@@ -38,7 +38,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             <span>계획</span>
           </div>
           <div className="plans-page__content">
-            {createPageContent()}
+            {pageContent}
             {isMyPlan && (
               <div className="plans-page--share">
                 <h2>공유하기</h2>
