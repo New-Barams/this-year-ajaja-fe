@@ -1,6 +1,6 @@
 'use client';
 
-import { planIcons } from '@/constants/planIcons';
+import { planIcons } from '@/constants';
 import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
 import Image from 'next/image';

@@ -1,6 +1,6 @@
+import { Modal, ModalBasic } from '@/components';
 import classNames from 'classnames';
 import React from 'react';
-import { Modal, ModalBasic } from '..';
 import './index.scss';
 
 interface ModalFixRemindDateProps {

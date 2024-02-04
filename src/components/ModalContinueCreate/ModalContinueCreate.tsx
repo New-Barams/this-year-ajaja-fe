@@ -1,9 +1,9 @@
 'use client';
 
+import { Button, Modal } from '@/components';
 import { useModalClose } from '@/hooks/useModalClose';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
-import { Button, Modal } from '..';
 import './index.scss';
 
 interface ModalContinueCreateProps {

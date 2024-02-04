@@ -9,7 +9,7 @@ import {
   TOTAL_PERIOD_OPTIONS,
 } from '@/constants';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
-import { RemindOptionType } from '@/types/Remind';
+import { RemindOptionType } from '@/types';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import './index.scss';
