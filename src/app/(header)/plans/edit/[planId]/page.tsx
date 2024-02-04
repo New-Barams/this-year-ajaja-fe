@@ -4,64 +4,37 @@ import {
   AjajaButton,
   Button,
   DeletableTag,
+  HelpButton,
   IconSwitchButton,
   Modal,
   ModalSelectIcon,
   PlanInput,
+  TagInput,
 } from '@/components';
-import HelpButton from '@/components/HelpButton/HelpButton';
-import TagInput from '@/components/TagInput/TagInput';
-import { ajajaToast } from '@/components/Toaster/customToast';
 import { planIcons } from '@/constants/planIcons';
-import { useEditPlanMutation } from '@/hooks/apis/useEditPlanMutation';
-import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
-import { useWritablePlan } from '@/hooks/useWritablePlan';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import usePlanEditPage from './hooks/usePlanEditPage';
 import './index.scss';
 
 export default function EditPage({ params }: { params: { planId: string } }) {
-  const { planId } = params;
-  const router = useRouter();
-  const { plan: planData } = useGetPlanQuery(Number(planId), true);
-  const { mutate: editPlan } = useEditPlanMutation(Number(planId));
-  const isMyPlan = planData.writer.owner;
-  //TODO: 권한설정 여기서?
-  useEffect(() => {
-    if (!isMyPlan) {
-      router.replace('/home');
-    }
-  }, [isMyPlan, router]);
   const {
+    planId,
     nextTextAreaRef,
+    isSelectIconModalOpen,
     planContent,
+    planData,
+    setIsSelectIconModalOpen,
     handleAddTag,
     handleChangeCanAjaja,
     handleChangeDescription,
+    handleChangeIconNumber,
     handleChangeIsPublic,
     handleChangeTitle,
+    handleEditPlan,
     handleRemoveTag,
-    handleChangeIconNumber,
-  } = useWritablePlan(planData);
-  const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
-
-  const handleEditPlan = () => {
-    // TODO:
-    editPlan(
-      { planId: Number(planId), planData: planContent },
-      {
-        onError: () => {
-          ajajaToast.error('수정에 실패했습니다.');
-        },
-        onSuccess: () => {
-          router.replace(`/plans/${planId}`);
-        },
-      },
-    );
-  };
+  } = usePlanEditPage(params.planId);
 
   return (
     <div className={classNames('edit-plan-content')}>
