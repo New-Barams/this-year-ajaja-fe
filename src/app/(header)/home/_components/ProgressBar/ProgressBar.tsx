@@ -1,25 +1,13 @@
 'use client';
 
+import { ProgressBarProps } from '@/types';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useProgressBar } from '../hooks';
 import './index.scss';
 
-type ProgressBarProps = {
-  percent: number;
-};
-
 export default function ProgressBar({ percent: Maxpercent }: ProgressBarProps) {
-  const [percent, setPercent] = useState(0);
+  const { percent } = useProgressBar({ percent: Maxpercent });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPercent((pervPercent) =>
-        pervPercent < Maxpercent ? pervPercent + 1 : Maxpercent,
-      );
-    }, 10);
-
-    return () => clearInterval(interval);
-  }, [Maxpercent]);
   return (
     <div className={classNames('progress__wrapper', 'border-round')}>
       <progress
