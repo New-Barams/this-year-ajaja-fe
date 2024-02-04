@@ -2,30 +2,22 @@
 
 import { ToTopFloatingButton } from '@/components';
 import { COLOR } from '@/constants';
-import { useAllPlansQuery } from '@/hooks/apis/useAllPlansQuery';
-import { SortType } from '@/types/apis/plan/GetAllPlans';
 import classNames from 'classnames';
-import { useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { FadeLoader } from 'react-spinners';
 import Plans from './Plans/Plans';
 import Tab from './Tab/Tab';
+import { useExplorePlans } from './hooks';
 import './index.scss';
 
 export default function ExplorePlans() {
-  const [sort, setSort] = useState<SortType>('latest');
-  const [current, setCurrent] = useState(true);
-  const { loadedPlans, fetchNextPage, hasNextPage } = useAllPlansQuery({
-    sort,
-    current,
-  });
-  const flatLoadedPlans = useMemo(() => loadedPlans.flat(), [loadedPlans]);
-  const handleSort = (condition: SortType) => {
-    setSort(condition);
-  };
-  const handleYear = (isNewYear: boolean) => {
-    setCurrent(isNewYear);
-  };
+  const {
+    fetchNextPage,
+    flatLoadedPlans,
+    handleSort,
+    handleYear,
+    hasNextPage,
+  } = useExplorePlans();
   return (
     <div className={classNames('explore-plans')}>
       <div className={classNames('explore-plans__wrapper')}>
