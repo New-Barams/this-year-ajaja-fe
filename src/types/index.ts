@@ -14,3 +14,4 @@ export type {
 export type { SvgProps } from '@/types/Svg';
 export type { TabProps } from '@/types/Tab';
 export type { ProgressBarProps } from '@/types/ProgressBar';
+export type { EvaluateRadioProps, Option } from '@/types/Radio';
