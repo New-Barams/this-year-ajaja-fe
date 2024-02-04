@@ -1,19 +1,18 @@
 'use client';
 
-import { SortType } from '@/types/apis/plan/GetAllPlans';
+import { TabProps } from '@/types';
 import classNames from 'classnames';
-import { useState } from 'react';
 import React from 'react';
+import { useTab } from '../hooks/useTab';
 import './index.scss';
 
-type TabProps = {
-  handleSort: (condition: SortType) => void;
-  handleYear: (isNewYear: boolean) => void;
-};
-
 export default function Tab({ handleSort, handleYear }: TabProps) {
-  const [currentYearTab, setCurrentYearTab] = useState(0);
-  const [currentSortTab, setCurrentSortTab] = useState(0);
+  const {
+    currentSortTab,
+    currentYearTab,
+    selectSortMenuHandler,
+    selectYearMenuHandler,
+  } = useTab({ handleSort, handleYear });
 
   const yearMenu = [
     { name: '새해' },
@@ -23,14 +22,6 @@ export default function Tab({ handleSort, handleYear }: TabProps) {
   ];
   const sortMenu = [{ name: '최신순' }, { name: '인기순' }];
 
-  const selectYearMenuHandler = (index: number) => {
-    setCurrentYearTab(index);
-    handleYear(index === 0 ? true : false);
-  };
-  const selectSortMenuHandler = (index: number) => {
-    setCurrentSortTab(index);
-    handleSort(index === 0 ? 'latest' : 'ajaja');
-  };
   return (
     <div className={classNames('tab__wrapper')}>
       <div className={classNames('tab__wrapper-year')}>
