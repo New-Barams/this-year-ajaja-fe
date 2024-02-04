@@ -2,11 +2,11 @@
 
 import { Button } from '@/components';
 import FeedbackItem from '@/components/FeedbackItem/FeedbackItem';
-import { useGetFeedbacksQuery } from '@/hooks/apis/useGetFeedbacksQuery';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { usePlanIdPage } from './_components/hooks';
 import './_components/index.scss';
 
 export default function FeedbackPage({
@@ -14,19 +14,16 @@ export default function FeedbackPage({
 }: {
   params: { planId: string };
 }) {
-  const { planId } = params;
-  const { feedback } = useGetFeedbacksQuery(parseInt(planId, 10));
-  const { achieveRate, title, feedbacks } = feedback;
-  let plan_evaluate_text = '';
-
-  if (achieveRate >= 80) {
-    plan_evaluate_text = '매우 잘 지키고 있어요!';
-  } else if (achieveRate >= 50) {
-    plan_evaluate_text = '잘 지키고 있어요!';
-  } else {
-    plan_evaluate_text = '잘 지켜주세요!';
-  }
-
+  const {
+    planId,
+    feedback,
+    achieveRate,
+    feedbacks,
+    plan_evaluate_text,
+    title,
+  } = usePlanIdPage({
+    params,
+  });
   return (
     <div className={classNames('feedback')}>
       <div className="feedback__breadcrumb font-size-base color-origin-text-100">
