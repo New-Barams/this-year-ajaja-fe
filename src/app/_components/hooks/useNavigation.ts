@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-export function useNavigation({ hasAuth }: { hasAuth: boolean }) {
+export default function useNavigation({ hasAuth }: { hasAuth: boolean }) {
   const pathName = usePathname();
   const [isLogin, setIsLogin] = useState(hasAuth);
   const [canMakeNewPlan, setCanMakeNewPlan] =

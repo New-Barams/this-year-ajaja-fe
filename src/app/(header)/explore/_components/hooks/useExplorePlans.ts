@@ -2,7 +2,7 @@ import { useAllPlansQuery } from '@/hooks/apis/useAllPlansQuery';
 import { SortType } from '@/types/apis/plan/GetAllPlans';
 import { useMemo, useState } from 'react';
 
-export const useExplorePlans = () => {
+export default function useExplorePlans() {
   const [sort, setSort] = useState<SortType>('latest');
   const [current, setCurrent] = useState(true);
   const { loadedPlans, fetchNextPage, hasNextPage } = useAllPlansQuery({
@@ -28,4 +28,4 @@ export const useExplorePlans = () => {
     handleSort,
     handleYear,
   };
-};
+}

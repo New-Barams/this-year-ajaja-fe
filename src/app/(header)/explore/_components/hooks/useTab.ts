@@ -1,7 +1,7 @@
 import { TabProps } from '@/types/Tab';
 import { useState } from 'react';
 
-export const useTab = ({ handleSort, handleYear }: TabProps) => {
+export default function useTab({ handleSort, handleYear }: TabProps) {
   const [currentYearTab, setCurrentYearTab] = useState(0);
   const [currentSortTab, setCurrentSortTab] = useState(0);
   const selectYearMenuHandler = (index: number) => {
@@ -20,4 +20,4 @@ export const useTab = ({ handleSort, handleYear }: TabProps) => {
     selectYearMenuHandler,
     selectSortMenuHandler,
   };
-};
+}

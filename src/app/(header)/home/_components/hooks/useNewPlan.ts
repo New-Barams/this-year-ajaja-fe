@@ -1,8 +1,8 @@
 import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { useRecoilState } from 'recoil';
 
-export const useNewPlan = () => {
+export default function useNewPlan() {
   const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
 
   return { canMakeNewPlan };
-};
+}
