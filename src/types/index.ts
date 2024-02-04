@@ -12,3 +12,4 @@ export type {
   RemindData,
 } from '@/types/Remind';
 export type { SvgProps } from '@/types/Svg';
+export type { TabProps } from '@/types/Tab';
