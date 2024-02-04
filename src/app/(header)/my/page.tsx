@@ -24,6 +24,7 @@ export default function MyPage() {
     isOpenLogOutModal,
     isOpenRemindWayModal,
     isOpenWithdrawalModal,
+    remindWay,
     handleChangeNickName,
     handleChangeReceiveType,
     handleCloseEmailVerificationModal,
@@ -36,7 +37,6 @@ export default function MyPage() {
     handleRealWithdrawal,
     handleSetVerifiedEmail,
     handleWithdrawal,
-    createRemindWayText,
     setIsOpenRemindWayModal,
   } = useMyPage();
 
@@ -99,8 +99,7 @@ export default function MyPage() {
               리마인드 및 응원 메시지
             </h2>
             <div className="my-page__remindway--content font-size-base">
-              {createRemindWayText()}을 통해서 리마인드 및 응원 메시지를 받고
-              있어요
+              {remindWay}을 통해서 리마인드 및 응원 메시지를 받고 있어요
             </div>
             <Button
               border={false}

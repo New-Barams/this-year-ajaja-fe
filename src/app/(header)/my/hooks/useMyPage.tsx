@@ -113,7 +113,7 @@ export default function useMyPage() {
       </span>
     );
   };
-
+  const remindWay = createRemindWayText();
   return {
     receiveType,
     nickname,
@@ -137,7 +137,7 @@ export default function useMyPage() {
     handleRealWithdrawal,
     handleSetVerifiedEmail,
     handleWithdrawal,
-    createRemindWayText,
+    remindWay,
     setIsOpenRemindWayModal,
   };
 }
