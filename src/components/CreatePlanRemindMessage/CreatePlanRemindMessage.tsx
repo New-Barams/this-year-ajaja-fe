@@ -1,12 +1,11 @@
 'use client';
 
+import { ModalSendRemindExample, WritableRemindItem } from '@/components';
 import { SESSION_STORAGE_KEY } from '@/constants';
 import { useSessionStorage } from '@/hooks/useSessionStorage';
-import { RemindItemType } from '@/types/Remind';
+import { RemindItemType } from '@/types';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
-import { WritableRemindItem } from '..';
-import ModalSendRemindExample from '../ModalSendRemindExample/ModalSendRemindExample';
 import './index.scss';
 
 interface CreatePlanRemindMessageProps {

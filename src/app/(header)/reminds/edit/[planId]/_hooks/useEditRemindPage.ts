@@ -1,5 +1,5 @@
 import { SESSION_STORAGE_KEY } from '@/constants';
-import { RemindData } from '@/types/Remind';
+import { RemindData } from '@/types';
 import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
 import { useState } from 'react';
 

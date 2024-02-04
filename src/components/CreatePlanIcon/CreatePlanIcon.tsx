@@ -1,11 +1,11 @@
 'use client';
 
+import { CreatePlanIconExample, Modal, ModalSelectIcon } from '@/components';
 import { SESSION_STORAGE_KEY, planIcons } from '@/constants';
+import { useSessionStorage } from '@/hooks/useSessionStorage';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { CreatePlanIconExample, Modal, ModalSelectIcon } from '..';
-import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
 
 interface CreatePlanIconProps {
