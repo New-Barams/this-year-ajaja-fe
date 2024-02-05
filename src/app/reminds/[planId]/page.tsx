@@ -2,36 +2,20 @@
 
 import { Button, DebounceSwitchButton, ReadOnlyRemindItem } from '@/components';
 import { REMIND_TIME_TEXT } from '@/constants';
-import { useGetRemindQuery } from '@/hooks/apis/useGetRemindQuery';
-import { useToggleIsRemindableMutation } from '@/hooks/apis/useToggleIsRemindable';
-import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import useRemindPage from './hooks/useRemindPage';
 import './index.scss';
 
 export default function RemindPage({ params }: { params: { planId: string } }) {
   const { planId } = params;
-  const router = useRouter();
-  const isSeason = checkIsSeason();
-
-  const { remindData } = useGetRemindQuery(
-    parseInt(planId, 10),
-    checkIsSeason(),
-  );
-
-  const { mutate: toggleIsRemindableAPI } = useToggleIsRemindableMutation(
-    parseInt(planId, 10),
-  );
-
-  const handleToggleIsRemindable = () => {
-    toggleIsRemindableAPI(parseInt(planId, 10));
-  };
-
-  const onClickGoBackToPlanPage = () => {
-    router.push(`/plans/${planId}`);
-  };
+  const {
+    isSeason,
+    remindData,
+    handleToggleIsRemindable,
+    onClickGoBackToPlanPage,
+  } = useRemindPage(planId);
 
   return (
     <div className={classNames(['remind-page'])}>
