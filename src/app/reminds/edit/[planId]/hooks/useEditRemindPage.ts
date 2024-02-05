@@ -13,7 +13,7 @@ import { changeRemindTimeToNumber } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const useEditRemindPage = (planId: string) => {
+export default function useEditRemindPage(planId: string) {
   const router = useRouter();
 
   const { remindData } = useGetRemindQuery(
@@ -229,4 +229,4 @@ export const useEditRemindPage = (planId: string) => {
     goToRemindMessageStep,
     onClickRemindDateModalYes,
   };
-};
+}
