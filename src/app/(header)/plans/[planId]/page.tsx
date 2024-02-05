@@ -1,92 +1,28 @@
 'use client';
 
-import { Button, Icon, Modal, ModalBasic, ReadOnlyPlan } from '@/components';
-import KakaoShareButton from '@/components/KakaoShareButton/KakaoShareButton';
-import { ajajaToast } from '@/components/Toaster/customToast';
-import { useDeletePlanMutation } from '@/hooks/apis/useDeletePlanMutation';
-import { useGetPlanQuery } from '@/hooks/apis/useGetPlanQuery';
-import { useIsLogIn } from '@/hooks/useIsLogIn';
-import { isMyPlanStore } from '@/stores/isMyPlanStore';
-import { checkIsSeason } from '@/utils/checkIsSeason';
+import {
+  Button,
+  Icon,
+  KakaoShareButton,
+  Modal,
+  ModalBasic,
+} from '@/components';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import NotPublic from './_components/NotPublic/NotPublic';
-import SearchingPlan from './_components/SearchingPlan/SearchingPlan';
+import usePlanPage from './hooks/usePlanPage';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
-  const { isLogin } = useIsLogIn();
-  const { planId } = params;
-  const router = useRouter();
-  const isSeason = checkIsSeason();
-  const [currentURL, setCurrentURL] = useState<string>('');
-  const { plan } = useGetPlanQuery(Number(planId), isLogin);
-  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-  const [isClientSide, setIsClientSide] = useState<boolean>(false);
-
-  const { mutate: deletePlanAPI } = useDeletePlanMutation();
-  const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
-  const isMyPlan = plan.writer.owner;
-
-  // isVisible이라는 변수는 isMyPlan 과 plan.public값에 의해서 정해진다. 하지만 서버에서는 둘 다 undefined이다 그러면 값이 undefined으로 falsy하다.
-  //그래서 초기html을 받으면 falsy한 html을 받느다.  서버와 클라이언트는 typeof window를 통해서 할 수 있다.
-  // 또 문제가 이 부분으로 인해 notPublic한 계획도 초기 렌더링시 계획이 보이게된다. 그럼 한번 더싼다. typeof window를 확인해서
-  //undefined면 isLoading
-  useEffect(() => {
-    if (typeof window !== 'undefined') setIsClientSide(true);
-    return () => {
-      setIsClientSide(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    const current = window.location.href;
-    setCurrentURL(current);
-    setIsMyPlanStore(isMyPlan);
-    return () => {
-      setIsMyPlanStore(false);
-    };
-  }, [setIsMyPlanStore, isMyPlan]);
-
-  const handleModalClickYes = () => {
-    setIsDeletePlanModalOpen(false);
-    deletePlanAPI(parseInt(planId, 10));
-    router.push('/home');
-  };
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(currentURL);
-    ajajaToast.success('링크가 복사되었습니다.');
-  };
-
-  const handleModalClickNo = () => {
-    setIsDeletePlanModalOpen(false);
-  };
-  const handleOpenDeleteModal = () => {
-    setIsDeletePlanModalOpen(true);
-  };
-  const createPageContent = () => {
-    if (isClientSide) {
-      if (isMyPlan || plan.public) {
-        return (
-          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
-            {isMyPlan && isSeason && (
-              <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                <span onClick={handleOpenDeleteModal}>삭제</span>
-              </div>
-            )}
-          </ReadOnlyPlan>
-        );
-      } else {
-        return <NotPublic />;
-      }
-    } else {
-      return <SearchingPlan />;
-    }
-  };
+  const {
+    planId,
+    isDeletePlanModalOpen,
+    isMyPlan,
+    currentURL,
+    handleCopyLink,
+    handleModalClickNo,
+    handleModalClickYes,
+    pageContent,
+  } = usePlanPage(params.planId);
 
   return (
     <>
@@ -102,7 +38,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             <span>계획</span>
           </div>
           <div className="plans-page__content">
-            {createPageContent()}
+            {pageContent}
             {isMyPlan && (
               <div className="plans-page--share">
                 <h2>공유하기</h2>
