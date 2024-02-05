@@ -3,41 +3,19 @@
 import { Dropdown } from '@/components';
 import { maxPlan } from '@/constants/plan';
 import { planIcons } from '@/constants/planIcons';
-import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { GetMyPlansResponse } from '@/types/apis/plan/GetMyPlans';
 import { checkThisYear } from '@/utils/checkThisYear';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import NewPlan from './NewPlan/NewPlan';
 import Plan from './Plan/Plan';
 import ProgressBar from './ProgressBar/ProgressBar';
+import { useMyPlan } from './hooks';
 
-type MyPlanProps = {
-  myPlans: GetMyPlansResponse;
-};
-
-export default function MyPlan({ myPlans }: MyPlanProps) {
-  const { data: myPlansData } = myPlans;
-  const yearList = myPlansData.map((x) => x.year);
-  const setCanMakeNewPlan = useSetRecoilState(canMakeNewPlanStore);
-  const [year, setYear] = useState(yearList[0]);
-  const [yearData, setYearData] = useState(myPlansData[0]);
-  const [yearDataLength, setYearDataLength] = useState(
-    myPlansData[0].getPlanList.length,
+export default function MyPlan({ myPlans }: { myPlans: GetMyPlansResponse }) {
+  const { PERIOD_OPTIONS, setYear, year, yearData, yearDataLength } = useMyPlan(
+    { myPlans },
   );
-
-  const PERIOD_OPTIONS = yearList.map((x) => {
-    return { value: x, name: `${x}년 계획` };
-  });
-
-  useEffect(() => {
-    const chosenYearData = myPlansData.find((x) => x.year === year)!;
-    setYearData(chosenYearData);
-    setYearDataLength(chosenYearData.getPlanList.length);
-    setCanMakeNewPlan(!!(maxPlan - chosenYearData.getPlanList.length));
-  }, [year, myPlansData, setYearDataLength, setCanMakeNewPlan]);
   return (
     <>
       <div className={classNames('home__header')}>
