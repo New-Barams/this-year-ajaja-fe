@@ -2,63 +2,29 @@
 
 import { Button, Modal, ModalBasic, PlanInput } from '@/components';
 import WrongApproach from '@/components/WrongApproach/WrongApproach';
-import { usePostFeedbacksMutation } from '@/hooks/apis/usePostFeedbacksMutation';
-import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 import EvaluateRadio from './_components/EvaluateRadio';
+import { useEvaluatePage } from './_components/hooks';
 import './_components/index.scss';
 
 export default function FeedbackPage() {
-  const searchParams = useSearchParams();
-  const title = searchParams.get('title');
-  const month = searchParams.get('month');
-  const day = searchParams.get('day');
-  const planId = searchParams.get('planId');
-
-  const [evaluateOption, setEvaluateOption] = useState(100);
-  const [evaluateMessage, setEvaluateMessage] = useState('');
-  const [errorCode, setErrorCode] = useState<null | number>();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isFeedbackSendModalOpen, setIsFeedbackSendModalOpen] = useState(false);
-  const { mutate: postFeedbacks, error } = usePostFeedbacksMutation(
-    parseInt(planId as string, 10),
-  );
-
-  if (error) {
-    const axiosError = error as AxiosError;
-    const status = axiosError.response?.status;
-    if (status && status !== errorCode) {
-      setErrorCode(status);
-      switch (status) {
-        case 400:
-          setErrorMessage('피드백 기간이 아닙니다!');
-          break;
-        case 409:
-          setErrorMessage('이미 평가된 피드백입니다!');
-          break;
-      }
-    }
-  }
-
-  const handleChangeMessage = (changedMessage: string) => {
-    setEvaluateMessage(changedMessage);
-  };
-
-  const handleModalClickNo = () => {
-    setIsFeedbackSendModalOpen(false);
-  };
-  const handleModalClickYes = () => {
-    postFeedbacks({
-      planId: parseInt(planId as string, 10),
-      body: { rate: evaluateOption, message: evaluateMessage },
-    });
-  };
-  const handleModalOpen = () => {
-    setIsFeedbackSendModalOpen(true);
-  };
+  const {
+    day,
+    errorCode,
+    errorMessage,
+    evaluateMessage,
+    evaluateOption,
+    handleChangeMessage,
+    handleModalClickNo,
+    handleModalClickYes,
+    handleModalOpen,
+    isFeedbackSendModalOpen,
+    month,
+    planId,
+    setEvaluateOption,
+    title,
+  } = useEvaluatePage();
 
   return (
     <div className={classNames('feedback')}>

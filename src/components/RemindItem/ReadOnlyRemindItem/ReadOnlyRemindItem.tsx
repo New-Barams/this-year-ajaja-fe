@@ -1,7 +1,7 @@
 'use client';
 
 import { Icon, RemindInput } from '@/components';
-import { ReadOnlyRemindItemData } from '@/types/Remind';
+import { ReadOnlyRemindItemData } from '@/types';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';

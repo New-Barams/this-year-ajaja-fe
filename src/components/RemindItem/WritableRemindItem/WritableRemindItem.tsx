@@ -1,7 +1,7 @@
 'use client';
 
 import { Icon, Modal, ModalBasic, RemindInput } from '@/components';
-import { INPUT_MAX_LENGTH } from '@/constants/userInputMaxLength';
+import { INPUT_MAX_LENGTH } from '@/constants';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import './index.scss';

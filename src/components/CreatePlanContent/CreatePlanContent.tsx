@@ -1,12 +1,12 @@
 'use client';
 
+import { HelpButton } from '@/components';
 import { INPUT_MAX_LENGTH, SESSION_STORAGE_KEY } from '@/constants';
-import { PlanContentType } from '@/types/Plan';
+import { useSessionStorage } from '@/hooks/useSessionStorage';
+import { PlanContentType } from '@/types';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
 import { DeletableTag, IconSwitchButton, PlanInput, TagInput } from '..';
-import HelpButton from '../HelpButton/HelpButton';
-import { useSessionStorage } from './../../hooks/useSessionStorage';
 import './index.scss';
 
 interface CreatePlanContentProps {

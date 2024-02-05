@@ -1,11 +1,16 @@
-import { planIcons } from '@/constants/planIcons';
+import {
+  AjajaButton,
+  DebounceSwitchButton,
+  HelpButton,
+  PlanInput,
+  Tag,
+} from '@/components';
+import { ajajaToast } from '@/components/Toaster/customToast';
+import { planIcons } from '@/constants';
 import { useToggleAjajaNotificationMutation } from '@/hooks/apis/useToggleAjajaNotificationMutation';
 import { useToggleIsPublicMutation } from '@/hooks/apis/useToggleIsPublicMutation';
-import { PlanData } from '@/types/apis/plan/GetPlan';
+import { PlanData } from '@/types/apis';
 import Image from 'next/image';
-import { AjajaButton, DebounceSwitchButton, PlanInput, Tag } from '..';
-import HelpButton from '../HelpButton/HelpButton';
-import { ajajaToast } from '../Toaster/customToast';
 import './index.scss';
 
 interface ReadOnlyPlanProps {
