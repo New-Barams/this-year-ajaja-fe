@@ -3,7 +3,7 @@
 import { TabProps } from '@/types';
 import classNames from 'classnames';
 import React from 'react';
-import { useTab } from '../hooks/useTab';
+import { useTab } from '../hooks';
 import './index.scss';
 
 export default function Tab({ handleSort, handleYear }: TabProps) {
