@@ -9,7 +9,7 @@ import {
   decideRemindDate,
   getSessionStorageData,
 } from '@/utils';
-import { changeRemindTimeToNumber } from '@/utils/changeRemindTimeToNumber';
+import { changeRemindTimeToNumber } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 

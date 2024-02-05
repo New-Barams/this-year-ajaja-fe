@@ -10,7 +10,7 @@ import { EDIT_REMIND_STEP_TITLE } from '@/constants';
 import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
-import { useEditRemindPage } from './_hooks/useEditRemindPage';
+import { useEditRemindPage } from './hooks/useEditRemindPage';
 import './index.scss';
 
 export default function EditRemindPage({
