@@ -1,14 +1,12 @@
 import { Icon } from '@/components';
-import { canMakeNewPlanStore } from '@/stores/canMakeNewPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRecoilState } from 'recoil';
+import { useNewPlan } from '../hooks';
 import './index.scss';
 
 export default function NewPlan() {
-  const [canMakeNewPlan] = useRecoilState(canMakeNewPlanStore);
-
+  const { canMakeNewPlan } = useNewPlan();
   return (
     <>
       <div className={classNames('new-plan__servey')}>
