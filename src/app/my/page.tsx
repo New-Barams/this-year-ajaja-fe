@@ -21,8 +21,8 @@ export default function MyPage() {
     emailVerified,
     isChangeReceiveTypePending,
     modalState,
-    setModalState,
     remindWay,
+    dispatchModalState,
     handleRealLogOut,
     handleRealWithdrawal,
     handleSetVerifiedEmail,
@@ -81,10 +81,7 @@ export default function MyPage() {
               background="primary"
               color="white-100"
               onClick={() => {
-                setModalState((prevState) => ({
-                  ...prevState,
-                  emailModal: true,
-                }));
+                dispatchModalState('openEmailModal');
               }}>
               이메일 {emailVerified ? '변경' : '인증'}
             </Button>
@@ -101,10 +98,7 @@ export default function MyPage() {
               background="primary"
               color="white-100"
               onClick={() => {
-                setModalState((prevState) => ({
-                  ...prevState,
-                  remindWayModal: true,
-                }));
+                dispatchModalState('openRemindWayModal');
               }}>
               알림 방식 변경
             </Button>
@@ -118,20 +112,14 @@ export default function MyPage() {
             <button
               className="my-page__etc--logout color-origin-text-100"
               onClick={() => {
-                setModalState((prevState) => ({
-                  ...prevState,
-                  logOutModal: true,
-                }));
+                dispatchModalState('openLogOutModal');
               }}>
               로그아웃
             </button>
             <button
               className="my-page__etc--withdrawal color-origin-text-300"
               onClick={() => {
-                setModalState((prevState) => ({
-                  ...prevState,
-                  withdrawalModal: true,
-                }));
+                dispatchModalState('openWithdrawalModal');
               }}>
               회원 탈퇴
             </button>
@@ -147,10 +135,7 @@ export default function MyPage() {
             receiveType={receiveType}
             onClickYes={handleChangeReceiveType}
             onClickNo={() => {
-              setModalState((prevState) => ({
-                ...prevState,
-                remindWayModal: false,
-              }));
+              dispatchModalState('closeModal');
             }}>
             알림 방식 변경
           </ModalRemindWay>
@@ -160,10 +145,7 @@ export default function MyPage() {
         <Modal>
           <ModalVerification
             handleCloseModal={() => {
-              setModalState((prevState) => ({
-                ...prevState,
-                emailModal: false,
-              }));
+              dispatchModalState('closeModal');
             }}
             setVerifiedEmail={handleSetVerifiedEmail}
             defaultValue={emailVerified ? '' : defaultEmail}>
@@ -175,10 +157,7 @@ export default function MyPage() {
         <Modal>
           <ModalBasic
             onClickNo={() => {
-              setModalState((prevState) => ({
-                ...prevState,
-                logOutModal: false,
-              }));
+              dispatchModalState('closeModal');
             }}
             onClickYes={handleRealLogOut}
             confirmSentense="로그아웃 하기">
@@ -191,10 +170,7 @@ export default function MyPage() {
           <ModalBasic
             onClickYes={handleRealWithdrawal}
             onClickNo={() => {
-              setModalState((prevState) => ({
-                ...prevState,
-                withdrawalModal: false,
-              }));
+              dispatchModalState('closeModal');
             }}
             confirmSentense="회원탈퇴 하기">
             정말 회원 탈퇴를 진행 하시겠습니까? 탈퇴시 모든 정보가 삭제됩니다.
