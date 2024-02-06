@@ -20,24 +20,14 @@ export default function MyPage() {
     defaultEmail,
     emailVerified,
     isChangeReceiveTypePending,
-    isOpenEmailModal,
-    isOpenLogOutModal,
-    isOpenRemindWayModal,
-    isOpenWithdrawalModal,
+    modalState,
+    setModalState,
     remindWay,
-    handleChangeNickName,
-    handleChangeReceiveType,
-    handleCloseEmailVerificationModal,
-    handleCloseLogOutModal,
-    handleCloseWithdrawalModal,
-    handleGORemindWay,
-    handleGoEmailVerification,
-    handleLogOut,
     handleRealLogOut,
     handleRealWithdrawal,
     handleSetVerifiedEmail,
-    handleWithdrawal,
-    setIsOpenRemindWayModal,
+    handleChangeNickName,
+    handleChangeReceiveType,
   } = useMyPage();
 
   return (
@@ -90,7 +80,12 @@ export default function MyPage() {
               border={false}
               background="primary"
               color="white-100"
-              onClick={handleGoEmailVerification}>
+              onClick={() => {
+                setModalState((prevState) => ({
+                  ...prevState,
+                  emailModal: true,
+                }));
+              }}>
               이메일 {emailVerified ? '변경' : '인증'}
             </Button>
           </div>
@@ -105,7 +100,12 @@ export default function MyPage() {
               border={false}
               background="primary"
               color="white-100"
-              onClick={handleGORemindWay}>
+              onClick={() => {
+                setModalState((prevState) => ({
+                  ...prevState,
+                  remindWayModal: true,
+                }));
+              }}>
               알림 방식 변경
             </Button>
           </div>
@@ -117,18 +117,28 @@ export default function MyPage() {
             </Link>
             <button
               className="my-page__etc--logout color-origin-text-100"
-              onClick={handleLogOut}>
+              onClick={() => {
+                setModalState((prevState) => ({
+                  ...prevState,
+                  logOutModal: true,
+                }));
+              }}>
               로그아웃
             </button>
             <button
               className="my-page__etc--withdrawal color-origin-text-300"
-              onClick={handleWithdrawal}>
+              onClick={() => {
+                setModalState((prevState) => ({
+                  ...prevState,
+                  withdrawalModal: true,
+                }));
+              }}>
               회원 탈퇴
             </button>
           </div>
         </div>
       </div>
-      {isOpenRemindWayModal && (
+      {modalState.remindWayModal && (
         <Modal>
           <ModalRemindWay
             isVerified={emailVerified}
@@ -137,37 +147,55 @@ export default function MyPage() {
             receiveType={receiveType}
             onClickYes={handleChangeReceiveType}
             onClickNo={() => {
-              setIsOpenRemindWayModal(false);
+              setModalState((prevState) => ({
+                ...prevState,
+                remindWayModal: false,
+              }));
             }}>
             알림 방식 변경
           </ModalRemindWay>
         </Modal>
       )}
-      {isOpenEmailModal && (
+      {modalState.emailModal && (
         <Modal>
           <ModalVerification
-            handleCloseModal={handleCloseEmailVerificationModal}
+            handleCloseModal={() => {
+              setModalState((prevState) => ({
+                ...prevState,
+                emailModal: false,
+              }));
+            }}
             setVerifiedEmail={handleSetVerifiedEmail}
             defaultValue={emailVerified ? '' : defaultEmail}>
             이메일 {emailVerified ? '변경' : '인증'}
           </ModalVerification>
         </Modal>
       )}
-      {isOpenLogOutModal && (
+      {modalState.logOutModal && (
         <Modal>
           <ModalBasic
-            onClickNo={handleCloseLogOutModal}
+            onClickNo={() => {
+              setModalState((prevState) => ({
+                ...prevState,
+                logOutModal: false,
+              }));
+            }}
             onClickYes={handleRealLogOut}
             confirmSentense="로그아웃 하기">
             로그아웃 하시겠습니까?
           </ModalBasic>
         </Modal>
       )}
-      {isOpenWithdrawalModal && (
+      {modalState.withdrawalModal && (
         <Modal>
           <ModalBasic
             onClickYes={handleRealWithdrawal}
-            onClickNo={handleCloseWithdrawalModal}
+            onClickNo={() => {
+              setModalState((prevState) => ({
+                ...prevState,
+                withdrawalModal: false,
+              }));
+            }}
             confirmSentense="회원탈퇴 하기">
             정말 회원 탈퇴를 진행 하시겠습니까? 탈퇴시 모든 정보가 삭제됩니다.
           </ModalBasic>

@@ -11,6 +11,20 @@ import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+type ModalState = {
+  emailModal: boolean;
+  logOutModal: boolean;
+  withdrawalModal: boolean;
+  remindWayModal: boolean;
+};
+
+const INIT_MODAL_STATE: ModalState = {
+  emailModal: false,
+  logOutModal: false,
+  withdrawalModal: false,
+  remindWayModal: false,
+};
+
 export default function useMyPage() {
   const queryClient = useQueryClient();
   const { userInformation } = useGetUserInformationQuery();
@@ -19,12 +33,7 @@ export default function useMyPage() {
     userInformation;
   const { changeReceiveType, isChangeReceiveTypePending } =
     usePutUserReceiveMutation();
-  const [isOpenEmailModal, setIsOpenEmailModal] = useState<boolean>(false);
-  const [isOpenLogOutModal, setIsOpenLogOutModal] = useState<boolean>(false);
-  const [isOpenWithdrawalModal, setIsOpenWithdrawalModal] =
-    useState<boolean>(false);
-  const [isOpenRemindWayModal, setIsOpenRemindWayModal] =
-    useState<boolean>(false);
+  const [modalState, setModalState] = useState<ModalState>(INIT_MODAL_STATE);
   const router = useRouter();
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
@@ -39,27 +48,9 @@ export default function useMyPage() {
       },
     });
   };
-  const handleGoEmailVerification = () => {
-    setIsOpenEmailModal(true);
-  };
-  const handleGORemindWay = () => {
-    setIsOpenRemindWayModal(true);
-  };
-  const handleCloseEmailVerificationModal = () => {
-    setIsOpenEmailModal(false);
-  };
-  const handleLogOut = () => {
-    setIsOpenLogOutModal(true);
-  };
 
   const handleRealLogOut = async () => {
     router.push(KAKAO_LOGOUT_URL);
-  };
-  const handleCloseLogOutModal = () => {
-    setIsOpenLogOutModal(false);
-  };
-  const handleWithdrawal = () => {
-    setIsOpenWithdrawalModal(true);
   };
   const handleRealWithdrawal = () => {
     deleteUsers().then(() => {
@@ -68,9 +59,7 @@ export default function useMyPage() {
       ajajaToast.success('회원탈퇴에 성공했습니다.');
     });
   };
-  const handleCloseWithdrawalModal = () => {
-    setIsOpenWithdrawalModal(false);
-  };
+
   const handleSetVerifiedEmail = () => {
     Promise.all([
       queryClient.invalidateQueries({
@@ -115,29 +104,19 @@ export default function useMyPage() {
   };
   const remindWay = createRemindWayText();
   return {
+    modalState,
     receiveType,
     nickname,
     remindEmail,
     defaultEmail,
     emailVerified,
     isChangeReceiveTypePending,
-    isOpenEmailModal,
-    isOpenLogOutModal,
-    isOpenRemindWayModal,
-    isOpenWithdrawalModal,
+    remindWay,
+    setModalState,
+    handleSetVerifiedEmail,
+    handleRealWithdrawal,
+    handleRealLogOut,
     handleChangeNickName,
     handleChangeReceiveType,
-    handleCloseEmailVerificationModal,
-    handleCloseLogOutModal,
-    handleCloseWithdrawalModal,
-    handleGORemindWay,
-    handleGoEmailVerification,
-    handleLogOut,
-    handleRealLogOut,
-    handleRealWithdrawal,
-    handleSetVerifiedEmail,
-    handleWithdrawal,
-    remindWay,
-    setIsOpenRemindWayModal,
   };
 }
