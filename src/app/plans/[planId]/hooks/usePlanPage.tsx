@@ -7,7 +7,7 @@ import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import NotPublic from '../_components/NotPublic/NotPublic';
 import SearchingPlan from '../_components/SearchingPlan/SearchingPlan';
@@ -16,21 +16,27 @@ export default function usePlanPage(planId: string) {
   const { isLogin } = useIsLogIn();
   const router = useRouter();
   const isSeason = checkIsSeason();
-  const [currentURL, setCurrentURL] = useState<string>('');
   const { plan } = useGetPlanQuery(Number(planId), isLogin);
+
+  const [currentURL, setCurrentURL] = useState<string>('');
+
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-  const [isClientSide, setIsClientSide] = useState<boolean>(false);
+  //ref로 변경, 서버사이드가 작동되지 않도록 막기
 
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
   const isMyPlan = plan.writer.owner;
 
+  const isClientSide = useRef(false);
+
   useEffect(() => {
-    if (typeof window !== 'undefined') setIsClientSide(true);
+    if (typeof window !== 'undefined') isClientSide.current = true;
     return () => {
-      setIsClientSide(false);
+      isClientSide.current = false;
     };
   }, []);
+
+  //이 useEffect는 합칠 수 있지 않을까?
 
   useEffect(() => {
     const current = window.location.href;
