@@ -1,11 +1,10 @@
 'use client';
 
 import { CreatePlanIconExample, Modal, ModalSelectIcon } from '@/components';
-import { SESSION_STORAGE_KEY, planIcons } from '@/constants';
-import { useSessionStorage } from '@/hooks/useSessionStorage';
+import { planIcons } from '@/constants';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import useCreatePlanIcon from './hooks/useCreatePlanIcon';
 import './index.scss';
 
 interface CreatePlanIconProps {
@@ -15,20 +14,12 @@ interface CreatePlanIconProps {
 export default function CreatePlanIcon({
   setIsFirstStepDataAllExist,
 }: CreatePlanIconProps) {
-  const [iconNumber, setIconNumber] = useSessionStorage<number | null>({
-    key: SESSION_STORAGE_KEY.STEP_1,
-    initialValue: null,
-  });
-
-  useEffect(() => {
-    if (iconNumber) {
-      setIsFirstStepDataAllExist(true);
-    } else {
-      setIsFirstStepDataAllExist(false);
-    }
-  }, [iconNumber, setIsFirstStepDataAllExist]);
-
-  const [isSelectIconModalOpen, setIsSelectIconModalOpen] = useState(false);
+  const {
+    iconNumber,
+    setIconNumber,
+    isSelectIconModalOpen,
+    setIsSelectIconModalOpen,
+  } = useCreatePlanIcon({ setIsFirstStepDataAllExist });
 
   return (
     <div className={classNames('create-plan-icon')}>
