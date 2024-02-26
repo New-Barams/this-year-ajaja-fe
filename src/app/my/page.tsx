@@ -21,7 +21,6 @@ export default function MyPage() {
     emailVerified,
     isChangeReceiveTypePending,
     modalState,
-    remindWay,
     dispatchModalState,
     handleRealLogOut,
     handleRealWithdrawal,
@@ -91,7 +90,17 @@ export default function MyPage() {
               리마인드 및 응원 메시지
             </h2>
             <div className="my-page__remindway--content font-size-base">
-              {remindWay}을 통해서 리마인드 및 응원 메시지를 받고 있어요
+              {receiveType === 'both' ? (
+                <p className="color-origin-primary">
+                  이메일<span className="color-origin-text-100">과</span>{' '}
+                  카카오톡
+                </p>
+              ) : (
+                <span className="color-origin-primary">
+                  {receiveType === 'email' ? '이메일' : '카카오톡'}
+                </span>
+              )}
+              을 통해서 리마인드 및 응원 메시지를 받고 있어요
             </div>
             <Button
               border={false}

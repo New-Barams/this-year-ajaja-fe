@@ -51,8 +51,8 @@ const modalReducer = (state: ModalState, action: ModalAction) => {
       return {
         emailModal: false,
         logOutModal: false,
-        withdrawalModal: true,
-        remindWayModal: false,
+        withdrawalModal: false,
+        remindWayModal: true,
       };
     case 'openWithdrawalModal':
       return {
@@ -137,22 +137,6 @@ export default function useMyPage() {
     });
   };
 
-  const createRemindWayText = () => {
-    if (receiveType === 'both') {
-      return (
-        <>
-          <span className="color-origin-primary">이메일</span>과{' '}
-          <span className="color-origin-primary">카카오톡</span>
-        </>
-      );
-    }
-    return (
-      <span className="color-origin-primary">
-        {receiveType === 'email' ? '이메일' : '카카오톡'}
-      </span>
-    );
-  };
-  const remindWay = createRemindWayText();
   return {
     modalState,
     receiveType,
@@ -161,7 +145,6 @@ export default function useMyPage() {
     defaultEmail,
     emailVerified,
     isChangeReceiveTypePending,
-    remindWay,
     dispatchModalState,
     handleSetVerifiedEmail,
     handleRealWithdrawal,
