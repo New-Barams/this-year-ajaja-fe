@@ -3,10 +3,10 @@
 import { Button } from '@/components';
 import { ajajaToast } from '@/components/Toaster/customToast';
 import { SESSION_STORAGE_KEY } from '@/constants';
-import { usePostNewPlanMutation } from '@/hooks/apis/usePostNewPlanMutation';
+import { usePostNewPlanMutation } from '@/hooks/apis';
 import { PlanContentType, RemindItemType, RemindOptionType } from '@/types';
 import { PostNewPlanRequestBody } from '@/types/apis';
-import { changeRemindTimeToString } from '@/utils/changeRemindTimeToString';
+import { changeRemindTimeToString } from '@/utils';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import React from 'react';

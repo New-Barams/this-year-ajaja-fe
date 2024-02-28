@@ -1,17 +1,10 @@
 'use client';
 
 import { Dropdown } from '@/components';
-import {
-  DATE_OPTIONS,
-  SESSION_STORAGE_KEY,
-  TERM_OPTIONS,
-  TIME_OPTIONS,
-  TOTAL_PERIOD_OPTIONS,
-} from '@/constants';
-import { useSessionStorage } from '@/hooks/useSessionStorage';
-import { RemindOptionType } from '@/types';
+import { DATE_OPTIONS, TIME_OPTIONS, TOTAL_PERIOD_OPTIONS } from '@/constants';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React from 'react';
+import useCreatePlanRemindDate from './hooks/useCreatePlanRemindDate';
 import './index.scss';
 
 interface CreatePlanRemindDateProps {
@@ -21,43 +14,10 @@ interface CreatePlanRemindDateProps {
 export default React.memo(function CreatePlanRemindDate({
   isCreateOrEditPage,
 }: CreatePlanRemindDateProps) {
-  const [remindOptions, setRemindOptions] = useSessionStorage<RemindOptionType>(
-    {
-      key:
-        isCreateOrEditPage === 'create'
-          ? SESSION_STORAGE_KEY.STEP_3
-          : SESSION_STORAGE_KEY.EDIT_REMIND_OPTION,
-      initialValue: {
-        TotalPeriod: 12,
-        Term: 1,
-        Date: 1,
-        Time: 9,
-      },
-      setSessionValueAtFirst: true,
-    },
-  );
-
-  const handleChangeRemindOption = useCallback(
-    (optionKey: string, newOptionValue: number) => {
-      setRemindOptions({
-        ...remindOptions,
-        [optionKey]: newOptionValue,
-      });
-    },
-    [remindOptions, setRemindOptions],
-  );
-
-  const filteredTermOptions = useMemo(() => {
-    return TERM_OPTIONS.filter(
-      (option) => option.value <= remindOptions.TotalPeriod,
-    );
-  }, [remindOptions.TotalPeriod]);
-
-  useEffect(() => {
-    if (remindOptions.Term > remindOptions.TotalPeriod) {
-      handleChangeRemindOption('Term', 1);
-    }
-  }, [remindOptions.TotalPeriod, remindOptions.Term, handleChangeRemindOption]);
+  const { remindOptions, filteredTermOptions, handleChangeRemindOption } =
+    useCreatePlanRemindDate({
+      isCreateOrEditPage,
+    });
 
   return (
     <div className={classNames(['create-remind-date'])}>
