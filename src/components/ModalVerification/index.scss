@@ -38,32 +38,33 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      &--input {
+        width: 10px;
+        border-radius: var(--border-radius);
+        outline: none;
+        border: 2px solid var(--origin-secondary);
+        padding: 0.5rem 1rem;
+        box-shadow: var(--origin-shadow);
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        &:focus {
+          border-color: var(--origin-orange-300);
+        }
+      }
       &--button {
         flex-shrink: 0;
+        & .button {
+          padding: 0.5rem 1rem;
+        }
       }
 
       &--item {
         display: flex;
         gap: 0.5rem;
         align-items: center;
-        & button {
-          padding: 0.5rem 1rem;
-        }
+        width: 100%;
 
-        & > input {
-          border-radius: var(--border-radius);
-          outline: none;
-          border: 2px solid var(--origin-secondary);
-          padding: 0.5rem 1rem;
-          box-shadow: var(--origin-shadow);
-
-          &:focus {
-            border-color: var(--origin-orange-300);
-          }
-        }
-        & > input:first-child {
-          flex-grow: 1;
-        }
         &--message {
           overflow: visible;
           flex-basis: 0;
