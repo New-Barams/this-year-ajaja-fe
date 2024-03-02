@@ -99,10 +99,10 @@ export default function useMyPage() {
     });
   };
 
-  const handleRealLogOut = async () => {
+  const handleLogOut = async () => {
     router.push(KAKAO_LOGOUT_URL);
   };
-  const handleRealWithdrawal = () => {
+  const handleWithdrawal = () => {
     deleteUsers().then(() => {
       deleteCookie('auth');
       router.push('/login');
@@ -147,8 +147,8 @@ export default function useMyPage() {
     isChangeReceiveTypePending,
     dispatchModalState,
     handleSetVerifiedEmail,
-    handleRealWithdrawal,
-    handleRealLogOut,
+    handleWithdrawal,
+    handleLogOut,
     handleChangeNickName,
     handleChangeReceiveType,
   };

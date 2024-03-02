@@ -52,7 +52,6 @@ export default function usePlanPage(planId: string) {
   const handleOpenDeleteModal = () => {
     setIsDeletePlanModalOpen(true);
   };
-  //TODO 컴포넌트 반환 함수 변경 필요
 
   return {
     plan,

@@ -22,8 +22,8 @@ export default function MyPage() {
     isChangeReceiveTypePending,
     modalState,
     dispatchModalState,
-    handleRealLogOut,
-    handleRealWithdrawal,
+    handleLogOut,
+    handleWithdrawal,
     handleSetVerifiedEmail,
     handleChangeNickName,
     handleChangeReceiveType,
@@ -168,7 +168,7 @@ export default function MyPage() {
             onClickNo={() => {
               dispatchModalState('closeModal');
             }}
-            onClickYes={handleRealLogOut}
+            onClickYes={handleLogOut}
             confirmSentense="로그아웃 하기">
             로그아웃 하시겠습니까?
           </ModalBasic>
@@ -177,7 +177,7 @@ export default function MyPage() {
       {modalState.withdrawalModal && (
         <Modal>
           <ModalBasic
-            onClickYes={handleRealWithdrawal}
+            onClickYes={handleWithdrawal}
             onClickNo={() => {
               dispatchModalState('closeModal');
             }}
