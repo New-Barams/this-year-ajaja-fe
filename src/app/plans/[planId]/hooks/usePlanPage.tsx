@@ -7,28 +7,28 @@ import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import NotPublic from '../_components/NotPublic/NotPublic';
 import SearchingPlan from '../_components/SearchingPlan/SearchingPlan';
 
 export default function usePlanPage(planId: string) {
-  const { isLogin } = useIsLogIn();
   const router = useRouter();
   const isSeason = checkIsSeason();
-  const { plan } = useGetPlanQuery(Number(planId), isLogin);
+  const { isLogin } = useIsLogIn();
+  const [isClientSide, setIsClientSide] = useState(false);
+  const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
   const [currentURL, setCurrentURL] = useState<string>('');
   const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
-  const isClientSide = useRef(false);
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
   const isMyPlan = plan.writer.owner;
+  const isSearching = !isClientSide || isPending;
+  const isAccessible = isMyPlan || plan.public;
+  const isEditable = isMyPlan && isSeason;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') isClientSide.current = true;
-    return () => {
-      isClientSide.current = false;
-    };
+    if (typeof window !== 'undefined') setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -56,30 +56,52 @@ export default function usePlanPage(planId: string) {
   const handleOpenDeleteModal = () => {
     setIsDeletePlanModalOpen(true);
   };
-  const createPageContent = () => {
-    if (isClientSide) {
-      if (isMyPlan || plan.public) {
-        return (
-          <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
-            {isMyPlan && isSeason && (
-              <div className="plan__header--buttons">
-                <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                <span onClick={handleOpenDeleteModal}>삭제</span>
-              </div>
-            )}
-          </ReadOnlyPlan>
-        );
-      } else {
-        return <NotPublic />;
-      }
-    } else {
-      return <SearchingPlan />;
-    }
-  };
+  //TODO 컴포넌트 반환 함수 변경 필요
+  // 서버사이드, pending중이면 <SearchingPlan/>
+  // 내 계획이아니고 비공개이면 <NotPublic/>
+  // 나머지
 
+  const createPageContent = () => {
+    if (isSearching) {
+      return <SearchingPlan />;
+    } else if (!isAccessible) {
+      return <NotPublic />;
+    } else {
+      return (
+        <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
+          {isEditable && (
+            <div className="plan__header--buttons">
+              <Link href={`/plans/edit/${planId}`}>수정</Link>|
+              <span onClick={handleOpenDeleteModal}>삭제</span>
+            </div>
+          )}
+        </ReadOnlyPlan>
+      );
+    }
+
+    // if (isClientSide) {
+    //   if (isAccessible) {
+    //     return (
+    //       <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
+    //         {isEditable && (
+    //           <div className="plan__header--buttons">
+    //             <Link href={`/plans/edit/${planId}`}>수정</Link>|
+    //             <span onClick={handleOpenDeleteModal}>삭제</span>
+    //           </div>
+    //         )}
+    //       </ReadOnlyPlan>
+    //     );
+    //   } else {
+    //     return <NotPublic />;
+    //   }
+    // } else {
+    //   return <SearchingPlan />;
+    // }
+  };
   const pageContent = createPageContent();
   return {
     planId,
+    isClientSide,
     isMyPlan,
     currentURL,
     isDeletePlanModalOpen,
