@@ -5,7 +5,7 @@ import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 export default function usePlanPage(planId: string) {
@@ -15,13 +15,13 @@ export default function usePlanPage(planId: string) {
   const [isClientSide, setIsClientSide] = useState(false);
   const { plan, isPending } = useGetPlanQuery(Number(planId), isLogin);
   const [currentURL, setCurrentURL] = useState<string>('');
-  const [isDeletePlanModalOpen, setIsDeletePlanModalOpen] = useState(false);
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
-  const isMyPlan = plan.writer.owner;
+  const isMyPlan = plan.writer.owner && isClientSide;
   const isSearching = !isClientSide || isPending;
   const isAccessible = isMyPlan || plan.public;
   const isEditable = isMyPlan && isSeason;
+  const modalContainer = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClientSide(true);
@@ -36,21 +36,13 @@ export default function usePlanPage(planId: string) {
     };
   }, [setIsMyPlanStore, isMyPlan]);
 
-  const handleModalClickYes = () => {
-    setIsDeletePlanModalOpen(false);
+  const handleDeletePlan = () => {
     deletePlanAPI(parseInt(planId, 10));
     router.push('/home');
   };
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(currentURL);
     ajajaToast.success('링크가 복사되었습니다.');
-  };
-
-  const handleModalClickNo = () => {
-    setIsDeletePlanModalOpen(false);
-  };
-  const handleOpenDeleteModal = () => {
-    setIsDeletePlanModalOpen(true);
   };
 
   return {
@@ -61,10 +53,8 @@ export default function usePlanPage(planId: string) {
     isEditable,
     isMyPlan,
     currentURL,
-    isDeletePlanModalOpen,
     handleCopyLink,
-    handleModalClickNo,
-    handleModalClickYes,
-    handleOpenDeleteModal,
+    handleDeletePlan,
+    modalContainer,
   };
 }

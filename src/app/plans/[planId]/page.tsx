@@ -4,10 +4,10 @@ import {
   Button,
   Icon,
   KakaoShareButton,
-  Modal,
   ModalBasic,
   ReadOnlyPlan,
 } from '@/components';
+import ModalTriggerButton from '@/components/ModalTriggerButton/ModalTriggerButton';
 import classNames from 'classnames';
 import Link from 'next/link';
 import NotPublic from './_components/NotPublic/NotPublic';
@@ -23,17 +23,15 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     isSearching,
     isAccessible,
     isEditable,
-    isDeletePlanModalOpen,
     currentURL,
     handleCopyLink,
-    handleModalClickNo,
-    handleModalClickYes,
-    handleOpenDeleteModal,
+    modalContainer,
+    handleDeletePlan,
   } = usePlanPage(params.planId);
 
   return (
     <>
-      <div className={classNames('plans-page')}>
+      <div ref={modalContainer} className={classNames('plans-page')}>
         <div className="plans-page__main">
           <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
             {isMyPlan ? (
@@ -56,7 +54,18 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                     {isEditable && (
                       <div className="plan__header--buttons">
                         <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                        <span onClick={handleOpenDeleteModal}>삭제</span>
+                        <ModalTriggerButton
+                          container={modalContainer.current}
+                          renderModalContent={(onClickNo) => (
+                            <ModalBasic
+                              onClickYes={handleDeletePlan}
+                              onClickNo={onClickNo}
+                              confirmSentense="삭제 하기">
+                              정말 해당 계획을 삭제하시겠습니까 ?
+                            </ModalBasic>
+                          )}>
+                          <span>삭제</span>
+                        </ModalTriggerButton>
                       </div>
                     )}
                   </ReadOnlyPlan>
@@ -106,16 +115,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
           </div>
         )}
       </div>
-      {isDeletePlanModalOpen && (
-        <Modal>
-          <ModalBasic
-            onClickYes={handleModalClickYes}
-            onClickNo={handleModalClickNo}
-            confirmSentense="삭제 하기">
-            정말 해당 계획을 삭제하시겠습니까 ?
-          </ModalBasic>
-        </Modal>
-      )}
     </>
   );
 }
