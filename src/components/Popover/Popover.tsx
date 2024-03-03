@@ -46,17 +46,17 @@ const Trigger = ({ children }: { children: ReactNode }) => {
 //실제 모달이 들어올 컴포넌트 현재 modal 구현상 render함수를 받고 있다.
 const ModalContent = ({
   container,
-  children,
+  renderModalContent,
 }: {
   container: HTMLDivElement | null;
-  children: (onClickNo: () => void) => ReactElement;
+  renderModalContent: (onClickNo: () => void) => ReactElement;
 }) => {
   const contextValue = useContext(PopoverContext);
   return (
     <>
       {contextValue.isModalOpen &&
         createPortal(
-          <Modal>{children(contextValue.handleCloseModal)}</Modal>,
+          <Modal>{renderModalContent(contextValue.handleCloseModal)}</Modal>,
           container!,
         )}
     </>

@@ -59,8 +59,8 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                             <span>삭제</span>
                           </Popover.Trigger>
                           <Popover.ModalContent
-                            container={modalContainer.current}>
-                            {(onClickNo) => (
+                            container={modalContainer.current}
+                            renderModalContent={(onClickNo) => (
                               <ModalBasic
                                 onClickYes={handleDeletePlan}
                                 onClickNo={onClickNo}
@@ -68,7 +68,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                                 정말 해당 계획을 삭제하시겠습니까 ?
                               </ModalBasic>
                             )}
-                          </Popover.ModalContent>
+                          />
                         </Popover.Main>
                       </div>
                     )}
