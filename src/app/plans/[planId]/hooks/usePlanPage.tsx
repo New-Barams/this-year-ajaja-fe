@@ -53,8 +53,8 @@ export default function usePlanPage(planId: string) {
     isEditable,
     isMyPlan,
     currentURL,
+    modalContainer,
     handleCopyLink,
     handleDeletePlan,
-    modalContainer,
   };
 }

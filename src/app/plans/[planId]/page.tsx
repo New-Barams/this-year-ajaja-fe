@@ -5,9 +5,9 @@ import {
   Icon,
   KakaoShareButton,
   ModalBasic,
+  Popover,
   ReadOnlyPlan,
 } from '@/components';
-import ModalTriggerButton from '@/components/ModalTriggerButton/ModalTriggerButton';
 import classNames from 'classnames';
 import Link from 'next/link';
 import NotPublic from './_components/NotPublic/NotPublic';
@@ -24,8 +24,8 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     isAccessible,
     isEditable,
     currentURL,
-    handleCopyLink,
     modalContainer,
+    handleCopyLink,
     handleDeletePlan,
   } = usePlanPage(params.planId);
 
@@ -54,18 +54,22 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                     {isEditable && (
                       <div className="plan__header--buttons">
                         <Link href={`/plans/edit/${planId}`}>수정</Link>|
-                        <ModalTriggerButton
-                          container={modalContainer.current}
-                          renderModalContent={(onClickNo) => (
-                            <ModalBasic
-                              onClickYes={handleDeletePlan}
-                              onClickNo={onClickNo}
-                              confirmSentense="삭제 하기">
-                              정말 해당 계획을 삭제하시겠습니까 ?
-                            </ModalBasic>
-                          )}>
-                          <span>삭제</span>
-                        </ModalTriggerButton>
+                        <Popover.Main>
+                          <Popover.Trigger>
+                            <span>삭제</span>
+                          </Popover.Trigger>
+                          <Popover.ModalContent
+                            container={modalContainer.current}>
+                            {(onClickNo) => (
+                              <ModalBasic
+                                onClickYes={handleDeletePlan}
+                                onClickNo={onClickNo}
+                                confirmSentense="삭제 하기">
+                                정말 해당 계획을 삭제하시겠습니까 ?
+                              </ModalBasic>
+                            )}
+                          </Popover.ModalContent>
+                        </Popover.Main>
                       </div>
                     )}
                   </ReadOnlyPlan>
