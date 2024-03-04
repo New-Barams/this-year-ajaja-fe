@@ -22,7 +22,10 @@ const PopoverContext = createContext<{
   handleCloseModal: () => void;
 }>(contextDefaultValue);
 
-const Main = ({ children }: { children: ReactNode }) => {
+interface MainProps {
+  children: ReactNode;
+}
+const Main = ({ children }: MainProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -37,27 +40,36 @@ const Main = ({ children }: { children: ReactNode }) => {
     </PopoverContext.Provider>
   );
 };
-//popover의 trigger역할
-const Trigger = ({ children }: { children: ReactNode }) => {
-  const contextValue = useContext(PopoverContext);
 
-  return <div onClick={contextValue.handleOpenModal}>{children}</div>;
+interface TriggerProps {
+  className?: string;
+  children: ReactNode;
+}
+//popover의 trigger역할
+const Trigger = ({ className, children }: TriggerProps) => {
+  const contextValue = useContext(PopoverContext);
+  return (
+    <div className={className} onClick={contextValue.handleOpenModal}>
+      {children}
+    </div>
+  );
 };
+interface ModalContentProps {
+  containerRef: HTMLDivElement | null;
+  renderModalContent: (onClickNo: () => void) => ReactElement;
+}
 //실제 모달이 들어올 컴포넌트 현재 modal 구현상 render함수를 받고 있다.
 const ModalContent = ({
-  container,
+  containerRef,
   renderModalContent,
-}: {
-  container: HTMLDivElement | null;
-  renderModalContent: (onClickNo: () => void) => ReactElement;
-}) => {
+}: ModalContentProps) => {
   const contextValue = useContext(PopoverContext);
   return (
     <>
       {contextValue.isModalOpen &&
         createPortal(
           <Modal>{renderModalContent(contextValue.handleCloseModal)}</Modal>,
-          container!,
+          containerRef!,
         )}
     </>
   );
