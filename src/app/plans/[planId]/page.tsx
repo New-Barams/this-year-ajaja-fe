@@ -24,14 +24,13 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
     isAccessible,
     isEditable,
     currentURL,
-    modalContainer,
     handleCopyLink,
     handleDeletePlan,
   } = usePlanPage(params.planId);
 
   return (
     <>
-      <div ref={modalContainer} className={classNames('plans-page')}>
+      <div className={classNames('plans-page')}>
         <div className="plans-page__main">
           <div className="plans-page__breadcrumb font-size-base color-origin-text-100">
             {isMyPlan ? (
@@ -59,7 +58,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                             <span>삭제</span>
                           </Popover.Trigger>
                           <Popover.ModalContent
-                            container={modalContainer.current}
                             renderModalContent={(onClickNo) => (
                               <ModalBasic
                                 onClickYes={handleDeletePlan}

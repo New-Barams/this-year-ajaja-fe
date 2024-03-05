@@ -5,7 +5,7 @@ import { useIsLogIn } from '@/hooks/useIsLogIn';
 import { isMyPlanStore } from '@/stores/isMyPlanStore';
 import { checkIsSeason } from '@/utils/checkIsSeason';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 export default function usePlanPage(planId: string) {
@@ -17,11 +17,11 @@ export default function usePlanPage(planId: string) {
   const [currentURL, setCurrentURL] = useState<string>('');
   const { mutate: deletePlanAPI } = useDeletePlanMutation();
   const setIsMyPlanStore = useSetRecoilState(isMyPlanStore);
+
   const isMyPlan = plan.writer.owner && isClientSide;
   const isSearching = !isClientSide || isPending;
   const isAccessible = isMyPlan || plan.public;
   const isEditable = isMyPlan && isSeason;
-  const modalContainer = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClientSide(true);
@@ -53,7 +53,6 @@ export default function usePlanPage(planId: string) {
     isEditable,
     isMyPlan,
     currentURL,
-    modalContainer,
     handleCopyLink,
     handleDeletePlan,
   };
