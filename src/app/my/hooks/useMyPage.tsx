@@ -9,67 +9,6 @@ import { ReceiveType } from '@/types/apis/users/GetUserInformation';
 import { useQueryClient } from '@tanstack/react-query';
 import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { useReducer } from 'react';
-
-type ModalState = {
-  emailModal: boolean;
-  logOutModal: boolean;
-  withdrawalModal: boolean;
-  remindWayModal: boolean;
-};
-type ModalAction =
-  | 'openEmailModal'
-  | 'openLogOutModal'
-  | 'openWithdrawalModal'
-  | 'openRemindWayModal'
-  | 'closeModal';
-
-const INIT_MODAL_STATE: ModalState = {
-  emailModal: false,
-  logOutModal: false,
-  withdrawalModal: false,
-  remindWayModal: false,
-};
-
-const modalReducer = (state: ModalState, action: ModalAction) => {
-  switch (action) {
-    case 'openEmailModal':
-      return {
-        emailModal: true,
-        logOutModal: false,
-        withdrawalModal: false,
-        remindWayModal: false,
-      };
-    case 'openLogOutModal':
-      return {
-        emailModal: false,
-        logOutModal: true,
-        withdrawalModal: false,
-        remindWayModal: false,
-      };
-    case 'openRemindWayModal':
-      return {
-        emailModal: false,
-        logOutModal: false,
-        withdrawalModal: false,
-        remindWayModal: true,
-      };
-    case 'openWithdrawalModal':
-      return {
-        emailModal: false,
-        logOutModal: false,
-        withdrawalModal: true,
-        remindWayModal: false,
-      };
-    case 'closeModal':
-      return {
-        emailModal: false,
-        logOutModal: false,
-        withdrawalModal: false,
-        remindWayModal: false,
-      };
-  }
-};
 
 export default function useMyPage() {
   const queryClient = useQueryClient();
@@ -79,12 +18,8 @@ export default function useMyPage() {
     userInformation;
   const { changeReceiveType, isChangeReceiveTypePending } =
     usePutUserReceiveMutation();
-  const [modalState, dispatchModalState] = useReducer(
-    modalReducer,
-    INIT_MODAL_STATE,
-  );
-
   const router = useRouter();
+
   const handleChangeNickName = () => {
     refreshNickname(undefined, {
       onSuccess: () => {
@@ -138,14 +73,12 @@ export default function useMyPage() {
   };
 
   return {
-    modalState,
     receiveType,
     nickname,
     remindEmail,
     defaultEmail,
     emailVerified,
     isChangeReceiveTypePending,
-    dispatchModalState,
     handleSetVerifiedEmail,
     handleWithdrawal,
     handleLogOut,
