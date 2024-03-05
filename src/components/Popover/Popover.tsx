@@ -15,6 +15,7 @@ const contextDefaultValue = {
   handleOpenModal: () => {},
   handleCloseModal: () => {},
 };
+
 //popover 안에서 공유할 값을 context를 통해서 공유한다.
 const PopoverContext = createContext<{
   isModalOpen: boolean;
@@ -55,21 +56,21 @@ const Trigger = ({ className, children }: TriggerProps) => {
   );
 };
 interface ModalContentProps {
-  containerRef: HTMLDivElement | null;
   renderModalContent: (onClickNo: () => void) => ReactElement;
 }
 //실제 모달이 들어올 컴포넌트 현재 modal 구현상 render함수를 받고 있다.
-const ModalContent = ({
-  containerRef,
-  renderModalContent,
-}: ModalContentProps) => {
+const ModalContent = ({ renderModalContent }: ModalContentProps) => {
   const contextValue = useContext(PopoverContext);
+  const $portalContainer = document.querySelector(
+    '.global-frame-children',
+  ) as HTMLElement;
   return (
     <>
       {contextValue.isModalOpen &&
+        $portalContainer &&
         createPortal(
           <Modal>{renderModalContent(contextValue.handleCloseModal)}</Modal>,
-          containerRef!,
+          $portalContainer,
         )}
     </>
   );
