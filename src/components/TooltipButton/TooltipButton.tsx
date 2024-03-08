@@ -11,6 +11,7 @@ import {
 } from 'react';
 import './index.scss';
 
+//
 const contextDefaultValue = {
   isOpen: false,
   handleSetIsOpen: () => {},
@@ -84,8 +85,7 @@ interface OptionsProps {
 }
 
 const Options = ({ className, children }: OptionsProps) => {
-  const { isOpen, handleCloseTooltip, optionsPosition } =
-    useContext(TooltipButtonContext);
+  const { isOpen, optionsPosition } = useContext(TooltipButtonContext);
   return (
     <ul
       className={classNames(
@@ -102,17 +102,12 @@ const Options = ({ className, children }: OptionsProps) => {
               'tooltip-button__list__item',
               isOpen ? 'open' : 'close',
             )}
-            key={index}
-            onClick={handleCloseTooltip}>
+            key={index}>
             {component}
           </li>
         ))
       ) : (
-        <li
-          className="tooltip-button__list__item "
-          onClick={handleCloseTooltip}>
-          {children}
-        </li>
+        <li className="tooltip-button__list__item ">{children}</li>
       )}
     </ul>
   );
