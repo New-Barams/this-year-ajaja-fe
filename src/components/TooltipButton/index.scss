@@ -51,7 +51,7 @@
         opacity: 1;
       }
     }
-
+    //순차적으로 나타나고 사라지는 애니메이션을 위한 delay
     $n: 5;
 
     @for $i from 1 through $n {

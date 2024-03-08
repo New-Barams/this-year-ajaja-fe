@@ -7,6 +7,7 @@ import {
   Modal,
   ModalBasic,
 } from '@/components';
+import { TooltipButton } from '@/components/TooltipButton';
 import classNames from 'classnames';
 import Link from 'next/link';
 import usePlanPage from './hooks/usePlanPage';
@@ -42,7 +43,26 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             {isMyPlan && (
               <div className="plans-page--share">
                 <h2>공유하기</h2>
-                <div className="plans-page--share--buttons">
+                <TooltipButton.Main>
+                  <TooltipButton.Options>
+                    <label className="font-size-xs" onClick={handleCopyLink}>
+                      <Icon name="COPY" color="text-100" size="md" />
+                      링크 복사
+                    </label>
+                    <label className="font-size-xs">
+                      <KakaoShareButton linkURL={currentURL} />
+                      카카오톡
+                    </label>
+                  </TooltipButton.Options>
+                  <TooltipButton.Trigger>
+                    <label>
+                      <Icon name="SHARE" color="text-100" size="md" />
+                      공유하기
+                    </label>
+                  </TooltipButton.Trigger>
+                </TooltipButton.Main>
+                {/*TODO  기존 공유버튼 삭제 예정 */}
+                {/* <div className="plans-page--share--buttons">
                   <label className="font-size-xs" onClick={handleCopyLink}>
                     <Icon name="COPY" color="text-100" size="md" />
                     링크 복사
@@ -51,7 +71,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
                     <KakaoShareButton linkURL={currentURL} />
                     카카오톡
                   </label>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
