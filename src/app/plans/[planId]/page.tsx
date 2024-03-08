@@ -6,8 +6,8 @@ import {
   KakaoShareButton,
   Modal,
   ModalBasic,
+  TooltipButton,
 } from '@/components';
-import { TooltipButton } from '@/components/TooltipButton';
 import classNames from 'classnames';
 import Link from 'next/link';
 import usePlanPage from './hooks/usePlanPage';
