@@ -6,17 +6,18 @@ import {
   ReactElement,
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from 'react';
 import './index.scss';
 
-//
+//TooltipButton컴포넌트 내에서 공유할 상태, 함수
 const contextDefaultValue = {
-  isOpen: false,
-  handleSetIsOpen: () => {},
-  handleCloseTooltip: () => {},
-  optionsPosition: 'top' as Position,
+  isOpen: false, // 툴팁 열림 여부
+  handleSetIsOpen: () => {}, //툴팁 상태 변경 함수
+  handleCloseTooltip: () => {}, //툴팁 닫기 함수
+  optionsPosition: 'top' as Position, //Options컴포넌트 위치(열림 방향을 위해서 필요)
 };
 
 type Position = 'top' | 'bottom';
@@ -29,14 +30,17 @@ const TooltipButtonContext = createContext<{
 }>(contextDefaultValue);
 
 interface MainProps {
-  className?: string;
+  className?: string; // 위치조정이이나, css 스탕일링을 위한 className
   children: ReactElement[];
 }
 
 const Main = ({ children, className }: MainProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [optionsPosition, setOptionsPosition] = useState<Position>('top');
+  useEffect(() => {
+    setOptionsPosition(children[0]?.type !== Options ? 'bottom' : 'top');
+  }, [children]);
 
-  const optionsPosition = children[0].type === Options ? 'top' : 'bottom';
   const handleCloseTooltip = () => {
     setIsOpen(false);
   };
@@ -63,7 +67,7 @@ interface TriggerProps {
   children: ReactElement;
   className?: string;
 }
-
+//열고 닫힘 trigger 역할을 할 컴푸넌트 children을 넣얼줄때 외부에서 직접 스타일링 가능, 그외 부분 클릭시 Tooltip 닫힘
 const Trigger = ({ children, className }: TriggerProps) => {
   const { handleSetIsOpen, handleCloseTooltip } =
     useContext(TooltipButtonContext);
@@ -83,7 +87,7 @@ interface OptionsProps {
   className?: string;
   children: ReactElement[] | ReactElement;
 }
-
+//열렸을때 보여줄 아이템들
 const Options = ({ className, children }: OptionsProps) => {
   const { isOpen, optionsPosition } = useContext(TooltipButtonContext);
   return (
