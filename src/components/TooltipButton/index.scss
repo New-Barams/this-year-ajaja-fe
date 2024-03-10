@@ -4,8 +4,9 @@
     position: relative;
   }
 
-  // &__trigger {
-  // }
+  &__trigger {
+    background-color: transparent;
+  }
 
   &__list {
     display: flex;
