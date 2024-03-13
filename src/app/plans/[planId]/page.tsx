@@ -78,7 +78,7 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             {isMyPlan && (
               <div className="plans-page--share">
                 <h2>공유하기</h2>
-                <TooltipButton.Main>
+                <TooltipButton.Main optionsPosition="top">
                   <TooltipButton.Options>
                     <label className="font-size-xs" onClick={handleCopyLink}>
                       <Icon name="COPY" color="text-100" size="md" />

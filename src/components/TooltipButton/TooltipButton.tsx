@@ -6,7 +6,6 @@ import {
   ReactElement,
   createContext,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -32,14 +31,11 @@ const TooltipButtonContext = createContext<{
 interface MainProps {
   className?: string; // 위치조정이이나, css 스탕일링을 위한 className
   children: ReactElement[];
+  optionsPosition: Position;
 }
 
-const Main = ({ children, className }: MainProps) => {
+const Main = ({ children, className, optionsPosition }: MainProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [optionsPosition, setOptionsPosition] = useState<Position>('top');
-  useEffect(() => {
-    setOptionsPosition(children[0]?.type !== Options ? 'bottom' : 'top');
-  }, [children]);
 
   const handleCloseTooltip = () => {
     setIsOpen(false);
