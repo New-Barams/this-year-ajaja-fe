@@ -4,25 +4,29 @@ import {
   Button,
   Icon,
   KakaoShareButton,
-  Modal,
   ModalBasic,
+  Popover,
+  ReadOnlyPlan,
   TooltipButton,
 } from '@/components';
 import classNames from 'classnames';
 import Link from 'next/link';
+import NotPublic from './_components/NotPublic/NotPublic';
+import SearchingPlan from './_components/SearchingPlan/SearchingPlan';
 import usePlanPage from './hooks/usePlanPage';
 import './index.scss';
 
 export default function PlanIdPage({ params }: { params: { planId: string } }) {
   const {
+    plan,
     planId,
-    isDeletePlanModalOpen,
     isMyPlan,
+    isSearching,
+    isAccessible,
+    isEditable,
     currentURL,
     handleCopyLink,
-    handleModalClickNo,
-    handleModalClickYes,
-    pageContent,
+    handleDeletePlan,
   } = usePlanPage(params.planId);
 
   return (
@@ -35,11 +39,42 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
             ) : (
               <Link href="/explore">둘러보기</Link>
             )}
-            &gt;
+            {'>'}
             <span>계획</span>
           </div>
           <div className="plans-page__content">
-            {pageContent}
+            {(() => {
+              if (isSearching) {
+                return <SearchingPlan />;
+              } else if (!isAccessible) {
+                return <NotPublic />;
+              } else {
+                return (
+                  <ReadOnlyPlan isMine={isMyPlan} planData={{ ...plan }}>
+                    {isEditable && (
+                      <div className="plan__header--buttons">
+                        <Link href={`/plans/edit/${planId}`}>수정</Link>|
+                        <Popover.Main>
+                          <Popover.Trigger>
+                            <span>삭제</span>
+                          </Popover.Trigger>
+                          <Popover.ModalContent
+                            renderModalContent={(onClickNo) => (
+                              <ModalBasic
+                                onClickYes={handleDeletePlan}
+                                onClickNo={onClickNo}
+                                confirmSentense="삭제 하기">
+                                정말 해당 계획을 삭제하시겠습니까 ?
+                              </ModalBasic>
+                            )}
+                          />
+                        </Popover.Main>
+                      </div>
+                    )}
+                  </ReadOnlyPlan>
+                );
+              }
+            })()}
             {isMyPlan && (
               <div className="plans-page--share">
                 <h2>공유하기</h2>
@@ -102,16 +137,6 @@ export default function PlanIdPage({ params }: { params: { planId: string } }) {
           </div>
         )}
       </div>
-      {isDeletePlanModalOpen && (
-        <Modal>
-          <ModalBasic
-            onClickYes={handleModalClickYes}
-            onClickNo={handleModalClickNo}
-            confirmSentense="삭제 하기">
-            정말 해당 계획을 삭제하시겠습니까 ?
-          </ModalBasic>
-        </Modal>
-      )}
     </>
   );
 }

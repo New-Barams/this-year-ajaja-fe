@@ -36,3 +36,4 @@ export { default as WritableRemindItem } from '@components/RemindItem/WritableRe
 export { default as ReadOnlyPlan } from '@components/ReadOnlyPlan/ReadOnlyPlan';
 export { default as WrongApproach } from '@components/WrongApproach/WrongApproach';
 export { TooltipButton } from '@components/TooltipButton/index';
+export { Popover } from '@components/Popover';
