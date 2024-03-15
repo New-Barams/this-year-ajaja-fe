@@ -37,4 +37,10 @@ export type IconName =
   | 'HELP'
   | 'ARROW_RIGHT'
   | 'CANCEL'
+  | 'CAMPAIGN'
+  | 'BAREFOOT'
+  | 'DIRECTIONS_RUN'
+  | 'DIRECTIONS_WALK'
+  | 'SPRINT'
+  | 'SPORTS_HANDBALL'
   | 'SHARE';
