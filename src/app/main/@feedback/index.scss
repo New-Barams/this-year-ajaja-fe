@@ -1,0 +1,30 @@
+.feedback {
+  &__container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+  }
+  &--d-day {
+    position: relative;
+    min-height: 60px;
+    min-width: 80px;
+
+    &--background {
+      object-fit: fill;
+    }
+    &--text {
+      white-space: nowrap;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+    }
+  }
+  &--plans {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+}
