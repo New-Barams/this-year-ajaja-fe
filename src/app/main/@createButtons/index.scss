@@ -1,0 +1,29 @@
+.create-buttons {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__button {
+    &--name {
+      white-space: nowrap;
+      font-size: 1.5rem;
+    }
+    &--description {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 0.5rem;
+      &--text {
+        flex-grow: 1;
+        white-space: nowrap;
+      }
+    }
+    text-align: start;
+    background-color: transparent;
+    width: calc((100% - 24px) / 2);
+    min-width: 163px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--origin-text-100);
+  }
+}
