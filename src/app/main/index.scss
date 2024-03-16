@@ -1,0 +1,21 @@
+.outside-box {
+  border: 2px solid var(--origin-secondary);
+  box-shadow: var(--origin-shadow);
+  padding: 1rem 1.5rem;
+  border-radius: 2rem;
+}
+
+.main {
+  &__item {
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &--link {
+      text-decoration: none;
+
+      color: var(--origin-text-300);
+    }
+  }
+}
