@@ -1,0 +1,16 @@
+.footprint {
+  &__container {
+    margin-top: 1rem;
+  }
+  &__item {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    &--title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 200px;
+    }
+  }
+}

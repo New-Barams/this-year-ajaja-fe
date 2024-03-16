@@ -40,6 +40,12 @@ const ICON_NAME_MAP = {
   COPY: 'content_copy',
   ARROW_RIGHT: 'subdirectory_arrow_right',
   CANCEL: 'cancel',
+  CAMPAIGN: 'campaign',
+  BAREFOOT: 'barefoot',
+  DIRECTIONS_RUN: 'directions_run',
+  SPRINT: 'sprint',
+  DIRECTIONS_WALK: 'directions_walk',
+  SPORTS_HANDBALL: 'sports_handball',
   SHARE: 'share',
 };
 
