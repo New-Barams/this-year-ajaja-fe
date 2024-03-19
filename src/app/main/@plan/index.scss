@@ -34,6 +34,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center;
+        &--link {
+          text-decoration: none;
+          color: var(--origin-text-100);
+        }
       }
       &--progress {
         width: 100%;
@@ -48,7 +52,7 @@
           padding: 0 1rem;
           background-color: var(--origin-primary);
           border-radius: 25px;
-          text-align: center;
+          white-space: nowrap;
           color: var(--origin-white-100);
           box-shadow: var(--origin-shadow);
         }

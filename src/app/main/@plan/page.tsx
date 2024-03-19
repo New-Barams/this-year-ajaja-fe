@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -58,31 +59,40 @@ export default function Page() {
         </div>
       </div>
       <table className="plans__table">
-        <tr>
-          {tableHeader.map((header) => (
-            <th
-              key={header}
-              className="plans__table--header color-origin-text-300 font-size-xs">
-              {header}
-            </th>
-          ))}
-        </tr>
+        <thead>
+          <tr>
+            {tableHeader.map((header) => (
+              <th
+                key={header}
+                className="plans__table--header color-origin-text-300 font-size-xs">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+
         {/*TODO 각 아이템 클릭시 계획으로  */}
-        {plans.map((plan) => {
-          return (
-            <tr key={plan.planTitle}>
-              <td className="plans__table__item--title">{plan.planTitle}</td>
-              <td className="plans__table__item--progress">
-                <ProgressGraph progressValue={plan.progress} />
-              </td>
-              <td className="plans__table__item--d-day">
-                <div className="plans__table__item--d-day--content font-size-sm">
-                  {`D-${plan.restDay}`}
-                </div>
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {plans.map((plan) => {
+            return (
+              <tr key={plan.planTitle}>
+                <td className="plans__table__item--title">
+                  <Link href={''} className="plans__table__item--title--link">
+                    {plan.planTitle}
+                  </Link>
+                </td>
+                <td className="plans__table__item--progress">
+                  <ProgressGraph progressValue={plan.progress} />
+                </td>
+                <td className="plans__table__item--d-day">
+                  <div className="plans__table__item--d-day--content font-size-sm">
+                    {`D-${plan.restDay}`}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
