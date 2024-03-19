@@ -17,25 +17,18 @@ export default function Layout({
   footprint,
 }: LayoutProps) {
   return (
-    <div style={{ height: '100%', overflowY: 'scroll' }}>
+    <div className="main-layout__container">
       <MainHeader />
-      <div
-        style={{
-          padding: '1.5rem 0',
-
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5rem',
-        }}>
+      <div className="main-layout__list">
         {createButtons}
         <div className="outside-box">
           <h1 className="font-size-lg ">피드백</h1>
           {feedback}
         </div>
         <div className="outside-box">
-          <div className="main__item__header">
+          <div className="main-layout__item__header">
             <h1 className="font-size-lg ">내 계획</h1>
-            <Link className="main__item--link font-size-xs" href={'/'}>
+            <Link className="main-layout__item--link font-size-xs" href={'/'}>
               전체보기
             </Link>
           </div>
@@ -45,7 +38,7 @@ export default function Layout({
         <div className="outside-box">
           <div className="main__item__header">
             <h1 className="font-size-lg ">발자취</h1>
-            <Link className="main__item--link font-size-xs" href={'/'}>
+            <Link className="main-layout__item--link font-size-xs" href={'/'}>
               전체보기
             </Link>
           </div>
