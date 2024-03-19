@@ -1,5 +1,6 @@
 'use client';
 
+import { Popover } from '@/components';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import ModalRestFeedbacks, {
@@ -25,22 +26,14 @@ const restFeedbacks: RestFeedback[] = [
 ];
 
 //TODO dynamic 방법만 있나?
-const PopoverMain = dynamic(
-  () => import('@components/Popover/index').then((mod) => mod.Popover.Main),
-  { ssr: false, loading: () => <p>...loading</p> },
-);
 
-const PopoverTrigger = dynamic(
-  () => import('@components/Popover/index').then((mod) => mod.Popover.Trigger),
-  { ssr: false },
-);
-const PopoverModalContent = dynamic(
+const DynamicPopoverModalContent = dynamic(
   () =>
     import('@components/Popover/index').then((mod) => mod.Popover.ModalContent),
   { ssr: false },
 );
 
-export default function page() {
+export default function Page() {
   return (
     <div className="feedback__container">
       <div className="feedback--d-day">
@@ -57,14 +50,14 @@ export default function page() {
         </div>
       </div>
       <div className="feedback--plans">
-        <PopoverMain>
-          <PopoverTrigger>
-            <div style={{ cursor: 'pointer' }}>
+        <Popover.Main>
+          <Popover.Trigger>
+            <div className="feedback--plans__trigger">
               <div className="font-size-lg">1일 1커밋하기</div>
               <div>외 피드백 하지 않은 계획 3건 {'>'}</div>
             </div>
-          </PopoverTrigger>
-          <PopoverModalContent
+          </Popover.Trigger>
+          <DynamicPopoverModalContent
             renderModalContent={(handleClose) => (
               <ModalRestFeedbacks
                 handleClose={handleClose}
@@ -72,7 +65,7 @@ export default function page() {
               />
             )}
           />
-        </PopoverMain>
+        </Popover.Main>
       </div>
     </div>
   );
