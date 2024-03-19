@@ -1,0 +1,14 @@
+.no-data {
+  &__container {
+    width: 100%;
+    position: relative;
+  }
+  &__description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    white-space: pre-wrap;
+  }
+}
